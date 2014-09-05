@@ -4,6 +4,7 @@
 	<title>Banco de Alimentos</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- FrontEnd page	 -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 <body>
 	<header>
@@ -56,10 +57,10 @@
 
 </body>
 
-<script type="text/javascript" src="./js/plugins/jquery-2.1.1.min.js"></script>
+
 <script>
 
-	$(document).onload(function () {
+	$(document).ready(function () {
 		$('#nav-home').load('./_nav-home.html', function() {alert("si anduvo")});
 	});
 
