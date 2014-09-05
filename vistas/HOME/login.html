@@ -9,20 +9,11 @@
 	<header>
 		
 	</header>
-	<nav>
-		<img id ="logo-img" src="../../images/logo-web.jpg"/>
-		<ul>
-			<li>Home</li>
-			<li>Quienes somos</li>
-			<li>Voluntariado</li>
-			<li>A Quienes Ayudamos</li>
-			<li>Donantes</li>
-			<li>Colaboradores</li>
-			<li>Contacto</li>
-			<li>Como Colaborar</li>
-			<li>¡Dona Ahora!</li>
-		</ul>
+
+	<nav id="nav-home">
+		
 	</nav>
+
 	<aside>
 		<div>
 			<h3 class="image-title">Doná ahora!</h3>
@@ -39,7 +30,7 @@
 	</aside>
 
 	<div id="principal-body">
-		<form id="login-form" >
+		<form id="login-form" action = "../BACKEND/index.html" method="POST">
 			<label for="#login-user">Usuario: </label><input id="login-name" name="login-name" type="text" required />
 			<label for="#login-pass">Contraseña: </label><input id="login-pass" type="password" name="login-pass"required/>
 			<button type="submit" >Iniciar Sesión</button>
@@ -64,4 +55,14 @@
 	</footer>
 
 </body>
+
+<script type="text/javascript" src="./js/plugins/jquery-2.1.1.min.js"></script>
+<script>
+
+	$(document).onload(function () {
+		$('#nav-home').load('./_nav-home.html', function() {alert("si anduvo")});
+	});
+
+</script>
+
 </html>
