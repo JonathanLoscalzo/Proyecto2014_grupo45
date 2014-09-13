@@ -11,7 +11,7 @@
 </head>
 <body>
 	<header>
-	<p>Bienvenido Admin! - <a href="../HOME/index.html">Cerrar sesión</a></p>	
+	
 	</header>
 	<nav>
 		<img id ="logo-img" src="../../images/logo-web.jpg"/>
@@ -28,9 +28,11 @@
 		</ul>
 		
 	</nav>
-	<aside>
-		
-	</aside>
+	<div id="leftcolumnwrap">
+		<aside>
+			
+		</aside>
+	</div>
 	<div id="cuerpo-principal">
 		<table id="tabla-alimentos" border="1px" style="border-color: gray; text-align: center">
 			<thead>

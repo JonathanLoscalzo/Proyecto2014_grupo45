@@ -4,64 +4,36 @@
 	<title>Banco de Alimentos</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- FrontEnd page	 -->
+    <link href="../../css/style.css" rel="stylesheet">
+    
 </head>
 <body>
-	<header>
-		
-	</header>
-	<nav>
-		<img id ="logo-img" src="../../images/logo-web.jpg"/>
-		<ul>
-			<li><a href="./index.html">Home</li>
-			<li><a href="#">Quienes somos</li>
-			<li><a href="./Voluntariado.html">Voluntariado</li>
-			<li><a href="./Proyecto.html">Proyectos</li>
-			<li><a href="#">Contacto</li>
-			<li><a href="./Dona-ahora.html">¡Dona Ahora!</li>
-			<li><a href = "./login.html">INICIAR SESION</a></li>
-		</ul>
-	</nav>
-	<aside>
-		<div>
-			<a href="./Dona-ahora.html">
-			<h3 class="image-title">Doná ahora!</h3>
-			<img src="../../images/nene-con-hambre.png"/>
-			</a>
-		</div>
-		<div>
-			<a href="./Voluntariado.html">
-			<h3 class="image-title" >Voluntariado</h3>
-			<img src="../../images/sumate-como-voluntario.jpg"/>
-			</a>
-		</div>
-		<div>
-			<a href="./Proyectos.html">
-			<h3 class="image-title">Proyectos</h3>
-			<img src="../../images/imagen-comedores.jpg"/>
-			</a>
-		</div>
-	</aside>
-
-	<div id="principal-body">
-			
+	<div id="headerwrap">
+		<?php
+			include '_header-home.php' 
+		?>
+	</div>
+	<div id="navigationwrap">
+		<?php 
+		include '_nav-home.php'
+		 ?>
+	</div>
+	<div id="leftcolumnwrap">
+		<?php 
+			include '_aside-content.php'
+		 ?>
 	</div>
 
-	<footer>
-		<div id="head-footer">
-			<ul>
-				<h3> Últimas Noticias </h3>
-				<li>RESULTADOS KIWINIADA 2014</li>
-				<li>KIWINIADA: EDICIÓN 2014</li>
-				<li>DÍA DEL NIÑO</li>
-				<li>PRUEBA PILOTO</li>
-				<li>VOLUNTARIADO Y DONANTES</li>
-			</ul>
-		</div>
-		<div id="foo-footer">
-		© 2013 Banco Alimentario de La Plata Recuperando alimentos de La Plata para ayudar a los que mas necesitan :)
-		</div>
-			
-	</footer>
+	<div id="contentwrap">
+		<?php 
+			//include '_content-home.php'
+		?>
+	</div>
+	<div id="footerwrap">
+		<footer>
+			© 2013 Banco Alimentario de La Plata Recuperando alimentos de La Plata para ayudar a los que mas necesitan :)
+		</footer>
+	</div>
 
 </body>
 </html>
