@@ -4,11 +4,18 @@
 
 body {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 13px;
+    font-size: 1em;
     color:#333;
     margin: 0 auto;
     width: 100%;
+    background-color: #dddddd;
     height: 100%
+}
+
+a:visited , a:link, a:active{
+    text-decoration: none;
+    color: inherit;
+
 }
 
 p {
@@ -42,12 +49,16 @@ nav {
     border-radius: 10px;
     border: 1px solid #ebb81f;
     margin: 5px;
-    display: 
+    
 }
 
 nav ul {
     padding-left: 20%;
     padding-top: 10px;
+}
+
+nav ul li:hover{
+    color: red;
 }
 
 nav ul li {
@@ -58,16 +69,17 @@ nav ul li {
 
 #contentwrap {
     width: 78%;
-    height: 80%;
+    height: 85%;
     float: left;
     margin: 0 auto;
-    overflow: scroll;
+    display: inline;
+    /*overflow: scroll;*/
 }
 
 #content {
     position: absolute;
     width: 78%;
-    height: 109%;
+    height: auto;
     background: #FFDB63;
     border-radius: 10px;
     border: 1px solid #ebc74f;
@@ -75,6 +87,13 @@ nav ul li {
     padding: 10px;
 }
 #content h2 {
+
+}
+#content .image-frontend{
+    width: 50%;
+    height: auto;
+    max-width: 60%; 
+   /* max-height: 80%;*/
 
 }
 
