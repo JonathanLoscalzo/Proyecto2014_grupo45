@@ -12,6 +12,12 @@ body {
     padding: 10px;
 }*/
 
+a:visited , a:link, a:active{
+    text-decoration: none;
+    color: inherit;
+
+}
+
 #wrapper {
     width: 100%;
     min-width: 1000px;
@@ -26,7 +32,7 @@ body {
 }
 
 header {
-    height: 75px;
+    height:10%;
     background: #FF6633;
     border-radius: 10px;
     border: 1px solid #eb521f;
@@ -40,15 +46,15 @@ header {
 }
 
 nav{
-    height: 40px;
+    height: 10%;
     background: #FFCC33;
-    border-radius: 10px;
+    border-radius: 4px;
     border: 1px solid #ebb81f;
     margin: 5px;
 }
 
 nav ul {
-    padding-left: 20%;
+    padding-left: 5%;
     padding-top: 10px;
 }
 
@@ -56,9 +62,16 @@ nav ul li:hover{
     color: red;
 }
 
-nav ul li {
-    display: inline;
+nav ul li { 
+    display: inline-table;
     padding: 10px;
+    max-width: 11%;
+    text-align: center;
+}
+
+h2{
+    font-size : 2em;
+    margin: 1%;
 }
 
 #contentwrap {
@@ -72,6 +85,7 @@ nav ul li {
     border-radius: 10px;
     border: 1px solid #ebebeb;
     margin: 5px;
+    padding: 2%;
 }
 
 #content .image-frontend{
