@@ -63,8 +63,6 @@
 
 </body>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#expiration').datepicker();
-	});
+	
 </script>
 </html>

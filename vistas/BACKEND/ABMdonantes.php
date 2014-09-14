@@ -36,7 +36,7 @@
 						<label for="adress" style = "display : block">Domicilio: </label><input id="adress" type="text" >
 						<label for="email" style = "display : block">Correo Electrónico: </label><input id="email" type="email" >
 					</div>
-					<button type="submit"  > Enviar </button>
+					<button type="submit"> Enviar </button>
 				</form>
 			</div>
 		</div>
@@ -50,8 +50,6 @@
 
 </body>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#expiration').datepicker();
-	});
+
 </script>
 </html>
