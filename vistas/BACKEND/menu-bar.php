@@ -1,7 +1,7 @@
 <nav>
 	<ul>
-		<li>ABM de donantes</li>
-		<li>ABM de entidades receptoras</li>
+		<li><a href="./ABMdonantes.php">ABM de donantes</a></li>
+		<li><a href="./ABMentidadesReceptoras.php">ABM de entidades receptoras</a></li>
 		<li><a href ="./ABMalimentos.php">ABM de alimentos</a></li>
 		<li>ABM de turnos de entrega</li>
 		<li>ABM de servicios prestados</li>

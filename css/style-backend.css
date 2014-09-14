@@ -101,6 +101,11 @@ h2{
 
 }
 
+#content form select {
+    width: 100%;
+
+}
+
 #content .image-frontend{
     width: 50%;
     height: auto;
@@ -124,5 +129,6 @@ footer {
     border: 1px solid #1feb52;
     margin: 5px;
     text-align: center;
+    padding-top: 1%;
 }
 

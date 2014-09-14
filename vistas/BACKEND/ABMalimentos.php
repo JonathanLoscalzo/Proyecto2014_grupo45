@@ -24,6 +24,7 @@
 
 		</div>
 		
+
 		<div id="contentwrap">
 			<div id = "content">
 				<h2>ALTA, BAJA Y MODIFICACIÓN DE ALIMENTOS</h2>
