@@ -58,16 +58,19 @@ nav {
 
 nav ul {
     padding-left: 20%;
-    padding-top: 10px;
+    padding-top: 0px;
 }
 
 nav ul li:hover{
     color: red;
+    background-color: #D2691E;
 }
 
 nav ul li {
-    display: inline;
+    display: inline-table;
     padding: 10px;
+    max-width: 11%;
+    text-align: center;
 }
 
 
