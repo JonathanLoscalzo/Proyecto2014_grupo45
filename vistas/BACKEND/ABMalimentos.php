@@ -4,11 +4,11 @@
 	<title>Banco de Alimentos</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- BackEnd page	 -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 	<link href="../../css/style-backend.css" rel="stylesheet">
-	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 </head>
 <body>
 	<div id="wrapper">

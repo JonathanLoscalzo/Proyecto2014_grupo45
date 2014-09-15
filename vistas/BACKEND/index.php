@@ -4,7 +4,6 @@
 	<title>Banco de Alimentos</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- BackEnd page	 -->
-	<link href="/css/backend_index.css" rel="stylesheet">
 	<link href="../../css/style-backend.css" rel="stylesheet">
 </head>
 <body>
