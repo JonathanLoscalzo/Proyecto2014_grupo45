@@ -18,7 +18,7 @@
 				?>
 			</div>
 			<div id="navigationwrap">
-				<?
+				<?php
 					include 'menu-bar.php';
 				?>
 
@@ -45,7 +45,7 @@
 			</div>
 		</div>
 
-		<?
+		<?php
 			include './../_footer.php'
 		?>
 	</div>

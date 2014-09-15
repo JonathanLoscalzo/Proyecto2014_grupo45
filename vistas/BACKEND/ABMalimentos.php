@@ -18,7 +18,7 @@
 			?>
 		</div>
 		<div id="navigationwrap">
-			<?
+			<?php
 				include 'menu-bar.php';
 			?>
 
