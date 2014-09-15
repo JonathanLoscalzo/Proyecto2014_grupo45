@@ -59,7 +59,8 @@ nav ul {
 }
 
 nav ul li:hover{
-    color: red;
+    color: white;
+    font-weight: bold;
     background-color: #D2691E;
 }
 
