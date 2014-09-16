@@ -119,6 +119,7 @@ nav ul li {
     width: 100%;
     height: 10%;
     margin: 0 auto;
+    display: none; /* asi se nota la diferencia */
 }
 
 aside {
