@@ -29,11 +29,9 @@
 			//include '_content-home.php'
 		?>
 	</div>
-	<div id="footerwrap">
-		<footer>
-			© 2013 Banco Alimentario de La Plata Recuperando alimentos de La Plata para ayudar a los que mas necesitan :)
-		</footer>
-	</div>
+	<?php
+		include './../_footer.php'
+	?>
 
 </body>
 </html>

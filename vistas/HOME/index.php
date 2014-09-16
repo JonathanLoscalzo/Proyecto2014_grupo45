@@ -30,7 +30,7 @@
 			include '_content-home.php'
 		?>
 	</div>
-	<?
+	<?php
 		include './../_footer.php'
 	?>
 
