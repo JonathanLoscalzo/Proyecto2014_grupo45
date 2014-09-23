@@ -1,19 +1,19 @@
 <?php
 require_once('vistas/TwigView.php')
-class FrontEnd extends TwigView {
+class backend extends TwigView {
 	public function index(){
-		echo self::getTwig()->render('frontend/index.php');
+		echo self::getTwig()->render('backend/index.php');
 	}
-	public function login(){
-		echo self::getTwig()->render('frontend/login.php');
+	public function listado_alimentos(){
+		echo self::getTwig()->render('backend/listado_alimentos.php');
 	}
-	public function proyectos(){
-		echo self::getTwig()->render('frontend/Proyectos.php');
+	public function entidadesReceptoras(){
+		echo self::getTwig()->render('backend/ABMentidadesReceptoras.php');
 	}
-	public function voluntariado(){
-		echo self::getTwig()->render('frontend/Voluntariado.php');
+	public function donantes(){
+		echo self::getTwig()->render('backend/ABMDonantes.php');
 	}
-	public function dona_ahora(){
-		echo self::getTwig()->render('frontend/Dona-ahora.php');
+	public function alimentos(){
+		echo self::getTwig()->render('backend/ABMalimentos.php');
 	}
 }
