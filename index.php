@@ -12,7 +12,7 @@ require_once('vistas/FrontEnd.php');
 
 
 var_dump($_SERVER['REQUEST_URI']);
-switch ($_SERVER["REQUEST_URI"]) {
+switch ($_SERVER['REQUEST_URI']) {
 	case 'index':
 		HomeController::getInstance()->index();
 		break;
