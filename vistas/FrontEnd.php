@@ -4,7 +4,7 @@ require_once('vistas/TwigView.php')
 
 class FrontEnd extends TwigView {
 	public function index(){
-		echo self::getTwig()->render('frontend/index.php');
+		echo self::getTwig()->loadTemplate('frontend/index.php');
 	}
 	public function login(){
 		echo self::getTwig()->render('frontend/login.php');
