@@ -1,7 +1,12 @@
 <?php
-include_once("./Controller.php")
+include_once("Controller.php");
+
 class HomeController extends Controller
 {
+	protected function __construct() {
+     
+    }
+
 
 	public function index()
 	{

@@ -5,7 +5,7 @@
 	<title>Banco de Alimentos</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- FrontEnd page	 -->
-    <link href="../../css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
 {% endblock %}    
     
@@ -21,7 +21,7 @@
 	</div>
 	<div id="leftcolumnwrap">
 		
-		{%	include '_aside-content.php' $}
+		{%	include '_aside-content.php' %}
 		
 	</div>
 
@@ -32,7 +32,7 @@
 	{% endblock %}	
 	</div>
 		
-	{% include './../_footer.php' %}
+	{% include '_footer.php' %}
 	
 
 </body>

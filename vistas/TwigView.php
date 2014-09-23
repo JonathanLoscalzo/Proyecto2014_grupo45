@@ -1,6 +1,6 @@
 <?php
 
-require_once('../vendor/autoload.php');
+include_once("vendor/autoload.php");
 
 abstract class TwigView {
 
@@ -11,8 +11,9 @@ abstract class TwigView {
         if (!isset(self::$twig)) {
 
             Twig_Autoloader::register();
-            $loader = new Twig_Loader_Filesystem('./templates');
+            $loader = new Twig_Loader_Filesystem(array('templates/', 'templates/frontend', 'templates/backend'));
             //self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
+            
             self::$twig = new Twig_Environment($loader);
         }
         return self::$twig;

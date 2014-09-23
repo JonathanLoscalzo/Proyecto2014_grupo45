@@ -1,6 +1,8 @@
 <?php
-require_once('vistas/TwigView.php')
-class backend extends TwigView {
+
+include_once('vistas/TwigView.php');
+
+class BackEnd extends TwigView {
 	public function index(){
 		echo self::getTwig()->render('backend/index.php');
 	}

@@ -1,21 +1,21 @@
 <?php
 /*esto es la logica de la vista*/
-require_once('vistas/TwigView.php')
+require_once('vistas/TwigView.php');
 
 class FrontEnd extends TwigView {
 	public function index(){
-		echo self::getTwig()->loadTemplate('frontend/index.php');
+		echo self::getTwig()->render('index.php');
 	}
 	public function login(){
-		echo self::getTwig()->render('frontend/login.php');
+		echo self::getTwig()->render('login.php');
 	}
 	public function proyectos(){
-		echo self::getTwig()->render('frontend/Proyectos.php');
+		echo self::getTwig()->render('Proyectos.php');
 	}
 	public function voluntariado(){
-		echo self::getTwig()->render('frontend/Voluntariado.php');
+		echo self::getTwig()->render('Voluntariado.php');
 	}
 	public function dona_ahora(){
-		echo self::getTwig()->render('frontend/Dona-ahora.php');
+		echo self::getTwig()->render('Dona-ahora.php');
 	}
 }

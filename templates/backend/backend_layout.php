@@ -25,7 +25,7 @@
 		{% endblock %}
 		</div>
 
-		{% include './../_footer.php' %}
+		{% include '_footer.php' %}
 	</div>
 
 </body>

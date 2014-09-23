@@ -1,4 +1,4 @@
-{% extends "_layout.php" %}
+{% extends "frontend_layout.php" %}
 
 {% block content %}
 <div id="content">

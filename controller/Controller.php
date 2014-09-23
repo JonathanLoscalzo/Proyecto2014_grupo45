@@ -1,19 +1,19 @@
 <?php
 
-class Controller
+abstract class Controller
 {
-	private static $instance;
+	private static $instance = null;
 
     public static function getInstance() {
 
-        if (!isset(self::$instance)) {
-            self::$instance = new self();
-        }
+        if (is_null(self::$instance)){
+            self::$instance = new static();
+        }        
 
         return self::$instance;
     }
     
-    private function __construct() {
+    protected function __construct() {
         
     }
 	
