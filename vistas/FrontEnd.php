@@ -1,4 +1,5 @@
 <?php
+/*esto es la logica de la vista*/
 require_once('vistas/TwigView.php')
 class FrontEnd extends TwigView {
 	public function index(){

@@ -1,29 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Banco de Alimentos</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<!-- BackEnd page	 -->
-	
+{% extends "_layout.php" %}
+{% block head %}
+{{ parent() }}
 	<script src="../../js/plugins/jquery-2.1.2.js"></script>
 	<script type="text/javascript" charset="utf8" src="../../js/plugins/jquery.dataTables-1.10.2.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
-	<link href="../../css/style-backend.css" rel="stylesheet">
-</head>
-<body>
-	<div id="wrapper">
-		<div id="headerwrap">
-				<?php
-					include '_header-backend.php' 
-				?>
-			</div>
-			<div id="navigationwrap">
-				<?php
-					include 'menu-bar.php';
-				?>
+{% endblock %}<!DOCTYPE html>
 
-			</div>
-		<div id="contentwrap">
+{% block content %}
 			<div id = "content">
 			<h2>ALTA, BAJA Y MODIFICACIÓN DE ALIMENTOS</h2>
 			<table id="tabla-alimentos" border="1px" style="border-color: gray; text-align: center">
@@ -38,21 +21,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+				<!-- acá se podria poner un for in -->
 				</tbody>
-
 			</table>
 			</div>
-		</div>
+{% endblock %}
 
-		<?php
-			include './../_footer.php'
-		?>
-	</div>
 
-</body>
-
-<script type="text/javascript">
+{% block scripts %}
+<script>
 	$(document).ready(function(){
 		var datos = [
     [
@@ -85,6 +62,5 @@
 		});
 
 	});
-
 </script>
-</html>
+{% endblock %}

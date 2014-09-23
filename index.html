@@ -1,15 +1,18 @@
+<?php
+/*
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);*/
+/* Esto es el manejador de la URL, o Front-controller, o nose como se llama */
 
+require_once('controller/ResourceController.php');
+require_once('vistas/BackEnd.php')
+require_once('vistas/FrontEnd.php')
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Proyecto Index</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script>
-	$(document).ready(function(){
-		$(location).attr('href','./vistas/HOME/index.php');
-            });
-	</script>
-    </head>
-</html>
+/*
+if(isset($_GET["action"]) && $_GET["action"] == 'listResources'){
+    
+}
+*/
+
+HomeController::getInstance()->index();
