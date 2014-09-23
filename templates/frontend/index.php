@@ -1,38 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Banco de Alimentos</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<!-- FrontEnd page	 -->
-        <link href="../../css/style.css" rel="stylesheet">
-    
-    
-</head>
-<body>
-	<div id="headerwrap">
-		<?php
-			include '_header-home.php' 
-		?>
-	</div>
-	<div id="navigationwrap">
-		<?php 
-		include '_nav-home.php'
-		 ?>
-	</div>
-	<div id="leftcolumnwrap">
-		<?php 
-			include '_aside-content.php'
-		 ?>
-	</div>
+{% extends "_layout.php" %}
 
-	<div id="contentwrap">
-		<?php 
-			include '_content-home.php'
-		?>
-	</div>
-	<?php
-		include './../_footer.php'
-	?>
+{% block content %}
+<div id="content">
+	<h2>
+		Lo que hacemos en el Banco Alimentario			
+	</h2>
+	<p>
+		Somos una organizacion sin fines de lucro que tiene como misión la recuperación de alimentos para generar conciencia ambiental combatiendo el hambre y la desnutrición en la zona de La Plata.	
 
-</body>
-</html>
+	</p>	
+	<img class ="image-frontend" alt="imagen-banco"src="../../images/imagen-banco.jpg" style="border-radius: 15px;">
+</div>	
+{% endblock %}

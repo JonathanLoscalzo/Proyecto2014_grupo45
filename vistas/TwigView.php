@@ -16,7 +16,7 @@ abstract class TwigView {
 
             Twig_Autoloader::register();
             $loader = new Twig_Loader_Filesystem('./templates');
-            self::$twig->addGlobal('session', $_SESSION);
+            self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
             self::$twig = new Twig_Environment($loader);
         }
         return self::$twig;
