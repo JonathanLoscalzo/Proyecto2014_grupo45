@@ -13,19 +13,19 @@ require_once('vistas/FrontEnd.php');
 
 var_dump($_SERVER['REQUEST_URI']);
 switch ($_SERVER['REQUEST_URI']) {
-	case 'index':
+	case '/index':
 		HomeController::getInstance()->index();
 		break;
-	case 'login':
+	case '/login':
 		HomeController::getInstance()->login();
 		break;
-	case 'Proyectos':
+	case '/Proyectos':
 		HomeController::getInstance()->proyectos();
 		break;
-	case 'Voluntariado':
+	case '/Voluntariado':
 		HomeController::getInstance()->voluntariado();
 		break;
-	case 'Dona-ahora':
+	case '/Dona-ahora':
 		HomeController::getInstance()->dona_ahora();
 		break;
 	default:
