@@ -1,6 +1,5 @@
 <?php
-include_once('../vistas/FrontEnd.php')
-
+include_once("./Controller.php")
 class HomeController extends Controller
 {
 

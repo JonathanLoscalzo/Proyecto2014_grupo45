@@ -5,14 +5,10 @@ ini_set('display_errors',1);
 error_reporting(-1);*/
 /* Esto es el manejador de la URL, o Front-controller, o nose como se llama */
 
-require_once('controller/ResourceController.php');
-require_once('vistas/BackEnd.php')
-require_once('vistas/FrontEnd.php')
+require_once('controller/HomeController.php');
+require_once('vistas/TwigView');
+require_once('vistas/BackEnd.php');
+require_once('vistas/FrontEnd.php');
 
-/*
-if(isset($_GET["action"]) && $_GET["action"] == 'listResources'){
-    
-}
-*/
 
 HomeController::getInstance()->index();

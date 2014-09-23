@@ -1,10 +1,6 @@
 <?php
 
-
-/**
- * Description of TwigView
- */
-require_once './vendor/autoload.php';
+require_once('../vendor/autoload.php');
 
 abstract class TwigView {
 
@@ -16,7 +12,7 @@ abstract class TwigView {
 
             Twig_Autoloader::register();
             $loader = new Twig_Loader_Filesystem('./templates');
-            self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
+            //self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
             self::$twig = new Twig_Environment($loader);
         }
         return self::$twig;
