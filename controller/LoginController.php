@@ -31,15 +31,18 @@ class LoginController extends Controller
     {
 		if(!isset($_SESSION)) 
 		{ 
-		        session_start(); 
+		    session_start(); 
 		}
 		
     }
     
     private function destroySession()
 	{	
+		self::startSession();
 		if (isset($_SESSION))
 		{
+			unset($_SESSION['username']);
+			unset($_SESSION['roleID']);
 			session_destroy();
 		}
 		
