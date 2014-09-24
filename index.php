@@ -20,8 +20,6 @@ require_once('vistas/FrontEndView.php');
 	cuando se hace local, TENER EN CUENTA que XAMPP agrega /BANCOALIMENTARIO
 	pero en el servidor no es necesario agregar esa parte.
 
-	CUANDO ESTOY EN EL SERVIDOR LOCAL, TENDRIA QUE PONER DESDE 2 EN ADELANTE.
-	CUANDO ESTOY EN PRODUCCION, O EN EL GITLAB, HABRÌA QUE PONER UNO MENOS.
 
 */
 
@@ -47,8 +45,8 @@ switch ($acciones[1]) {
 	case "login-user":
 		$username = (isset($_POST["username"]))? $_POST["username"] : "" ;
 		$pass = (isset($_POST["pass"]))? $_POST["pass"] : "" ;
-		var_dump($username);
 		LoginController::getInstance()->login($username, $pass);
+		var_dump($username);
 
 		break;
 	default:
