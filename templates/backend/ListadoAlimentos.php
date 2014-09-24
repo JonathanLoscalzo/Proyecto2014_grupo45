@@ -3,6 +3,8 @@
 {{ parent() }}
 	<script src="../js/plugins/jquery-2.1.2.js"></script>
 	<script type="text/javascript" charset="utf8" src="../js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/sunny/jquery-ui-1.9.2.custom.css">
+
 	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
 {% endblock %}
 

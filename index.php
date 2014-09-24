@@ -59,6 +59,7 @@ switch ($acciones[1]) {
 		LoginController::getInstance()->backend();
 		break;
 	case 'donantes':
+		(!isset($acciones[2])?$acciones[2]="":""); //feo
 		switch ($acciones[2]){
 			case "edit":
 				DonanteController::getInstance()->edit($acciones[3]);
@@ -83,7 +84,8 @@ switch ($acciones[1]) {
 		# code...
 		break;
 	case 'listadoAlimentos':
-		# code...
+		$view = new BackEndView();
+		$view->listado_alimentos();
 		break;
 	default:
 		HomeController::getInstance()->index();
