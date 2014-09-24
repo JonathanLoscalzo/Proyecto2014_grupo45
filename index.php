@@ -7,8 +7,9 @@ error_reporting(-1);*/
 
 require_once('controller/HomeController.php');
 require_once('vistas/TwigView.php');
-require_once('vistas/BackEnd.php');
-require_once('vistas/FrontEnd.php');
+require_once('vistas/BackEndView.php');
+require_once('vistas/FrontEndView.php');
+require_once('controller/LoginController.php');
 
 
 /*ver como hacer para poder leer la uri en partes 
@@ -23,9 +24,6 @@ require_once('vistas/FrontEnd.php');
 
 */
 
-if (!isset($GLOBALS["url_base"])){
-	$GLOBALS["url_base"] = "localhost/BancoAlimentario/index.php";
-}
 
 $acciones = split("/",$_SERVER['REQUEST_URI']);
 
@@ -44,6 +42,9 @@ switch ($acciones[1]) {
 		break;
 	case "Dona-ahora":
 		HomeController::getInstance()->dona_ahora();
+		break;
+	case "login-user":
+		
 		break;
 	default:
 		HomeController::getInstance()->index();

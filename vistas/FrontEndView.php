@@ -2,7 +2,7 @@
 /*esto es la logica de la vista*/
 require_once('vistas/TwigView.php');
 
-class FrontEnd extends TwigView {
+class FrontEndView extends TwigView {
 	public function index(){
 		echo self::getTwig()->render('index.php');
 	}

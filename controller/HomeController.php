@@ -3,34 +3,51 @@ include_once("Controller.php");
 
 class HomeController extends Controller
 {
+	private static $instance = null;
+
+    public static function getInstance() {
+
+        if (is_null(self::$instance)){
+            self::$instance = new static();
+        }        
+
+        return self::$instance;
+    }
+    
+    protected function __construct() {
+        
+    }
+    
+
 	protected function __construct() {
      
     }
 
 
+
 	public function index()
 	{
-		$view = new FrontEnd();
+		$view = new FrontEndView();
         $view->index();
 	}
 	public function login()
 	{
-		$view = new FrontEnd();
+		$view = new FrontEndView();
         $view->login();
 	}
 	public function proyectos()
 	{
-		$view = new FrontEnd();
+		$view = new FrontEndView();
         $view->proyectos();
 	}
 	public function voluntariado()
 	{
-		$view = new FrontEnd();
+		$view = new FrontEndView();
         $view->voluntariado();
 	}
 	public function dona_ahora()
 	{
-		$view = new FrontEnd();
+		$view = new FrontEndView();
         $view->dona_ahora();
 	}
 

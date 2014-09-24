@@ -1,10 +1,10 @@
 {% extends "_layout.php" %}
 {% block head %}
 {{ parent() }}
-	<script src="../../js/plugins/jquery-2.1.2.js"></script>
-	<script type="text/javascript" charset="utf8" src="../../js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+	<script src="../js/plugins/jquery-2.1.2.js"></script>
+	<script type="text/javascript" charset="utf8" src="../js/plugins/jquery.dataTables-1.10.2.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
-{% endblock %}<!DOCTYPE html>
+{% endblock %}
 
 {% block content %}
 			<div id = "content">
