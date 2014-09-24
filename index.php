@@ -29,7 +29,7 @@ if (!isset($GLOBALS["url_base"])){
 
 $acciones = split("/",$_SERVER['REQUEST_URI']);
 
-switch ($acciones[3]) {
+switch ($acciones[2]) {
 	case "index":
 		HomeController::getInstance()->index();
 		break;
