@@ -5,7 +5,6 @@
 	{% if message is defined %}
 	{# JRL -> deberiamos agregar un alert que se pueda cerrar #}
 		<p> {{ message }} </p>	
-	}
 	{% endif %}
 	<h2>
 		Lo que hacemos en el Banco Alimentario			

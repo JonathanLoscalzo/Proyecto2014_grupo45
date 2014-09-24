@@ -9,7 +9,7 @@ require_once('controller/HomeController.php');
 require_once('controller/LoginController.php');
 //require_once('controller/AlimentosController.php');
 //require_once('controller/EntidadesReceptorasController.php');
-//require_once('controller/DonantesController.php');
+require_once('controller/DonanteController.php');
 require_once('vistas/TwigView.php');
 require_once('vistas/BackEndView.php');
 require_once('vistas/FrontEndView.php');
@@ -23,6 +23,8 @@ require_once('vistas/FrontEndView.php');
 	cuando se hace local, TENER EN CUENTA que XAMPP agrega /BANCOALIMENTARIO
 	pero en el servidor no es necesario agregar esa parte.
 
+	CUANDO ESTOY EN EL SERVIDOR LOCAL, TENDRIA QUE PONER DESDE 2 EN ADELANTE.
+	CUANDO ESTOY EN PRODUCCION, O EN EL GITLAB, HABRÌA QUE PONER UNO MENOS.
 
 */
 
@@ -55,7 +57,22 @@ switch ($acciones[1]) {
 		LoginController::getInstance()->logout();
 		break;
 	case 'donantes':
-		# code...
+		switch ($acciones[2]){
+			case "edit":
+				DonanteController::getInstance()->edit($acciones[3]);
+				break;
+			case "remove":
+				DonanteController::getInstance()->remove($acciones[3]);
+				break;
+			case "add":
+				/* agarrar todas las variables del post y mandarlas*/
+				$variables = [];
+				DonanteController::getInstance()->create($variables);
+				break;
+			default:
+				DonanteController::getInstance()->index();
+				break;
+		}
 		break;
 	case 'entidadesReceptoras':
 		# code...
@@ -71,6 +88,5 @@ switch ($acciones[1]) {
 		break;
 		// Deberìa redireccionarte a una pagina 404 o algo asi	
 }
-
 
 

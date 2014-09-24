@@ -16,8 +16,10 @@ class BackEndView extends TwigView {
 	public function entidadesReceptoras(){
 		echo self::getTwig()->render('EntidadesReceptoras.php');
 	}
-	public function donantes(){
-		echo self::getTwig()->render('Donantes.php');
+	public function donantes($donantes){
+		
+
+		echo self::getTwig()->render('Donantes.php', array('donantes', $donantes));
 	}
 	public function alimentos(){
 		echo self::getTwig()->render('Alimentos.php');

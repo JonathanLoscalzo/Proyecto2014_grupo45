@@ -26,7 +26,9 @@ abstract class PDORepository {
             $list[] = $mapper($element); // esto agrega?
         }
 
+        $connection = null; // para cerrar la conexion
         return $list;
+
     }
     
 }
