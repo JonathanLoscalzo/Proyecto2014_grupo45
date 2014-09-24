@@ -47,7 +47,6 @@ switch ($acciones[1]) {
 	case "login-user":
 		$username = (isset($_POST["username"]))? $_POST["username"] : "" ;
 		$pass = (isset($_POST["pass"]))? $_POST["pass"] : "" ;
-		var_dump($username, $pass);
 		LoginController::getInstance()->login($username, $pass);
 		break;
 	default:
