@@ -1,4 +1,4 @@
-{% extends "_layout.php" %}
+{% extends "backend_layout.php" %}
 {% block head %}
 {{ parent() }}
 	<script src="../js/plugins/jquery-2.1.2.js"></script>
