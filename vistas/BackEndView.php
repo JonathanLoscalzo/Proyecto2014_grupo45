@@ -8,7 +8,7 @@ class BackEndView extends TwigView {
 		echo self::getTwig()->render('index-backend.php');
 	}
 	public function listado_alimentos(){
-		var_dump("hola");
+		
 		echo self::getTwig()->render('listado_alimentos.php');
 	}
 	public function entidadesReceptoras(){
