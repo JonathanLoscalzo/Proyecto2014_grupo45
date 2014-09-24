@@ -23,15 +23,15 @@ class LoginController extends Controller
 	public function login( $user, $pass )
 	{
 		/* deberia validar en la base de datos */
-
-		if (createSession($user, $pass))
+		
+		/*if (createSession($user, $pass))
 		{
 
 		}
 		else
 		{
 
-		}
+		}*/
 
 		$view = new BackEndView();
 		$view->index();
@@ -48,7 +48,8 @@ class LoginController extends Controller
 		*/
 		session_start();
 		if (!isset($_SESSION["username"]))
-		{
+		{	
+
 			$actualUser = UserRepository::getUser($userName, $pass);
 			if ($actualUser != false)
 			{
