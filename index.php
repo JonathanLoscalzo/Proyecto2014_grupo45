@@ -23,8 +23,6 @@ require_once('vistas/FrontEndView.php');
 	cuando se hace local, TENER EN CUENTA que XAMPP agrega /BANCOALIMENTARIO
 	pero en el servidor no es necesario agregar esa parte.
 
-	CUANDO ESTOY EN EL SERVIDOR LOCAL, TENDRIA QUE PONER DESDE 2 EN ADELANTE.
-	CUANDO ESTOY EN PRODUCCION, O EN EL GITLAB, HABRÌA QUE PONER UNO MENOS.
 
 */
 
@@ -73,5 +71,6 @@ switch ($acciones[1]) {
 		break;
 		// Deberìa redireccionarte a una pagina 404 o algo asi	
 }
+
 
 
