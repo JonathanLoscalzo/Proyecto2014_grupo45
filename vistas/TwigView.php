@@ -12,9 +12,9 @@ abstract class TwigView {
 
             Twig_Autoloader::register();
             $loader = new Twig_Loader_Filesystem(array('templates/', 'templates/frontend', 'templates/backend'));
-            //self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
-            
             self::$twig = new Twig_Environment($loader);
+            self::$twig->addGlobal('globals', $GLOBALS);
+            //self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
         }
         return self::$twig;
     }

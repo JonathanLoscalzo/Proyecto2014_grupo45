@@ -9,6 +9,6 @@
 		Somos una organizacion sin fines de lucro que tiene como misión la recuperación de alimentos para generar conciencia ambiental combatiendo el hambre y la desnutrición en la zona de La Plata.	
 
 	</p>	
-	<img class ="image-frontend" alt="imagen-banco"src="../../images/imagen-banco.jpg" style="border-radius: 15px;">
+	<img class ="image-frontend" alt="imagen-banco"src="../images/imagen-banco.jpg" style="border-radius: 15px;">
 </div>	
 {% endblock %}

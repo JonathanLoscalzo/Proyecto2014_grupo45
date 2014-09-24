@@ -11,21 +11,38 @@ require_once('vistas/BackEnd.php');
 require_once('vistas/FrontEnd.php');
 
 
-var_dump($_SERVER['REQUEST_URI']);
-switch ($_SERVER['REQUEST_URI']) {
-	case '/index':
+/*ver como hacer para poder leer la uri en partes 
+	ROUTE 
+	/page/action/id
+	Tendriamos que respetar ese formato. 
+	cuando se hace local, TENER EN CUENTA que XAMPP agrega /BANCOALIMENTARIO
+	pero en el servidor no es necesario agregar esa parte.
+
+	CUANDO ESTOY EN EL SERVIDOR LOCAL, TENDRIA QUE PONER DESDE 2 EN ADELANTE.
+	CUANDO ESTOY EN PRODUCCION, O EN EL GITLAB, HABRÌA QUE PONER UNO MENOS.
+
+*/
+
+if (!isset($GLOBALS["url_base"])){
+	$GLOBALS["url_base"] = "localhost/BancoAlimentario/index.php";
+}
+
+$acciones = split("/",$_SERVER['REQUEST_URI']);
+
+switch ($acciones[3]) {
+	case "index":
 		HomeController::getInstance()->index();
 		break;
-	case '/login':
+	case "login":
 		HomeController::getInstance()->login();
 		break;
-	case '/Proyectos':
+	case "Proyectos":
 		HomeController::getInstance()->proyectos();
 		break;
-	case '/Voluntariado':
+	case "Voluntariado":
 		HomeController::getInstance()->voluntariado();
 		break;
-	case '/Dona-ahora':
+	case "Dona-ahora":
 		HomeController::getInstance()->dona_ahora();
 		break;
 	default:
