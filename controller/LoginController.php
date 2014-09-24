@@ -34,7 +34,7 @@ class LoginController extends Controller
 		}*/
 
 		$view = new BackEndView();
-		$view->listado_alimentos();
+		$view->index();
 	}
 
 	private function createSession($user, $pass)

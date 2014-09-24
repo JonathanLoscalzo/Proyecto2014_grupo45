@@ -53,6 +53,18 @@ switch ($acciones[1]) {
 		# code...
 		LoginController::getInstance()->logout();
 		break;
+	case 'donantes':
+		# code...
+		break;
+	case 'entidadesReceptoras':
+		# code...
+		break;
+	case 'alimentos':
+		# code...
+		break;
+	case 'listadoAlimentos':
+		# code...
+		break;
 	default:
 		HomeController::getInstance()->index();
 		break;
