@@ -1,12 +1,12 @@
 <?php
 include_once('Controller.php');
-include_once('CREInteface.php');
+//include_once('CREInteface.php');
 include_once("model/DonanteModel.php");
 include_once("model/DonanteRepository.php");
 include_once("model/PDOrepository.php");
 /* EN ALGUN LADO DEBERIA CONTROLAR QUE ESTÀ LA SESION INICIADA"*/
 
-class DonanteController extends Controller implements CREInterface
+class DonanteController extends Controller 
 {
 	private static $instance = null;
 
@@ -28,12 +28,12 @@ class DonanteController extends Controller implements CREInterface
 
     }
 
-	public function edit(id)
+	public function edit($id)
     {
 
     }
 
-    public function remove(id)
+    public function remove($id)
     {
 
     }    
