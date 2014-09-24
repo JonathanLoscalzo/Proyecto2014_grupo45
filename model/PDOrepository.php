@@ -3,7 +3,7 @@
 abstract class PDORepository {
     /* recordar crear un usuario en phpmyadmin */
     const USERNAME = "grupo_45";
-    const PASSWORD = "";
+    const PASSWORD = "1aGUQ3ASOu81kJSu";
 	const HOST ="localhost";
 	const DB = "grupo_45";
     
