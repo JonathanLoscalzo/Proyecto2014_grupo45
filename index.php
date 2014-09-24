@@ -7,6 +7,9 @@ error_reporting(-1);*/
 
 require_once('controller/HomeController.php');
 require_once('controller/LoginController.php');
+//require_once('controller/AlimentosController.php');
+//require_once('controller/EntidadesReceptorasController.php');
+//require_once('controller/DonantesController.php');
 require_once('vistas/TwigView.php');
 require_once('vistas/BackEndView.php');
 require_once('vistas/FrontEndView.php');

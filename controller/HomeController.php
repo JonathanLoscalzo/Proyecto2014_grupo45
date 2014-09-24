@@ -17,7 +17,6 @@ class HomeController extends Controller
     protected function __construct() {
         
     }
-    
 
 	public function index()
 	{

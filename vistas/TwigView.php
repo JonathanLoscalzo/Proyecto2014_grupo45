@@ -13,8 +13,6 @@ abstract class TwigView {
             Twig_Autoloader::register();
             $loader = new Twig_Loader_Filesystem(array('templates/', 'templates/frontend', 'templates/backend'));
             self::$twig = new Twig_Environment($loader);
-            session_start();
-            self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
         }
         return self::$twig;
     }

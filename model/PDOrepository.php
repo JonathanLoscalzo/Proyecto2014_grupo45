@@ -23,7 +23,7 @@ abstract class PDORepository {
         $list = []; // lista vacia
         while($element = $stmt->fetch()) // mientras haya que consultar, mapeo el resultado en una lista
         {
-            $list[] = $mapper($element);
+            $list[] = $mapper($element); // esto agrega?
         }
 
         return $list;

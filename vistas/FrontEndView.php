@@ -3,8 +3,8 @@
 require_once('vistas/TwigView.php');
 
 class FrontEndView extends TwigView {
-	public function index(){
-		echo self::getTwig()->render('index.php');
+	public function index($message=""){
+		echo self::getTwig()->render('index.php',array('message' => $message));
 	}
 	public function login(){
 		echo self::getTwig()->render('login.php');

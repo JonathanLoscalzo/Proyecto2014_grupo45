@@ -21,7 +21,8 @@ class UserRepository extends PDOrepository
     	$mapper = function($row){
     		return new UserModel($row['username'], $row['roleID']);
     	} ;
-    	$answer = $this->queryList($sql, $args, $mapper);
+    	
+        $answer = $this->queryList($sql, $args, $mapper);
     	
     	if ( count($answer) == 1 )
     	{

@@ -3,8 +3,11 @@
 include_once('vistas/TwigView.php');
 
 class BackEndView extends TwigView {
-	public function index(){
-		echo self::getTwig()->render('index-backend.php');
+	public function index($message=""){
+		$twig = self::getTwig();
+		//session_start();
+        $twig->addGlobal('session', $_SESSION); // nose si està bien esto
+		echo self::getTwig()->render('index-backend.php', array('message' => $message));
 	}
 	public function listado_alimentos(){
 		

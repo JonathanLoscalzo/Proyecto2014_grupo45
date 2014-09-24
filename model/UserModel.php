@@ -9,19 +9,19 @@ class UserModel
 
 	public function __construct( $username, $role )
 	{
-		$this->$username = $username;
-		$this->$role = $role;
+		$this->username = $username;
+		$this->role = $role;
 
 	}
 
 	public function getUsername()
 	{
-		return $this->$username;
+		return $this->username;
 	}
 
 	public function getRole()
 	{
-		return $this->$role;
+		return $this->role;
 	}
 
 
