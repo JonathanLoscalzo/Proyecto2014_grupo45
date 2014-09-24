@@ -6,10 +6,11 @@ error_reporting(-1);*/
 /* Esto es el manejador de la URL, o Front-controller, o nose como se llama */
 
 require_once('controller/HomeController.php');
+require_once('controller/LoginController.php');
 require_once('vistas/TwigView.php');
 require_once('vistas/BackEndView.php');
 require_once('vistas/FrontEndView.php');
-require_once('controller/LoginController.php');
+
 
 
 /*ver como hacer para poder leer la uri en partes 
@@ -44,7 +45,9 @@ switch ($acciones[1]) {
 		HomeController::getInstance()->dona_ahora();
 		break;
 	case "login-user":
-		
+		$username = (isset($_POST["username"]))? $_POST["username"] : "" ;
+		$pass = (isset($_POST["pass"]))? $_POST["pass"] : "" ;
+		LoginController::getInstance()->login($username, $pass);
 		break;
 	default:
 		HomeController::getInstance()->index();

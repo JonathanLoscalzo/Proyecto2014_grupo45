@@ -19,7 +19,7 @@ class UserRepository extends PDOrepository
     	$sql = "SELECT User.username, User.roleID FROM User WHERE User.username = ? and User.pass = ?";
     	$args = [$username, $pass];
     	$mapper = function($row){
-    		return new UserModel($row['username'], $row['roleID'])
+    		return new UserModel($row['username'], $row['roleID']);
     	} ;
     	$answer = $this->queryList($sql, $args, $mapper);
     	

@@ -58,7 +58,7 @@ class LoginController extends Controller
 			}
 			else
 			{
-				return false
+				return false;
 			}
 			
 		}

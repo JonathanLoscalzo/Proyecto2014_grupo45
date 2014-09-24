@@ -14,12 +14,12 @@ class UserModel
 
 	}
 
-	public getUsername()
+	public function getUsername()
 	{
 		return $this->$username;
 	}
 
-	public getRole()
+	public function getRole()
 	{
 		return $this->$role;
 	}
