@@ -53,8 +53,10 @@ switch ($acciones[1]) {
 		LoginController::getInstance()->login($username, $pass);
 		break;
 	case 'logout':
-		# code...
 		LoginController::getInstance()->logout();
+		break;
+	case 'backend':
+		LoginController::getInstance()->backend();
 		break;
 	case 'donantes':
 		switch ($acciones[2]){

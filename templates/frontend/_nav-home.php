@@ -6,6 +6,10 @@
 		<li><a href="./Proyectos">Proyectos</a></li>
 		<li><a href="#">Contacto</a></li>
 		<li><a href="./Dona-ahora">¡Dona Ahora!</a></li>
-		<li><a href= "./login">INICIAR SESION</a></li>
+		{% if session.username is defined %}
+		<li><a href= "./backend">BACKEND</a></li>
+		{% else %}
+		<li><a href= "./login">INICIAR SESION</a></li>		
+		{% endif %}
 	</ul>
 </nav>

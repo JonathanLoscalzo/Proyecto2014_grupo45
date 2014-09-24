@@ -8,5 +8,6 @@
 		<li><a href = "#">Confección y entrega de pedidos</a></li>
 		<li><a href = "#">Consulta stock de alimentos</a></li>
 		<li><a href="./listadoAlimentos">Listado de alimentos</a></li>
+		<li><a href="./index">FRONTEND</a></li>
 	</ul>
 </nav>

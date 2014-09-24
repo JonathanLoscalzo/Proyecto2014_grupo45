@@ -17,7 +17,7 @@ class UserRepository extends PDOrepository
     public function getUser($username, $pass)
     {
     	$sql = "SELECT user.username, user.roleID FROM user WHERE user.username = ? and user.pass = ?";
-    	$args = [$username, $pass];
+    	$args = array($username, $pass);
     	$mapper = function($row){
     		return new UserModel($row['username'], $row['roleID']);
     	} ;

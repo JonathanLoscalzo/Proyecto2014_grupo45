@@ -10,8 +10,8 @@ class LoginController extends Controller
 	private static $loginStatus = array(
 		0 => "Usuario inició sesión correctamente",
 		1 => "Usuario no puede iniciar sesión dos veces, debe cerrar sesión",
-		2 => "Usuario no existente, pruebe contraseña o nombre de usuario",
-		3 => "",
+		2 => "Usuario no existente, contraseña o nombre de usuario incorrectos",
+		3 => " UD. No tiene permiso para llegar aqui !!! ",
 	);
 
     public static function getInstance() {
@@ -27,10 +27,36 @@ class LoginController extends Controller
         
     }
 
+    public function startSession()
+    {
+		if(!isset($_SESSION)) 
+		{ 
+		        session_start(); 
+		}
+		
+    }
+    
+    private function destroySession()
+	{	
+		if (isset($_SESSION))
+		{
+			session_destroy();
+		}
+		
+	}
+
+	public function isSessionStart()
+	{
+		self::startSession();
+		return isset($_SESSION['username']);
+	}
+
 	public function login( $user, $pass )
 	{
 		/* deberia validar en la base de datos */
+		
 		$aux = self::createSession($user, $pass);
+
 		switch ($aux) {
 			case 0:
 			case 1:
@@ -45,6 +71,22 @@ class LoginController extends Controller
 		
 	}
 
+	public function backend()
+	{
+		/*verificar si la sesion està iniciada?*/
+		self::startSession();
+		if (self::isSessionStart())
+		{
+			$view = new BackEndView();
+			$view->index();
+		}
+		else
+		{
+			$view = new FrontEndView();
+			$view->index(self::$loginStatus[3]);
+		}
+	}
+
 	private function createSession($userName, $pass)
 	{
 		/*
@@ -52,8 +94,8 @@ class LoginController extends Controller
 		*	Si puede iniciar sesion, conecta
 		*	
 		*/
-		session_start();
-		if (!isset($_SESSION['username']))
+		self::startSession();
+		if (!self::isSessionStart())
 		{	
 
 			$actualUser = UserRepository::getInstance()->getUser($userName, $pass);
@@ -78,17 +120,13 @@ class LoginController extends Controller
 	public function logout()
 	{
 		self::destroySession();
+		self::startSession();
 		$view = new FrontEndView();
 		/*enviar un alert o mensaje global aqui*/
 		$view->index();
 	}
 
-	private function destroySession()
-	{	/*deberia usar session_destroy() sesision_start() ??? */
-		session_start();
-		unset($_SESSION['username']);
-		unset($_SESSION['roleID']);
-	}
+
 
 	
 

@@ -12,7 +12,12 @@ abstract class PDORepository {
         $p=self::PASSWORD;
         $db=self::DB;
         $host=self::HOST;
-        $connection = new PDO("mysql:dbname=$db;host=$host", $u, $p);
+        try{
+            $connection = new PDO("mysql:dbname=$db;host=$host", $u, $p);
+        }
+        catch (PDOException $e) {
+            echo "problema"; // nose que hacer.
+        }
         return $connection;
     }
     
