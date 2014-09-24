@@ -28,7 +28,7 @@ if (!isset($GLOBALS["url_base"])){
 }
 
 $acciones = split("/",$_SERVER['REQUEST_URI']);
-var_dump($acciones);
+
 switch ($acciones[1]) {
 	case "index":
 		HomeController::getInstance()->index();
