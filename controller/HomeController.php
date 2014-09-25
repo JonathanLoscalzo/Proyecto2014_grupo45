@@ -44,6 +44,20 @@ class HomeController extends Controller
         $view->dona_ahora();
 	}
 
+    public function create($entidad) {
+        
+    }
 
+    public function edit($entidad) {
+        
+    }
+
+    public function editView($id) {
+        
+    }
+
+    public function remove($id) {
+        
+    }
 
 }

@@ -36,7 +36,7 @@ abstract class Controller {
     }
     /* deberia tener una interfaz ? */
     abstract public function create($entidad);
-    abstract public function edit();
-    abstract public function remove();
-    abstract public function editView();
+    abstract public function edit($entidad);
+    abstract public function remove($id);
+    abstract public function editView($id);
 }
