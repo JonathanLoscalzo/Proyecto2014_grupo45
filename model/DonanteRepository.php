@@ -34,8 +34,7 @@ class DonanteRepository extends PDOrepository
     	return $answer;
     }
 
-    public function getDonanteByID($id)
-    {
+    public function getDonanteByID($id) {
     	$sql = "SELECT donante.* FROM donante WHERE donante.Id = ?";
     	$args = [$id];
     	$mapper = function($row){

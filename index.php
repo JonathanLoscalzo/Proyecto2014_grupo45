@@ -67,20 +67,14 @@ switch ($acciones[1]) {
                     /* deberia ser como la pantalla de crear */
                     DonanteController::getInstance()->editView($acciones[3]);
                 } else {
-                    /*$_POST DEBERIA TENERLOS EN EL ORDEN QUE CORRESPONDA, VENDRIA BIEN UN BUILDER */
+                    /* $_POST DEBERIA TENERLOS EN EL ORDEN QUE CORRESPONDA, VENDRIA BIEN UN BUILDER 
+                      Acà deberia entrar desde editView()
+                     *                      */
                     $donante = new DonanteModel(
-                            $_POST["id"],
-                            $_POST["razon_social"],
-                            $_POST["apellido"],
-                            $_POST["nombre"],
-                            $_POST["telefono"],
-                            $_POST["email"],
-                            $_POST["domicilio"]
+                            $_POST["id"], $_POST["razon_social"], $_POST["apellido"], $_POST["nombre"], $_POST["telefono"], $_POST["email"], $_POST["domicilio"]
                     );
                     DonanteController::getInstance()->edit($donante);
                 }
-
-
                 break;
             case "remove":
                 DonanteController::getInstance()->remove($acciones[3]);
