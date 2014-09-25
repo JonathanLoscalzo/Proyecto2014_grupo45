@@ -6,7 +6,6 @@ class BackEndView extends TwigView {
 
     public function index($message = "") {
         $twig = self::getTwig();
-        //session_start();
         $twig->addGlobal('session', $_SESSION); // nose si està bien esto
         echo self::getTwig()->render('index-backend.php', array('message' => $message));
     }
@@ -29,7 +28,17 @@ class BackEndView extends TwigView {
 
     public function editViewDonante($donante) {
 
-        echo self::getTwig()->render('editAlimentos.php', array('donante' => $donante)); //ver si esto anda
+        echo self::getTwig()->render('EditViewDonante.php', array('donante' => $donante)); //ver si esto anda
+    }
+    
+    public function editViewEntidadReceptora($entidad) {
+
+        echo self::getTwig()->render('EditViewEntidadReceptora.php.twig', array('entidad' => $entidad)); //ver si esto anda
+    }
+    
+    public function editViewAlimento($alimento) {
+
+        echo self::getTwig()->render('EditViewAlimento.html.twig', array('alimento' => $alimento)); //ver si esto anda
     }
 
 }

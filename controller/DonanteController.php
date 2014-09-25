@@ -42,7 +42,7 @@ class DonanteController extends Controller {
         if (parent::backendIsLogged()) {
             $donanteInfo = DonanteRepository::getInstance()->getDonanteByID($id);
             $view = new BackEndView();
-            $view->editView($donanteInfo);
+            $view->editView($donanteInfo); // si no devuelve nada esta vista se encarga
         }
     }
 
@@ -51,7 +51,8 @@ class DonanteController extends Controller {
           Preguntar que hacer!
          */
         if (parent::backendIsLogged()) {
-            
+            DonanteRepository::getInstance()->remove($id);
+            LoginController::getInstance()->index("");
         }
     }
 
