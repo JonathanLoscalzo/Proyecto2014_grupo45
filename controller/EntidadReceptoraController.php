@@ -6,6 +6,8 @@
  * and open the template in the editor.
  */
 
+include_once("model/EntidadReceptoraRepository.php"); //altos problemas con esta
+include_once("model/EntidadReceptoraModel.php");
 /**
  * Description of EntidadReceptoraController
  *

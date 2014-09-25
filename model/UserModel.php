@@ -2,7 +2,9 @@
 
 /* no deberìa ser singleton, dudas!*/
 /* no modelo la clase padre model porque estaria vacia?*/
-class UserModel 
+include_once("model/Model.php");
+
+class UserModel extends Model
 {
 	private $username;
 	private $role;
@@ -11,7 +13,6 @@ class UserModel
 	{
 		$this->username = $username;
 		$this->role = $role;
-
 	}
 
 	public function getUsername()

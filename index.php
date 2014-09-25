@@ -8,8 +8,8 @@
 
 require_once('controller/HomeController.php');
 require_once('controller/LoginController.php');
-//require_once('controller/AlimentosController.php');
-//require_once('controller/EntidadesReceptorasController.php');
+//require_once('controller/AlimentoController.php');
+require_once('controller/EntidadReceptoraController.php');
 require_once('controller/DonanteController.php');
 require_once('vistas/TwigView.php');
 require_once('vistas/BackEndView.php');
@@ -87,7 +87,32 @@ switch ($acciones[1]) {
         }
         break;
     case 'entidadesReceptoras':
-        # code...
+        (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
+        switch ($acciones[2]) {
+        case "edit":
+                if (!isset($_POST['submit'])) {
+                    /* deberia ser como la pantalla de crear */
+                    EntidadReceptoraController::getInstance()->editView($acciones[3]);
+                } else {
+                    $entidad = new EntidadReceptoraModel(
+                            $_POST["id"], $_POST["razon_social"], $_POST["apellido"], $_POST["nombre"], $_POST["telefono"], $_POST["email"], $_POST["domicilio"]
+                    );
+                    DonanteController::getInstance()->edit($donante);
+                }
+                break;
+            case "remove":
+                DonanteController::getInstance()->remove($acciones[3]);
+                break;
+            case "add":
+                /* agarrar todas las variables del post y mandarlas */
+                $variables = [];
+                DonanteController::getInstance()->create($variables);
+                break;
+            default:
+                DonanteController::getInstance()->index();
+                break;
+        }
+        break;
         break;
     case 'alimentos':
         # code...
