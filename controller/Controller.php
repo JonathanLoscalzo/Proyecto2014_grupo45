@@ -3,42 +3,40 @@
 include_once('LoginController.php');
 include_once('LoginStatusClass.php');
 
-abstract class Controller
-{
-	private static $instance = null;
+abstract class Controller {
+
+    private static $instance = null;
 
     public static function getInstance() {
 
-        if (is_null(self::$instance)){
+        if (is_null(self::$instance)) {
             self::$instance = new static();
-        }        
+        }
 
         return self::$instance;
     }
-    
+
     protected function __construct() {
         
     }
 
-    protected function backendIsLogged()
-    {
+    protected function backendIsLogged() {
         /* falta implementar funcionalidad */
-        
+
         $loginController = LoginController::getInstance();
         $loginController->startSession();
 
-        if ($loginController->isSessionStart())
-        {
+        if ($loginController->isSessionStart()) {
             return true;
-        }
-        else
-        {
+        } else {
             $view = new FrontEndView();
             $view->index(LoginStatus::call(3));
-            return false;    
+            return false;
         }
-
-        
     }
-	
+    /* deberia tener una interfaz ? */
+    abstract public function create($entidad);
+    abstract public function edit();
+    abstract public function remove();
+    abstract public function editView();
 }

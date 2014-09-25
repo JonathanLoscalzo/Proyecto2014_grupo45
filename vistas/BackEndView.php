@@ -28,12 +28,12 @@ class BackEndView extends TwigView {
 
     public function editViewDonante($donante) {
 
-        echo self::getTwig()->render('EditViewDonante.php', array('donante' => $donante)); //ver si esto anda
+        echo self::getTwig()->render('EditViewDonante.html.twig', array('donante' => $donante)); //ver si esto anda
     }
     
     public function editViewEntidadReceptora($entidad) {
 
-        echo self::getTwig()->render('EditViewEntidadReceptora.php.twig', array('entidad' => $entidad)); //ver si esto anda
+        echo self::getTwig()->render('EditViewEntidadReceptora.html.twig', array('entidad' => $entidad)); //ver si esto anda
     }
     
     public function editViewAlimento($alimento) {

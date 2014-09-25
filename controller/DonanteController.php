@@ -20,10 +20,6 @@ class DonanteController extends Controller {
         return self::$instance;
     }
 
-    protected function __construct() {
-        
-    }
-
     public function create($donante) {
         /* $donante sin id de donante */
         if (parent::backendIsLogged()) {
@@ -40,9 +36,9 @@ class DonanteController extends Controller {
     public function editView($id) {
 
         if (parent::backendIsLogged()) {
-            $donanteInfo = DonanteRepository::getInstance()->getDonanteByID($id);
+            $donanteInfo = DonanteRepository::getInstance()->getByID($id);
             $view = new BackEndView();
-            $view->editView($donanteInfo); // si no devuelve nada esta vista se encarga
+            $view->editViewDonante($donanteInfo); // si no devuelve nada esta vista se encarga
         }
     }
 
@@ -52,7 +48,7 @@ class DonanteController extends Controller {
          */
         if (parent::backendIsLogged()) {
             DonanteRepository::getInstance()->remove($id);
-            LoginController::getInstance()->index("");
+            LoginController::getInstance()->index(""); /* mensaje de todo ok */
         }
     }
 
@@ -60,9 +56,8 @@ class DonanteController extends Controller {
         /* comproba si hay una sesion valida
           ese metodo deberia enviarte al inicio directamente.
          */
-
         if (parent::backendIsLogged()) {
-            $donantes = DonanteRepository::getInstance()->getDonantes();
+            $donantes = DonanteRepository::getInstance()->getAll();
             $view = new BackEndView();
             $view->donantes($donantes);
         }

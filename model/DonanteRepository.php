@@ -2,69 +2,52 @@
 
 include_once('PDOrepository.php');
 
-class DonanteRepository extends PDOrepository
-{
-	private static $instance = null;
+class DonanteRepository extends PDOrepository {
+
+    private static $instance = null;
 
     public static function getInstance() {
 
-        if (is_null(self::$instance)){
+        if (is_null(self::$instance)) {
             self::$instance = new static();
-        }  
-              
+        }
+
         return self::$instance;
     }
 
-    public function getDonantes()
-    {
-    	$sql = "SELECT donante.* FROM donante ";
-    	$args = [];
-    	$mapper = function($row){
-    		return new DonanteModel($row['id'],
-    			$row['razon_social'],
-    			$row['apellido_contacto'],
-    			$row['nombre_contacto'],
-    			$row['telefono_contacto'],
-    			$row['mail_contacto'],
-    			$row['domicilio_contacto']);
-    	} ; // deberia crear un builder, feo esto.
-    	
+    public function getAll() {
+        $sql = "SELECT donante.* FROM donante ";
+        $args = [];
+        $mapper = function($row) {
+            return new DonanteModel($row['id'], $row['razon_social'], $row['apellido_contacto'], $row['nombre_contacto'], $row['telefono_contacto'], $row['mail_contacto'], $row['domicilio_contacto']);
+        }; // deberia crear un builder, feo esto.
+
         $answer = $this->queryList($sql, $args, $mapper);
-    	
-    	return $answer;
+
+        return $answer;
     }
 
-    public function getDonanteByID($id) {
-    	$sql = "SELECT donante.* FROM donante WHERE donante.Id = ?";
-    	$args = [$id];
-    	$mapper = function($row){
-    		return new DonanteModel($row['id'],
-    			$row['razon_social'],
-    			$row['apellido_contacto'],
-    			$row['nombre_contacto'],
-    			$row['telefono_contacto'],
-    			$row['mail_contacto'],
-    			$row['domicilio_contacto']);
-    	} ; // deberia crear un builder, feo esto.
-    	
+    public function getByID($id) {
+        $sql = "SELECT donante.* FROM donante WHERE donante.Id = ?";
+        $args = [$id];
+        $mapper = function($row) {
+            return new DonanteModel($row['id'], $row['razon_social'], $row['apellido_contacto'], $row['nombre_contacto'], $row['telefono_contacto'], $row['mail_contacto'], $row['domicilio_contacto']);
+        }; // deberia crear un builder, feo esto.
+
         $answer = $this->queryList($sql, $args, $mapper);
-    	
-    	if ( count($answer) == 1 )
-    	{
-    		return $answer[0];
-    	}
-    	else
-    	{
-    		return false;
-    	}
+
+        if (count($answer) == 1) {
+            return $answer[0];
+        } else {
+            return false;
+        }
     }
 
-    public function add($donante)
-    {
+    public function add($donante) {
         /*
-            que bobo. Se podia usar user_vars_func
-            en vez de poner ? se podia poner los nombres de las keys.
-        */
+          que bobo. Se podia usar user_vars_func
+          en vez de poner ? se podia poner los nombres de las keys.
+         */
         $args = $donante->getArray();
         array_pop($args);
 
@@ -76,14 +59,14 @@ class DonanteRepository extends PDOrepository
                     mail_contacto,
                     domicilio_contacto) 
                 VALUES (?,?,?,?,?,?)";
-        $mapper = "" ; //nose que poner acà
+        $mapper = ""; //nose que poner acà
         /* quien valida los datos? */
         return $answer = $this->queryList($sql, $args, $mapper);
     }
 
-    public function edit($donante){
+    public function edit($donante) {
 
-         $sql ="UPDATE donante
+        $sql = "UPDATE donante
                 SET razon_social = ?,
                     apellido_contacto = ? ,
                     nombre_contacto = ?,
@@ -92,19 +75,18 @@ class DonanteRepository extends PDOrepository
                     domicilio_contacto = ?) 
                 WHERE Id = ?";
         $args = $donante->getArray();
-        $mapper = "" ; //nose que poner acà
+        $mapper = ""; //nose que poner acà
         /* quien valida los datos? */
         return $answer = $this->queryList($sql, $args, $mapper);
-
     }
 
-    public function remove($id)
-    {
+    public function remove($id) {
         $args = [$id];
-        $sql =" DELETE FROM donante
+        $sql = " DELETE FROM donante
                 WHERE donante.Id = ?";
-        $mapper = "" ; //nose que poner acà
+        $mapper = ""; //nose que poner acà
         /* quien valida los datos? */
         return $answer = $this->queryList($sql, $args, $mapper);
     }
+
 }
