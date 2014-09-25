@@ -41,10 +41,19 @@ class DonanteController extends Controller
 
     public function index()
     {
-    	/*comproba si hay una sesion valida*/
-    	$donantes = DonanteRepository::getInstance()->getDonantes();
-    	$view= new BackEndView();
-    	$view->donantes($donantes);
+    	/*comproba si hay una sesion valida
+            ese metodo deberia enviarte al inicio directamente.
+        */
+        
+        if (parent::backendIsLogged()){
+            $donantes = DonanteRepository::getInstance()->getDonantes();
+            $view= new BackEndView();
+            $view->donantes($donantes);    
+        }
+
+
+
+    	
     }
 
 }

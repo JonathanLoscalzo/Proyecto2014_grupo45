@@ -3,16 +3,12 @@ include_once("Controller.php");
 include_once("model/UserModel.php");
 include_once("model/UserRepository.php");
 include_once("model/PDOrepository.php");
+include_once("LoginStatusClass.php");
 
 class LoginController extends Controller
 {
 	private static $instance = null;
-	private static $loginStatus = array(
-		0 => "Usuario inició sesión correctamente",
-		1 => "Usuario no puede iniciar sesión dos veces, debe cerrar sesión",
-		2 => "Usuario no existente, contraseña o nombre de usuario incorrectos",
-		3 => " UD. No tiene permiso para llegar aqui !!! ",
-	);
+	
 
     public static function getInstance() {
 
@@ -64,11 +60,11 @@ class LoginController extends Controller
 			case 0:
 			case 1:
 				$view = new BackEndView();
-				$view->index(self::$loginStatus[$aux]);
+				$view->index(LoginStatus::call($aux));
 				break;
 			case 2:
 				$view = new FrontEndView();
-				$view->index(self::$loginStatus[$aux]);
+				$view->index(LoginStatus::call($aux));
 				break;	
 		}
 		
@@ -86,7 +82,7 @@ class LoginController extends Controller
 		else
 		{
 			$view = new FrontEndView();
-			$view->index(self::$loginStatus[3]);
+			$view->index(LoginStatus::call(3));
 		}
 	}
 
