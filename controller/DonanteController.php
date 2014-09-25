@@ -23,18 +23,32 @@ class DonanteController extends Controller
         
     }
 
-    public function create()
+    public function create($donante)
     {
-
+        /*$donante sin id de donante*/
+        if(parent::backendIsLogged())
+        {
+            DonanteRepository::getInstance()->addDonante($donante);  
+        }
     }
 
-	public function edit($id)
+	public function edit($donante)
     {
-
+        if (parent::backendIsLogged())
+        {
+            DonanteRepository::getInstance()->editDonante($donante);
+        }
     }
 
     public function remove($id)
     {
+        /* onupdate y onremove estan en Restrict o en cascade? 
+            Preguntar que hacer!
+        */
+        if(parent::backendIsLogged())
+        {
+
+        }
 
     }    
 
@@ -51,9 +65,6 @@ class DonanteController extends Controller
             $view->donantes($donantes);    
         }
 
-
-
-    	
     }
 
 }

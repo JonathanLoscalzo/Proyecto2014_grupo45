@@ -73,16 +73,10 @@ class LoginController extends Controller
 	public function backend()
 	{
 		/*verificar si la sesion està iniciada?*/
-		self::startSession();
-		if (self::isSessionStart())
+		if(parent::backendIsLogged())
 		{
 			$view = new BackEndView();
 			$view->index();
-		}
-		else
-		{
-			$view = new FrontEndView();
-			$view->index(LoginStatus::call(3));
 		}
 	}
 
@@ -96,7 +90,6 @@ class LoginController extends Controller
 		self::startSession();
 		if (!self::isSessionStart())
 		{	
-
 			$actualUser = UserRepository::getInstance()->getUser($userName, $pass);
 			if ($actualUser != false)
 			{

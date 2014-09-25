@@ -60,11 +60,6 @@ class DonanteModel
 		return $this->razonSocial ;
 	}
 
-	public function setId($attr)
-	{
-				$this->id = $attr;
-	}
-
 	public function setNombre($attr)
 	{
 		$this->nombre = $attr;
