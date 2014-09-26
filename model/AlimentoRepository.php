@@ -4,6 +4,8 @@ include_onde("model/AlimentoModel.php");
 
 class AlimentoRepository extends PDORepository
 {
+    // TODO: no deberia pasarle un objeto como parametro el controlador en vez de
+    // un array o un parametro suelto? No sería mas comodo y mas prolijo?
     private static $instance = null;
 
     public static function getInstance() {
@@ -14,15 +16,16 @@ class AlimentoRepository extends PDORepository
               
         return self::$instance;
     }
-    public function addAlimento($codigo, $descripcion) {
+    public function add($alimento) {
+        
         $sql = "INSERT INTO alimento VALUES(?, ?)";
-        $args = array($codigo, $descripcion);
+        $args = $alimento->getArray();
         $mapper = function($row) {}; // que carajo hace mapper cuando no se
         // necesita?
         $answer = $this->queryList($sql, $args, $mapper);
         
     }
-    public function getAlimento($codigo) {
+    public function get($codigo) {
         $sql = "SELECT * FROM alimento WHERE alimento.codigo = ?";
         $args = array($codigo);
         $mapper = function($row) {
@@ -30,10 +33,18 @@ class AlimentoRepository extends PDORepository
         };
         $answer = $this->queryList($sql, $args, $mapper);
     }
-    public function updateAlimento($codigo, $descripcion) {
+    public function edit($alimento) {
         // por ahora no permito cambiarle el codigo, desp se verá si es necesario
         $sql = "UPDATE alimento SET descripcion=? WHERE alimento.codigo = ?";
-        $args = array($descripcion, $codigo);
+        $args = $alimento->getArray();
+        $mapper = function($row) {};
+        $answer = $this->queryList($sql, $args, $mapper);
+        $answer = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
+        return $answer;
+    }
+    public function remove($codigo) {
+        $sql = "DELETE FROM alimento WHERE alimento.codigo = ?";
+        $args = ($codigo);
         $mapper = function($row) {};
         $answer = $this->queryList($sql, $args, $mapper);
         $answer = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
