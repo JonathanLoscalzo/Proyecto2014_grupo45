@@ -1,1 +1,21 @@
-{# empty Twig template #}
+{# View Alimento. Esta view contiene la alta baja y modificacion. #}
+
+
+{% extends "backend_layout.php"  %}
+
+{% block content %}
+<div id ="content">
+    <form action="#" method="POST">
+        <div class="conj-block">
+            <label for="code" style = "display : block">Codigo: </label><input id="alimento-code" type="number" name="alimento-code" >
+            <label for="description" style = "display : block">Descripcion: </label><input name="alimento-descripcion" id="alimento-description" type="textarea" >
+        </div>
+        <div class="conj-block">
+            <label for="service" style = "display : block">Servicio Prestado: </label>
+            <!-- JRL => preguntar como usar esto!, como guardar esto. Si guardar con numeros y utilizar 
+            tipo un archivo de recursos. -->
+        </div>
+        <button type="submit" > Enviar </button>
+    </form>
+</div>
+{% endblock %}
