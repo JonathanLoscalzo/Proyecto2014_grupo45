@@ -55,7 +55,7 @@ class EntidadReceptoraController extends Controller {
          */
         if (parent::backendIsLogged()) {
             EntidadReceptoraRepository::getInstance()->remove($id);
-            LoginController::getInstance()->index("");
+            LoginController::getInstance()->index();
         }
     }
 
