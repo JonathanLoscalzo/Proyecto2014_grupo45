@@ -113,7 +113,6 @@ switch ($acciones[1]) {
                 break;
         }
         break;
-        break;
     case 'alimentos':
         # code...
         break;

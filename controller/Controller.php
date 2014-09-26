@@ -34,9 +34,14 @@ abstract class Controller {
             return false;
         }
     }
+
     /* deberia tener una interfaz ? */
+
     abstract public function create($entidad);
+
     abstract public function edit($entidad);
+
     abstract public function remove($id);
+
     abstract public function editView($id);
 }
