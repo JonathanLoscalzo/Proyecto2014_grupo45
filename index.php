@@ -62,28 +62,28 @@ switch ($acciones[1]) {
     case 'donantes':
         (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
         switch ($acciones[2]) {
-            case "edit":
-                if (!isset($_POST['submit'])) {
-                    /* deberia ser como la pantalla de crear */
-                    DonanteController::getInstance()->editView($acciones[3]);
-                } else {
-                    $donante = new DonanteModel(
-                            $_POST["id"], $_POST["razon_social"], $_POST["apellido"], $_POST["nombre"], $_POST["telefono"], $_POST["email"], $_POST["domicilio"]
-                    );
-                    DonanteController::getInstance()->edit($donante);
-                }
-                break;
-            case "remove":
-                DonanteController::getInstance()->remove($acciones[3]);
-                break;
-            case "add":
-                /* agarrar todas las variables del post y mandarlas */
-                $variables = [];
-                DonanteController::getInstance()->create($variables);
-                break;
-            default:
-                DonanteController::getInstance()->index();
-                break;
+        case "edit":
+            if (!isset($_POST['submit'])) {
+                /* deberia ser como la pantalla de crear */
+                DonanteController::getInstance()->editView($acciones[3]);
+            } else {
+                $donante = new DonanteModel(
+                        $_POST["id"], $_POST["razon_social"], $_POST["apellido"], $_POST["nombre"], $_POST["telefono"], $_POST["email"], $_POST["domicilio"]
+                );
+                DonanteController::getInstance()->edit($donante);
+            }
+            break;
+        case "remove":
+            DonanteController::getInstance()->remove($acciones[3]);
+            break;
+        case "add":
+            /* agarrar todas las variables del post y mandarlas */
+            $variables = [];
+            DonanteController::getInstance()->create($variables);
+            break;
+        default:
+            DonanteController::getInstance()->index();
+            break;
         }
         break;
     case 'entidadesReceptoras':
@@ -97,29 +97,58 @@ switch ($acciones[1]) {
                     $entidad = new EntidadReceptoraModel(
                             $_POST["id"], $_POST["razon_social"], $_POST["apellido"], $_POST["nombre"], $_POST["telefono"], $_POST["email"], $_POST["domicilio"]
                     );
-                    DonanteController::getInstance()->edit($donante);
+                    EntidadReceptoraController::getInstance()->edit($entidad);
                 }
                 break;
             case "remove":
-                DonanteController::getInstance()->remove($acciones[3]);
+                EntidadReceptoraController::getInstance()->remove($acciones[3]);
                 break;
             case "add":
                 /* agarrar todas las variables del post y mandarlas */
                 $variables = [];
-                DonanteController::getInstance()->create($variables);
+                EntidadReceptoraController::getInstance()->create($variables);
                 break;
             default:
-                DonanteController::getInstance()->index();
+                EntidadReceptoraController::getInstance()->index();
                 break;
         }
         break;
-        break;
     case 'alimentos':
-        # code...
+        (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
+        switch ($acciones[2]) {
+        case "edit":
+            if (!isset($_POST['submit'])) {
+                /* deberia ser como la pantalla de crear */
+                AlimentoController::getInstance()->editView($acciones[3]);
+            } else {
+                $entidad = new AlimentoModel(
+                $_POST["id"], $_POST["razon_social"], $_POST["apellido"], $_POST["nombre"], $_POST["telefono"], $_POST["email"], $_POST["domicilio"]
+                );
+                AlimentoController::getInstance()->edit($entidad);
+            }
+            break;
+        case "remove":
+            AlimentoController::getInstance()->remove($acciones[3]);
+            break;
+        case "add":
+            /* agarrar todas las variables del post y mandarlas */
+            $variables = [];
+            AlimentoController::getInstance()->create($variables);
+            break;
+        default:
+            AlimentoController::getInstance()->index();
+            break;
+        }
         break;
     case 'listadoAlimentos':
-        $view = new BackEndView();
-        $view->listado_alimentos();
+        if (LoginController::isSessionStart()){
+            $view = new BackEndView();
+            $view->listado_alimentos();
+        }
+        else{
+            $view = new FrontEndView();
+            $view-> index(LoginStatus::call(3));
+        }
         break;
     default:
         HomeController::getInstance()->index();

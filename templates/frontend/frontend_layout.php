@@ -36,4 +36,7 @@
 	
 
 </body>
+{% block scripts %}
+
+{% endblock %}
 </html>
