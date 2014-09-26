@@ -1,18 +1,19 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 
 include_once("model/EntidadReceptoraRepository.php"); //altos problemas con esta
 include_once("model/EntidadReceptoraModel.php");
+
 /**
  * Description of EntidadReceptoraController
- *
+ *  HABRIA QUE TENER EN CUENTA QUE ENTIDAD TIENE VARIAS VARIABLES CONECTADAS
+ *  COMO SE RELACIONARIAN?
  * @author jloscalzo
  */
+
 class EntidadReceptoraController extends Controller {
 
     private static $instance = null;
@@ -54,7 +55,7 @@ class EntidadReceptoraController extends Controller {
          */
         if (parent::backendIsLogged()) {
             EntidadReceptoraRepository::getInstance()->remove($id);
-            LoginController::getInstance()->index("");
+            LoginController::getInstance()->index();
         }
     }
 
