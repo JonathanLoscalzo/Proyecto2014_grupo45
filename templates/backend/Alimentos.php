@@ -16,6 +16,7 @@
 
 {% block content %}		
 	<div id = "content">
+            <div class="accordion">
 		<h2>ALTA, BAJA Y MODIFICACIÓN DE ALIMENTOS</h2>
 		<form action="#" method="POST">
 			<div class="conj-block">
@@ -29,6 +30,7 @@
 				<label for="reserve" style = "display : block">Reservado: </label><input id="reserve" type="number" >
 			</div>
 		</form>
+            </div>
 	</div>
 {% endblock %}
 {% block scripts %}
@@ -36,5 +38,6 @@
 	$(document).ready(function(){
 		$('#expiration').datepicker();
 	});
+        $('.accordion').accordion({ collapsible: true });
 </script>
 {% endblock %}
