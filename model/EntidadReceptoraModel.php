@@ -4,8 +4,8 @@ include_once("model/Model.php");
 class NecesidadEntidadModel extends model {
     // decidi meterla en el mismo archivo, debido a que el modelo es basicamente el mismo
     // estas clases dependen de la principal y la relacion es 1 a 1
-    private $id;
-    private $descripcion;
+    public $id;
+    public $descripcion;
     public function __construct($id, $descripcion) {
         $this-> id = $id;
         $this-> descripcion = $descripcion;
@@ -28,8 +28,8 @@ class NecesidadEntidadModel extends model {
 }
 
 class EstadoEntidadModel extends Model {
-    private $id;
-    private $descripcion;
+    public $id;
+    public $descripcion;
     public function __construct($id, $descripcion) {
         $this-> id = $id;
         $this-> descripcion = $descripcion;
@@ -37,8 +37,8 @@ class EstadoEntidadModel extends Model {
 }
 
 class ServicioEntidadModel extends model {
-    private $id;
-    private $descripcion;
+    public $id;
+    public $descripcion;
     public function __construct($id, $descripcion) {
         $this-> id = $id;
         $this-> descripcion = $descripcion;

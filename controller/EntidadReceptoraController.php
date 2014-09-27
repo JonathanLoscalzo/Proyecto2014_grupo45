@@ -73,9 +73,13 @@ class EntidadReceptoraController extends Controller {
          */
 
         if (parent::backendIsLogged()) {
+            // esto supuestamente deberia enviar 4 variables, envia 1, OBVIO que va a andar mal
             $EntidadesReceptoras = EntidadReceptoraRepository::getInstance()->getAll();
+            $servicios = ServicioEntidadRepository::getInstance()->getAll();
+            $necesidades = NecesidadEntidadRepository::getInstance()->getAll();
+            $estados = EstadoEntidadRepository::getInstance()->getAll();
             $view = new BackEndView();
-            $view->EntidadesReceptoras($EntidadesReceptoras);
+            $view->EntidadesReceptoras($EntidadesReceptoras, $estados, $necesidades, $servicios);
         }
     }
 

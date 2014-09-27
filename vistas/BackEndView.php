@@ -15,6 +15,7 @@ class BackEndView extends TwigView {
     }
 
     public function entidadesReceptoras($entidades, $estados, $necesidades, $servicios) {
+        var_dump($estados[0]);
         echo self::getTwig()->render('EntidadesReceptoras.php', array(
             'entidades' => $entidades,
             'estados' => $estados,
