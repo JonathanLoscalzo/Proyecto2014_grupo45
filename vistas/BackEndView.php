@@ -19,11 +19,11 @@ class BackEndView extends TwigView {
             'entidades' => $entidades,
             'estados' => $estados,
             'necesidades' => $necesidades,
-            'servicios' => $servicios            
+            'servicios' => $servicios
         ));
     }
 
-    public function alimentos($alimentos){
+    public function alimentos($alimentos) {
         echo self::getTwig()->render('Alimentos.php', array('alimentos', $alimentos));
     }
 
@@ -33,12 +33,15 @@ class BackEndView extends TwigView {
 
     public function editViewDonante($donante) {
 
-        echo self::getTwig()->render('EditViewDonante.html.twig', array('donante' => $donante)); //ver si esto anda
+        echo self::getTwig()->render('EditViewDonante.html.twig', ['donante' => $donante]); //ver si esto anda
     }
 
-    public function editViewEntidadReceptora($entidad) {
+    public function editViewEntidadReceptora($entidad, $estados, $necesidades, $servicios) {
 
-        echo self::getTwig()->render('EditViewEntidadReceptor.html.twig', array('entidad' => $entidad)); //ver si esto anda
+        echo self::getTwig()->render('EditViewEntidadReceptor.html.twig', ['entidad' => $entidad,
+            'estados' => $estados,
+            'necesidades' => $necesidades,
+            'servicios' => $servicios]); //ver si esto anda
     }
 
     public function editViewAlimento($alimento) {
