@@ -24,7 +24,7 @@ class DonanteController extends Controller {
         /* $donante sin id de donante */
         if (parent::backendIsLogged()) {
             $data = $post->getParams();
-            if (DonanteRepository::getInstance()->getByRazonSocial($data['razonSocial']) === False) {
+            if (count(DonanteRepository::getInstance()->getByRazonSocial($data['razonSocial'])) > 0) {
                     DonanteRepository::getInstance()->add(new DonanteModel(null,
                     $data['razonSocial'], $data['apellido'],
                     $data['nombre'], $data['telefono'], $data['email'],
@@ -39,10 +39,20 @@ class DonanteController extends Controller {
     public function edit($post) {
         if (parent::backendIsLogged()) {
             $data = $post->getParams();
-            DonanteRepository::getInstance()->edit($data['id'],
-                    $data['razonSocial'], $data['apellido'],
-                    $data['nombre'], $data['telefono'], $data['email'],
-                    $data['domicilio']);
+            $dbdata = DonanteRepository::getInstance()->getByRazonSocial($data['razonSocial']);
+            if ((count($dbdata) > 0) && ($dbdata['id'] === $data['id'])) {
+               
+                 DonanteRepository::getInstance()->edit($data['id'],
+                        $data['razonSocial'], $data['apellido'],
+                        $data['nombre'], $data['telefono'], $data['email'],
+                        $data['domicilio']);
+                }
+            else if (count($dbdata) === 0){
+                DonanteRepository::getInstance()->edit($data['id'],
+                        $data['razonSocial'], $data['apellido'],
+                        $data['nombre'], $data['telefono'], $data['email'],
+                        $data['domicilio']);
+            }
         }
     }
 
