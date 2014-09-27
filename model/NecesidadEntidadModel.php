@@ -8,7 +8,7 @@ class NecesidadEntidadModel extends model {
     // referenciando al objeto como si fuese publico, instancia.VARIABLE, cuando se 
     // deberia usar getters.
     private $id;
-   private $descripcion;
+    private $descripcion;
 
     public function __construct($id, $descripcion) {
         $this->id = $id;
@@ -34,4 +34,3 @@ class NecesidadEntidadModel extends model {
     }
 
 }
-

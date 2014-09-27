@@ -69,7 +69,6 @@ class EntidadReceptoraRepository extends PDORepository{
         }; // deberia crear un builder, feo esto.
         
         $answer = $this->queryList($sql, $args, $mapper);
-        var_dump($answer);die;
         return $answer;
         
     }

@@ -3,9 +3,7 @@
 include_once("model/Model.php");
 include_once("model/NecesidadEntidadModel.php");
 include_once("model/EstadoEntidadModel.php");
-include_once("model/ServicioEntidadModel.php")
-
-
+include_once("model/ServicioEntidadModel.php");
 
 class EntidadReceptoraModel extends Model {
 
@@ -31,6 +29,8 @@ class EntidadReceptoraModel extends Model {
         $this->estado = $model_estado;
         $this->necesidad = $model_necesidad;
         $this->servicio = $model_servicio;
+        
+        var_dump($this);die;
     }
 
     public function getId() {
@@ -75,14 +75,6 @@ class EntidadReceptoraModel extends Model {
 
     public function getServicioPrestadoID() {
         return $this->servicioPrestadoID;
-    }
-
-    public function getEstadoEntidad() {
-        return $this->estado;
-    }
-
-    public function getNecesidadEntidad() {
-        return $this->necesidad;
     }
 
     public function setRazonSocial() {
