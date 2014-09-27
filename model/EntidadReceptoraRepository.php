@@ -180,6 +180,10 @@ class EntidadReceptoraRepository extends PDORepository{
         $args = [];
         
         $mapper = function($row) {
+            // creamos un objeto por cada model que va embebido dentro de EntidadReceptoraModel
+            // esto significa que si traemos un EntidadReceptora TAMBIEN TRAEMOS sus models referenciados
+            // ya que la relacion es 1 a 1 SUPUESTAMENTE es preferible manejar la informacion de a bloques
+            // para las altas / bajas / modificaciones.
             $estado = EstadoEntidadRepository::getInstance()->getByID($row['estado_entidad_Id']);
             $necesidad = EstadoEntidadRepository::getInstance()->getByID($row['necesidad_entidad_Id']);
             $servicio = EstadoEntidadRepository::getInstance()->getByID($row['servicio_entidad_Id']);
