@@ -26,7 +26,7 @@ class EntidadReceptoraController extends Controller {
         return self::$instance;
     }
 
-    public function create($entidad) {
+    public function create($post) {
         /* $EntidadReceptora sin id de EntidadReceptora */
         if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros
