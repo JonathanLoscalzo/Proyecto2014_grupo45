@@ -24,6 +24,14 @@ class NecesidadEntidadRepository extends PDORepository{
 
         return self::$instance;
     }
+    
+    public static function getByID($id) {
+        $sql = "SELECT * FROM necesidad_entidad WHERE id=?";
+        $args = array($id);
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return new NecesidadEntidadModel($answer['id'], $answer['descripcion']);
+    }
     public function add($necesidadEntidad) {
         $sql = "INSERT INTO necesidad_entidad(descripcion) VALUES(?)";
         $args = $necesidadEntidad->getArray()['descripcion'];
@@ -45,6 +53,14 @@ class EstadoEntidadRepository extends PDORepository{
 
         return self::$instance;
     }
+    public static function getByID($id) {
+        // getByID
+        $sql = "SELECT * FROM estado_entidad WHERE id=?";
+        $args = array($id);
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return new EstadoEntidadModel($answer['id'], $answer['descripcion']);
+    }
     public function add($estadoEntidad) {
         $sql = "INSERT INTO estado_entidad(descripcion) VALUES(?)";
         $args = $estadoEntidad->getArray()['descripcion'];
@@ -54,6 +70,38 @@ class EstadoEntidadRepository extends PDORepository{
     }
     
 }
+
+class ServicioEntidadRepository extends PDORepository{
+    private static $instance = null;
+    
+    public static function getInstance() {
+
+        if (is_null(self::$instance)) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
+    }
+    public static function getByID($id) {
+        // getByID
+        $sql = "SELECT * FROM servicio_prestado WHERE id=?";
+        $args = array($id);
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return new ServicioEntidadModel($answer['id'], $answer['descripcion']);
+    }
+    public function add($estadoEntidad) {
+        $sql = "INSERT INTO estado_entidad(descripcion) VALUES(?)";
+        $args = $estadoEntidad->getArray()['descripcion'];
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
+    }
+    
+}
+
+
+
 
 class EntidadReceptoraRepository extends PDORepository{
     private static $instance = null;
@@ -66,6 +114,8 @@ class EntidadReceptoraRepository extends PDORepository{
 
         return self::$instance;
     }
+    
+    
     public function add($entidadReceptora) {
         $sql = "INSERT INTO entidad_receptora VALUES(?,?,?,?,?,?)";
         $args = $entidadReceptora->getArray();
@@ -95,10 +145,12 @@ class EntidadReceptoraRepository extends PDORepository{
     public function getAll() {
         $sql = "SELECT entidad_receptora.* FROM entidad_receptora ";
         $args = [];
+        
         $mapper = function($row) {
-            return call_user_func_array(array(new EntidadReceptoraModel, $row));
-            // es importante que venga con el mismo orden
-            //http://stackoverflow.com/questions/744145/passing-an-array-as-arguments-not-an-array-in-php
+            $estado = EstadoEntidadRepository::getByID($row['estado_entidad_Id']);
+            $necesidad = EstadoEntidadRepository::getByID($row['necesidad_entidad_Id']);
+            $servicio = EstadoEntidadRepository::getByID($row['servicio_entidad_Id']);
+            return new EntidadReceptoraModel($row['id'],$row['razon_social'],$row['telefono'],$row['domicilio'],$estado,$necesidad,$servicio);
         }; // deberia crear un builder, feo esto.
 
         $answer = $this->queryList($sql, $args, $mapper);
@@ -106,4 +158,7 @@ class EntidadReceptoraRepository extends PDORepository{
         return $answer;
         
     }
-}
+    public static function getByID($id) {
+        // getByID
+    }
+}  

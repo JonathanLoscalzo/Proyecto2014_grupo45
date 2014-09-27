@@ -36,23 +36,32 @@ class EstadoEntidadModel extends Model {
     }
 }
 
+class ServicioEntidadModel extends model {
+    private $id;
+    private $descripcion;
+    public function __construct($id, $descripcion) {
+        $this-> id = $id;
+        $this-> descripcion = $descripcion;
+    }
+}
+
 class EntidadReceptoraModel extends Model{
 
 	private $id;
-    private $razonSocial;
-    private $telefono;
+        private $razonSocial;
+        private $telefono;
         private $estado;
         private $necesidad;
 	private $domicilio;
 	private $estadoEntidadID;
 	private $necesidadEntidadID;
 	private $servicioPrestadoID;
-
+        private $servicio;
     
 	public function __construct($id, $razonSocial, $necesidadEntidadID, 
                 $estadoEntidadID, $telefono, $servicioPrestadoID, $domicilio, 
-                $id_estado, $descripcion_estado, $id_necesidad, 
-                $descripcion_necesidad) {
+                $model_estado, $model_necesidad, 
+                $model_servicio) {
             $this->id = $id;
             $this->razonSocial = $razonSocial;
             $this->telefono = $telefono;
@@ -60,8 +69,9 @@ class EntidadReceptoraModel extends Model{
             $this->estadoEntidadID = $estadoEntidadID;
             $this->necesidadEntidadID = $necesidadEntidadID;
             $this->servicioPrestadoID = $servicioPrestadoID;
-            $this->estado = new EstadoEntidadModel($id_estado, $descripcion_estado);
-            $this->necesidad = new NecesidadEntidadModel($id_necesidad, $descripcion_necesidad);
+            $this->estado = $model_estado;
+            $this->necesidad = $model_necesidad;
+            $this->servicio = $model_servicio;
     }
 
     public function getId() {
