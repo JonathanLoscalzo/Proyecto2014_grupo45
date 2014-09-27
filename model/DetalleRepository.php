@@ -62,11 +62,9 @@ class DetalleRepository extends PDORepository
         $sql = "SELECT * FROM detalle_alimento";
         $args = [];
         $mapper = function($row) {
-                $alimento = AlimentoRepository::getInstance()->getByID($row['alimento_codigo']);
                 return new DetalleModel($row['id'], $row['alimento_codigo'], 
                     $row['fecha_vencimiento'], $row['contenido'], $row['peso_unitario'],
-                    $row['stock'], $row['reservado'], new AlimentoModel($alimento['id'],
-                            $alimento['descripcion']));
+                    $row['stock'], $row['reservado'], $row['alimento_codigo']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
         $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
@@ -76,11 +74,9 @@ class DetalleRepository extends PDORepository
         $sql = "SELECT * FROM detalle_alimento WHERE detalle_alimento.id = ?";
         $args = [$id];
         $mapper = function($row) {
-                $alimento = AlimentoRepository::getInstance()->getByID($row['alimento_codigo']);
                 return new DetalleModel($row['id'], $row['alimento_codigo'], 
                     $row['fecha_vencimiento'], $row['contenido'], $row['peso_unitario'],
-                    $row['stock'], $row['reservado'], new AlimentoModel($alimento['id'],
-                            $alimento['descripcion']));
+                    $row['stock'], $row['reservado'], $row['alimento_codigo']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
         $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo

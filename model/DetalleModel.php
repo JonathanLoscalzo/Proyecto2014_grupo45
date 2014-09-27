@@ -18,7 +18,7 @@ class DetalleModel extends Model
         private $alimento_model;
         
 	public function __construct($id, $alimento_codigo, $fecha_vencimiento,
-                $contenido, $peso_unitario, $stock, $reservado, $alimento_model){
+                $contenido, $peso_unitario, $stock, $reservado){
             $this->alimento_codigo = $alimento_codigo;
             $this->contenido = $contenido;
             $this->fecha_vencimiento = $fecha_vencimiento;
@@ -26,7 +26,7 @@ class DetalleModel extends Model
             $this->peso_unitario = $peso_unitario;
             $this->reservado = $reservado;
             $this->stock = $stock;
-            $this->alimento_model = $alimento_model;
+            $this->alimento_model = AlimentoRepository::getInstance()->getByID($alimento_codigo);
             // var alimento model corresponde a un tipo de alimento (AlimentoModel)
             return $this;
 	}

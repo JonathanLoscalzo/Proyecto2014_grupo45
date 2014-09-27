@@ -19,11 +19,17 @@ class AlimentoController extends Controller
     public function create($post) {
         if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros
-            if ($data['flag'] == true) {
-                $detalle_entidad = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], 
+            $detalle_entidad = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], 
                     $data['contenido'], $data['peso_unitario'], $data['stock'], 
-                    $data['reservado'], new AlimentoModel($data['codigo'], $data['descripcion']));
+                    $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
+            if ($data['flag'] == true) {
+                // SI SE DESEA CREAR TAMBIEN UN ALIMNETO NUEVO
                 AlimentoRepository::getInstance()->add($detalle_entidad->getAlimento());
+                DetalleRepository::getInstance()->add($detalle_entidad);
+            }
+            else {
+                // SI UNICAMENTE SE DESEA CREAR UN DETALLE, CON SU ALIMENTO ASOCIADO 
+                // EXISTENTE EN LA BD:
                 DetalleRepository::getInstance()->add($detalle_entidad);
             }
             
