@@ -14,7 +14,7 @@
     <div id = "accordion">
         <h3>ALTA</h3>
         <div>
-            <form action="#" method="POST" id="alta">
+            <form action="./donantes/add" method="POST" id="alta">
                 <div class="conj-block">
                     <label for="razonSocial" style = "display : block">Razon Social: </label><input id="razonSocial" type="number" >
                     <label for="nombre" style = "display : block">Nombre: </label><input id="nombre" type="text" >
