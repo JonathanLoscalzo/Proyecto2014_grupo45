@@ -38,7 +38,7 @@ class BackEndView extends TwigView {
 
     public function editViewEntidadReceptora($entidad) {
 
-        echo self::getTwig()->render('EditViewEntidadReceptoras.html.twig', array('entidad' => $entidad)); //ver si esto anda
+        echo self::getTwig()->render('EditViewEntidadReceptor.html.twig', array('entidad' => $entidad)); //ver si esto anda
     }
 
     public function editViewAlimento($alimento) {

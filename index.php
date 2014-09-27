@@ -94,10 +94,7 @@ switch ($acciones[1]) {
                     /* deberia ser como la pantalla de crear */
                     EntidadReceptoraController::getInstance()->editView($acciones[3]);
                 } else {
-                    $entidad = new EntidadReceptoraModel(
-                            $_POST["id"], $_POST["razon_social"], $_POST["apellido"], $_POST["nombre"], $_POST["telefono"], $_POST["email"], $_POST["domicilio"]
-                    );
-                    EntidadReceptoraController::getInstance()->edit($entidad);
+                    EntidadReceptoraController::getInstance()->edit(new Params($_POST));
                 }
                 break;
             case "remove":
@@ -105,8 +102,7 @@ switch ($acciones[1]) {
                 break;
             case "add":
                 /* agarrar todas las variables del post y mandarlas */
-                $variables = [];
-                EntidadReceptoraController::getInstance()->create($variables);
+                EntidadReceptoraController::getInstance()->create(new Params($_POST));
                 break;
             default:
                 EntidadReceptoraController::getInstance()->index();

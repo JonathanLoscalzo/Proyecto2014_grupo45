@@ -30,12 +30,20 @@ class EntidadReceptoraController extends Controller {
     public function create($entidad) {
         /* $EntidadReceptora sin id de EntidadReceptora */
         if (parent::backendIsLogged()) {
+            $data = $post->getParams(); // obtenemos Los parametros
+            $entidad = new EntidadReceptoraModel(
+                            $data["id"], $data["razon_social"], $data["apellido"], $data["nombre"], $data["telefono"], $data["email"], $data["domicilio"],
+                    $data['estado_entidad_id'], $data['necesidad_entidad_id'], $data["servicio_perstado_id"]);
             EntidadReceptoraRepository::getInstance()->add($entidad);
         }
     }
 
-    public function edit($entidad) {
+    public function edit($post) {
         if (parent::backendIsLogged()) {
+            $data = $post->getParams(); // obtenemos Los parametros
+            $entidad = new EntidadReceptoraModel(
+                            $data["id"], $data["razon_social"], $data["apellido"], $data["nombre"], $data["telefono"], $data["email"], $data["domicilio"],
+                    $data['estado_entidad_id'], $data['necesidad_entidad_id'], $data["servicio_perstado_id"]);
             EntidadReceptoraRepository::getInstance()->edit($entidad);
         }
     }
