@@ -1,9 +1,8 @@
 <?php
 
-class ServicioEntidadRepository extends PDORepository {
-
+class ServicioEntidadRepository extends PDORepository{
     private static $instance = null;
-
+    
     public static function getInstance() {
 
         if (is_null(self::$instance)) {
@@ -12,16 +11,16 @@ class ServicioEntidadRepository extends PDORepository {
 
         return self::$instance;
     }
-
-    public static function getByID($id) {
+    public function getByID($id) {
         // getByID
         $sql = "SELECT * FROM servicio_prestado WHERE id=?";
-        $args = array($id);
-        $mapper = "";
+        $args = [$id];
+        $mapper = function ($row) {
+            return new ServicioEntidadModel($row['Id'], $row['descripcion']);
+        };
         $answer = $this->queryList($sql, $args, $mapper);
-        return new ServicioEntidadModel($answer['id'], $answer['descripcion']);
+        return $answer;
     }
-
     public function add($estadoEntidad) {
         $sql = "INSERT INTO estado_entidad(descripcion) VALUES(?)";
         $args = $estadoEntidad->getArray()['descripcion'];
@@ -29,13 +28,15 @@ class ServicioEntidadRepository extends PDORepository {
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
-
-    public static function getAll() {
+    public function getAll() {
         $sql = "SELECT * FROM servicio_prestado";
-        $args = "";
-        $mapper = "";
+        $args = [];
+        $mapper = function ($row) {
+            return new ServicioEntidadModel($row['Id'], $row['descripcion']);
+        };
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
-
+    
 }
+
