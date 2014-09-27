@@ -81,7 +81,11 @@
 <script>
 $(document).ready(function () {
     $('#accordion').accordion({collapsible: true});
-    $('#tabla-entidades').dataTable();
+    $('#tabla-entidades').dataTable({
+        language:{
+            url: window.location.host +"/js/plugins/SpanishDataTable.json"
+        }
+    });
 });
 </script>
 {% endblock %}

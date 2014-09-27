@@ -3,30 +3,6 @@
 include_once('LoginController.php');
 include_once('LoginStatusClass.php');
 
-class Params {
-    private static $instance = null;
-    private $paramsArray;
-    public static function getInstance() {
-
-        if (is_null(self::$instance)) {
-            self::$instance = new static();
-        }
-
-        return self::$instance;
-    }
-    public function __construct($params) {
-        $this->paramsArray = $params;
-    }
-    public function getParams () {
-        return $this->paramsArray;
-    }
-    public function setParams () {
-        
-    }
-    
-    
-}
-
 abstract class Controller {
 
     private static $instance = null;

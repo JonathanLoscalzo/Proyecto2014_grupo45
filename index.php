@@ -8,7 +8,7 @@
 
 require_once('controller/HomeController.php');
 require_once('controller/LoginController.php');
-//require_once('controller/AlimentoController.php');
+require_once('controller/AlimentoController.php');
 require_once('controller/EntidadReceptoraController.php');
 require_once('controller/DonanteController.php');
 require_once('vistas/TwigView.php');
