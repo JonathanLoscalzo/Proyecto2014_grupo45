@@ -4,7 +4,7 @@
 	<title>Banco de Alimentos</title>
 	{% block head %}
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="../../css/style-backend.css" rel="stylesheet">
+	<link href="./{{ server }}css/style-backend.css" rel="stylesheet">
 	{% endblock %}
 </head>
 <body>

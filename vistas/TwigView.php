@@ -16,7 +16,10 @@ abstract class TwigView {
             self::$twig = new Twig_Environment($loader);
             LoginController::getInstance()->startSession();
              self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
-             self::$twig->addGlobal('server', $_SERVER['SERVER_NAME']);
+             
+             $cant = count(split("/", $_SERVER['REQUEST_URI'])) - 2 ;
+             $var = str_repeat("../", $cant);
+             self::$twig->addGlobal('server', $var );
         }
         return self::$twig;
     }

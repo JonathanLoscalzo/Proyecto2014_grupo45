@@ -1,7 +1,7 @@
 {% extends "backend_layout.php" %}
 {% block head %}
 {{ parent() }}
-<link rel="stylesheet" type="text/css" href="css/sunny/jquery-ui-1.9.2.custom.css">
+<link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
 <script type="text/javascript" src="js/plugins/jquery-2.1.2.js"></script>
 <script type="text/javascript" src="js/plugins/jquery-ui-1.9.2.custom.js"></script>
 <script type="text/javascript" src="js/plugins/jquery-ui-1.11.js"></script>
@@ -15,7 +15,7 @@
     <div id="accordion">
         <h3>Alta</h3>
         <div>
-            <form action="./entidadesReceptoras/add" method="POST">
+            <form action="./{{server}}entidadesReceptoras/add" method="POST">
                 <div class="conj-block">
                     <label for="nombreCompania" style = "display : block">Razon Social: </label><input id="nombreCompania" type="text" required placeholder="Razon social">
                     <label for="phone" style = "display : block">Teléfono: </label><input id="telefono" type="number" placeholder="Telefono">
@@ -66,8 +66,8 @@
                 <td> {{ elem.necesidad.descripcion }} </td>
                 <td> {{ elem.servicio.descripcion }} </td>
 
-                <td><a href="./entidadesReceptoras/edit/{{ elem.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                <td><a href="./entidadesReceptoras/remove/{{ elem.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                <td><a href="./{{server}}entidadesReceptoras/edit/{{ elem.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                <td><a href="./{{server}}entidadesReceptoras/remove/{{ elem.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -81,11 +81,7 @@
 <script>
 $(document).ready(function () {
     $('#accordion').accordion({collapsible: true});
-    $('#tabla-entidades').dataTable({
-        language:{
-            url: window.location.host +"/js/plugins/SpanishDataTable.json"
-        }
-    });
+    $('#tabla-entidades').dataTable();
 });
 </script>
 {% endblock %}

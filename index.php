@@ -32,7 +32,6 @@ require_once("model/ParamsClass.php");
 
 
 $acciones = split("/", $_SERVER['REQUEST_URI']);
-
 switch ($acciones[1]) {
     case "index":
         HomeController::getInstance()->index();
@@ -145,7 +144,7 @@ switch ($acciones[1]) {
         }
         break;
     default:
-        HomeController::getInstance()->index();
+        HomeController::getInstance()->index(); 
         break;
     // Deberìa redireccionarte a una pagina 404 o algo asi	
 }
