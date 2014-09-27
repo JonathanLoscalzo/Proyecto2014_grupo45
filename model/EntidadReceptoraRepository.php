@@ -39,6 +39,13 @@ class NecesidadEntidadRepository extends PDORepository{
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
+    public static function getAll() {
+        $sql = "SELECT * FROM necesidad_entidad";
+        $args = "";
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
+    }
     
 }
 
@@ -68,6 +75,13 @@ class EstadoEntidadRepository extends PDORepository{
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
+    public static function getAll() {
+        $sql = "SELECT * FROM estado_entidad";
+        $args = "";
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
+    }
     
 }
 
@@ -93,6 +107,13 @@ class ServicioEntidadRepository extends PDORepository{
     public function add($estadoEntidad) {
         $sql = "INSERT INTO estado_entidad(descripcion) VALUES(?)";
         $args = $estadoEntidad->getArray()['descripcion'];
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
+    }
+    public static function getAll() {
+        $sql = "SELECT * FROM servicio_prestado";
+        $args = "";
         $mapper = "";
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
