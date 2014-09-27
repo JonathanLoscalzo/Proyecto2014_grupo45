@@ -4,6 +4,9 @@ include_once("model/Model.php");
 class NecesidadEntidadModel extends model {
     // decidi meterla en el mismo archivo, debido a que el modelo es basicamente el mismo
     // estas clases dependen de la principal y la relacion es 1 a 1
+    // hice las variables publicas para denotar el tema de que en la VISTA se esta
+    // referenciando al objeto como si fuese publico, instancia.VARIABLE, cuando se 
+    // deberia usar getters.
     public $id;
     public $descripcion;
     public function __construct($id, $descripcion) {
