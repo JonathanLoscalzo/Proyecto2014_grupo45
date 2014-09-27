@@ -11,6 +11,7 @@ require_once('controller/LoginController.php');
 //require_once('controller/AlimentoController.php');
 require_once('controller/EntidadReceptoraController.php');
 require_once('controller/DonanteController.php');
+require_once('controller/AlimentoController.php');
 require_once('vistas/TwigView.php');
 require_once('vistas/BackEndView.php');
 require_once('vistas/FrontEndView.php');
@@ -60,6 +61,7 @@ switch ($acciones[1]) {
         LoginController::getInstance()->backend();
         break;
     case 'donantes':
+        
         (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
         switch ($acciones[2]) {
         case "edit":
@@ -67,9 +69,7 @@ switch ($acciones[1]) {
                 /* deberia ser como la pantalla de crear */
                 DonanteController::getInstance()->editView($acciones[3]);
             } else {
-                $donante = new DonanteModel(
-                        $_POST["id"], $_POST["razon_social"], $_POST["apellido"], $_POST["nombre"], $_POST["telefono"], $_POST["email"], $_POST["domicilio"]
-                );
+                $donante = new Params($_POST);
                 DonanteController::getInstance()->edit($donante);
             }
             break;
@@ -78,8 +78,8 @@ switch ($acciones[1]) {
             break;
         case "add":
             /* agarrar todas las variables del post y mandarlas */
-            $variables = [];
-            DonanteController::getInstance()->create($variables);
+            $donante = new Params($_POST);
+            DonanteController::getInstance()->create($donante);
             break;
         default:
             DonanteController::getInstance()->index();
@@ -125,8 +125,7 @@ switch ($acciones[1]) {
             break;
         case "add":
             /* agarrar todas las variables del post y mandarlas */
-            $variables = [];
-            AlimentoController::getInstance()->create($variables);
+            AlimentoController::getInstance()->create(new Params($_POST));
             break;
         default:
             AlimentoController::getInstance()->index();

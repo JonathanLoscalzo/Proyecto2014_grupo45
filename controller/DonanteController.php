@@ -20,16 +20,24 @@ class DonanteController extends Controller {
         return self::$instance;
     }
 
-    public function create($donante) {
+    public function create($post) {
         /* $donante sin id de donante */
         if (parent::backendIsLogged()) {
-            DonanteRepository::getInstance()->addDonante($donante);
+            $data = $post->getParams();
+            DonanteRepository::getInstance()->add(new DonanteModel(null,
+                    $data['razonSocial'], $data['apellido'],
+                    $data['nombre'], $data['telefono'], $data['email'],
+                    $data['domicilio']));
         }
     }
 
-    public function edit($donante) {
+    public function edit($post) {
         if (parent::backendIsLogged()) {
-            DonanteRepository::getInstance()->editDonante($donante);
+            $data = $post->getParams();
+            DonanteRepository::getInstance()->edit($data['id'],
+                    $data['razonSocial'], $data['apellido'],
+                    $data['nombre'], $data['telefono'], $data['email'],
+                    $data['domicilio']);
         }
     }
 

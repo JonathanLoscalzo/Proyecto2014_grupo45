@@ -10,20 +10,24 @@
 {% endblock %}
 {% block content %}
 <div id = "content">
-    <!-- JRL => SE PUEDE USAR UN ACCORDION PARA QUE MUESTRE LAS 3 OPCIONES? -->
+    <!-- $data['id'],
+         data['razonSocial'], $data['apellido'],
+         $data['nombre'], $data['telefono'], $data['email'],
+         $data['domicilio']
+    JRL => SE PUEDE USAR UN ACCORDION PARA QUE MUESTRE LAS 3 OPCIONES? -->
     <div id = "accordion">
         <h3>ALTA</h3>
         <div>
             <form action="./donantes/add" method="POST" id="alta">
                 <div class="conj-block">
-                    <label for="razonSocial" style = "display : block">Razon Social: </label><input id="razonSocial" type="number" >
-                    <label for="nombre" style = "display : block">Nombre: </label><input id="nombre" type="text" >
-                    <label for="apellido" style = "display : block">Apellido: </label><input id="apellido" type="text" >
+                    <label for="razonSocial" style = "display : block">Razon Social: </label><input id="razonSocial" name="razonSocial" type="number" >
+                    <label for="nombre" style = "display : block">Nombre: </label><input id="nombre" name="nombre" type="text" >
+                    <label for="apellido" style = "display : block">Apellido: </label><input id="apellido" name="apellido" type="text" >
                 </div>
                 <div class="conj-block">
-                    <label for="telefono" style = "display : block">Teléfono: </label><input id="telefono" type="number" >
-                    <label for="direccion" style = "display : block">Domicilio: </label><input id="direccion" type="text" >
-                    <label for="email" style = "display : block">Correo Electrónico: </label><input id="email" type="email" >
+                    <label for="telefono" style = "display : block">Teléfono: </label><input id="telefono" name="telefono" type="number" >
+                    <label for="direccion" style = "display : block">Domicilio: </label><input id="domicilio" name="domicilio" type="text" >
+                    <label for="email" style = "display : block">Correo Electrónico: </label><input id="email" name="email" type="email" >
                 </div>
                 <button type="submit"> Enviar </button>
             </form>

@@ -19,8 +19,7 @@ class Params {
         $this->paramsArray = $params;
     }
     public function getParams () {
-        return $this->paramsArray;
-        
+        return $this->paramsArray;   
     }
     public function setParams () {
         

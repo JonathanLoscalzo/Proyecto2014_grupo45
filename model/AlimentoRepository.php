@@ -36,17 +36,37 @@ class AlimentoRepository extends PDORepository
         // por ahora no permito cambiarle el codigo, desp se verá si es necesario
         $sql = "UPDATE alimento SET descripcion=? WHERE alimento.codigo = ?";
         $args = $alimento->getArray();
-        $mapper = function($row) {};
+        $mapper = [];
         $answer = $this->queryList($sql, $args, $mapper);
-        $answer = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
-        return $answer;
+        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
+        return $ret;
     }
     public function remove($codigo) {
         $sql = "DELETE FROM alimento WHERE alimento.codigo = ?";
         $args = ($codigo);
         $mapper = function($row) {};
         $answer = $this->queryList($sql, $args, $mapper);
-        $answer = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
+        $answer = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
         return $answer;
+    }
+    public function getAll() {
+        $sql = "SELECT * FROM alimento";
+        $args = [];
+        $mapper = function($row) {
+                return new AlimentoModel($row['id'], $row['descripcion']);
+        };
+        $answer = $this->queryList($sql, $args, $mapper);
+        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
+        return $ret;
+    }
+    public function getByID($codigo) {
+        $sql = "SELECT * FROM alimento WHERE alimento.codigo = ?";
+        $args = [$codigo];
+        $mapper = function($row) {
+                return new AlimentoModel($row['id'], $row['descripcion']);
+        };
+        $answer = $this->queryList($sql, $args, $mapper);
+        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
+        return $ret;
     }
 }
