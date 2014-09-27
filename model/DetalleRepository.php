@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-include_once("model/PDORepository.php");
+include_once("model/PDOrepository.php");
 
 class DetalleRepository extends PDORepository
 {
