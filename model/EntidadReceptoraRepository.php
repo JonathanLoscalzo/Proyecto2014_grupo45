@@ -63,13 +63,13 @@ class EntidadReceptoraRepository extends PDORepository{
             // ya que la relacion es 1 a 1 SUPUESTAMENTE es preferible manejar la informacion de a bloques
             // para las altas / bajas / modificaciones.
             $estado = EstadoEntidadRepository::getInstance()->getByID($row['estado_entidad_Id']);
-            $necesidad = EstadoEntidadRepository::getInstance()->getByID($row['necesidad_entidad_Id']);
-            $servicio = EstadoEntidadRepository::getInstance()->getByID($row['servicio_prestado_Id']);
+            $necesidad = NecesidadEntidadRepository::getInstance()->getByID($row['necesidad_entidad_Id']);
+            $servicio = ServicioEntidadRepository::getInstance()->getByID($row['servicio_prestado_Id']);
             return new EntidadReceptoraModel($row['Id'],$row['razon_social'],$row['necesidad_entidad_Id'], $row['estado_entidad_Id'] ,$row['telefono'], $row['servicio_prestado_Id'], $row['domicilio'],$estado,$necesidad,$servicio);
         }; // deberia crear un builder, feo esto.
-
+        
         $answer = $this->queryList($sql, $args, $mapper);
-
+        var_dump($answer);die;
         return $answer;
         
     }

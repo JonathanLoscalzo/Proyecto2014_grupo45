@@ -1,78 +1,24 @@
 <?php
 
 include_once("model/Model.php");
+include_once("model/NecesidadEntidadModel.php");
+include_once("model/EstadoEntidadModel.php");
+include_once("model/ServicioEntidadModel.php")
 
-class NecesidadEntidadModel extends model {
 
-    // decidi meterla en el mismo archivo, debido a que el modelo es basicamente el mismo
-    // estas clases dependen de la principal y la relacion es 1 a 1
-    // hice las variables publicas para denotar el tema de que en la VISTA se esta
-    // referenciando al objeto como si fuese publico, instancia.VARIABLE, cuando se 
-    // deberia usar getters.
-    public $id;
-    public $descripcion;
-
-    public function __construct($id, $descripcion) {
-        $this->id = $id;
-        $this->descripcion = $descripcion;
-    }
-
-    public function getId() {
-        return $this->id;
-    }
-
-    protected function setId($id) {
-        // only for exclusive usage.
-        $this->id = $id;
-    }
-
-    public function getDescripcion() {
-
-        return $this->descripcion;
-    }
-
-    public function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
-    }
-
-}
-
-class EstadoEntidadModel extends Model {
-
-    public $id;
-    public $descripcion;
-
-    public function __construct($id, $descripcion) {
-        $this->id = $id;
-        $this->descripcion = $descripcion;
-    }
-
-}
-
-class ServicioEntidadModel extends model {
-
-    public $id;
-    public $descripcion;
-
-    public function __construct($id, $descripcion) {
-        $this->id = $id;
-        $this->descripcion = $descripcion;
-    }
-
-}
 
 class EntidadReceptoraModel extends Model {
 
     private $id;
     private $razonSocial;
     private $telefono;
-    private $estado;
-    private $necesidad;
     private $domicilio;
     private $estadoEntidadID;
     private $necesidadEntidadID;
     private $servicioPrestadoID;
     private $servicio;
+    private $estado;
+    private $necesidad;
 
     public function __construct($id, $razonSocial, $necesidadEntidadID, $estadoEntidadID, $telefono, $servicioPrestadoID, $domicilio, $model_estado, $model_necesidad, $model_servicio) {
         $this->id = $id;

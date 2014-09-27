@@ -6,6 +6,7 @@
 <script type="text/javascript" src="js/plugins/jquery-ui-1.9.2.custom.js"></script>
 <script type="text/javascript" src="js/plugins/jquery-ui-1.11.js"></script>
 <script type="text/javascript" src="js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+<link rel = "stylesheet" type ="text/css" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
 {% endblock %}
 
 
@@ -54,21 +55,20 @@
                 <th>Estado</th>
                 <th>Necesidad</th>
                 <th>Servicio Prestado</th>
-
                 </thead>
                 <tbody>
                     {% for elem in entidades %}
-                <td>
-                <tr> {{ elem.razonSocial }} </tr>
-                <tr> {{ elem.telefono }} </tr>
-                <tr> {{ elem.domicilio }} </tr>
-                <tr> {{ elem.estado.descripcion }} </tr>
-                <tr> {{ elem.necesidad.descripcion }} </tr>
-                <tr> {{ elem.servicio.descripcion }} </tr>
+                <tr>
+                <td> {{ elem.razonSocial }} </td>
+                <td> {{ elem.telefono }} </td>
+                <td> {{ elem.domicilio }} </td>
+                <td> {{ elem.estado.descripcion }} </td>
+                <td> {{ elem.necesidad.descripcion }} </td>
+                <td> {{ elem.servicio.descripcion }} </td>
 
-                <tr><a href="./entdidadesReceptoras/edit/{{ elem.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></tr>
-                <tr><a href="./entidadesReceptoras/remove/{{ elem.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></tr>
-                </td>
+                <td><a href="./entidadesReceptoras/edit/{{ elem.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                <td><a href="./entidadesReceptoras/remove/{{ elem.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                </tr>
                 {% endfor %}
                 </tbody>
             </table>
@@ -79,9 +79,9 @@
 
 {% block scripts %}
 <script>
-    $(document).ready(function(){
-        $('#accordion').accordion({collapsible: true});
-        $('#tabla-entidades').dataTable();
+$(document).ready(function () {
+    $('#accordion').accordion({collapsible: true});
+    $('#tabla-entidades').dataTable();
 });
 </script>
 {% endblock %}

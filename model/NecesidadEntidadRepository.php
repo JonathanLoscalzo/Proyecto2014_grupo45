@@ -1,9 +1,9 @@
 <?php
 
+class NecesidadEntidadRepository extends PDORepository {
 
-class NecesidadEntidadRepository extends PDORepository{
     private static $instance = null;
-    
+
     public static function getInstance() {
 
         if (is_null(self::$instance)) {
@@ -12,16 +12,17 @@ class NecesidadEntidadRepository extends PDORepository{
 
         return self::$instance;
     }
-    
+
     public function getByID($id) {
         $sql = "SELECT * FROM necesidad_entidad WHERE id=?";
         $args = [$id];
         $mapper = function ($row) {
-            return new NecesidadEntidadModel($id, $descripcion);
+            return new NecesidadEntidadModel($row['Id'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        return new NecesidadEntidadModel($answer['id'], $answer['descripcion']);
+        return $answer[0]; // deberia devolver solo 1. 
     }
+
     public function add($necesidadEntidad) {
         $sql = "INSERT INTO necesidad_entidad(descripcion) VALUES(?)";
         $args = $necesidadEntidad->getArray()['descripcion'];
@@ -29,6 +30,7 @@ class NecesidadEntidadRepository extends PDORepository{
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
+
     public function getAll() {
         $sql = "SELECT * FROM necesidad_entidad";
         $args = [];
@@ -38,5 +40,5 @@ class NecesidadEntidadRepository extends PDORepository{
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
-    
+
 }
