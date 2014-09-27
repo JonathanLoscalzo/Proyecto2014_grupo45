@@ -2,12 +2,7 @@
 
 {% block head %}
 	{{ parent() }}
-	<!-- BackEnd page	 -->
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script> -->
-
+	
 	<script type="text/javascript" src="./../js/plugins/jquery-ui-1.11.js"></script>
 	<script type="text/javascript" src="./../js/plugins/jquery-2.1.2.js"></script>
 	<link rel="stylesheet" type="text/css" href="./../js/plugins/smoothness-jquery-ui.css">
