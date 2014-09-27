@@ -28,6 +28,7 @@ class DetalleModel extends Model
             $this->stock = $stock;
             $this->alimento_model = $alimento_model;
             // var alimento model corresponde a un tipo de alimento (AlimentoModel)
+            return $this;
 	}
 
 	public function getAlimentoCodigo(){
@@ -59,5 +60,8 @@ class DetalleModel extends Model
         }
         public function getReservado() {
             return $this->reservado;
+        }
+        public function getAlimento () {
+            return $this->alimento_model;
         }
 }

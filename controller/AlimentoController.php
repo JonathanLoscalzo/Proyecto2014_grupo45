@@ -19,8 +19,14 @@ class AlimentoController extends Controller
     public function create($post) {
         if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros
-            $entidad = new AlimentoModel();
-            AlimentoRepository::getInstance()->add($entidad);
+            if ($data['flag'] == true) {
+                $detalle_entidad = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], 
+                    $data['contenido'], $data['peso_unitario'], $data['stock'], 
+                    $data['reservado'], new AlimentoModel($data['codigo'], $data['descripcion']));
+                AlimentoRepository::getInstance()->add($detalle_entidad->getAlimento());
+                DetalleRepository::getInstance()->add($detalle_entidad);
+            }
+            
         }
     }
     public function edit($id) {
