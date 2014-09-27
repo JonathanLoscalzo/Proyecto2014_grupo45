@@ -30,6 +30,7 @@ class EntidadReceptoraController extends Controller {
             $entidad = new EntidadReceptoraModel(
                     null, $data["razonSocial"], $data["telefono"], $data["domicilio"], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioEntidadID"]);
             EntidadReceptoraRepository::getInstance()->add($entidad);
+            header("Location: ../entidadesReceptoras" );
         }
     }
 
@@ -44,7 +45,7 @@ class EntidadReceptoraController extends Controller {
              */
             EntidadReceptoraRepository::getInstance()->edit($entidad);
             /* USAR GLOBALS PARA LOS MENSAJES */
-            EntidadReceptoraController::getInstance()->index();
+            header("Location: ../../entidadesReceptoras" );
         }
     }
 
@@ -66,7 +67,8 @@ class EntidadReceptoraController extends Controller {
          */
         if (parent::backendIsLogged()) {
             EntidadReceptoraRepository::getInstance()->remove($id);
-            EntidadReceptoraController::getInstance()->index();
+            
+            header("Location: ../../entidadesReceptoras" );
         }
     }
 
