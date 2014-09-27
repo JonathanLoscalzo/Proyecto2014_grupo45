@@ -51,11 +51,10 @@ class DonanteRepository extends PDOrepository {
         }; // deberia crear un builder, feo esto.
 
         $answer = $this->queryList($sql, $args, $mapper);
-
         if (count($answer) == 1) {
             return $answer[0];
         } else {
-            return false;
+            return False;
         }
     }
 
