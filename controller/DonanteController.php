@@ -34,7 +34,7 @@ class DonanteController extends Controller {
                 // RESPONSE MESSAGE ERROR HERE
                 return false;
             }
-            header("Location: ../../donantes" );
+            header("Location: ../donantes" );
         }
     }
 
@@ -78,7 +78,9 @@ class DonanteController extends Controller {
         if (parent::backendIsLogged()) {
             DonanteRepository::getInstance()->remove($id);
             LoginController::getInstance()->index(""); /* mensaje de todo ok */
+            header("Location: ../../donantes" );
         }
+        
     }
 
     public function index() {
