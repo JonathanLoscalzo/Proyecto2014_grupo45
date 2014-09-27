@@ -24,19 +24,19 @@
                 <div class="conj-block">
                     <label for="service" style = "display : block">Servicio Prestado: </label>
                     <select id="servicio" name="servicio">
-                        {% for serv in servicio %}
+                        {% for serv in servicios %}
                         <option id="{{ serv.id }}"> {{ serv.descripcion }}</option>
                         {% endfor %}
                     </select>
                     <label for="need" style = "display : block">Necesidad: </label>
                     <select id="necesidad" type="number" name="necesidad" >
-                        {% for nec in necesidad %}
+                        {% for nec in necesidades %}
                         <option id="{{ nec.id }}"> {{ nec.descripcion }}</option>
                         {% endfor %}  
                     </select>
                     <label for="estado" style = "display : block">Estado: </label>
                     <select id="estado" name="estado">
-                        {% for est in estado %}
+                        {% for est in estados %}
                         <option id="{{ est.id }}"> {{ est.descripcion }}</option>
                         {% endfor %}
                     </select>
