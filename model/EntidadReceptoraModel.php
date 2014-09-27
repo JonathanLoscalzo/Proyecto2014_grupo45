@@ -77,7 +77,15 @@ class EntidadReceptoraModel extends Model{
     public function getId() {
         return $this->id;
     }
-    
+    public function getEstado() {
+          return $this->estado;
+    }
+    public function getNecesidad() {
+        return $this->necesidad;
+    }
+    public function getServicio() {
+         return $this->servicio;
+    }
     public function getAll() {
         
     }
