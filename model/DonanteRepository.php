@@ -43,6 +43,21 @@ class DonanteRepository extends PDOrepository {
             return false;
         }
     }
+    public function getByRazonSocial($razonSocial) {
+                $sql = "SELECT donante.* FROM donante WHERE donante.razon_social = ?";
+        $args = [$razonSocial];
+        $mapper = function($row) {
+            return new DonanteModel($row['Id'], $row['razon_social'], $row['apellido_contacto'], $row['nombre_contacto'], $row['telefono_contacto'], $row['mail_contacto'], $row['domicilio_contacto']);
+        }; // deberia crear un builder, feo esto.
+
+        $answer = $this->queryList($sql, $args, $mapper);
+
+        if (count($answer) == 1) {
+            return $answer[0];
+        } else {
+            return false;
+        }
+    }
 
     public function add($donante) {
         /*
