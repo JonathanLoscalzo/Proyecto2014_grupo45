@@ -38,7 +38,7 @@ class DetalleRepository extends PDORepository
                     $row['stock'], $row['reservado']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
+        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
         return $ret;
     }
     public function edit($alimento) {
@@ -47,15 +47,15 @@ class DetalleRepository extends PDORepository
         $args = $alimento->getArray();
         $mapper = function($row) {};
         $answer = $this->queryList($sql, $args, $mapper);
-        $answer = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
-        return $answer;
+        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
+        return $ret;
     }
     public function remove($codigo) {
         $sql = "DELETE FROM alimento WHERE alimento.codigo = ?";
         $args = ($codigo);
         $mapper = "";
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
+        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
         return $ret;
     }
     public function getAll() {
@@ -69,7 +69,7 @@ class DetalleRepository extends PDORepository
                             $alimento['descripcion']));
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
+        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
         return $ret;
     }
     public function getByID($id) {
@@ -83,7 +83,7 @@ class DetalleRepository extends PDORepository
                             $alimento['descripcion']));
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
+        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
         return $ret;
     }
 }
