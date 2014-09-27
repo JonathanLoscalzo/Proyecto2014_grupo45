@@ -31,8 +31,10 @@ class DonanteController extends Controller {
                     $data['domicilio']));
             }
             else {
+                // RESPONSE MESSAGE ERROR HERE
                 return false;
             }
+            header("Location: ../../donantes" );
         }
     }
 
@@ -53,6 +55,10 @@ class DonanteController extends Controller {
                         $data['nombre'], $data['telefono'], $data['email'],
                         $data['domicilio']);
             }
+            else {
+                // RESPONSE MESSAGE ERROR HERE
+            }
+            header("Location: ../../donantes" );
         }
     }
 
