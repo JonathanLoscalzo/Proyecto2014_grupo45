@@ -65,14 +65,20 @@ class EntidadReceptoraRepository extends PDORepository{
             $estado = EstadoEntidadRepository::getInstance()->getByID($row['estado_entidad_Id']);
             $necesidad = NecesidadEntidadRepository::getInstance()->getByID($row['necesidad_entidad_Id']);
             $servicio = ServicioEntidadRepository::getInstance()->getByID($row['servicio_prestado_Id']);
-            return new EntidadReceptoraModel($row['Id'],$row['razon_social'],$row['necesidad_entidad_Id'], $row['estado_entidad_Id'] ,$row['telefono'], $row['servicio_prestado_Id'], $row['domicilio'],$estado,$necesidad,$servicio);
+            return new EntidadReceptoraModel($row['Id'],$row['razon_social'], $row['telefono'], $row['domicilio'], $row['estado_entidad_Id'], $row['necesidad_entidad_Id'] ,$row['servicio_prestado_Id'] );
         }; // deberia crear un builder, feo esto.
         
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
         
     }
-    public static function getByID($id) {
-        // getByID
+    public function getByID($id) {
+        $sql = "SELECT * FROM entidad_receptora WHERE Id=?";
+        $args = [$id];
+        $mapper = function ($row) {
+            return new EntidadReceptoraModel($row['Id'],$row['razon_social'], $row['telefono'], $row['domicilio'], $row['estado_entidad_Id'], $row['necesidad_entidad_Id'] ,$row['servicio_prestado_Id']);
+        };
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer[0];
     }
 }  

@@ -18,7 +18,12 @@ class EntidadReceptoraModel extends Model {
     private $estado;
     private $necesidad;
 
-    public function __construct($id, $razonSocial, $necesidadEntidadID, $estadoEntidadID, $telefono, $servicioPrestadoID, $domicilio, $model_estado, $model_necesidad, $model_servicio) {
+    public function __construct($id, $razonSocial, $telefono, $domicilio, $estadoEntidadID, $necesidadEntidadID, $servicioPrestadoID ) {
+        /*
+         * Se podria agregar un getByID en cada uno en vez de crear una clase e insertarsela (inyeccion). 
+         * No se cual es la mejor opción
+         * 
+         */
         $this->id = $id;
         $this->razonSocial = $razonSocial;
         $this->telefono = $telefono;
@@ -26,9 +31,9 @@ class EntidadReceptoraModel extends Model {
         $this->estadoEntidadID = $estadoEntidadID;
         $this->necesidadEntidadID = $necesidadEntidadID;
         $this->servicioPrestadoID = $servicioPrestadoID;
-        $this->estado = $model_estado;
-        $this->necesidad = $model_necesidad;
-        $this->servicio = $model_servicio;
+        $this->estado = EstadoEntidadRepository::getInstance()->getByID($estadoEntidadID);
+        $this->necesidad = NecesidadEntidadRepository::getInstance()->getByID($necesidadEntidadID);
+        $this->servicio = ServicioEntidadRepository::getInstance()->getByID($servicioPrestadoID);
     }
 
     public function getId() {

@@ -4,6 +4,9 @@
 abstract class Model
 {
 	public function getArray() {
+           
+         /* VER ESTA FUNCION 
+         array array_values ( array $array )          */
         /* podria crear una clase modelo que contenga esto,
           a su vez cada modelo va a tener un id.
          */
@@ -13,9 +16,14 @@ abstract class Model
             $array[$index] = $value;
             $index +=1;
         }
-        /* habria que ver si 
-          Mysql puede reconocer o tengo que hacer esto si o si.
+        
+        /*
+         * 
+         * 
+         * ARRAY_VALUES(GET_OBJECT_VARS($THIS));
+         * 
          */
+       
         return $array;
     }
 }

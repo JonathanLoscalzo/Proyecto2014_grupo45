@@ -37,7 +37,7 @@ class BackEndView extends TwigView {
 
     public function editViewEntidadReceptora($entidad, $estados, $necesidades, $servicios) {
 
-        echo self::getTwig()->render('EditViewEntidadReceptor.html.twig', ['entidad' => $entidad,
+        echo self::getTwig()->render('EditViewEntidadReceptora.html.twig', ['entidad' => $entidad,
             'estados' => $estados,
             'necesidades' => $necesidades,
             'servicios' => $servicios]); //ver si esto anda

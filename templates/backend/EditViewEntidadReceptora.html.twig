@@ -1,49 +1,50 @@
-{% extends "backend_layout.php"%}
+{% extends "backend_layout.php" %}
 
 {% block content %}
-
-    <h3> Editar Entidad Receptora </h3>
-    <form action="./entidadesReceptoras/edit/" method="POST">
-        <div class="conj-block">
-            <input hidden id="id" value = "{{ entidad.id }}">
-            <label for="razonSocial" style = "display : block">Razon Social: </label><input id="razonSocial" type="number" value = "{{ entidad.razonSocial }}" required>
-            <label for="telefono" style = "display : block">Teléfono: </label><input id="telefono" type="number" value = "{{ entidad.telefono }}" required >
-            <label for="domicilio" style = "display : block">Domicilio: </label><input id="domicilio" type="text" value = "{{ entidad.domicilio }}" required >
-        </div>
-        <div class="conj-block">
-            <label for="service" style = "display : block">Servicio Prestado: </label>
-            <select id="servicio" name="servicio"required>
-                {% for serv in servicio %}
-                    {% if serv.id == entidad.servicioPrestadoID %}
-                    <option id="{{ serv.id }}" selected> {{ serv.descripcion }}</option>
-                    {% else %}
-                    <option id="{{ serv.id }}"> {{ serv.descripcion }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-            <label for="need" style = "display : block">Necesidad: </label>
-            <select id="necesidad" type="number" name="necesidad" required>
-                {% for nec in necesidad %}
-                    % if nec.id == entidad.necesidadEntidadID %}
-                    <option id="{{ nec.id }}" selected> {{ nec.descripcion }}</option>
-                    {% else %}
-                    <option id="{{ nec.id }}"> {{ nec.descripcion }}</option>
-                    {% endif %}
-                {% endfor %}  
-            </select>
-            <label for="estado" style = "display : block">Estado: </label>
-            <select id="estado" name="estado" required>
-                {% for est in estado %}
-                    % if est.id == entidad.estadoEntidadID %}
-                    <option id="{{ est.id }}" selected> {{ est.descripcion }}</option>
-                    {% else %}
-                    <option id="{{ est.id }}"> {{ est.descripcion }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </div>
-        <button type="submit"> Enviar </button>
-    </form>
+    <div id="content">
+        <h3> Editar Entidad Receptora </h3>
+        <form action="./entidadesReceptoras/edit/" method="POST">
+            <div class="conj-block">
+                <input hidden id="id" value = "{{ entidad.id }}">
+                <label for="razonSocial" style = "display : block">Razon Social: </label><input id="razonSocial" type="text" value = "{{ entidad.razonSocial }}" required>
+                <label for="telefono" style = "display : block">Teléfono: </label><input id="telefono" type="number" value = "{{ entidad.telefono }}" required >
+                <label for="domicilio" style = "display : block">Domicilio: </label><input id="domicilio" type="text" value = "{{ entidad.domicilio }}" required >
+            </div>
+            <div class="conj-block">
+                <label for="service" style = "display : block">Servicio Prestado: </label>
+                <select id="servicio" name="servicio"required>
+                    {% for serv in servicios %}
+                        {% if serv.id == entidad.servicioPrestadoID %}
+                            <option id="{{ serv.id }}" selected> {{ serv.descripcion }}</option>
+                        {% else %}
+                            <option id="{{ serv.id }}"> {{ serv.descripcion }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <label for="need" style = "display : block">Necesidad: </label>
+                <select id="necesidad" type="number" name="necesidad" required>
+                    {% for nec in necesidades %}
+                        {% if nec.id == entidad.necesidadEntidadID %}
+                            <option id="{{ nec.id }}" selected> {{ nec.descripcion }}</option>
+                        {% else %}
+                            <option id="{{ nec.id }}"> {{ nec.descripcion }}</option>
+                        {% endif %}
+                    {% endfor %}  
+                </select>
+                <label for="estado" style = "display : block">Estado: </label>
+                <select id="estado" name="estado" required>
+                    {% for est in estados %}
+                        {% if est.id == entidad.estadoEntidadID %}
+                            <option id="{{ est.id }}" selected> {{ est.descripcion }}</option>
+                        {% else %}
+                            <option id="{{ est.id }}"> {{ est.descripcion }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit"> Enviar </button>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

@@ -1,11 +1,8 @@
 <?php
 
-/*
- * 
- */
-
 include_once("model/EntidadReceptoraRepository.php"); //altos problemas con esta
 include_once("model/EntidadReceptoraModel.php");
+
 
 /**
  * Description of EntidadReceptoraController
@@ -49,8 +46,11 @@ class EntidadReceptoraController extends Controller {
 
         if (parent::backendIsLogged()) {
             $entidadInfo = EntidadReceptoraRepository::getInstance()->getByID($id);
+            $Necesidades = NecesidadEntidadRepository::getInstance()->getAll();
+            $Servicios = ServicioEntidadRepository::getInstance()->getAll();
+            $Estados = EstadoEntidadRepository::getInstance()->getAll();
             $view = new BackEndView();
-            $view->editViewEntidadReceptora($entidadInfo); // si no devuelve nada esta vista se encarga
+            $view->editViewEntidadReceptora($entidadInfo, $Estados, $Necesidades, $Servicios); // si no devuelve nada esta vista se encarga
         }
     }
 

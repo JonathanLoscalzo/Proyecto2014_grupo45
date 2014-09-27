@@ -8,12 +8,13 @@
 
 require_once('controller/HomeController.php');
 require_once('controller/LoginController.php');
-require_once('controller/AlimentoController.php');
+//require_once('controller/AlimentoController.php');
 require_once('controller/EntidadReceptoraController.php');
 require_once('controller/DonanteController.php');
 require_once('vistas/TwigView.php');
 require_once('vistas/BackEndView.php');
 require_once('vistas/FrontEndView.php');
+require_once("model/ParamsClass.php");
 
 
 
@@ -117,10 +118,7 @@ switch ($acciones[1]) {
                 /* deberia ser como la pantalla de crear */
                 AlimentoController::getInstance()->editView($acciones[3]);
             } else {
-                $entidad = new AlimentoModel(
-                $_POST["id"], $_POST["razon_social"], $_POST["apellido"], $_POST["nombre"], $_POST["telefono"], $_POST["email"], $_POST["domicilio"]
-                );
-                AlimentoController::getInstance()->edit($entidad);
+                AlimentoController::getInstance()->edit(new Params($_POST));
             }
             break;
         case "remove":
