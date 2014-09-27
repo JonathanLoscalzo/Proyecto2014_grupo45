@@ -35,9 +35,12 @@ class AlimentoController extends Controller
             
         }
     }
-    public function edit($id) {
+    public function edit($post) {
             $data = $post->getParams(); // obtenemos Los parametros
-            $entidad = new AlimentoModel();
+            $entidad = new DetalleModel($data['id'], $data['alimento_codigo'], 
+                    $data['fecha_vencimiento'], $data['contenido'],
+                    $data['peso_unitario'], $data['stock'], $data['reservado']);
+            DetalleRepository::getInstance()->edit($entidad);
             $this->index();
     }
     public function remove($id) {

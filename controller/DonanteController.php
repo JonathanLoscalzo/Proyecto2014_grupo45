@@ -31,9 +31,13 @@ class DonanteController extends Controller {
         }
     }
 
-    public function edit($donante) {
+    public function edit($post) {
         if (parent::backendIsLogged()) {
-            DonanteRepository::getInstance()->editDonante($donante);
+            $data = $post->getParams();
+            DonanteRepository::getInstance()->edit($data['id'],
+                    $data['razonSocial'], $data['apellido'],
+                    $data['nombre'], $data['telefono'], $data['email'],
+                    $data['domicilio']);
         }
     }
 
