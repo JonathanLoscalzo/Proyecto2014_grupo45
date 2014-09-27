@@ -1,6 +1,7 @@
 <?php
 
 include_once('PDOrepository.php');
+include_once('DonanteModel.php');
 
 class DonanteRepository extends PDOrepository {
 
@@ -19,7 +20,7 @@ class DonanteRepository extends PDOrepository {
         $sql = "SELECT donante.* FROM donante ";
         $args = [];
         $mapper = function($row) {
-            return new DonanteModel($row['id'], $row['razon_social'], $row['apellido_contacto'], $row['nombre_contacto'], $row['telefono_contacto'], $row['mail_contacto'], $row['domicilio_contacto']);
+            return new DonanteModel($row['Id'], $row['razon_social'], $row['apellido_contacto'], $row['nombre_contacto'], $row['telefono_contacto'], $row['mail_contacto'], $row['domicilio_contacto']);
         }; // deberia crear un builder, feo esto.
 
         $answer = $this->queryList($sql, $args, $mapper);
@@ -31,7 +32,7 @@ class DonanteRepository extends PDOrepository {
         $sql = "SELECT donante.* FROM donante WHERE donante.Id = ?";
         $args = [$id];
         $mapper = function($row) {
-            return new DonanteModel($row['id'], $row['razon_social'], $row['apellido_contacto'], $row['nombre_contacto'], $row['telefono_contacto'], $row['mail_contacto'], $row['domicilio_contacto']);
+            return new DonanteModel($row['Id'], $row['razon_social'], $row['apellido_contacto'], $row['nombre_contacto'], $row['telefono_contacto'], $row['mail_contacto'], $row['domicilio_contacto']);
         }; // deberia crear un builder, feo esto.
 
         $answer = $this->queryList($sql, $args, $mapper);
@@ -48,10 +49,7 @@ class DonanteRepository extends PDOrepository {
           que bobo. Se podia usar user_vars_func
           en vez de poner ? se podia poner los nombres de las keys.
          */
-        
-        $args = $donante->getArray();
-        print_r($args);
-        array_pop($args);
+       
         
         $sql = "INSERT INTO 
             donante(razon_social,
@@ -62,6 +60,8 @@ class DonanteRepository extends PDOrepository {
                     domicilio_contacto) 
                 VALUES (?,?,?,?,?,?)";
         $mapper = ""; //nose que poner acà
+        $args = $donante->getArray();
+        array_pop($args);
         /* quien valida los datos? */
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;

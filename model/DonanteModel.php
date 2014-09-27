@@ -1,15 +1,17 @@
 <?php
 
+include_once("Model.php");
+
 class DonanteModel extends Model {
     /* se podria crear un DonanteBuilder por cada atributo */
 
-    private $razonSocial;
-    private $apellido;
-    private $nombre;
-    private $telefono;
-    private $email;
-    private $domicilio;
-    private $id;
+    protected $razonSocial;
+    protected $apellido;
+    protected $nombre;
+    protected $telefono;
+    protected $email;
+    protected $domicilio;
+    protected $id;
 
     public function __construct($id, $razonSocial, $apellido, $nombre, $telefono, $email, $domicilio) {
         $this->id = $id;
