@@ -46,8 +46,7 @@
 				<tbody>
 					{% for donante in donantes %}
 					<td>
-						{# tendria que ver como pasar un objeto a la vista y acceder por los get#}
-                                                {# TODO: esto se puede hacer utilizando jQuery Ajax y PHP Object to JSON #}
+						
 						<tr> {{ donante.getRazonSocial }} </tr>
 						<tr> {{ donante.getNombre }} </tr>
 						<tr> {{ donante.getApellido }} </tr>

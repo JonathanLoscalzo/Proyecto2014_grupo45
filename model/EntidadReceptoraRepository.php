@@ -13,6 +13,48 @@ include_once("model/PDOrepository.php");
  *
  * @author jloscalzo
  */
+class NecesidadEntidadRepository extends PDORepository{
+    private static $instance = null;
+    
+    public static function getInstance() {
+
+        if (is_null(self::$instance)) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
+    }
+    public function add($necesidadEntidad) {
+        $sql = "INSERT INTO necesidad_entidad(descripcion) VALUES(?)";
+        $args = $necesidadEntidad->getArray()['descripcion'];
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
+    }
+    
+}
+
+class EstadoEntidadRepository extends PDORepository{
+    private static $instance = null;
+    
+    public static function getInstance() {
+
+        if (is_null(self::$instance)) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
+    }
+    public function add($estadoEntidad) {
+        $sql = "INSERT INTO estado_entidad(descripcion) VALUES(?)";
+        $args = $estadoEntidad->getArray()['descripcion'];
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
+    }
+    
+}
+
 class EntidadReceptoraRepository extends PDORepository{
     private static $instance = null;
 
