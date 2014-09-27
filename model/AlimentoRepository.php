@@ -38,8 +38,8 @@ class AlimentoRepository extends PDORepository
         $args = $alimento->getArray();
         $mapper = function($row) {};
         $answer = $this->queryList($sql, $args, $mapper);
-        $answer = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
-        return $answer;
+        $ret = count($answer) == 1 ? answer[0] : false; // short if, mas comodo
+        return $ret;
     }
     public function remove($codigo) {
         $sql = "DELETE FROM alimento WHERE alimento.codigo = ?";
