@@ -37,6 +37,17 @@ class EntidadReceptoraRepository extends PDORepository{
                 `domicilio`=?,`estado_entidad_Id`=?,`necesidad_entidad_Id`=?,
                 `servicio_prestado_Id`=? 
                 WHERE id=?";
+        $args = $entidadReceptora->getArray();
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
         
+    }
+    public function remove($entidadReceptora) {
+        $sql = "DELETE FROM entidad_receptora WHERE entidad_receptora.id = ?";
+        $args = $entidadReceptora->getArray ['id'];
+        $mapper = "";
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
     }
 }

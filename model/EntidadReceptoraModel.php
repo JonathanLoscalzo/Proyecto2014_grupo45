@@ -1,11 +1,48 @@
 <?php
 include_once("model/Model.php");
 
+class NecesidadEntidadModel extends model {
+    // decidi meterla en el mismo archivo, debido a que el modelo es basicamente el mismo
+    // estas clases dependen de la principal y la relacion es 1 a 1
+    private $id;
+    private $descripcion;
+    public function __construct($id, $descripcion) {
+        $this-> id = $id;
+        $this-> descripcion = $descripcion;
+    }
+    public function getId() {
+        return $this->id;
+    }
+    protected function setId($id) {
+        // only for exclusive usage.
+        $this->id = $id;
+    }
+    public function getDescripcion() {
+        
+        return $this->descripcion;
+    }
+    public function setDescripcion($descripcion) {
+        $this -> descripcion = $descripcion;
+    }
+    
+}
+
+class EstadoEntidad extends Model {
+    private $id;
+    private $descripcion;
+    public function __construct($id, $descripcion) {
+        $this-> id = $id;
+        $this-> descripcion = $descripcion;
+    }
+}
+
 class EntidadReceptoraModel extends Model{
 
 	private $id;
     private $razonSocial;
     private $telefono;
+        private $estado;
+        private $necesidad;
 	private $domicilio;
 	private $estadoEntidadID;
 	private $necesidadEntidadID;
@@ -20,6 +57,7 @@ class EntidadReceptoraModel extends Model{
         $this->estadoEntidadID = $estadoEntidadID;
         $this->necesidadEntidadID = $necesidadEntidadID;
         $this->servicioPrestadoID = $servicioPrestadoID;
+        $this->estado = new EstadoEntidadModel($id, $descripcion);
     }
 
     public function getId() {
