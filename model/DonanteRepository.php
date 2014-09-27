@@ -48,9 +48,11 @@ class DonanteRepository extends PDOrepository {
           que bobo. Se podia usar user_vars_func
           en vez de poner ? se podia poner los nombres de las keys.
          */
+        
         $args = $donante->getArray();
+        print_r($args);
         array_pop($args);
-
+        
         $sql = "INSERT INTO 
             donante(razon_social,
                     apellido_contacto,
@@ -61,7 +63,8 @@ class DonanteRepository extends PDOrepository {
                 VALUES (?,?,?,?,?,?)";
         $mapper = ""; //nose que poner acà
         /* quien valida los datos? */
-        return $answer = $this->queryList($sql, $args, $mapper);
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
     }
 
     public function edit($donante) {

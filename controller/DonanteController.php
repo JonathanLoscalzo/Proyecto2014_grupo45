@@ -24,7 +24,7 @@ class DonanteController extends Controller {
         /* $donante sin id de donante */
         if (parent::backendIsLogged()) {
             $data = $post->getParams();
-            DonanteRepository::getInstance()->add(new DonanteModel($data['id'],
+            DonanteRepository::getInstance()->add(new DonanteModel(123,
                     $data['razonSocial'], $data['apellido'],
                     $data['nombre'], $data['telefono'], $data['email'],
                     $data['domicilio']));
