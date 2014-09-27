@@ -15,7 +15,7 @@
     <div id="accordion">
         <h3>Alta</h3>
         <div>
-            <form action="#" method="POST">
+            <form action="./entidadesReceptoras/add" method="POST">
                 <div class="conj-block">
                     <label for="nombreCompania" style = "display : block">Razon Social: </label><input id="nombreCompania" type="number" >
                     <label for="phone" style = "display : block">Teléfono: </label><input id="telefono" type="number" >
