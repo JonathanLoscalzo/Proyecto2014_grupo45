@@ -20,10 +20,14 @@ class DonanteController extends Controller {
         return self::$instance;
     }
 
-    public function create($donante) {
+    public function create($post) {
         /* $donante sin id de donante */
         if (parent::backendIsLogged()) {
-            DonanteRepository::getInstance()->addDonante($donante);
+            $data = $post->getParams();
+            DonanteRepository::getInstance()->addDonante(new DonanteModel($data['id'],
+                    $data['razonSocial'], $data['apellido'],
+                    $data['nombre'], $data['telefono'], $data['email'],
+                    $data['domicilio']));
         }
     }
 
