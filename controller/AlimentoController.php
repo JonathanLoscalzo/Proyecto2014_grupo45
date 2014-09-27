@@ -19,7 +19,8 @@ class AlimentoController extends Controller
     public function create($post) {
         if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros
-            $detalle_entidad = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], 
+            // se crea con NULL debido a que ID es auto-incremental
+            $detalle_entidad = new DetalleModel(null, $data['alimento_codigo'], $data['fecha_vencimiento'], 
                     $data['contenido'], $data['peso_unitario'], $data['stock'], 
                     $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
             if ($data['flag'] == true) {
