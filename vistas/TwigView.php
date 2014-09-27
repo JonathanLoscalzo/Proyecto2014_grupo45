@@ -1,6 +1,7 @@
 <?php
 
 include_once("vendor/autoload.php");
+include_once("controller/LoginController.php");
 
 abstract class TwigView {
 
@@ -13,6 +14,8 @@ abstract class TwigView {
             Twig_Autoloader::register();
             $loader = new Twig_Loader_Filesystem(array('templates/', 'templates/frontend', 'templates/backend'));
             self::$twig = new Twig_Environment($loader);
+            LoginController::getInstance()->startSession();
+             self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
         }
         return self::$twig;
     }

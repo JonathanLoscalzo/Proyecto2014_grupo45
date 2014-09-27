@@ -6,7 +6,6 @@ class BackEndView extends TwigView {
 
     public function index($message = "") {
         $twig = self::getTwig();
-        $twig->addGlobal('session', $_SESSION); // nose si està bien esto
         echo self::getTwig()->render('index-backend.php', array('message' => $message));
     }
 

@@ -17,25 +17,25 @@
         <div>
             <form action="./entidadesReceptoras/add" method="POST">
                 <div class="conj-block">
-                    <label for="nombreCompania" style = "display : block">Razon Social: </label><input id="nombreCompania" type="number" >
-                    <label for="phone" style = "display : block">Teléfono: </label><input id="telefono" type="number" >
-                    <label for="adress" style = "display : block">Domicilio: </label><input id="domicilio" type="text" >
+                    <label for="nombreCompania" style = "display : block">Razon Social: </label><input id="nombreCompania" type="text" required placeholder="Razon social">
+                    <label for="phone" style = "display : block">Teléfono: </label><input id="telefono" type="number" placeholder="Telefono">
+                    <label for="adress" style = "display : block">Domicilio: </label><input id="domicilio" type="text" placeholder="Domicilio">
                 </div>
                 <div class="conj-block">
                     <label for="service" style = "display : block">Servicio Prestado: </label>
-                    <select id="servicio" name="servicio">
+                    <select id="servicio" name="servicio" required>
                         {% for serv in servicios %}
                         <option id="{{ serv.id }}"> {{ serv.descripcion }}</option>
                         {% endfor %}
                     </select>
                     <label for="need" style = "display : block">Necesidad: </label>
-                    <select id="necesidad" type="number" name="necesidad" >
+                    <select id="necesidad" name="necesidad" required>
                         {% for nec in necesidades %}
                         <option id="{{ nec.id }}"> {{ nec.descripcion }}</option>
                         {% endfor %}  
                     </select>
                     <label for="estado" style = "display : block">Estado: </label>
-                    <select id="estado" name="estado">
+                    <select id="estado" name="estado" required>
                         {% for est in estados %}
                         <option id="{{ est.id }}"> {{ est.descripcion }}</option>
                         {% endfor %}
@@ -79,8 +79,9 @@
 
 {% block scripts %}
 <script>
-    $('#accordion').accordion({collapsible: true});
-    $('#tabla-entidades').dataTable();
+    $(document).ready(function(){
+        $('#accordion').accordion({collapsible: true});
+        $('#tabla-entidades').dataTable();
 });
 </script>
 {% endblock %}
