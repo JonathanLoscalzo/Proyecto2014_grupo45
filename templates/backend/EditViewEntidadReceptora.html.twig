@@ -3,7 +3,7 @@
 {% block content %}
     <div id="content">
         <h3> Editar Entidad Receptora </h3>
-        <form action="{{server}}/entidadesReceptoras/edit/" method="POST">
+        <form action="../../entidadesReceptoras/edit/" method="POST">
             <div class="conj-block">
                 <input hidden id="id" value = "{{ entidad.id }}" name="id">
                 <label for="razonSocial" style = "display : block">Razon Social: </label><input id="razonSocial" name="razonSocial"type="text" value = "{{ entidad.razonSocial }}" required>

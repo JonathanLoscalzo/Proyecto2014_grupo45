@@ -6,7 +6,6 @@
 <script type="text/javascript" src="js/plugins/jquery-ui-1.9.2.custom.js"></script>
 <script type="text/javascript" src="js/plugins/jquery-ui-1.11.js"></script>
 <script type="text/javascript" src="js/plugins/jquery.dataTables-1.10.2.min.js"></script>
-<link rel = "stylesheet" type ="text/css" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
 {% endblock %}
 
 
@@ -46,7 +45,7 @@
             </form>
         </div>
         <h3>Baja y Modificación</h3>
-        <div>
+        <div class = "tabla-class">
             <table id="tabla-entidades">
                 <thead>
                 <th>Razón Social</th>
@@ -55,6 +54,7 @@
                 <th>Estado</th>
                 <th>Necesidad</th>
                 <th>Servicio Prestado</th>
+                <th colspan="2"></th>
                 </thead>
                 <tbody style="text-align: center">
                     {% for elem in entidades %}
@@ -66,8 +66,8 @@
                 <td> {{ elem.necesidad.descripcion }} </td>
                 <td> {{ elem.servicio.descripcion }} </td>
 
-                <td><a href="{{ server }}/entidadesReceptoras/edit/{{ elem.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                <td><a href="{{ server }}/entidadesReceptoras/remove/{{ elem.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                <td><a href="./entidadesReceptoras/edit/{{ elem.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                <td><a href="./entidadesReceptoras/remove/{{ elem.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
