@@ -72,7 +72,7 @@ class DonanteModel extends Model {
     public function setRazonSocial($attr) {
         $this->razonSocial = $attr;
     }
-
+    
     
 
 }

@@ -65,9 +65,9 @@ class EntidadReceptoraController extends Controller {
          */
 
         if (parent::backendIsLogged()) {
-            $EntidadReceptoras = EntidadReceptoraRepository::getInstance()->getAll();
+            $EntidadesReceptoras = EntidadReceptoraRepository::getInstance()->getAll();
             $view = new BackEndView();
-            $view->EntidadReceptoras($EntidadReceptoras);
+            $view->EntidadesReceptoras($EntidadesReceptoras);
         }
     }
 
