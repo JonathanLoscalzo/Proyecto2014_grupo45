@@ -49,7 +49,10 @@ class EntidadReceptoraModel extends Model{
 	private $servicioPrestadoID;
 
     
-	public function __construct($id, $razonSocial, $necesidadEntidadID, $estadoEntidadID, $telefono, $servicioPrestadoID, $domicilio) {
+	public function __construct($id, $razonSocial, $necesidadEntidadID, 
+                $estadoEntidadID, $telefono, $servicioPrestadoID, $domicilio, 
+                $id_estado, $descripcion_estado, $id_necesidad, 
+                $descripcion_necesidad) {
             $this->id = $id;
             $this->razonSocial = $razonSocial;
             $this->telefono = $telefono;
@@ -57,13 +60,18 @@ class EntidadReceptoraModel extends Model{
             $this->estadoEntidadID = $estadoEntidadID;
             $this->necesidadEntidadID = $necesidadEntidadID;
             $this->servicioPrestadoID = $servicioPrestadoID;
-            $this->estado = new EstadoEntidadModel($id, $descripcion);
-            $this->necesidad = new NecesidadEntidadModel($id, $descripcion);
+            $this->estado = new EstadoEntidadModel($id_estado, $descripcion_estado);
+            $this->necesidad = new NecesidadEntidadModel($id_necesidad, $descripcion_necesidad);
     }
 
     public function getId() {
         return $this->id;
     }
+    
+    public function getAll() {
+        
+    }
+    
     public function getRazonSocial() {
         return $this->razonSocial;
     }

@@ -50,4 +50,18 @@ class EntidadReceptoraRepository extends PDORepository{
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
+    public function getAll() {
+        $sql = "SELECT entidad_receptora.* FROM entidad_receptora ";
+        $args = [];
+        $mapper = function($row) {
+            return call_user_func_array(array(new EntidadReceptoraModel, $row));
+            // es importante que venga con el mismo orden
+            //http://stackoverflow.com/questions/744145/passing-an-array-as-arguments-not-an-array-in-php
+        }; // deberia crear un builder, feo esto.
+
+        $answer = $this->queryList($sql, $args, $mapper);
+
+        return $answer;
+        
+    }
 }
