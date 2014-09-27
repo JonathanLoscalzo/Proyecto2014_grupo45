@@ -13,7 +13,6 @@ include_once("model/EntidadReceptoraModel.php");
  *  COMO SE RELACIONARIAN?
  * @author jloscalzo
  */
-
 class EntidadReceptoraController extends Controller {
 
     private static $instance = null;
@@ -32,8 +31,7 @@ class EntidadReceptoraController extends Controller {
         if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros
             $entidad = new EntidadReceptoraModel(
-                            $data["id"], $data["razon_social"], $data["apellido"], $data["nombre"], $data["telefono"], $data["email"], $data["domicilio"],
-                    $data['estado_entidad_id'], $data['necesidad_entidad_id'], $data["servicio_perstado_id"]);
+                    $data["id"], $data["razon_social"], $data["apellido"], $data["nombre"], $data["telefono"], $data["email"], $data["domicilio"], $data['estado_entidad_id'], $data['necesidad_entidad_id'], $data["servicio_perstado_id"]);
             EntidadReceptoraRepository::getInstance()->add($entidad);
         }
     }
@@ -42,8 +40,7 @@ class EntidadReceptoraController extends Controller {
         if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros
             $entidad = new EntidadReceptoraModel(
-                            $data["id"], $data["razon_social"], $data["apellido"], $data["nombre"], $data["telefono"], $data["email"], $data["domicilio"],
-                    $data['estado_entidad_id'], $data['necesidad_entidad_id'], $data["servicio_perstado_id"]);
+                    $data["id"], $data["razon_social"], $data["apellido"], $data["nombre"], $data["telefono"], $data["email"], $data["domicilio"], $data['estado_entidad_id'], $data['necesidad_entidad_id'], $data["servicio_perstado_id"]);
             EntidadReceptoraRepository::getInstance()->edit($entidad);
         }
     }
@@ -73,13 +70,12 @@ class EntidadReceptoraController extends Controller {
          */
 
         if (parent::backendIsLogged()) {
-            // esto supuestamente deberia enviar 4 variables, envia 1, OBVIO que va a andar mal
             $EntidadesReceptoras = EntidadReceptoraRepository::getInstance()->getAll();
-            $servicios = ServicioEntidadRepository::getInstance()->getAll();
-            $necesidades = NecesidadEntidadRepository::getInstance()->getAll();
-            $estados = EstadoEntidadRepository::getInstance()->getAll();
+            $Necesidades = NecesidadEntidadRepository::getInstance()->getAll();
+            $Servicios = ServicioEntidadRepository::getInstance()->getAll();
+            $Estados = EstadoEntidadRepository::getInstance()->getAll();
             $view = new BackEndView();
-            $view->EntidadesReceptoras($EntidadesReceptoras, $estados, $necesidades, $servicios);
+            $view->EntidadesReceptoras($EntidadesReceptoras, $Estados, $Necesidades, $Servicios);
         }
     }
 
