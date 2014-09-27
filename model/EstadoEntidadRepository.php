@@ -13,13 +13,13 @@ class EstadoEntidadRepository extends PDORepository{
     }
     public function getByID($id) {
         // getByID
-        $sql = "SELECT * FROM estado_entidad WHERE id=?";
+        $sql = "SELECT * FROM estado_entidad WHERE Id=?";
         $args = [$id];
         $mapper = function ($row) {
             return new EstadoEntidadModel($row['Id'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        return $answer; // TODO: CORREGIR FALTA EL IF
+        return $answer[0]; // TODO: CORREGIR FALTA EL IF
     }
     public function add($estadoEntidad) {
         $sql = "INSERT INTO estado_entidad(descripcion) VALUES(?)";

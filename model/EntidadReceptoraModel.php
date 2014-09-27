@@ -29,8 +29,6 @@ class EntidadReceptoraModel extends Model {
         $this->estado = $model_estado;
         $this->necesidad = $model_necesidad;
         $this->servicio = $model_servicio;
-        
-        var_dump($this);die;
     }
 
     public function getId() {

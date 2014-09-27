@@ -13,13 +13,13 @@ class ServicioEntidadRepository extends PDORepository{
     }
     public function getByID($id) {
         // getByID
-        $sql = "SELECT * FROM servicio_prestado WHERE id=?";
+        $sql = "SELECT * FROM servicio_prestado WHERE Id=?";
         $args = [$id];
         $mapper = function ($row) {
             return new ServicioEntidadModel($row['Id'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        return $answer;
+        return $answer[0];
     }
     public function add($estadoEntidad) {
         $sql = "INSERT INTO estado_entidad(descripcion) VALUES(?)";

@@ -14,7 +14,7 @@ class NecesidadEntidadRepository extends PDORepository {
     }
 
     public function getByID($id) {
-        $sql = "SELECT * FROM necesidad_entidad WHERE id=?";
+        $sql = "SELECT * FROM necesidad_entidad WHERE Id=?";
         $args = [$id];
         $mapper = function ($row) {
             return new NecesidadEntidadModel($row['Id'], $row['descripcion']);

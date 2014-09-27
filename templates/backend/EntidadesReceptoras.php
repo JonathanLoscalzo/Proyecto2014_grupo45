@@ -56,7 +56,7 @@
                 <th>Necesidad</th>
                 <th>Servicio Prestado</th>
                 </thead>
-                <tbody>
+                <tbody style="text-align: center">
                     {% for elem in entidades %}
                 <tr>
                 <td> {{ elem.razonSocial }} </td>

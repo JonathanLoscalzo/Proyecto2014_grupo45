@@ -1,7 +1,8 @@
 <?php
+include_once("model/Model.php");
+class ServicioEntidadModel extends Model {
 
-class ServicioEntidadModel extends model {
-
+    
     private $id;
     private $descripcion;
 
@@ -9,6 +10,7 @@ class ServicioEntidadModel extends model {
         $this->id = $id;
         $this->descripcion = $descripcion;
     }
+
     public function getId() {
         return $this->id;
     }
@@ -26,5 +28,6 @@ class ServicioEntidadModel extends model {
     public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
     }
+
 
 }
