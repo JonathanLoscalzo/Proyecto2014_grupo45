@@ -1,4 +1,13 @@
 {% extends "backend_layout.php" %}
+{% block head %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="css/sunny/jquery-ui-1.9.2.custom.css">
+<script type="text/javascript" src="js/plugins/jquery-2.1.2.js"></script>
+<script type="text/javascript" src="js/plugins/jquery-ui-1.9.2.custom.js"></script>
+<script type="text/javascript" src="js/plugins/jquery-ui-1.11.js"></script>
+<script type="text/javascript" src="js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+{% endblock %}
+
 
 {% block content %}
 <div id = "content">
@@ -66,4 +75,12 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $('#accordion').accordion({collapsible: true});
+    $('#tabla-entidades').dataTable();
+});
+</script>
 {% endblock %}
