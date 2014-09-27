@@ -7,16 +7,16 @@ include_once("model/ServicioEntidadModel.php");
 
 class EntidadReceptoraModel extends Model {
 
-    private $id;
-    private $razonSocial;
-    private $telefono;
-    private $domicilio;
-    private $estadoEntidadID;
-    private $necesidadEntidadID;
-    private $servicioPrestadoID;
-    private $estado;
-    private $necesidad;
-    private $servicio;
+    protected $id;
+    protected $razonSocial;
+    protected $telefono;
+    protected $domicilio;
+    protected $estadoEntidadID;
+    protected $necesidadEntidadID;
+    protected $servicioPrestadoID;
+    protected $estado;
+    protected $necesidad;
+    protected $servicio;
 
     public function __construct($id, $razonSocial, $telefono, $domicilio, $estadoEntidadID, $necesidadEntidadID, $servicioPrestadoID ) {
         /*

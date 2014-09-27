@@ -1,9 +1,13 @@
 {% extends "backend_layout.php" %}
+{% block head %}
+{{ parent() }}
+    <script type="text/javascript" src="{{ server }}js/plugins/jquery-2.1.2.js"></script>
 
+{% endblock %}
 {% block content %}
     <div id="content">
         <h3> Editar Entidad Receptora </h3>
-        <form action="../../entidadesReceptoras/edit/" method="POST">
+        <form action="./{{server}}entidadesReceptoras/edit/" method="POST">
             <div class="conj-block">
                 <input hidden id="id" value = "{{ entidad.id }}" name="id">
                 <label for="razonSocial" style = "display : block">Razon Social: </label><input id="razonSocial" name="razonSocial"type="text" value = "{{ entidad.razonSocial }}" required>
@@ -11,40 +15,53 @@
                 <label for="domicilio" style = "display : block">Domicilio: </label><input id="domicilio" type="text" name = "domicilio" value = "{{ entidad.domicilio }}" required >
             </div>
             <div class="conj-block">
+                <input id="estado-input" class="estado" name="estadoEntidadID" hidden value="{{entidad.estadoEntidadID}}">
+                <input id="necesidad-input" class="estado" name="necesidadEntidadID" hidden value="{{ entidad.necesidadEntidadID }}">
+                <input id="servicio-input" class="estado" name="servicioPrestadoID" hidden value="{{ entidad.servicioPrestadoID }}">
                 <label for="estado" style = "display : block">Estado: </label>
-                <select id="estado" name="estadoEntidadID" required>
+                <select id="estado" required>
                     {% for est in estados %}
                         {% if est.id == entidad.estadoEntidadID %}
-                            <option id="{{ est.id }}" selected> {{ est.descripcion }}</option>
+                            <option value="{{ est.id }}" selected> {{ est.descripcion }}</option>
                         {% else %}
-                            <option id="{{ est.id }}"> {{ est.descripcion }}</option>
+                            <option value="{{ est.id }}"> {{ est.descripcion }}</option>
                         {% endif %}
                     {% endfor %}
                 </select>
                 <label for="need" style = "display : block">Necesidad: </label>
-                <select id="necesidad" name="necesidadEntidadID" required>
+                <select id="necesidad" required>
                     {% for nec in necesidades %}
                         {% if nec.id == entidad.necesidadEntidadID %}
-                            <option id="{{ nec.id }}" selected> {{ nec.descripcion }}</option>
+                            <option value="{{ nec.id }}" selected> {{ nec.descripcion }}</option>
                         {% else %}
-                            <option id="{{ nec.id }}"> {{ nec.descripcion }}</option>
+                            <option value="{{ nec.id }}"> {{ nec.descripcion }}</option>
                         {% endif %}
                     {% endfor %}  
                 </select>
                 <label for="service" style = "display : block">Servicio Prestado: </label>
-                <select id="servicio" name="servicioEntidadID" required>
+                <select id="servicio" required>
                     {% for serv in servicios %}
                         {% if serv.id == entidad.servicioPrestadoID %}
-                            <option id="{{ serv.id }}" selected> {{ serv.descripcion }}</option>
+                            <option value="{{ serv.id }}" selected> {{ serv.descripcion }}</option>
                         {% else %}
-                            <option id="{{ serv.id }}"> {{ serv.descripcion }}</option>
+                            <option value="{{ serv.id }}"> {{ serv.descripcion }}</option>
                         {% endif %}
                     {% endfor %}
                 </select>
             </div>
-            <button type="submit"> Enviar </button>
+            <button type="submit" name="submit" > Enviar </button>
         </form>
     </div>
 </div>
 
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            $('select').change(function () {
+                var x = $(this).val();
+                $("#" + $(this).attr('id') + "-input").val(x);
+            });
+        });
+    </script>
 {% endblock %}

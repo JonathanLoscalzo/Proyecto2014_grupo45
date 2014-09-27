@@ -25,9 +25,10 @@ class EntidadReceptoraController extends Controller {
     public function create($post) {
         /* $EntidadReceptora sin id de EntidadReceptora */
         if (parent::backendIsLogged()) {
+            
             $data = $post->getParams(); // obtenemos Los parametros
             $entidad = new EntidadReceptoraModel(
-                    $data["id"], $data["razon_social"], $data["apellido"], $data["nombre"], $data["telefono"], $data["email"], $data["domicilio"], $data['estado_entidad_id'], $data['necesidad_entidad_id'], $data["servicio_perstado_id"]);
+                    null, $data["razonSocial"], $data["telefono"], $data["domicilio"], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioEntidadID"]);
             EntidadReceptoraRepository::getInstance()->add($entidad);
         }
     }
@@ -41,9 +42,9 @@ class EntidadReceptoraController extends Controller {
              * 
              * 
              */
-            var_dump(EntidadReceptoraRepository::getInstance()->edit($entidad));die;
+            EntidadReceptoraRepository::getInstance()->edit($entidad);
             /* USAR GLOBALS PARA LOS MENSAJES */
-            $this->index();
+            EntidadReceptoraController::getInstance()->index();
         }
     }
 
@@ -65,7 +66,7 @@ class EntidadReceptoraController extends Controller {
          */
         if (parent::backendIsLogged()) {
             EntidadReceptoraRepository::getInstance()->remove($id);
-            LoginController::getInstance()->index();
+            EntidadReceptoraController::getInstance()->index();
         }
     }
 

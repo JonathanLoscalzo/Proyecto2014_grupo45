@@ -30,9 +30,15 @@ class EntidadReceptoraRepository extends PDORepository{
     
     
     public function add($entidadReceptora) {
-        $sql = "INSERT INTO entidad_receptora VALUES(?,?,?,?,?,?)";
+        $sql = "INSERT INTO entidad_receptora(razon_social, telefono, domicilio, estado_entidad_Id, necesidad_entidad_Id, servicio_prestado_Id) VALUES(?,?,?,?,?,?)";
         $args = $entidadReceptora->getArray();
-        $mapper = "";
+        array_shift($args);
+        array_pop($args);
+        array_pop($args);
+        array_pop($args);
+        $mapper = function($row){
+            return $row;
+        };
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
@@ -40,10 +46,16 @@ class EntidadReceptoraRepository extends PDORepository{
         
         $sql = "UPDATE entidad_receptora
                 SET Id=?,razon_social=?,telefono=?,domicilio=?,estado_entidad_Id=?,necesidad_entidad_Id=?,servicio_prestado_Id=? 
-                WHERE id=?";
+                WHERE Id=?";
         $args = $entidadReceptora->getArray();
-        var_dump($args);die;
-        $mapper = "";
+        array_pop($args);
+        array_pop($args);
+        array_pop($args);
+        array_push($args, $args[0]);
+
+        $mapper = function($row){
+            return $row;
+        };
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer; // no se que devuelve? true false?
         
@@ -73,7 +85,7 @@ class EntidadReceptoraRepository extends PDORepository{
         return $answer;
         
     }
-    public function getByID($id) {
+    public function getByID($id){
         $sql = "SELECT * FROM entidad_receptora WHERE Id=?";
         $args = [$id];
         $mapper = function ($row) {
