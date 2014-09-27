@@ -5,7 +5,7 @@ include_once('vistas/TwigView.php');
 class BackEndView extends TwigView {
 
     public function index($message = "") {
-        $twig = self::getTwig();
+        //$twig = self::getTwig();
         echo self::getTwig()->render('index-backend.php', array('message' => $message));
     }
 
