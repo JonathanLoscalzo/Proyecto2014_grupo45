@@ -16,7 +16,7 @@ class EstadoEntidadRepository extends PDORepository{
         $sql = "SELECT * FROM estado_entidad WHERE id=?";
         $args = [$id];
         $mapper = function ($row) {
-            return new EstadoEntidadModel($row['id'], $row['descripcion']);
+            return new EstadoEntidadModel($row['Id'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer; // TODO: CORREGIR FALTA EL IF

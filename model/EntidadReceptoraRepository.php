@@ -37,10 +37,8 @@ class EntidadReceptoraRepository extends PDORepository{
         return $answer;
     }
     public function edit($entidadReceptora) {
-        $sql = "UPDATE `entidad_receptora` 
-                SET `Id`=?,`razon_social`=?,`telefono`=?,
-                `domicilio`=?,`estado_entidad_Id`=?,`necesidad_entidad_Id`=?,
-                `servicio_prestado_Id`=? 
+        $sql = "UPDATE entidad_receptora
+                SET Id=?,razon_social=?,telefono=?,domicilio=?,estado_entidad_Id=?,necesidad_entidad_Id=?,servicio_prestado_Id=? 
                 WHERE id=?";
         $args = $entidadReceptora->getArray();
         $mapper = "";
@@ -66,8 +64,8 @@ class EntidadReceptoraRepository extends PDORepository{
             // para las altas / bajas / modificaciones.
             $estado = EstadoEntidadRepository::getInstance()->getByID($row['estado_entidad_Id']);
             $necesidad = EstadoEntidadRepository::getInstance()->getByID($row['necesidad_entidad_Id']);
-            $servicio = EstadoEntidadRepository::getInstance()->getByID($row['servicio_entidad_Id']);
-            return new EntidadReceptoraModel($row['id'],$row['razon_social'],$row['telefono'],$row['domicilio'],$estado,$necesidad,$servicio);
+            $servicio = EstadoEntidadRepository::getInstance()->getByID($row['servicio_prestado_Id']);
+            return new EntidadReceptoraModel($row['Id'],$row['razon_social'],$row['necesidad_entidad_Id'], $row['estado_entidad_Id'] ,$row['telefono'], $row['servicio_prestado_Id'], $row['domicilio'],$estado,$necesidad,$servicio);
         }; // deberia crear un builder, feo esto.
 
         $answer = $this->queryList($sql, $args, $mapper);
