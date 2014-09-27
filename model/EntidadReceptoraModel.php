@@ -14,9 +14,9 @@ class EntidadReceptoraModel extends Model {
     private $estadoEntidadID;
     private $necesidadEntidadID;
     private $servicioPrestadoID;
-    private $servicio;
     private $estado;
     private $necesidad;
+    private $servicio;
 
     public function __construct($id, $razonSocial, $telefono, $domicilio, $estadoEntidadID, $necesidadEntidadID, $servicioPrestadoID ) {
         /*
@@ -34,6 +34,7 @@ class EntidadReceptoraModel extends Model {
         $this->estado = EstadoEntidadRepository::getInstance()->getByID($estadoEntidadID);
         $this->necesidad = NecesidadEntidadRepository::getInstance()->getByID($necesidadEntidadID);
         $this->servicio = ServicioEntidadRepository::getInstance()->getByID($servicioPrestadoID);
+        return $this;
     }
 
     public function getId() {

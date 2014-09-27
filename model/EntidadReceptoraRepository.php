@@ -37,21 +37,25 @@ class EntidadReceptoraRepository extends PDORepository{
         return $answer;
     }
     public function edit($entidadReceptora) {
+        
         $sql = "UPDATE entidad_receptora
                 SET Id=?,razon_social=?,telefono=?,domicilio=?,estado_entidad_Id=?,necesidad_entidad_Id=?,servicio_prestado_Id=? 
                 WHERE id=?";
         $args = $entidadReceptora->getArray();
+        var_dump($args);die;
         $mapper = "";
         $answer = $this->queryList($sql, $args, $mapper);
-        return $answer;
+        return $answer; // no se que devuelve? true false?
         
     }
-    public function remove($entidadReceptora) {
+    public function remove($id) {
         $sql = "DELETE FROM entidad_receptora WHERE entidad_receptora.id = ?";
-        $args = $entidadReceptora->getArray ['id'];
-        $mapper = "";
+        $args = [$id];
+        $mapper = function ($row){
+            return $row;
+        };
         $answer = $this->queryList($sql, $args, $mapper);
-        return $answer;
+        return $answer; // no se que devuelve
     }
     public function getAll() {
         $sql = "SELECT entidad_receptora.* FROM entidad_receptora ";
@@ -62,9 +66,6 @@ class EntidadReceptoraRepository extends PDORepository{
             // esto significa que si traemos un EntidadReceptora TAMBIEN TRAEMOS sus models referenciados
             // ya que la relacion es 1 a 1 SUPUESTAMENTE es preferible manejar la informacion de a bloques
             // para las altas / bajas / modificaciones.
-            $estado = EstadoEntidadRepository::getInstance()->getByID($row['estado_entidad_Id']);
-            $necesidad = NecesidadEntidadRepository::getInstance()->getByID($row['necesidad_entidad_Id']);
-            $servicio = ServicioEntidadRepository::getInstance()->getByID($row['servicio_prestado_Id']);
             return new EntidadReceptoraModel($row['Id'],$row['razon_social'], $row['telefono'], $row['domicilio'], $row['estado_entidad_Id'], $row['necesidad_entidad_Id'] ,$row['servicio_prestado_Id'] );
         }; // deberia crear un builder, feo esto.
         

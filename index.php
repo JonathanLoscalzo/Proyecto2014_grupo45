@@ -145,7 +145,9 @@ switch ($acciones[1]) {
         }
         break;
     default:
-        HomeController::getInstance()->index();
+        
+        
+        
         break;
     // Deberìa redireccionarte a una pagina 404 o algo asi	
 }

@@ -66,8 +66,8 @@
                 <td> {{ elem.necesidad.descripcion }} </td>
                 <td> {{ elem.servicio.descripcion }} </td>
 
-                <td><a href="./entidadesReceptoras/edit/{{ elem.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                <td><a href="./entidadesReceptoras/remove/{{ elem.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                <td><a href="{{ server }}/entidadesReceptoras/edit/{{ elem.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                <td><a href="{{ server }}/entidadesReceptoras/remove/{{ elem.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                 </tr>
                 {% endfor %}
                 </tbody>

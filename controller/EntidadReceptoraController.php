@@ -3,7 +3,6 @@
 include_once("model/EntidadReceptoraRepository.php"); //altos problemas con esta
 include_once("model/EntidadReceptoraModel.php");
 
-
 /**
  * Description of EntidadReceptoraController
  *  HABRIA QUE TENER EN CUENTA QUE ENTIDAD TIENE VARIAS VARIABLES CONECTADAS
@@ -37,8 +36,14 @@ class EntidadReceptoraController extends Controller {
         if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros
             $entidad = new EntidadReceptoraModel(
-                    $data["id"], $data["razon_social"], $data["apellido"], $data["nombre"], $data["telefono"], $data["email"], $data["domicilio"], $data['estado_entidad_id'], $data['necesidad_entidad_id'], $data["servicio_perstado_id"]);
-            EntidadReceptoraRepository::getInstance()->edit($entidad);
+                    $data["id"], $data["razonSocial"], $data["telefono"], $data["domicilio"], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioPrestadoID"]);
+            /* $arr = array('Hello','World!','Beautiful','Day!'); echo implode(" ",$arr); => pasa todos los parametros a un string separado por espacios
+             * 
+             * 
+             */
+            var_dump(EntidadReceptoraRepository::getInstance()->edit($entidad));die;
+            /* USAR GLOBALS PARA LOS MENSAJES */
+            $this->index();
         }
     }
 

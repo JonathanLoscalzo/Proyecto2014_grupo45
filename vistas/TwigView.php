@@ -16,6 +16,7 @@ abstract class TwigView {
             self::$twig = new Twig_Environment($loader);
             LoginController::getInstance()->startSession();
              self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
+             self::$twig->addGlobal('server', $_SERVER['SERVER_NAME']);
         }
         return self::$twig;
     }
