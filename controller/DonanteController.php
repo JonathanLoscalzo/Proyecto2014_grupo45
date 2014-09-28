@@ -22,54 +22,60 @@ class DonanteController extends Controller {
     public function create($post) {
         /* $donante sin id de donante */
         if (parent::backendIsLogged()) {
-            $data = $post->getParams();
-            $donantes = DonanteRepository::getInstance()->getByRazonSocial($data['razonSocial']);
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $data = $post->getParams();
+                $donantes = DonanteRepository::getInstance()->getByRazonSocial($data['razonSocial']);
 
-            if (!$donantes) {
-                DonanteRepository::getInstance()->add(new DonanteModel(null, $data['razonSocial'], $data['apellido'], $data['nombre'], $data['telefono'], $data['email'], $data['domicilio']));
-            } else {
-                // RESPONSE MESSAGE ERROR HERE
+                if (!$donantes) {
+                    DonanteRepository::getInstance()->add(new DonanteModel(null, $data['razonSocial'], $data['apellido'], $data['nombre'], $data['telefono'], $data['email'], $data['domicilio']));
+                } else {
+                    // RESPONSE MESSAGE ERROR HERE
+                }
+                header("Location: ../donantes");
             }
-            header("Location: ../donantes");
         }
     }
 
     public function edit($post) {
         if (parent::backendIsLogged()) {
-            $data = $post->getParams();
-            $donanteModificadoID = $data['id'];
-            $donanteActual = DonanteRepository::getInstance()->getByRazonSocial($data['razonSocial']);
-            // datos de la base 
-            if (!$donanteActual) {
-                /*
-                 *  si no existe donanteActual o 
-                 *  si existe, y tiene el mismo id (no se modifico) 
-                 *  puedo modificarlo.
-                 */
-                $donante = new DonanteModel($data['id'], $data['razonSocial'], $data['apellido'], $data['nombre'], $data['telefono'], $data['email'], $data['domicilio']);
-                DonanteRepository::getInstance()->edit($donante);
-            } elseif ($donanteActual->getId() === $donanteModificadoID) {
-                $donante = new DonanteModel($data['id'], $data['razonSocial'], $data['apellido'], $data['nombre'], $data['telefono'], $data['email'], $data['domicilio']);
-                DonanteRepository::getInstance()->edit($donante);
-            } else {
-                // ENTRA SI EL DONANTE YA EXISTE Y SE INTENTO MODIFICAR OTRO 
-                // DONANTE CON LA MISMA RAZON SOCIAL
-                // RESPONSE MESSAGE ERROR HERE
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $data = $post->getParams();
+                $donanteModificadoID = $data['id'];
+                $donanteActual = DonanteRepository::getInstance()->getByRazonSocial($data['razonSocial']);
+                // datos de la base 
+                if (!$donanteActual) {
+                    /*
+                     *  si no existe donanteActual o 
+                     *  si existe, y tiene el mismo id (no se modifico) 
+                     *  puedo modificarlo.
+                     */
+                    $donante = new DonanteModel($data['id'], $data['razonSocial'], $data['apellido'], $data['nombre'], $data['telefono'], $data['email'], $data['domicilio']);
+                    DonanteRepository::getInstance()->edit($donante);
+                } elseif ($donanteActual->getId() === $donanteModificadoID) {
+                    $donante = new DonanteModel($data['id'], $data['razonSocial'], $data['apellido'], $data['nombre'], $data['telefono'], $data['email'], $data['domicilio']);
+                    DonanteRepository::getInstance()->edit($donante);
+                } else {
+                    // ENTRA SI EL DONANTE YA EXISTE Y SE INTENTO MODIFICAR OTRO 
+                    // DONANTE CON LA MISMA RAZON SOCIAL
+                    // RESPONSE MESSAGE ERROR HERE
+                }
+
+
+
+                header("Location: ../../donantes");
             }
-
-
-
-            header("Location: ../../donantes");
         }
     }
 
     public function editView($id) {
 
         if (parent::backendIsLogged()) {
-            $donanteInfo = DonanteRepository::getInstance()->getByID($id);
-            //validar
-            $view = new BackEndView();
-            $view->editViewDonante($donanteInfo); // si no devuelve nada esta vista se encarga
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $donanteInfo = DonanteRepository::getInstance()->getByID($id);
+                //validar
+                $view = new BackEndView();
+                $view->editViewDonante($donanteInfo); // si no devuelve nada esta vista se encarga
+            }
         }
     }
 
@@ -78,9 +84,11 @@ class DonanteController extends Controller {
           Preguntar que hacer!
          */
         if (parent::backendIsLogged()) {
-            DonanteRepository::getInstance()->remove($id);
-            //LoginController::getInstance()-> backend(); /* mensaje de todo ok */
-            header("Location: ../../donantes");
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                DonanteRepository::getInstance()->remove($id);
+                //LoginController::getInstance()-> backend(); /* mensaje de todo ok */
+                header("Location: ../../donantes");
+            }
         }
     }
 
@@ -97,4 +105,5 @@ class DonanteController extends Controller {
             }
         }
     }
-    
+
+}
