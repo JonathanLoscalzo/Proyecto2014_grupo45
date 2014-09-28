@@ -26,7 +26,7 @@ class DetalleModel extends Model
             $this->peso_unitario = $peso_unitario;
             $this->reservado = $reservado;
             $this->stock = $stock;
-            $this->alimento_model = AlimentoRepository::getInstance()->getByID($alimento_codigo);
+            $this->alimento_model = AlimentoRepository::getInstance()->get($alimento_codigo);
             // var alimento model corresponde a un tipo de alimento (AlimentoModel)
             return $this;
 	}

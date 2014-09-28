@@ -26,11 +26,13 @@ class AlimentoRepository extends PDORepository
     }
     public function get($codigo) {
         $sql = "SELECT * FROM alimento WHERE alimento.codigo = ?";
-        $args = array($codigo);
+        $args = [$codigo];
         $mapper = function($row) {
-            return new AlimentoModel($row['codigo'], $row['descripcion']);
+                return new AlimentoModel($row['codigo'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
+        $ret = count($answer) > 0 ? $answer[0] : null; // short if, mas comodo
+        return $ret;
     }
     public function edit($alimento) {
         // por ahora no permito cambiarle el codigo, desp se verá si es necesario
@@ -50,15 +52,6 @@ class AlimentoRepository extends PDORepository
     public function getAll() {
         $sql = "SELECT * FROM alimento";
         $args = [];
-        $mapper = function($row) {
-                return new AlimentoModel($row['codigo'], $row['descripcion']);
-        };
-        $answer = $this->queryList($sql, $args, $mapper);
-        return $answer;
-    }
-    public function getByID($codigo) {
-        $sql = "SELECT * FROM alimento WHERE alimento.codigo = ?";
-        $args = [$codigo];
         $mapper = function($row) {
                 return new AlimentoModel($row['codigo'], $row['descripcion']);
         };
