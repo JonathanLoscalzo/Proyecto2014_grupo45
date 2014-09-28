@@ -1,33 +1,32 @@
 {% extends "backend_layout.php"  %}
 
 {% block content %}
-<div id ="content">
-    <form action="#" method="POST">
-        <div class="conj-block">
-            <label for="companyName" style = "display : block">Razon Social: </label><input id="companyName" type="number" >
-            <label for="phone" style = "display : block">Teléfono: </label><input id="phone" type="number" >
-            <label for="adress" style = "display : block">Domicilio: </label><input id="adress" type="text" >
-        </div>
-        <div class="conj-block">
-            <label for="service" style = "display : block">Servicio Prestado: </label>
-            <!-- JRL => preguntar como usar esto!, como guardar esto. Si guardar con numeros y utilizar 
-            tipo un archivo de recursos. -->
-            <input id="service" type="text">
-            <label for="need" style = "display : block">Necesidad: </label>
-            <select id="need" type="number" >
-                <option id="">Máximo</option>
-                <option id="">Mediana</option>
-                <option id="">Mínima</option>
-            </select>
-            <label for="state" style = "display : block">Estado: </label>
-            <select id="state">
-                <option id="">En alta</option>
-                <option id="">En trámite</option>
-                <option id="">Suspendida</option>
-                <option id="">Baja</option>
-            </select>
-        </div>
-        <button type="submit" > Enviar </button>
-    </form>
-</div>
+    <div id ="content">
+        <form action="./{{server}}donantes/add" method="POST" id="alta">
+            <div class="conj-block">
+                <label for="razonSocial" style = "display : block">Razon Social: </label>
+                <input id="razonSocial" name="razonSocial" type="text" maxlength="100" required placeholder="Ingrese Razon Social" value="{{ donante.razonSocial }}">
+                <label for="nombre" style = "display : block">Nombre: </label>
+                <input id="nombre" name="nombre" type="text" maxlength="50" required placeholder="Ingrese su nombre" value="{{ donante.nombre }}"> 
+                <label for="apellido" style = "display : block">Apellido: </label>
+                <input id="apellido" name="apellido" type="text" maxlength="50" required placeholder="Ingrese su apellido" value="{{ donante.apellido }}">
+            </div>
+            <div class="conj-block">
+                <label for="telefono" style = "display : block">Teléfono: </label>
+                <input id="telefono" name="telefono" type="number" maxlength="30" required placeholder="Ej: 4561234" value="{{ donante.telefono }}" >
+                <label for="email" style = "display : block">Correo Electrónico: </label>
+                <input id="email" name="email" type="email" maxlength="50" required placeholder="Ej: Mail@email.com" value="{{ donante.email }}">
+            </div>
+            <div class="conj-block">
+                <label for="direccion" style = "display : block">Domicilio: </label>
+                <textarea rows="3" colspan=5 id="domicilio" name="domicilio" type="text" maxlength="200" required placeholder="Ej: Benito Juarez 2040, Cancha Lejana, La Trompa (200A)">
+                    {{ donante.domicilio }}
+                </textarea>
+                <div style="display: block;">
+                <button type="submit" name="submit" style="display:inline"> Enviar </button>
+                <button type="button" name="cancel" style="display:inline"><a href="./{{server}}donantes">Cancelar</a></button>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

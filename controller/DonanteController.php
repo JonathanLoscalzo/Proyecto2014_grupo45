@@ -24,16 +24,14 @@ class DonanteController extends Controller {
         /* $donante sin id de donante */
         if (parent::backendIsLogged()) {
             $data = $post->getParams();
-            if (count(DonanteRepository::getInstance()->getByRazonSocial($data['razonSocial'])) < 1) {
-                    DonanteRepository::getInstance()->add(new DonanteModel(null,
-                    $data['razonSocial'], $data['apellido'],
-                    $data['nombre'], $data['telefono'], $data['email'],
-                    $data['domicilio']));
-            }
-            else {
+            $donantes = DonanteRepository::getInstance()->getByRazonSocial($data['razonSocial']);
+            
+            if (!$donantes ) {
+                DonanteRepository::getInstance()->add(new DonanteModel(null, $data['razonSocial'], $data['apellido'], $data['nombre'], $data['telefono'], $data['email'], $data['domicilio']));
+            } else {
                 // RESPONSE MESSAGE ERROR HERE
             }
-            header("Location: ../donantes" );
+            header("Location: ../donantes");
         }
     }
 
@@ -43,27 +41,23 @@ class DonanteController extends Controller {
             $donanteModificadoID = $data['id'];
             $donanteActual = DonanteRepository::getInstance()->getByRazonSocial($data['razonSocial']);
             // datos de la base 
-            if ((count($donanteActual) > 0) && ($donanteActual['id'] === $donanteModificadoID)) {
-                // Si el donante modificado existía y su id es igual a la de modificado
-                // esta OK, se prosigue
-                 DonanteRepository::getInstance()->edit($data['id'],
-                        $data['razonSocial'], $data['apellido'],
-                        $data['nombre'], $data['telefono'], $data['email'],
-                        $data['domicilio']);
-                }
-            else if (count($donanteActual) === 0){
-                // si el donante no existia, esta OK se prosigue.
-                DonanteRepository::getInstance()->edit($data['id'],
-                        $data['razonSocial'], $data['apellido'],
-                        $data['nombre'], $data['telefono'], $data['email'],
-                        $data['domicilio']);
+            if (!$donanteActual || $donanteActual.getId() == $donanteModificadoID ){
+                /*
+                 *  si no existe donanteActual o 
+                 *  si existe, y tiene el mismo id (no se modifico) 
+                 *  puedo modificarlo.
+                 */
+                $donante=new DonanteModel($data['Id'],$data['razonSocial'],$data['apellido'],$data['nombre'],$data['telefono'], $data['email'],$data['domicilio']);
+                DonanteRepository::getInstance()->edit($donante);
+                
             }
-            else {
+            
+            else{
                 // ENTRA SI EL DONANTE YA EXISTE Y SE INTENTO MODIFICAR OTRO 
                 // DONANTE CON LA MISMA RAZON SOCIAL
                 // RESPONSE MESSAGE ERROR HERE
             }
-            header("Location: ../../donantes" );
+            header("Location: ../../donantes");
         }
     }
 
@@ -83,9 +77,8 @@ class DonanteController extends Controller {
         if (parent::backendIsLogged()) {
             DonanteRepository::getInstance()->remove($id);
             LoginController::getInstance()->index(""); /* mensaje de todo ok */
-            header("Location: ../../donantes" );
+            header("Location: ../../donantes");
         }
-        
     }
 
     public function index() {

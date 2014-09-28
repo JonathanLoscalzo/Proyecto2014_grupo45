@@ -43,8 +43,9 @@ class DonanteRepository extends PDOrepository {
             return false;
         }
     }
+
     public function getByRazonSocial($razonSocial) {
-                $sql = "SELECT donante.* FROM donante WHERE donante.razon_social = ?";
+        $sql = "SELECT donante.* FROM donante WHERE donante.razon_social = ?";
         $args = [$razonSocial];
         $mapper = function($row) {
             return new DonanteModel($row['Id'], $row['razon_social'], $row['apellido_contacto'], $row['nombre_contacto'], $row['telefono_contacto'], $row['mail_contacto'], $row['domicilio_contacto']);
@@ -63,8 +64,7 @@ class DonanteRepository extends PDOrepository {
           que bobo. Se podia usar user_vars_func
           en vez de poner ? se podia poner los nombres de las keys.
          */
-       
-        
+
         $sql = "INSERT INTO 
             donante(razon_social,
                     apellido_contacto,
@@ -73,12 +73,14 @@ class DonanteRepository extends PDOrepository {
                     mail_contacto,
                     domicilio_contacto) 
                 VALUES (?,?,?,?,?,?)";
-        $mapper = ""; //nose que poner acà
+        $mapper = function($row) {
+            return $row;
+        }; //nose que poner acà
         $args = $donante->getArray();
-        array_pop($args);
-        /* quien valida los datos? */
+        array_pop($args); // quito los 3 valores
+        
         $answer = $this->queryList($sql, $args, $mapper);
-        return $answer;
+        return $answer[0];
     }
 
     public function edit($donante) {
@@ -92,7 +94,9 @@ class DonanteRepository extends PDOrepository {
                     domicilio_contacto = ?) 
                 WHERE Id = ?";
         $args = $donante->getArray();
-        $mapper = ""; //nose que poner acà
+        $mapper = function($row) {
+            return $row;
+        }; //nose que poner acà
         /* quien valida los datos? */
         return $answer = $this->queryList($sql, $args, $mapper);
     }
@@ -101,7 +105,10 @@ class DonanteRepository extends PDOrepository {
         $args = [$id];
         $sql = " DELETE FROM donante
                 WHERE donante.Id = ?";
-        $mapper = ""; //nose que poner acà
+        $mapper = function($row) {
+            return $row;
+        };
+        //nose que poner acà
         /* quien valida los datos? */
         return $answer = $this->queryList($sql, $args, $mapper);
     }

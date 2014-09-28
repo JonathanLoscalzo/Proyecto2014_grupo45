@@ -30,7 +30,7 @@ class BackEndView extends TwigView {
     }
 
     public function donantes($donantes) {
-        echo self::getTwig()->render('Donantes.php', array('donantes', $donantes));
+        echo self::getTwig()->render('Donantes.php', array('donantes' => $donantes));
     }
 
     public function editViewDonante($donante) {

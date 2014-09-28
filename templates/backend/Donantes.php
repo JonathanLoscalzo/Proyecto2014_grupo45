@@ -2,10 +2,12 @@
 {% block head %}
 {{ parent() }}
 <link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
+
 <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
 <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
 <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.11.js"></script>
 <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+<!--<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css">-->
 
 {% endblock %}
 {% block content %}
@@ -19,13 +21,13 @@
         <h3>ALTA</h3>
         <div>
             <form action="./{{server}}donantes/add" method="POST" id="alta">
-                  <div class="conj-block">
-                      <label for="razonSocial" style = "display : block">Razon Social: </label>
-                      <input id="razonSocial" name="razonSocial" type="text" maxlength="100" required placeholder="Ingrese Razon Social">
-                      <label for="nombre" style = "display : block">Nombre: </label>
-                      <input id="nombre" name="nombre" type="text" maxlength="50" required placeholder="Ingrese su nombre"> 
-                      <label for="apellido" style = "display : block">Apellido: </label>
-                      <input id="apellido" name="apellido" type="text" maxlength="50" required placeholder="Ingrese su apellido">
+                <div class="conj-block">
+                    <label for="razonSocial" style = "display : block">Razon Social: </label>
+                    <input id="razonSocial" name="razonSocial" type="text" maxlength="100" required placeholder="Ingrese Razon Social">
+                    <label for="nombre" style = "display : block">Nombre: </label>
+                    <input id="nombre" name="nombre" type="text" maxlength="50" required placeholder="Ingrese su nombre"> 
+                    <label for="apellido" style = "display : block">Apellido: </label>
+                    <input id="apellido" name="apellido" type="text" maxlength="50" required placeholder="Ingrese su apellido">
                 </div>
                 <div class="conj-block">
                     <label for="telefono" style = "display : block">Teléfono: </label>
@@ -64,8 +66,8 @@
                         <td> {{ donante.telefono }} </td>
                         <td> {{ donante.domicilio }} </td>
                         <td> {{ donante.email }} </td>
-                        <td><a href="{{server}}donantes/edit/{{ donante.id }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                        <td><a href="{{server}}donantes/remove/{{ donante.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                        <td><a href="{{server}}donantes/edit/{{ donante.id }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar" ></a></td>
+                        <td><a href="{{server}}donantes/remove/{{ donante.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar" ></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -79,7 +81,7 @@
 <script>
 $(document).ready(function () {
     $('#accordion').accordion({collapsible: true});
-    $('#tabla-donantes').dataTable();
+    //$('#tabla-donantes').dataTable();
 });
 
 </script>
