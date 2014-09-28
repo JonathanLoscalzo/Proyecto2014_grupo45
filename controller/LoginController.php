@@ -58,7 +58,7 @@ class LoginController extends Controller {
     }
 
     public function backend() {
-        /* verificar si la sesion està iniciada? */
+        /* verificar si la sesion està iniciada? Todos pueden acceder a este*/
         if (parent::backendIsLogged()) {
             $view = new BackEndView();
             $view->index();

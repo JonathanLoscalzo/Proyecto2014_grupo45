@@ -36,8 +36,6 @@ class RoleService {
 
         if (is_null(self::$instance)) {
             self::$instance = new static();
-            
-            
         }
 
         return self::$instance;
@@ -49,15 +47,29 @@ class RoleService {
         $array = $this->getRoles();
         return in_array($functionName, $array[$role]);
     }
-    public function __construct(){
-       $this->arrayRole = array(1 => ["DonanteController:index", "AlimentoController:index"],
-                2 => [" "],
-                3 => ["AlimentoController:index"]
-                ); 
+
+    public function __construct() {
+        $this->arrayRole = array(
+            1 => [
+                "DonanteController:index",
+                "DonanteController:remove",
+                "DonanteController:edit",
+                "DonanteController:editView",
+                "DonanteController:create",
+                "EntidadReceptoraController:index",
+                "EntidadReceptoraController:remove",
+                "EntidadReceptoraController:edit",
+                "EntidadReceptoraController:editView",
+                "EntidadReceptoraController:create",
+                "AlimentoController:index",
+                ],
+            2 => [" "],
+            3 => ["AlimentoController:index"]
+        );
     }
-    
+
     public function getRoles() {
         return $this->arrayRole;
     }
-    
- }
+
+}
