@@ -9,36 +9,34 @@
 {% endblock %}
 
 {% block content %}
-			<div id = "content">
-			<h2>ALTA, BAJA Y MODIFICACIÓN DE ALIMENTOS</h2>
-			<table id="tabla-alimentos" border="1px" style="border-color: gray; text-align: center">
-				<thead>
-					<tr>
-						<th>Descripción</th>
-						<th>Fecha de Vencimiento</th>
-						<th>Contenido</th>
-						<th>Peso</th>
-						<th>Stock</th>
-						<th>Reservado</th>
-					</tr>
-				</thead>
-                                    <tbody>
-                                        {% for detalle in detalles %}
-                                    <td>
-                                    <tr> {{ detalle.alimento_codigo }} </tr>
-                                    <tr> {{ detalle.feca_vencimiento }} </tr>
-                                    <tr> {{ detalle.contenido }} </tr>
-                                    <tr> {{ detalle.peso_unitario }} </tr>
-                                    <tr> {{ detalle.stock }} </tr>
-                                    <tr> {{ detalle.reservado }} </tr>
-
-                                    <tr><a href="./alimentos/edit/{{ detalle.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></tr>
-                                    <tr><a href="./alimentos/remove/{{ detalle.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></tr>
-                                    </td>
-                                    {% endfor %}
-				</tbody>
-			</table>
-			</div>
+	<div id = "content">
+		<h2>ALTA, BAJA Y MODIFICACIÓN DE ALIMENTOS</h2>
+		<table id="tabla-alimentos" border="1px" style="border-color: gray; text-align: center">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Vencimiento</th>
+                            <th>Contenido</th>
+                            <th>Peso Unitario</th>
+                            <th>Stock</th>
+                            <th>Reservado</th>
+                        </tr>
+                    </thead>
+                    <tbody tbody style="text-align: center">
+                        {% for detalle in detalles %}
+                            {% if detalle.stock > 0 %}
+                    <tr>
+                        <td> {{ detalle.alimento_codigo }} </td>
+                        <td> {{ detalle.fecha_vencimiento }} </td>
+                        <td> {{ detalle.contenido }} </td>
+                        <td> {{ detalle.peso_unitario }} </td>
+                        <td> {{ detalle.stock }} </td>
+                        <td> {{ detalle.reservado }} </td>
+                    </tbody>
+                            {% endif %}
+                        {% endfor %}
+                </table>
+	</div>
 {% endblock %}
 
 
