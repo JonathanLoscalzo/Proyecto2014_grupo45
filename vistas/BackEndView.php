@@ -4,9 +4,9 @@ include_once('vistas/TwigView.php');
 
 class BackEndView extends TwigView {
 
-    public function index($message = "") {
+    public function index() {
         //$twig = self::getTwig();
-        echo self::getTwig()->render('index-backend.php', array('message' => $message));
+        echo self::getTwig()->render('index-backend.php');
     }
 
     public function listado_alimentos($lista) {

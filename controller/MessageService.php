@@ -13,10 +13,10 @@ class MessageService {
     private $classType = array("success" => "success", "error" => "error"); //ejemplo: info, error, dataResponse, etc...
     protected $class;
 
-    public function __construct($message) {
+    public function __construct($message, $args) {
         $res = new MessageResource();
         $arrayMessage = $res->getResource($message);
-        $this->text=$arrayMessage[0];
+        $this->text=vsprintf($arrayMessage[0],$args);
         $this->class=$this->classType[$arrayMessage[1]];
     }
 

@@ -221,3 +221,28 @@ footer {
     margin: 5px;
     padding-top: 15px;
 }
+
+input:not([type="radio"]), textarea, select{
+    border-radius: 0.5em;
+    padding: 0.3em;
+    box-shadow: 10px 10px 5px #888888;
+
+}
+
+button:not(#dismiss)
+{
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0px 5px  #888888;
+    padding: 0.5em;
+    background-color: #FFAD33;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+button:hover{
+    box-shadow: 0px 2px  #888888;
+}
+button:active{
+    box-shadow: 0px 0px  #888888;
+    cursor: wait;
+}

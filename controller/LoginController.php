@@ -48,11 +48,12 @@ class LoginController extends Controller {
             case 0:
             case 1:
                 $view = new BackEndView();
-                $view->index(LoginStatus::call($aux));
+                $_SESSION["message"] = new MessageService("accessGranted",[$_SESSION["username"]]);
+                $view->index();
                 break;
             case 2:
                 $view = new FrontEndView();
-                $_SESSION["message"] = new MessageService("wrongPassOrUser");
+                $_SESSION["message"] = new MessageService("wrongPassOrUser",[]);
                 $view->index();
                 break;
         }

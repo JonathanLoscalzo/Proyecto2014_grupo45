@@ -4,7 +4,7 @@
         <title>Banco de Alimentos</title>
         {% block head %}
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="./{{ server }}css/style-backend.css" rel="stylesheet">
+        <link href="{{ server }}css/style-backend.css" rel="stylesheet">
         <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
         {% endblock %}
     </head>
@@ -18,7 +18,7 @@
                 {%	include 'menu-bar.php'	%}
             </div>
 
-            {% if message is defined and not(message=="") %}
+            {% if message is defined and not(message.text=="") %}
             {# JRL -> deberiamos agregar un alert que se pueda cerrar #}
             <div id="errorwrap">
                 <div id="alert-dialog" class="alert-dialog {{ message.class }}" title="ALERTA">
@@ -28,7 +28,9 @@
                     </ul>
                 </div>
             </div>
-            {% endif %}                 
+
+            {% endif %}       
+
             <div id="contentwrap">
                 {% block content %}
 
@@ -38,11 +40,11 @@
         </div>
     </body>
     <script>
- $(document).ready(function () {
-     $('#dismiss').click(function () {
-         $("#errorwrap").fadeOut();
-     });
- });
+$(document).ready(function () {
+    $('#dismiss').click(function () {
+        $("#errorwrap").fadeOut();
+    });
+});
     </script>
     {% block scripts %}
 
