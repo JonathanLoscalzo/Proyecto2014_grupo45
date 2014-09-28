@@ -14,12 +14,18 @@ abstract class TwigView {
             Twig_Autoloader::register();
             $loader = new Twig_Loader_Filesystem(array('templates/', 'templates/frontend', 'templates/backend'));
             self::$twig = new Twig_Environment($loader);
+            
             LoginController::getInstance()->startSession();
-             self::$twig->addGlobal('session', $_SESSION); // nose si està bien esto
-             
-             $cant = count(split("/", $_SERVER['REQUEST_URI'])) - 2 ;
-             $var = str_repeat("../", $cant);
-             self::$twig->addGlobal('server', $var );
+            self::$twig->addGlobal('session', $_SESSION); 
+
+            $cant = count(split("/", $_SERVER['REQUEST_URI'])) - 2;
+            $var = str_repeat("../", $cant);
+            self::$twig->addGlobal('server', $var); // cantidad de redirecciones que tiene que hacer
+
+            if (isset($_SESSION["message"])) {
+                self::$twig->addGlobal('message', $_SESSION["message"]); 
+                unset($_SESSION["message"]);
+            }
         }
         return self::$twig;
     }

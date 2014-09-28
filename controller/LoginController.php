@@ -4,7 +4,7 @@ include_once("Controller.php");
 include_once("model/UserModel.php");
 include_once("model/UserRepository.php");
 include_once("model/PDOrepository.php");
-include_once("LoginStatusClass.php");
+include_once("controller/LoginStatusClass.php");
 
 class LoginController extends Controller {
 
@@ -52,7 +52,8 @@ class LoginController extends Controller {
                 break;
             case 2:
                 $view = new FrontEndView();
-                $view->index(LoginStatus::call($aux));
+                $_SESSION["message"] = new MessageService("wrongPassOrUser");
+                $view->index();
                 break;
         }
     }

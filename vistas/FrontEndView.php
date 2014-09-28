@@ -3,11 +3,9 @@
 require_once('vistas/TwigView.php');
 
 class FrontEndView extends TwigView {
-	public function index($message=""){
+	public function index(){
 		$twig = self::getTwig();
-		LoginController::getInstance()->startSession();
-		$twig->addGlobal('session', $_SESSION);
-		echo $twig->render('index.php',array('message' => $message));
+		echo $twig->render('index.php');
 	}
 	public function login(){
 		echo self::getTwig()->render('login.php');
