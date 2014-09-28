@@ -55,8 +55,7 @@ class AlimentoRepository extends PDORepository
                 return new AlimentoModel($row['codigo'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) > 0 ? $answer[0] : false; // short if, mas comodo
-        return $ret;
+        return $answer;
     }
     public function getByID($codigo) {
         $sql = "SELECT * FROM alimento WHERE alimento.codigo = ?";

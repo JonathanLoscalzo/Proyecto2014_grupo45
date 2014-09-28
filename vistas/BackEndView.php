@@ -25,7 +25,7 @@ class BackEndView extends TwigView {
     public function alimentos($alimentos, $detalles) {
         echo self::getTwig()->render('Alimentos.php', array(
             'alimentos' => $alimentos,
-            'detalles' => $detalles,  
+            'detalles' => $detalles  
                 ));
     }
 

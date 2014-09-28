@@ -67,8 +67,7 @@ class DetalleRepository extends PDORepository
                     $row['stock'], $row['reservado'], $row['alimento_codigo']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) > 0 ? $answer[0] : false; // short if, mas comodo
-        return $ret;
+        return $answer;
     }
     public function getByID($id) {
         $sql = "SELECT * FROM detalle_alimento WHERE detalle_alimento.Id = ?";

@@ -53,7 +53,7 @@
                         {% for detalle in detalles %}
                     <td>
                     <tr> {{ detalle.alimento_codigo }} </tr>
-                    <tr> {{ detalle.feca_vencimiento }} </tr>
+                    <tr> {{ detalle.fecha_vencimiento }} </tr>
                     <tr> {{ detalle.contenido }} </tr>
                     <tr> {{ detalle.peso_unitario }} </tr>
                     <tr> {{ detalle.stock }} </tr>
