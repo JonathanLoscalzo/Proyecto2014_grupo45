@@ -9,8 +9,8 @@ class BackEndView extends TwigView {
         echo self::getTwig()->render('index-backend.php', array('message' => $message));
     }
 
-    public function listado_alimentos() {
-        echo self::getTwig()->render('ListadoAlimentos.php');
+    public function listado_alimentos($lista) {
+        echo self::getTwig()->render('ListadoAlimentos.php', array('detalles' => $lista));
     }
 
     public function entidadesReceptoras($entidades, $estados, $necesidades, $servicios) {
@@ -22,8 +22,11 @@ class BackEndView extends TwigView {
         ));
     }
 
-    public function alimentos($alimentos) {
-        echo self::getTwig()->render('Alimentos.php', array('alimentos', $alimentos));
+    public function alimentos($alimentos, $detalles) {
+        echo self::getTwig()->render('Alimentos.php', array(
+            'alimentos' => $alimentos,
+            'detalles' => $detalles,  
+                ));
     }
 
     public function donantes($donantes) {

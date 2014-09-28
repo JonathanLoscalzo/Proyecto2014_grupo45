@@ -2,8 +2,8 @@
 
 class AlimentoModel extends Model
 {
-	private $codigo; 
-	private $descripcion;
+	protected $codigo; 
+	protected $descripcion;
 
 	public function __construct($codigo, $descripcion){
             $this->codigo = $codigo;

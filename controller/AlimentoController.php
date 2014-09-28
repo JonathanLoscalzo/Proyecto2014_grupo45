@@ -23,7 +23,8 @@ class AlimentoController extends Controller
             $detalle_entidad = new DetalleModel(null, $data['alimento_codigo'], $data['fecha_vencimiento'], 
                     $data['contenido'], $data['peso_unitario'], $data['stock'], 
                     $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
-            if ($data['flag'] == true) {
+            if ($data['flag'] === 1) {
+                // VOY A USAR INTEGER EN VEZ DE BOOL, 1 = TRUE, 0 = FALSE
                 // SI SE DESEA CREAR TAMBIEN UN ALIMNETO NUEVO
                 AlimentoRepository::getInstance()->add($detalle_entidad->getAlimento());
                 DetalleRepository::getInstance()->add($detalle_entidad);
@@ -33,16 +34,20 @@ class AlimentoController extends Controller
                 // EXISTENTE EN LA BD:
                 DetalleRepository::getInstance()->add($detalle_entidad);
             }
+            header("Location: ../alimentos" );
             
         }
     }
     public function edit($post) {
+        if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros
             $entidad = new DetalleModel($data['id'], $data['alimento_codigo'], 
                     $data['fecha_vencimiento'], $data['contenido'],
                     $data['peso_unitario'], $data['stock'], $data['reservado']);
             DetalleRepository::getInstance()->edit($entidad);
             $this->index();
+            header("Location: ../../donantes" );
+        }
     }
     public function remove($id) {
          /* onupdate y onremove estan en Restrict o en cascade? 
@@ -51,6 +56,7 @@ class AlimentoController extends Controller
         if (parent::backendIsLogged()) {
             AlimentoRepository::getInstance()->remove($id);
             LoginController::getInstance()->index();
+            header("Location: ../../donantes" );
         }
     }
     public function index() {
@@ -59,17 +65,29 @@ class AlimentoController extends Controller
          */
 
         if (parent::backendIsLogged()) {
+            // Se traen todos los alimentos (tipos) y todos los detalles
+            // los alimentos se traen para poder completar la lista de tipos
             $Alimento= AlimentoRepository::getInstance()->getAll();
+            $Detalle = DetalleRepository::getInstance()->getAll();
             $view = new BackEndView();
-            $view->alimentos($Alimento);
+            $view->alimentos($Alimento, $Detalle);
         }
     }
     public function editView($id) {
+        // ACA QUE TENGO QUE HACER?
         if (parent::backendIsLogged()) {
-            $Alimento = AlimentoRepository::getInstance()->getByID($id);
-            $Detalle = DetalleRepository::getInstance()->getAll();
+            
+            $Detalle = DetalleRepository::getInstance()->getByID($id);
+            $Alimento = $Detalle->getAlimento();
             $view = new BackEndView();
-            $view->editViewAlimento($Detalle, $Alimento); // si no devuelve nada esta vista se encarga
+            $view->editViewAlimento($Alimento, $Detalle); // si no devuelve nada esta vista se encarga
         }
     }	
+    public function listarAlimentos() {
+        if (parent::backendIsLogged()) {
+            $Detalle = DetalleRepository::getInstance()->getAll();
+            $view = new BackEndView();
+            $view->listado_alimentos($Detalle); 
+        }
+    }
 }

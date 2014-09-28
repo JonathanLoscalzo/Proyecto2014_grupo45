@@ -11,7 +11,6 @@
 
 {% block content %}
 <div id = "content">
-    <h2>ALTA, BAJA Y MODIFICACIÓN DE ENTIDADES RECEPTORAS</h2>
     <div id="accordion">
         <h3>Alta</h3>
         <div>

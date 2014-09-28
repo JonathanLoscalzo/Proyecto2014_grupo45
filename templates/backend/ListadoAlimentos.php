@@ -22,8 +22,20 @@
 						<th>Reservado</th>
 					</tr>
 				</thead>
-				<tbody>
-				<!-- acá se podria poner un for in -->
+                                    <tbody>
+                                        {% for detalle in detalles %}
+                                    <td>
+                                    <tr> {{ detalle.alimento_codigo }} </tr>
+                                    <tr> {{ detalle.feca_vencimiento }} </tr>
+                                    <tr> {{ detalle.contenido }} </tr>
+                                    <tr> {{ detalle.peso_unitario }} </tr>
+                                    <tr> {{ detalle.stock }} </tr>
+                                    <tr> {{ detalle.reservado }} </tr>
+
+                                    <tr><a href="./alimentos/edit/{{ detalle.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></tr>
+                                    <tr><a href="./alimentos/remove/{{ detalle.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></tr>
+                                    </td>
+                                    {% endfor %}
 				</tbody>
 			</table>
 			</div>
@@ -33,35 +45,33 @@
 {% block scripts %}
 <script>
 	$(document).ready(function(){
-		var datos = [
-    [
-        "ALIMENTO 1",
-        "14/02/2016",
-        "Harina",
-        "1",
-        "200",
-        "10"
-    ],
-    [
-        "ALIMENTO 2",
-        "16	/02/2016",
-        "Fideos",
-        "1",
-        "150",
-        "84"
-    ],
-    [
-    	"ALIMENTO 3",
-        "19/11/2018",
-        "Arroz",
-        "1,5",
-        "25",
-        "15"
-    ]
-]	
-		$('#tabla-alimentos').dataTable({
-			data: datos
-		});
+//		var datos = [
+//    [
+//        "ALIMENTO 1",
+//        "14/02/2016",
+//        "Harina",
+//        "1",
+//        "200",
+//        "10"
+//    ],
+//    [
+//        "ALIMENTO 2",
+//        "16	/02/2016",
+//        "Fideos",
+//        "1",
+//        "150",
+//        "84"
+//    ],
+//    [
+//    	"ALIMENTO 3",
+//        "19/11/2018",
+//        "Arroz",
+//        "1,5",
+//        "25",
+//        "15"
+//    ]
+//]	
+		$('#tabla-alimentos').dataTable();
 
 	});
 </script>

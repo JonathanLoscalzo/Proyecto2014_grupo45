@@ -38,35 +38,34 @@ class AlimentoRepository extends PDORepository
         $args = $alimento->getArray();
         $mapper = [];
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
-        return $ret;
+        return $answer;
     }
     public function remove($codigo) {
         $sql = "DELETE FROM alimento WHERE alimento.codigo = ?";
         $args = ($codigo);
         $mapper = function($row) {};
         $answer = $this->queryList($sql, $args, $mapper);
-        $answer = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
-        return $answer;
+        $ret = count($answer) > 0 ? $answer[0] : false; // short if, mas comodo
+        return $ret;
     }
     public function getAll() {
         $sql = "SELECT * FROM alimento";
         $args = [];
         $mapper = function($row) {
-                return new AlimentoModel($row['id'], $row['descripcion']);
+                return new AlimentoModel($row['codigo'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
+        $ret = count($answer) > 0 ? $answer[0] : false; // short if, mas comodo
         return $ret;
     }
     public function getByID($codigo) {
         $sql = "SELECT * FROM alimento WHERE alimento.codigo = ?";
         $args = [$codigo];
         $mapper = function($row) {
-                return new AlimentoModel($row['id'], $row['descripcion']);
+                return new AlimentoModel($row['codigo'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
+        $ret = count($answer) > 0 ? $answer[0] : false; // short if, mas comodo
         return $ret;
     }
 }
