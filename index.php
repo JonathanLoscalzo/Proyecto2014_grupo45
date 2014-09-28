@@ -33,6 +33,7 @@ require_once("model/ParamsClass.php");
 
 
 $acciones = split("/", $_SERVER['REQUEST_URI']);
+
 switch ($acciones[1]) {
     case "index":
         HomeController::getInstance()->index();
@@ -79,6 +80,7 @@ switch ($acciones[1]) {
         case "add":
             /* agarrar todas las variables del post y mandarlas */
             $donante = new Params($_POST);
+
             DonanteController::getInstance()->create($donante);
             break;
         default:
@@ -111,6 +113,7 @@ switch ($acciones[1]) {
         break;
     case 'alimentos':
         (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
+        
         switch ($acciones[2]) {
         case "edit":
             if (!isset($_POST['submit'])) {
