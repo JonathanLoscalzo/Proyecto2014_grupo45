@@ -4,7 +4,7 @@ include_once('Controller.php');
 include_once("model/DonanteModel.php");
 include_once("model/DonanteRepository.php");
 include_once("model/PDOrepository.php");
-
+include_once("controller/RoleService.php");
 
 class DonanteController extends Controller {
 
@@ -88,11 +88,13 @@ class DonanteController extends Controller {
         /* comproba si hay una sesion valida
           ese metodo deberia enviarte al inicio directamente.
          */
+
         if (parent::backendIsLogged()) {
-            $donantes = DonanteRepository::getInstance()->getAll();
-            $view = new BackEndView();
-            $view->donantes($donantes);
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $donantes = DonanteRepository::getInstance()->getAll();
+                $view = new BackEndView();
+                $view->donantes($donantes);
+            }
         }
     }
-
-}
+    

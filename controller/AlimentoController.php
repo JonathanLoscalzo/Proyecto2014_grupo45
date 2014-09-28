@@ -74,9 +74,6 @@ class AlimentoController extends Controller
         }
     }
     public function index() {
-                /* comproba si hay una sesion valida
-          ese metodo deberia enviarte al inicio directamente.
-         */
 
         if (parent::backendIsLogged()) {
             // Se traen todos los alimentos (tipos) y todos los detalles
