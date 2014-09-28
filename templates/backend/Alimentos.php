@@ -52,8 +52,7 @@
                             <th>Peso Unitario</th>
                             <th>Stock</th>
                             <th>Reservado</th>
-                            <th></th>
-                            <th></th>
+                            <th colspan="2"></th>
                         </tr>
                     </thead>
                     <tbody tbody style="text-align: center">
