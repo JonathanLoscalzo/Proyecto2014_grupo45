@@ -12,11 +12,7 @@
 {% endblock %}
 {% block content %}
 <div id = "content">
-    <!-- $data['id'],
-         data['razonSocial'], $data['apellido'],
-         $data['nombre'], $data['telefono'], $data['email'],
-         $data['domicilio']
-    JRL => SE PUEDE USAR UN ACCORDION PARA QUE MUESTRE LAS 3 OPCIONES? -->
+    <h3> ENTIDADES RECEPTORAS </h3>
     <div id = "accordion">
         <h3>ALTA</h3>
         <div>
