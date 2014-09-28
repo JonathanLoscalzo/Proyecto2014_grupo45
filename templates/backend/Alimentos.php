@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}	
-<h3> ALIMENTOS </h3>
+<h3> PAQUETES </h3>
 <div id = "content">
     <div id="accordion">
         <!--                $data['alimento_codigo'], $data['fecha_vencimiento'], 
