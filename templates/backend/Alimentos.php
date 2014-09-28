@@ -3,7 +3,6 @@
 {% block head %}
 	{{ parent() }}
         <link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
-        <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
         <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
         <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
         <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.11.js"></script>
@@ -38,11 +37,11 @@
 				<label for="stock" style = "display : block">Stock: </label><input id="stock" type="number" name="stock">
 				<label for="reserve" style = "display : block">Reservado: </label><input id="reserve" type="number" name="reservado">
 			</div>
-                        <button type="submit"> Enviar </button>
+                        <button type="submit" name="submit"> Enviar </button>
 		</form>
                 </div>
             <h3>Baja y Modificación</h3>
-            <div>
+            <div class="tabla-class">
                 <table id="tabla-paquetes">
                     <thead>
                         <tr>
