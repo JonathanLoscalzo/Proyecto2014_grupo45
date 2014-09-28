@@ -15,9 +15,12 @@
 {% block content %}		
 	<div id = "content">
             <div id="accordion">
+<!--                $data['alimento_codigo'], $data['fecha_vencimiento'], 
+                    $data['contenido'], $data['peso_unitario'], $data['stock'], 
+                    $data['reservado']);-->
                 <h3>ALTA</h3>
                 <div>
-		<form action="#" method="POST">
+		<form action="./alimentos/add" method="POST">
 			<div class="conj-block">
                                 <label for="tipo" style = "display : block">Tipo: </label>
                                 <select id="tipo-alimento" required >
@@ -35,8 +38,9 @@
 				<label for="stock" style = "display : block">Stock: </label><input id="stock" type="number" name="stock">
 				<label for="reserve" style = "display : block">Reservado: </label><input id="reserve" type="number" name="reservado">
 			</div>
+                        <button type="submit"> Enviar </button>
 		</form>
-            </div>
+                </div>
             <h3>Baja y Modificación</h3>
             <div>
                 <table id="tabla-paquetes">

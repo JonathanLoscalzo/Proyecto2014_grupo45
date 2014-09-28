@@ -23,6 +23,7 @@ class AlimentoController extends Controller
             $detalle_entidad = new DetalleModel(null, $data['alimento_codigo'], $data['fecha_vencimiento'], 
                     $data['contenido'], $data['peso_unitario'], $data['stock'], 
                     $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
+            var_dump($detalle_entidad);
             if ($data['flag'] === 1) {
                 // VOY A USAR INTEGER EN VEZ DE BOOL, 1 = TRUE, 0 = FALSE
                 // SI SE DESEA CREAR TAMBIEN UN ALIMNETO NUEVO
