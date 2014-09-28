@@ -24,24 +24,27 @@
                 <div class="conj-block">
                     <label for="radio" style="display: block">Seleccione opcion</label>
                     <input type="radio" name="habilitar-alimento" id="radio" value="yes">Agregar nuevo Alimento<br>
-                    <input type="radio" name="habilitar-alimento" id="radio" value="no">Utilizar existente
+                    <input type="radio" name="habilitar-alimento" id="radio" checked value="no">Utilizar existente
+                    <div id="select-alimento">
                     <label for="tipo" style = "display : block">Tipo: </label>
-                    <select id="tipo-alimento" required>
+                    <select id="tipo-alimento" required name='alimento_codigo'>
                         <option selected disabled hidden value=''></option>
                         {% for ali in alimentos %}
-                        <option value="{{ ali.codigo }}"> {{ ali.codigo }}</option>
+                        <option value="{{ ali.codigo }}" > {{ ali.codigo }}</option>
 
                         {% endfor %}
                     </select>
-
+                    </div>
+                    <div hidden id="agregar-alimento">
+                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input id="nombre-alimento" type="text" name="nombre-alimento">
+                        <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input name="descripcion" id="descripcion">
+                    </div>
                     <label for="expiration" style = "display : block" >Fecha de Vencimiento: </label><input id="expiration" name="fecha_vencimiento" type="text" >
                     <label for="content" style = "display : block">Contenido: </label><input id="content-food" type="text" name="contenido">
+                    <input id='flag' name='flag' type="hidden" value=0>
                 </div>
                 <div class="conj-block">
-                    <div hidden id="agregar-alimento">
-                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input id="nombre-alimento" type="text" name="alimento">
-                        <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input name="input_descripcion" id="input_descripcion">
-                    </div>
+
                     <label for="weight" style = "display : block">Peso: </label><input id="weight" type="number" name="peso_unitario">
                     <label for="stock" style = "display : block">Stock: </label><input id="stock" type="number" name="stock">
                     <label for="reserve" style = "display : block">Reservado: </label><input id="reserve" type="number" name="reservado">
@@ -88,10 +91,20 @@
 $(document).ready(function () {
     $('#expiration').datepicker();
     $('#accordion').accordion({collapsible: true});
-    $('#tabla-paquetes').dataTable();
-    $('input[type=radio][id=radio]').change(function () {
-        alert('hola');
+    $('input:radio[name="habilitar-alimento"]').click(function () {
+        if ($('input[name="habilitar-alimento"]:checked').val() === 'yes') {
+            $("#agregar-alimento").show();
+            $("#select-alimento").hide();
+            $("#flag").val(1); // setea en verdadero para pasar al controlador
+        }
+        else {
+            $("#flag").val(0); // setea en falso para pasar al controlador.
+            $("#agregar-alimento").hide();
+            $("#select-alimento").show();
+        }
     });
+    $('#tabla-paquetes').dataTable();
+    
 
 });
 </script>

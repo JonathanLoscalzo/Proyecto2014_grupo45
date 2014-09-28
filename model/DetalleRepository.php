@@ -25,6 +25,8 @@ class DetalleRepository extends PDORepository
     public function add($detalle) {
         $sql = "INSERT INTO detalle_alimento VALUES(?, ?, ?, ?, ?, ?, ?)";
         $args = $detalle->getArray();
+        array_shift($args); // corremos el null
+        array_pop($args); // quitamos el model sino da error de string parse
         $mapper = ""; 
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;

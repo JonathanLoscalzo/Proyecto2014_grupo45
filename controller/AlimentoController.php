@@ -20,20 +20,26 @@ class AlimentoController extends Controller
         if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros
             // se crea con NULL debido a que ID es auto-incremental
-            $detalle_entidad = new DetalleModel(null, $data['alimento_codigo'], $data['fecha_vencimiento'], 
-                    $data['contenido'], $data['peso_unitario'], $data['stock'], 
-                    $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
-            var_dump($detalle_entidad);
             if ($data['flag'] === 1) {
                 // VOY A USAR INTEGER EN VEZ DE BOOL, 1 = TRUE, 0 = FALSE
                 // SI SE DESEA CREAR TAMBIEN UN ALIMNETO NUEVO
-                AlimentoRepository::getInstance()->add($detalle_entidad->getAlimento());
+                $alimento = new AlimentoModel($data['nombre-alimento'], $data['descripcion']);
+                AlimentoRepository::getInstance()->add($alimento); // es necesario que se haga en este instante para que funcione el
+                // constructor de abajo
+                $detalle_entidad = new DetalleModel(null, $alimento->getCodigo(), $data['fecha_vencimiento'], 
+                    $data['contenido'], $data['peso_unitario'], $data['stock'], 
+                    $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
                 DetalleRepository::getInstance()->add($detalle_entidad);
             }
             else {
                 // SI UNICAMENTE SE DESEA CREAR UN DETALLE, CON SU ALIMENTO ASOCIADO 
                 // EXISTENTE EN LA BD:
-                DetalleRepository::getInstance()->add($detalle_entidad);
+                
+                $detalle_entidad = new DetalleModel(null, $data['alimento_codigo'], $data['fecha_vencimiento'], 
+                    $data['contenido'], $data['peso_unitario'], $data['stock'], 
+                    $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
+
+                DetalleRepository::getInstance()->add($detalle_entidad); // aca esta el prob
             }
             header("Location: ../alimentos" );
             
