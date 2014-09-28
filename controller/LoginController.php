@@ -48,19 +48,19 @@ class LoginController extends Controller {
             case 0:
             case 1:
                 $view = new BackEndView();
-                $_SESSION["message"] = new MessageService("accessGranted",[$_SESSION["username"]]);
+                $_SESSION["message"] = new MessageService("accessGranted", [$_SESSION["username"]]);
                 $view->index();
                 break;
             case 2:
                 $view = new FrontEndView();
-                $_SESSION["message"] = new MessageService("wrongPassOrUser",[]);
+                $_SESSION["message"] = new MessageService("wrongPassOrUser", []);
                 $view->index();
                 break;
         }
     }
 
     public function backend() {
-        /* verificar si la sesion està iniciada? Todos pueden acceder a este*/
+        /* verificar si la sesion està iniciada? Todos pueden acceder a este */
         if (parent::backendIsLogged()) {
             $view = new BackEndView();
             $view->index();
@@ -89,10 +89,11 @@ class LoginController extends Controller {
     }
 
     public function logout() {
+        self::startSession();
+        $_SESSION["message"] = new MessageService("closeSession", [$_SESSION["username"]]);
         self::destroySession();
         self::startSession();
         $view = new FrontEndView();
-        /* enviar un alert o mensaje global aqui */
         $view->index();
     }
 
