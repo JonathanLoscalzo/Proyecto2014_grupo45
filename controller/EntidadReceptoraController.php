@@ -25,39 +25,44 @@ class EntidadReceptoraController extends Controller {
     public function create($post) {
         /* $EntidadReceptora sin id de EntidadReceptora */
         if (parent::backendIsLogged()) {
-            
-            $data = $post->getParams(); // obtenemos Los parametros
-            $entidad = new EntidadReceptoraModel(
-                    null, $data["razonSocial"], $data["telefono"], $data["domicilio"], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioEntidadID"]);
-            EntidadReceptoraRepository::getInstance()->add($entidad);
-            header("Location: ../entidadesReceptoras" );
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $data = $post->getParams(); // obtenemos Los parametros
+                $entidad = new EntidadReceptoraModel(
+                        null, $data["razonSocial"], $data["telefono"], $data["domicilio"], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioEntidadID"]);
+                EntidadReceptoraRepository::getInstance()->add($entidad);
+                header("Location: ../entidadesReceptoras");
+            }
         }
     }
 
     public function edit($post) {
         if (parent::backendIsLogged()) {
-            $data = $post->getParams(); // obtenemos Los parametros
-            $entidad = new EntidadReceptoraModel(
-                    $data["id"], $data["razonSocial"], $data["telefono"], $data["domicilio"], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioPrestadoID"]);
-            /* $arr = array('Hello','World!','Beautiful','Day!'); echo implode(" ",$arr); => pasa todos los parametros a un string separado por espacios
-             * 
-             * 
-             */
-            EntidadReceptoraRepository::getInstance()->edit($entidad);
-            /* USAR GLOBALS PARA LOS MENSAJES */
-            header("Location: ../../entidadesReceptoras" );
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $data = $post->getParams(); // obtenemos Los parametros
+                $entidad = new EntidadReceptoraModel(
+                        $data["id"], $data["razonSocial"], $data["telefono"], $data["domicilio"], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioPrestadoID"]);
+                /* $arr = array('Hello','World!','Beautiful','Day!'); echo implode(" ",$arr); => pasa todos los parametros a un string separado por espacios
+                 * 
+                 * 
+                 */
+                EntidadReceptoraRepository::getInstance()->edit($entidad);
+                /* USAR GLOBALS PARA LOS MENSAJES */
+                header("Location: ../../entidadesReceptoras");
+            }
         }
     }
 
     public function editView($id) {
 
         if (parent::backendIsLogged()) {
-            $entidadInfo = EntidadReceptoraRepository::getInstance()->getByID($id);
-            $Necesidades = NecesidadEntidadRepository::getInstance()->getAll();
-            $Servicios = ServicioEntidadRepository::getInstance()->getAll();
-            $Estados = EstadoEntidadRepository::getInstance()->getAll();
-            $view = new BackEndView();
-            $view->editViewEntidadReceptora($entidadInfo, $Estados, $Necesidades, $Servicios); // si no devuelve nada esta vista se encarga
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $entidadInfo = EntidadReceptoraRepository::getInstance()->getByID($id);
+                $Necesidades = NecesidadEntidadRepository::getInstance()->getAll();
+                $Servicios = ServicioEntidadRepository::getInstance()->getAll();
+                $Estados = EstadoEntidadRepository::getInstance()->getAll();
+                $view = new BackEndView();
+                $view->editViewEntidadReceptora($entidadInfo, $Estados, $Necesidades, $Servicios); // si no devuelve nada esta vista se encarga
+            }
         }
     }
 
@@ -66,9 +71,11 @@ class EntidadReceptoraController extends Controller {
           Preguntar que hacer!
          */
         if (parent::backendIsLogged()) {
-            EntidadReceptoraRepository::getInstance()->remove($id);
-            
-            header("Location: ../../entidadesReceptoras" );
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                EntidadReceptoraRepository::getInstance()->remove($id);
+
+                header("Location: ../../entidadesReceptoras");
+            }
         }
     }
 
@@ -78,12 +85,14 @@ class EntidadReceptoraController extends Controller {
          */
 
         if (parent::backendIsLogged()) {
-            $EntidadesReceptoras = EntidadReceptoraRepository::getInstance()->getAll();
-            $Necesidades = NecesidadEntidadRepository::getInstance()->getAll();
-            $Servicios = ServicioEntidadRepository::getInstance()->getAll();
-            $Estados = EstadoEntidadRepository::getInstance()->getAll();
-            $view = new BackEndView();
-            $view->EntidadesReceptoras($EntidadesReceptoras, $Estados, $Necesidades, $Servicios);
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $EntidadesReceptoras = EntidadReceptoraRepository::getInstance()->getAll();
+                $Necesidades = NecesidadEntidadRepository::getInstance()->getAll();
+                $Servicios = ServicioEntidadRepository::getInstance()->getAll();
+                $Estados = EstadoEntidadRepository::getInstance()->getAll();
+                $view = new BackEndView();
+                $view->EntidadesReceptoras($EntidadesReceptoras, $Estados, $Necesidades, $Servicios);
+            }
         }
     }
 
