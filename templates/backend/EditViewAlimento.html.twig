@@ -1,8 +1,5 @@
 {# View Alimento. Esta view contiene la alta baja y modificacion. #}
-
-
 {% extends "backend_layout.php"  %}
-
 {% block content %}
 <div id ="content">
             <form action="{{server}}/alimentos/edit" method="POST">
@@ -11,10 +8,11 @@
                     <input type="radio" name="habilitar-alimento" id="radio" value="yes">Agregar Alimento<br>
                     <input type="radio" name="habilitar-alimento" id="radio" checked value="no">Utilizar existente
                     <div id="select-alimento">
+                    <input id="hidden-actualcode" type="hidden" value="{{detalle.alimento_codigo}}">
                     <label for="tipo" style = "display : block">Tipo: </label>
-                    <select id="tipo-alimento">
+                    <select id="tipo-alimento" value="">
                         {% for ali in alimentos %}
-                        <option value="{{ ali.codigo }}" > {{ ali.codigo }}</option>
+                        <option value="{{ ali.codigo }}" id="option-{{ali.codigo}}}" > {{ ali.codigo }}</option>
                         {% endfor %}
                     </select>
                     </div>
@@ -35,4 +33,25 @@
                 <button type="submit"> Enviar </button>
             </form>
 </div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js">
+{#$(document).ready(function () {
+    var alimento_codigo = $("#hidden-actualcode").val();
+    $("#option-"+alimento_codigo).prop("selected", true);
+    $('#expiration').datepicker();
+    $('input:radio[name="habilitar-alimento"]').click(function () {
+        if ($('input[name="habilitar-alimento"]:checked').val() === 'yes') {
+            $("#agregar-alimento").show();
+            $("#select-alimento").hide();
+            $("#flag").val(1); // setea en verdadero para pasar al controlador
+        }
+        else {
+            $("#flag").val(0); // setea en falso para pasar al controlador.
+            $("#agregar-alimento").hide();
+            $("#select-alimento").show();
+        }
+    });
+});#}
+</script>
 {% endblock %}

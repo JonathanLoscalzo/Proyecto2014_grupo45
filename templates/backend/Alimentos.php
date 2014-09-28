@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}	
-<h3> PAQUETES </h3>
+
 <div id = "content">
     <div id="accordion">
         <!--                $data['alimento_codigo'], $data['fecha_vencimiento'], 
@@ -30,7 +30,7 @@
                     <select id="tipo-alimento">
                         <option selected disabled hidden value=''></option>
                         {% for ali in alimentos %}
-                        <option value="{{ ali.codigo }}" > {{ ali.codigo }}</option>
+                        <option value="{{ ali.codigo }}"  > {{ ali.codigo }}</option>
 
                         {% endfor %}
                     </select>
