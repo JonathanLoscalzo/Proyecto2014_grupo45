@@ -23,11 +23,13 @@ class DetalleRepository extends PDORepository
         return self::$instance;
     }
     public function add($detalle) {
-        $sql = "INSERT INTO detalle_alimento VALUES(?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO detalle_alimento(alimento_codigo, fecha_vencimiento, contenido, peso_unitario, stock, reservado) VALUES(?, ?, ?, ?, ?, ?)";
         $args = $detalle->getArray();
         array_shift($args); // corremos el null
         array_pop($args); // quitamos el model sino da error de string parse
-        $mapper = ""; 
+        $mapper = function($row) {
+            return $row;
+        };
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }

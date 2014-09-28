@@ -20,6 +20,8 @@ class AlimentoController extends Controller
         if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros
             // se crea con NULL debido a que ID es auto-incremental
+            $data['fecha_vencimiento'] = date("Y-m-d", strtotime($data['fecha_vencimiento']) ); 
+            // convert to yyyy-mm-dd format
             if ($data['flag'] === 1) {
                 // VOY A USAR INTEGER EN VEZ DE BOOL, 1 = TRUE, 0 = FALSE
                 // SI SE DESEA CREAR TAMBIEN UN ALIMNETO NUEVO
