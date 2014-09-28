@@ -1,21 +1,62 @@
-{# View Alimento. Esta view contiene la alta baja y modificacion. #}
+{# View Alimento. Esta view contiene la modificacion. #}
+{% extends "backend_layout.php" %}
+{% block head %}
+{{ parent() }}
+    <script type="text/javascript" src="{{ server }}js/plugins/jquery-2.1.2.js"></script>
 
-
-{% extends "backend_layout.php"  %}
-
+{% endblock %}
 {% block content %}
 <div id ="content">
-    <form action="#" method="POST">
-        <div class="conj-block">
-            <label for="code" style = "display : block">Codigo: </label><input id="alimento-code" type="number" name="alimento-code" >
-            <label for="description" style = "display : block">Descripcion: </label><input name="alimento-descripcion" id="alimento-description" type="textarea" >
-        </div>
-        <div class="conj-block">
-            <label for="service" style = "display : block">Servicio Prestado: </label>
-            <!-- JRL => preguntar como usar esto!, como guardar esto. Si guardar con numeros y utilizar 
-            tipo un archivo de recursos. -->
-        </div>
-        <button type="submit" > Enviar </button>
-    </form>
+            <form action="{{server}}/alimentos/edit" method="POST">
+                <div class="conj-block">
+                    <label for="radio" style="display: block">Seleccione opcion</label>
+                    <input type="radio" name="habilitar-alimento-edit" id="radio" value="yes">Agregar Alimento<br>
+                    <input type="radio" name="habilitar-alimento-edit" id="radio" checked value="no">Utilizar existente
+                    <div id="select-alimento-edit">
+                    <input id="hidden-actualcode" type="hidden" value="{{detalle.alimento_codigo}}">
+                    <label for="tipo" style = "display : block">Tipo: </label>
+                    <select id="tipo-alimento" value="" name="alimento_codigo">
+                        {% for ali in alimento %}
+                        <option id="{{ali.codigo}}" value="{{ ali.codigo }}"> {{ ali.codigo }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div hidden id="agregar-alimento-edit">
+                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input id="alimento_codigo" type="text" name="codigo-nuevo">
+                        <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input name="descripcion-nueva" id="descripcion">
+                    </div>
+                    <label for="expiration" style = "display : block" >Fecha de Vencimiento: </label>
+                    <input id="expiration" name="fecha_vencimiento" value="{{detalle.fecha_vencimiento}}" type="text" >
+                    <label for="content" style = "display : block">Contenido: </label><input id="content-food" type="text" name="contenido" value="{{detalle.contenido}}">
+                    <input id='flag' name='flag' type="hidden" value=0>
+                </div>
+                <div class="conj-block">
+
+                    <label for="weight" style = "display : block">Peso: </label><input value="{{detalle.peso_unitario}}" id="weight" type="number" name="peso_unitario">
+                    <label for="stock" style = "display : block">Stock: </label><input id="stock" value="{{detalle.stock}}" type="number" name="stock">
+                    <label for="reserve" style = "display : block">Reservado: </label><input value="{{detalle.reservado}}"id="reserve" type="number" name="reservado">
+                </div>
+                <button type="submit"> Enviar </button>
+            </form>
 </div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var alimento_codigo = $("#hidden-actualcode").val();
+        $("#"+alimento_codigo).prop("selected", true); // seleccionamos la opcion correspondiente al editado.
+        $('input:radio[name="habilitar-alimento-edit"]').click(function () {
+            if ($('input[name="habilitar-alimento-edit"]:checked').val() === 'yes') {
+                $("#agregar-alimento-edit").show();
+                $("#select-alimento-edit").hide();
+                $("#flag").val(1); // setea en verdadero para pasar al controlador
+            }
+            else {
+                $("#flag").val(0); // setea en falso para pasar al controlador.
+                $("#agregar-alimento-edit").hide();
+                $("#select-alimento-edit").show();
+            }
+        });
+    });
+</script>
 {% endblock %}

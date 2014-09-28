@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}	
-<h3> ALIMENTOS </h3>
+
 <div id = "content">
     <div id="accordion">
         <!--                $data['alimento_codigo'], $data['fecha_vencimiento'], 
@@ -27,17 +27,16 @@
                     <input type="radio" name="habilitar-alimento" id="radio" checked value="no">Utilizar existente
                     <div id="select-alimento">
                     <label for="tipo" style = "display : block">Tipo: </label>
-                    <select id="tipo-alimento">
-                        <option selected disabled hidden value=''></option>
+                    <select id="tipo-alimento" name="alimento_codigo">
                         {% for ali in alimentos %}
-                        <option value="{{ ali.codigo }}" > {{ ali.codigo }}</option>
+                        <option value="{{ ali.codigo }}" id="{{ ali.codigo}}"  > {{ ali.codigo }}</option>
 
                         {% endfor %}
                     </select>
                     </div>
                     <div hidden id="agregar-alimento">
-                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input id="alimento_codigo" type="text" name="alimento_codigo">
-                        <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input name="descripcion" id="descripcion">
+                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input id="codigo-nuevo" type="text" name="codigo-nuevo">
+                        <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input name="descripcion-nueva" id="descripcion-nueva">
                     </div>
                     <label for="expiration" style = "display : block" >Fecha de Vencimiento: </label><input id="expiration" name="fecha_vencimiento" type="text" >
                     <label for="content" style = "display : block">Contenido: </label><input id="content-food" type="text" name="contenido">

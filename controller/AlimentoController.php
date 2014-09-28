@@ -28,21 +28,22 @@ class AlimentoController extends Controller {
                 if ($data['flag'] == 1) {
 // VOY A USAR INTEGER EN VEZ DE BOOL, 1 = TRUE, 0 = FALSE
 // SI SE DESEA CREAR TAMBIEN UN ALIMNETO NUEVO
-                    $query_alimento = AlimentoRepository::getInstance()->getByID($data['alimento_codigo']);
-                    if (count($query_alimento) < 1) {
+                    $query_alimento = AlimentoRepository::getInstance()->get($data['codigo-nuevo']);
+                    
+                    if ($query_alimento === null) {
 // Si no hay alimento con el mismo codigo...
-                        $alimento = new AlimentoModel($data['alimento_codigo'], $data['descripcion']);
+                        $alimento = new AlimentoModel($data['codigo-nuevo'], $data['descripcion-nueva']);
                         AlimentoRepository::getInstance()->add($alimento); // es necesario que se haga en este instante para que funcione el
 // constructor de abajo
                         $detalle_entidad = new DetalleModel(null, $alimento->getCodigo(), $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
                         DetalleRepository::getInstance()->add($detalle_entidad);
+                        
                     } else { // ERROR: Ya se encuentra el tipo en la BD 
                     }
                 } else {
 // SI UNICAMENTE SE DESEA CREAR UN DETALLE, CON SU ALIMENTO ASOCIADO 
 // EXISTENTE EN LA BD:
                     $detalle_entidad = new DetalleModel(null, $data['alimento_codigo'], $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
-
                     DetalleRepository::getInstance()->add($detalle_entidad); // aca esta el prob
                 }
                 header("Location: ../alimentos");
@@ -54,8 +55,24 @@ class AlimentoController extends Controller {
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $data = $post->getParams(); // obtenemos Los parametros
-                $entidad = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']);
-                DetalleRepository::getInstance()->edit($entidad);
+                /* TODO: el modulo  se puede refactorizar, es igual al create */
+                if ($data['flag'] == 1) {
+                    $query_alimento = AlimentoRepository::getInstance()->get($data['codigo-nuevo']);  
+                    if ($query_alimento === null) {
+// Si no hay alimento con el mismo codigo...
+                        $alimento = new AlimentoModel($data['codigo-nuevo'], $data['descripcion-nueva']);
+                        AlimentoRepository::getInstance()->add($alimento); // es necesario que se haga en este instante para que funcione el
+// constructor de abajo
+                        $entidad = new DetalleModel($data['id'], $alimento->getCodigo(), $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']);
+                        DetalleRepository::getInstance()->edit($entidad);
+                    }
+                    else {//ERROR EL TIP DE ALIMENTO YA EXISTE
+                        }
+                }
+                else {
+                    $entidad = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
+                    DetalleRepository::getInstance()->add($entidad); // aca esta el prob
+                }                    
                 $this->index();
                 header("Location: ../../donantes");
             }
@@ -68,9 +85,9 @@ class AlimentoController extends Controller {
          */
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
-                AlimentoRepository::getInstance()->remove($id);
-                LoginController::getInstance()->index();
-                header("Location: ../../donantes");
+                DetalleRepository::getInstance()->remove($id);
+                //LoginController::getInstance()-> backend(); /* mensaje de todo ok */
+                header("Location: ../../alimentos");
             }
         }
     }
@@ -94,7 +111,7 @@ class AlimentoController extends Controller {
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $Detalle = DetalleRepository::getInstance()->getByID($id);
-                $Alimento = $Detalle->getAlimento();
+                $Alimento = AlimentoRepository::getInstance()->getAll();
                 $view = new BackEndView();
                 $view->editViewAlimento($Alimento, $Detalle); // si no devuelve nada esta vista se encarga
             }
