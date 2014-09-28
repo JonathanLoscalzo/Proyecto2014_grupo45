@@ -31,7 +31,7 @@ class DetalleModel extends Model
             return $this;
 	}
 
-	public function getAlimentoCodigo(){
+	public function getAlimento_Codigo(){
 		return $this->alimento_codigo;
 	}
 
@@ -49,10 +49,10 @@ class DetalleModel extends Model
         public function getContenido() {
             return $this->contenido;
         }
-        public function getFechaVencimiento() {
+        public function getFecha_Vencimiento() {
             return $this->fecha_vencimiento;
         }
-        public function getPesoUnitario() {
+        public function getPeso_Unitario() {
             return $this->peso_unitario;
         }
         public function getStock() {

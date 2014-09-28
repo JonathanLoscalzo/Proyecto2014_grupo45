@@ -20,7 +20,7 @@
                     $data['reservado']);-->
                 <h3>ALTA</h3>
                 <div>
-		<form action="./alimentos/add" method="POST">
+		<form action="{{server}}/alimentos/add" method="POST">
 			<div class="conj-block">
                                 <label for="tipo" style = "display : block">Tipo: </label>
                                 <select id="tipo-alimento" required >
@@ -45,27 +45,30 @@
             <div>
                 <table id="tabla-paquetes">
                     <thead>
-                    <th>Tipo</th>
-                    <th>Vencimiento</th>
-                    <th>Contenido</th>
-                    <th>Peso Unitario</th>
-                    <th>Stock</th>
-                    <th>Reservado</th>
-
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Vencimiento</th>
+                            <th>Contenido</th>
+                            <th>Peso Unitario</th>
+                            <th>Stock</th>
+                            <th>Reservado</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                     </thead>
-                    <tbody>
+                    <tbody tbody style="text-align: center">
                         {% for detalle in detalles %}
-                    <td>
-                    <tr> {{ detalle.alimento_codigo }} </tr>
-                    <tr> {{ detalle.fecha_vencimiento }} </tr>
-                    <tr> {{ detalle.contenido }} </tr>
-                    <tr> {{ detalle.peso_unitario }} </tr>
-                    <tr> {{ detalle.stock }} </tr>
-                    <tr> {{ detalle.reservado }} </tr>
+                    <tr>
+                        <td> {{ detalle.alimento_codigo }} </td>
+                        <td> {{ detalle.fecha_vencimiento }} </td>
+                        <rd> {{ detalle.contenido }} </td>
+                        <td> {{ detalle.peso_unitario }} </td>
+                        <td> {{ detalle.stock }} </td>
+                        <td> {{ detalle.reservado }} </td>
 
-                    <tr><a href="./alimentos/edit/{{ detalle.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></tr>
-                    <tr><a href="./alimentos/remove/{{ detalle.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></tr>
-                    </td>
+                        <td><a href="{{server}}/alimentos/edit/{{ detalle.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                        <td><a href="{{server}}/alimentos/remove/{{ detalle.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                    </tr>
                     {% endfor %}
                     </tbody>
                 </table>
