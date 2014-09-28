@@ -45,8 +45,7 @@ class AlimentoRepository extends PDORepository
         $args = ($codigo);
         $mapper = function($row) {};
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) > 0 ? $answer[0] : false; // short if, mas comodo
-        return $ret;
+        return $answer;
     }
     public function getAll() {
         $sql = "SELECT * FROM alimento";
@@ -64,7 +63,6 @@ class AlimentoRepository extends PDORepository
                 return new AlimentoModel($row['codigo'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) > 0 ? $answer[0] : false; // short if, mas comodo
-        return $ret;
+        return $answer;
     }
 }

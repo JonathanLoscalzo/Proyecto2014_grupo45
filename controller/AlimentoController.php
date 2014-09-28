@@ -22,21 +22,27 @@ class AlimentoController extends Controller
             // se crea con NULL debido a que ID es auto-incremental
             $data['fecha_vencimiento'] = date("Y-m-d", strtotime($data['fecha_vencimiento']) ); 
             // convert to yyyy-mm-dd format
-            if ($data['flag'] === 1) {
+            if ($data['flag'] == 1) {
                 // VOY A USAR INTEGER EN VEZ DE BOOL, 1 = TRUE, 0 = FALSE
                 // SI SE DESEA CREAR TAMBIEN UN ALIMNETO NUEVO
-                $alimento = new AlimentoModel($data['nombre-alimento'], $data['descripcion']);
-                AlimentoRepository::getInstance()->add($alimento); // es necesario que se haga en este instante para que funcione el
-                // constructor de abajo
-                $detalle_entidad = new DetalleModel(null, $alimento->getCodigo(), $data['fecha_vencimiento'], 
-                    $data['contenido'], $data['peso_unitario'], $data['stock'], 
-                    $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
-                DetalleRepository::getInstance()->add($detalle_entidad);
+                $query_alimento = AlimentoRepository::getInstance()->getByID($data['alimento_codigo']);
+                    if (count($query_alimento) < 1) {
+                        // Si no hay alimento con el mismo codigo...
+                        $alimento = new AlimentoModel($data['alimento_codigo'], $data['descripcion']);
+                        AlimentoRepository::getInstance()->add($alimento); // es necesario que se haga en este instante para que funcione el
+                        // constructor de abajo
+                        $detalle_entidad = new DetalleModel(null, $alimento->getCodigo(), 
+                            $data['fecha_vencimiento'], 
+                            $data['contenido'], $data['peso_unitario'], $data['stock'], 
+                            $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
+                        DetalleRepository::getInstance()->add($detalle_entidad);
+                    }
+                    else { // ERROR: Ya se encuentra el tipo en la BD 
+                        }
             }
             else {
                 // SI UNICAMENTE SE DESEA CREAR UN DETALLE, CON SU ALIMENTO ASOCIADO 
                 // EXISTENTE EN LA BD:
-                
                 $detalle_entidad = new DetalleModel(null, $data['alimento_codigo'], $data['fecha_vencimiento'], 
                     $data['contenido'], $data['peso_unitario'], $data['stock'], 
                     $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
@@ -44,9 +50,8 @@ class AlimentoController extends Controller
                 DetalleRepository::getInstance()->add($detalle_entidad); // aca esta el prob
             }
             header("Location: ../alimentos" );
-            
         }
-    }
+}
     public function edit($post) {
         if (parent::backendIsLogged()) {
             $data = $post->getParams(); // obtenemos Los parametros

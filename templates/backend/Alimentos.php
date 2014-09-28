@@ -27,7 +27,7 @@
                     <input type="radio" name="habilitar-alimento" id="radio" checked value="no">Utilizar existente
                     <div id="select-alimento">
                     <label for="tipo" style = "display : block">Tipo: </label>
-                    <select id="tipo-alimento" required name='alimento_codigo'>
+                    <select id="tipo-alimento">
                         <option selected disabled hidden value=''></option>
                         {% for ali in alimentos %}
                         <option value="{{ ali.codigo }}" > {{ ali.codigo }}</option>
@@ -36,7 +36,7 @@
                     </select>
                     </div>
                     <div hidden id="agregar-alimento">
-                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input id="nombre-alimento" type="text" name="nombre-alimento">
+                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input id="alimento_codigo" type="text" name="alimento_codigo">
                         <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input name="descripcion" id="descripcion">
                     </div>
                     <label for="expiration" style = "display : block" >Fecha de Vencimiento: </label><input id="expiration" name="fecha_vencimiento" type="text" >
