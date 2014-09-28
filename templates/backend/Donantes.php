@@ -80,7 +80,7 @@
 {% block scripts %}
 <script>
 $(document).ready(function () {
-    $('#accordion').accordion({collapsible: true});
+    $('#accordion').accordion({collapsible: true, active: false});
     //$('#tabla-donantes').dataTable();
 });
 

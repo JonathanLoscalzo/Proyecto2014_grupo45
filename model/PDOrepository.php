@@ -27,9 +27,13 @@ abstract class PDORepository {
             fetchAll();
             fetch_class();
         */
+          
         $connection = $this->getConnection(); // hace la conexion
         $stmt = $connection->prepare($sql); // prepara la consulta
+        
         $stmt->execute($args); //envia los parametros a la consulta , Devuelve un resource
+              
+
         $list = []; // lista vacia
         try{
             while($element = $stmt->fetch()) // mientras haya que consultar, mapeo el resultado en una lista

@@ -2,8 +2,9 @@
 
 {% block content %}
     <div id ="content">
-        <form action="./{{server}}donantes/add" method="POST" id="alta">
+        <form action="./{{server}}donantes/edit" method="POST" id="alta">
             <div class="conj-block">
+                <input id="id" name="id" value="{{donante.id}}" hidden>
                 <label for="razonSocial" style = "display : block">Razon Social: </label>
                 <input id="razonSocial" name="razonSocial" type="text" maxlength="100" required placeholder="Ingrese Razon Social" value="{{ donante.razonSocial }}">
                 <label for="nombre" style = "display : block">Nombre: </label>

@@ -87,7 +87,7 @@
 {% block scripts %}
 <script>
 $(document).ready(function () {
-    $('#accordion').accordion({collapsible: true});
+    $('#accordion').accordion({collapsible: true, active:false});
     console.log($("select"));
     $('select').change(function () {
         var x = $(this).val();

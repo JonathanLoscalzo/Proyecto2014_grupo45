@@ -1,7 +1,7 @@
 <?php
 
-include_once('PDOrepository.php');
-include_once('DonanteModel.php');
+include_once('model/PDOrepository.php');
+include_once('model/DonanteModel.php');
 
 class DonanteRepository extends PDOrepository {
 
@@ -86,19 +86,21 @@ class DonanteRepository extends PDOrepository {
     public function edit($donante) {
 
         $sql = "UPDATE donante
-                SET razon_social = ?,
-                    apellido_contacto = ? ,
-                    nombre_contacto = ?,
-                    telefono_contacto = ?,
-                    mail_contacto = ?,
-                    domicilio_contacto = ?) 
-                WHERE Id = ?";
+                SET razon_social=?,
+                    apellido_contacto=? ,
+                    nombre_contacto=?,
+                    telefono_contacto=?,
+                    mail_contacto=?,
+                    domicilio_contacto=? 
+                WHERE Id=?";
         $args = $donante->getArray();
         $mapper = function($row) {
             return $row;
         }; //nose que poner acà
         /* quien valida los datos? */
+        
         return $answer = $this->queryList($sql, $args, $mapper);
+        
     }
 
     public function remove($id) {
