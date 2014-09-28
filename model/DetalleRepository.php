@@ -54,12 +54,15 @@ class DetalleRepository extends PDORepository
         $ret = count($answer) > 0 ? $answer[0] : false; // short if, mas comodo
         return $ret;
     }
-    public function remove($codigo) {
-        $sql = "DELETE FROM alimento WHERE alimento.codigo = ?";
-        $args = ($codigo);
-        $mapper = "";
+    public function remove($id) {
+        $sql = "DELETE FROM detalle_alimento WHERE detalle_alimento.id = ?";
+        $args = [$id];
+        $mapper = function ($row) {
+            return $row;
+        };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) == 1 ? $answer[0] : false; // short if, mas comodo
+        $ret = count($answer) > 0 ? $answer[0] : null; // short if, mas comodo 
+        // TODO: que devuelven los remove y los edit?
         return $ret;
     }
     public function getAll() {
