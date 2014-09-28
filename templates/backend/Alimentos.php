@@ -61,7 +61,7 @@
                     <tr>
                         <td> {{ detalle.alimento_codigo }} </td>
                         <td> {{ detalle.fecha_vencimiento }} </td>
-                        <rd> {{ detalle.contenido }} </td>
+                        <td> {{ detalle.contenido }} </td>
                         <td> {{ detalle.peso_unitario }} </td>
                         <td> {{ detalle.stock }} </td>
                         <td> {{ detalle.reservado }} </td>
