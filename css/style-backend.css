@@ -144,12 +144,8 @@ footer {
     border-collapse: collapse;
     border-spacing: 0;
     width:100%;
-   
     margin:0px;
     padding:0px;
-}
-.tabla-class tr:hover td{
-
 }
 
 .tabla-class tr:nth-child(odd){ 
@@ -162,32 +158,34 @@ footer {
 .tabla-class td{
     vertical-align:middle;
     border:1px solid #000000;
-    border-width:0px 1px 1px 0px;
+    border-width:1px 0px 1px 0px;
     text-align:center;
     padding:0.5%;
-    
     font-family:Arial;
     font-weight:normal;
     color:#000000;
 }
 
-.tabla-class tr:first-child td{
+.tabla-class tr:hover td{
    
     background-color:#ff7f00;
     border:0px solid #000000;
     text-align:center;
-    border-width:0px 0px 1px 1px;
+    border-width:1px 0px 1px 0px;
     font-family:Arial;
     font-weight:bold;
     color:#ffffff;
 }
-.tabla-class tr:first-child:hover td{
-    background-color:#ff7f00;
+
+.truncate{
+    white-space: nowrap; 
+    width: 5em; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    border: 1px solid #000000;
 }
-.tabla-class tr:first-child td:first-child{
-    border-width:0px 0px 1px 0px;
-}
-.tabla-class tr:first-child td:last-child{
-    border-width:0px 0px 1px 1px;
+input {
+    border-radius: 0.5em;
+    padding: 0.3em;
 }
 

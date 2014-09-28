@@ -47,7 +47,7 @@ class RoleService {
         $array = $this->getRoles();
         return in_array($functionName, $array[$role]);
     }
-
+/* el usuario 2 todavia no tiene posibilidad de hacer nada */
     public function __construct() {
         $this->arrayRole = array(
             1 => [
@@ -62,13 +62,18 @@ class RoleService {
                 "EntidadReceptoraController:editView",
                 "EntidadReceptoraController:create",
                 "AlimentoController:index",
+                "AlimentoController:remove",
+                "AlimentoController:edit",
+                "AlimentoController:editView",
+                "AlimentoController:create",
+                "AlimentoController:listarAlimentos"
                 ],
             2 => [" "],
-            3 => ["AlimentoController:index"]
+            3 => ["AlimentoController:listarAlimentos"]
         );
     }
 
-    public function getRoles() {
+    private function getRoles() {
         return $this->arrayRole;
     }
 

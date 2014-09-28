@@ -60,8 +60,8 @@
                         <td> {{ donante.nombre }} </td>
                         <td> {{ donante.apellido }} </td>
                         <td> {{ donante.telefono }} </td>
-                        <td> {{ donante.domicilio }} </td>
-                        <td> {{ donante.email }} </td>
+                        <td class="truncate"> {{ donante.domicilio }} </td>
+                        <td > {{ donante.email }} </td>
                         <td><a href="{{server}}donantes/edit/{{ donante.id }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar" ></a></td>
                         <td><a href="{{server}}donantes/remove/{{ donante.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar" ></a></td>
                     </tr>
