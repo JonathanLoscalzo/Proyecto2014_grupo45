@@ -11,6 +11,8 @@
  *
  * @author loscalzo
  */
+include_once("controller/MessageService.php");
+
 class RoleService {
     /*  Se tendrá una interesante estructura indexada por roles, 
      *  en la que tendrá un arreglo que indicarán todas las funciones 
@@ -30,6 +32,12 @@ class RoleService {
      * 
      */
 
+    private function redirect() {
+        $cant = count(split("/", $_SERVER['REQUEST_URI'])) - 2;
+        $var = str_repeat("../", $cant);
+        header("Location: ./backend/" . $var);
+    }
+
     private static $instance = null;
 
     public static function getInstance() {
@@ -45,9 +53,16 @@ class RoleService {
 
     public function hasRolePermission($role, $functionName) {
         $array = $this->getRoles();
-        return in_array($functionName, $array[$role]);
+        $answer = in_array($functionName, $array[$role]);
+        if (!$answer) {
+            $_SESSION["message"] = new MessageService("permissionDenied", []);
+            $this->redirect();
+        }
+        return $answer;
     }
-/* el usuario 2 todavia no tiene posibilidad de hacer nada */
+
+    /* el usuario 2 todavia no tiene posibilidad de hacer nada */
+
     public function __construct() {
         $this->arrayRole = array(
             1 => [
@@ -67,7 +82,7 @@ class RoleService {
                 "AlimentoController:editView",
                 "AlimentoController:create",
                 "AlimentoController:listarAlimentos"
-                ],
+            ],
             2 => [" "],
             3 => ["AlimentoController:listarAlimentos"]
         );

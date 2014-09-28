@@ -49,5 +49,12 @@ abstract class PDORepository {
             die;
         }
     }
+    
+    abstract public function getAll();
+    abstract public function getByID($id);
+    abstract public function add($obj);
+    abstract public function edit($obj);
+    abstract public function remove($id);
+    abstract public function exist($id);
 
 }

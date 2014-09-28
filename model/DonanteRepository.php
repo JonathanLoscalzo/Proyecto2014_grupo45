@@ -78,7 +78,7 @@ class DonanteRepository extends PDOrepository {
         }; //nose que poner acà
         $args = $donante->getArray();
         array_pop($args); // quito los 3 valores
-        
+
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer[0];
     }
@@ -98,9 +98,8 @@ class DonanteRepository extends PDOrepository {
             return $row;
         }; //nose que poner acà
         /* quien valida los datos? */
-        
+
         return $answer = $this->queryList($sql, $args, $mapper);
-        
     }
 
     public function remove($id) {
@@ -113,6 +112,10 @@ class DonanteRepository extends PDOrepository {
         //nose que poner acà
         /* quien valida los datos? */
         return $answer = $this->queryList($sql, $args, $mapper);
+    }
+
+    public function exist($id) {
+        return  null;
     }
 
 }

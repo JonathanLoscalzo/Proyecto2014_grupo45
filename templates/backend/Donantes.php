@@ -33,8 +33,7 @@
                 </div>
                 <div class="conj-block">
                     <label for="direccion" style = "display : block">Domicilio: </label>
-                    <textarea rows="3" colspan=5 id="domicilio" name="domicilio" type="text" maxlength="200" required placeholder="Ej: Benito Juarez 2040, Cancha Lejana, La Trompa (200A)">
-                    </textarea>
+                    <textarea rows="3" colspan=5 id="domicilio" name="domicilio" type="text" maxlength="200" required placeholder="Ej: Benito Juarez 2040, Cancha Lejana, La Trompa (200A)"></textarea>
                     <button type="submit" name="submit" style="display:block"> Enviar </button>
                 </div>
             </form>

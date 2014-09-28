@@ -31,7 +31,8 @@ class MessageResource {
         "accessGranted" => ["Bienvenido %s ! ", "success"],
         "repeatAccessGranted" => ["UD ya inició sesión como %s, no puede hacerlo dos veces. Debe cerrar sesión.", "success"],
         "wrongPassOrUser" => ["Usuario o contraseña erróneos", "error"],
-        "closeSession" => ["Sesión finalizada, Hasta luego %s!", "success"]
+        "closeSession" => ["Sesión finalizada, Hasta luego %s!", "success"],
+        "needLogin" => ["Necesita iniciar sesión para ingresar a estas funciones","error"]
     );
     
     public function getResource($key){

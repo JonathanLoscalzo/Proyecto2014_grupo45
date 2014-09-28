@@ -1,8 +1,9 @@
 <?php
 
-class EstadoEntidadRepository extends PDORepository{
+class EstadoEntidadRepository extends PDORepository {
+
     private static $instance = null;
-    
+
     public static function getInstance() {
 
         if (is_null(self::$instance)) {
@@ -11,6 +12,7 @@ class EstadoEntidadRepository extends PDORepository{
 
         return self::$instance;
     }
+
     public function getByID($id) {
         // getByID
         $sql = "SELECT * FROM estado_entidad WHERE Id=?";
@@ -21,6 +23,7 @@ class EstadoEntidadRepository extends PDORepository{
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer[0]; // TODO: CORREGIR FALTA EL IF
     }
+
     public function add($estadoEntidad) {
         $sql = "INSERT INTO estado_entidad(descripcion) VALUES(?)";
         $args = $estadoEntidad->getArray()['descripcion'];
@@ -28,14 +31,27 @@ class EstadoEntidadRepository extends PDORepository{
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
+
     public function getAll() {
         $sql = "SELECT * FROM estado_entidad";
-         $args = [];
+        $args = [];
         $mapper = function ($row) {
             return new EstadoEntidadModel($row['Id'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
-    
+
+    public function edit($obj) {
+        
+    }
+
+    public function exist($id) {
+        
+    }
+
+    public function remove($id) {
+        
+    }
+
 }

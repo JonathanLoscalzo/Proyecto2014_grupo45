@@ -9,6 +9,12 @@ abstract class Controller {
 
     private static $instance = null;
 
+    protected function redirect($index) {
+        $cant = count(split("/", $_SERVER['REQUEST_URI'])) - 2;
+        $var = str_repeat("../", $cant);
+        header("Location: ./" . $var . $index);
+    }
+
     public static function getInstance() {
 
         if (is_null(self::$instance)) {
@@ -32,7 +38,8 @@ abstract class Controller {
             return true;
         } else {
             $view = new FrontEndView();
-            $view->index(LoginStatus::call(3));
+            $_SESSION["message"] = new MessageService("needLogin", []);
+            $view->index();
             return false;
         }
     }
