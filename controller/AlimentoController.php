@@ -95,7 +95,7 @@ class AlimentoController extends Controller {
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $Detalle = DetalleRepository::getInstance()->getByID($id);
-                $Alimento = $Detalle->getAlimento();
+                $Alimento = AlimentoRepository::getInstance()->getAll();
                 $view = new BackEndView();
                 $view->editViewAlimento($Alimento, $Detalle); // si no devuelve nada esta vista se encarga
             }
