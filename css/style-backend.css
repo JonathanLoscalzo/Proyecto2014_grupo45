@@ -177,15 +177,33 @@ footer {
     color:#ffffff;
 }
 
-.truncate{
+.truncate {
     white-space: nowrap; 
-    width: 5em; 
-    overflow: hidden;
-    text-overflow: ellipsis; 
+    width: 12em; 
+    overflow: hidden; 
     border: 1px solid #000000;
+text-overflow:ellipsis;
 }
-input {
+
+.truncate:hover {
+    text-overflow: inherit;
+    overflow: visible;
+}
+
+input, textarea{
     border-radius: 0.5em;
     padding: 0.3em;
+    box-shadow: 10px 10px 5px #888888;
+    
+}
+
+button 
+{
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 5px 5px 2.5px #888888;
+    padding: 0.5em;
+    background-color: #FFAD33;
+    border-radius: 0.3em;
 }
 
