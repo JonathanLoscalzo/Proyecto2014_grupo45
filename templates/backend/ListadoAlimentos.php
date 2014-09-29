@@ -45,7 +45,10 @@
 {% block scripts %}
 <script>
 $(document).ready(function () {
-    $('#tabla-alimentos').dataTable();
+    $('#tabla-alimentos').dataTable({
+        searching: false,
+        paging: false
+    });
 });
 </script>
 {% endblock %}
