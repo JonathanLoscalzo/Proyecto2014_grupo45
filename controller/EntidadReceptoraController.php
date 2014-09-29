@@ -55,6 +55,7 @@ class EntidadReceptoraController extends Controller {
                 $entidadModificadaRazon = $data['razonSocial'];
                 $entidadModificadaID = $data['id'];
                 $entidadActual = EntidadReceptoraRepository::getInstance()->getByRazonSocial($entidadModificadaRazon);
+                // CODE REFACTORIZADO, se puede transladar a otros casos.
                 if ((!$entidadActual) || ($entidadActual->getId() === $entidadModificadaID)) {
                     $entidad = new EntidadReceptoraModel(
                             $data["id"], $data["razonSocial"], $data["telefono"], $data["domicilio"], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioPrestadoID"]);
