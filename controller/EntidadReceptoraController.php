@@ -52,7 +52,7 @@ class EntidadReceptoraController extends Controller {
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $data = $post->getParams(); // obtenemos Los parametros
-                $entidadModificadaID = $data['id'];
+                $entidadModificadaID = $data['razonSocial'];
                 $entidadActual = EntidadReceptoraRepository::getInstance()->getByRazonSocial($entidadModificadaID);
                 if ((!$entidadActual) || ($entidadActual->getId() === $donanteModificadoID)) {
                     $entidad = new EntidadReceptoraModel(
