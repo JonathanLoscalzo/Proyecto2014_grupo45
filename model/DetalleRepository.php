@@ -65,7 +65,7 @@ class DetalleRepository extends PDORepository {
             return $row;
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) > 0 ? $answer[0] : null; // short if, mas comodo 
+        $ret = count($answer) > 0 ? $answer[0] : false; // short if, mas comodo 
         // TODO: que devuelven los remove y los edit?
         return $ret;
     }

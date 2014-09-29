@@ -35,7 +35,7 @@ class AlimentoRepository extends PDORepository {
             return new AlimentoModel($row['codigo'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) > 0 ? $answer[0] : null; // short if, mas comodo
+        $ret = count($answer) > 0 ? $answer[0] : False;
         return $ret;
     }
 
@@ -52,10 +52,11 @@ class AlimentoRepository extends PDORepository {
         $sql = "DELETE FROM alimento WHERE alimento.codigo = ?";
         $args = ($codigo);
         $mapper = function($row) {
-            
+            return $row;
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        return $answer;
+        $ret = count($answer) > 0 ? $answer[0] : False;
+        return $ret;
     }
 
     public function getAll() {
@@ -75,7 +76,8 @@ class AlimentoRepository extends PDORepository {
             return new AlimentoModel($row['codigo'], $row['descripcion']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        return $answer;
+        $ret = count($answer) > 0 ? $answer[0] : False;
+        return $ret;
     }
 
     public function exist($id) {

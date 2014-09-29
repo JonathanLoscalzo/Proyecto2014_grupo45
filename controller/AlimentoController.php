@@ -9,6 +9,10 @@ class AlimentoController extends Controller {
 
     private static $instance = null;
 
+    protected function redirect() {
+        parent::redirect("alimentos");
+    }
+    
     public static function getInstance() {
 
         if (is_null(self::$instance)) {
@@ -30,23 +34,25 @@ class AlimentoController extends Controller {
 // SI SE DESEA CREAR TAMBIEN UN ALIMNETO NUEVO
                     $query_alimento = AlimentoRepository::getInstance()->get($data['codigo-nuevo']);
                     
-                    if ($query_alimento === null) {
+                    if (!$query_alimento) {
 // Si no hay alimento con el mismo codigo...
                         $alimento = new AlimentoModel($data['codigo-nuevo'], $data['descripcion-nueva']);
                         AlimentoRepository::getInstance()->add($alimento); // es necesario que se haga en este instante para que funcione el
 // constructor de abajo
                         $detalle_entidad = new DetalleModel(null, $alimento->getCodigo(), $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
                         DetalleRepository::getInstance()->add($detalle_entidad);
-                        
-                    } else { // ERROR: Ya se encuentra el tipo en la BD 
+                        $_SESSION["message"] = new MessageService("createSuccess", ["paquete y tipo ".$data['codigo-nuevo']]);
+                    } else { 
+                        $_SESSION["message"] = new MessageService("createErrorExist", ["alimento de tipo ".$data['codigo-nuevo']]);
                     }
                 } else {
 // SI UNICAMENTE SE DESEA CREAR UN DETALLE, CON SU ALIMENTO ASOCIADO 
 // EXISTENTE EN LA BD:
                     $detalle_entidad = new DetalleModel(null, $data['alimento_codigo'], $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
                     DetalleRepository::getInstance()->add($detalle_entidad); // aca esta el prob
+                    $_SESSION["message"] = new MessageService("createSuccess", ["detalle de alimento"]);
                 }
-                header("Location: ../alimentos");
+                $this->redirect();
             }
         }
     }
@@ -58,23 +64,25 @@ class AlimentoController extends Controller {
                 /* TODO: el modulo  se puede refactorizar, es igual al create */
                 if ($data['flag'] == 1) {
                     $query_alimento = AlimentoRepository::getInstance()->get($data['codigo-nuevo']);  
-                    if ($query_alimento === null) {
+                    if (!$query_alimento) {
 // Si no hay alimento con el mismo codigo...
                         $alimento = new AlimentoModel($data['codigo-nuevo'], $data['descripcion-nueva']);
                         AlimentoRepository::getInstance()->add($alimento); // es necesario que se haga en este instante para que funcione el
 // constructor de abajo
                         $entidad = new DetalleModel($data['id'], $alimento->getCodigo(), $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']);
                         DetalleRepository::getInstance()->edit($entidad);
+                        $_SESSION["message"] = new MessageService("modificationSuccess", ["detalle de alimento de tipo " . $data['codigo-nuevo']]);
                     }
-                    else {//ERROR EL TIP DE ALIMENTO YA EXISTE
+                    else {
+                        $_SESSION["message"] = new MessageService("modificationErrorExist", ["detalle", "tipo (" . $data['codigo-nuevo'] . ")"]);
                         }
                 }
                 else {
                     $entidad = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
-                    DetalleRepository::getInstance()->add($entidad); // aca esta el prob
+                    DetalleRepository::getInstance()->add($entidad); 
+                    $_SESSION["message"] = new MessageService("modificationSuccess", ["detalle de alimento de tipo " . $data['alimento_codigo']]);
                 }                    
-                $this->index();
-                header("Location: ../../donantes");
+                $this->redirect();
             }
         }
     }
@@ -85,9 +93,16 @@ class AlimentoController extends Controller {
          */
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
-                DetalleRepository::getInstance()->remove($id);
-                //LoginController::getInstance()-> backend(); /* mensaje de todo ok */
-                header("Location: ../../alimentos");
+                if (DetalleRepository::getInstance()->getByID($id)) {
+                    DetalleRepository::getInstance()->remove($id);
+                    //LoginController::getInstance()-> backend(); /* mensaje de todo ok */
+                    $_SESSION["message"] = new MessageService("removeSucess", ["detalle"]);
+                    header("Location: ../../alimentos");
+                }
+                else {
+                    $_SESSION["message"] = new MessageService("modificationErrorNotExist", ["detalle"]);
+                }
+                $this->redirect();
             }
         }
     }
@@ -110,10 +125,16 @@ class AlimentoController extends Controller {
 // ACA QUE TENGO QUE HACER?
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
-                $Detalle = DetalleRepository::getInstance()->getByID($id);
-                $Alimento = AlimentoRepository::getInstance()->getAll();
-                $view = new BackEndView();
-                $view->editViewAlimento($Alimento, $Detalle); // si no devuelve nada esta vista se encarga
+                if (DetalleRepository::getInstance()->get($id)) {
+                    $Detalle = DetalleRepository::getInstance()->getByID($id);
+                    $Alimento = AlimentoRepository::getInstance()->getAll();
+                    $view = new BackEndView();
+                    $view->editViewAlimento($Alimento, $Detalle); // si no devuelve nada esta vista se encarga
+                }
+                else {
+                    // ERROR, no se encuentra el $DETALLE
+                    $_SESSION["message"] = new MessageService("modificationErrorNotExist", ["detalle"]);
+                }
             }
         }
     }
