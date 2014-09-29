@@ -89,7 +89,7 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $('#expiration').datepicker();
-    $('#accordion').accordion({collapsible: true});
+    $('#accordion').accordion({collapsible: true, active:false});
     $('input:radio[name="habilitar-alimento"]').click(function () {
         if ($('input[name="habilitar-alimento"]:checked').val() === 'yes') {
             $("#agregar-alimento").show();
