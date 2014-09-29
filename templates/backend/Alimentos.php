@@ -38,13 +38,13 @@
                         <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input placeholder="Aceites" id="codigo-nuevo" type="text" name="codigo-nuevo">
                         <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input placeholder="Aceite vegetal de girasol" name="descripcion-nueva" id="descripcion-nueva">
                     </div>
-                    <label for="expiration" style = "display : block" >Fecha de Vencimiento: </label><input id="expiration" name="fecha_vencimiento" type="text" >
-                    <label for="content" style = "display : block">Contenido: </label><input id="content-food" placeholder="10x3lt de Agua" type="text" name="contenido">
+                    <label for="expiration" style = "display : block" >Fecha de Vencimiento: </label><input id="expiration" name="fecha_vencimiento" type="text" required>
+                    <label for="content" style = "display : block">Contenido: </label><input id="content-food" placeholder="10x3lt de Agua" type="text" name="contenido" required>
                     <input id='flag' name='flag' type="hidden" value=0>
                 </div>
                 <div class="conj-block">
 
-                    <label for="weight" style = "display : block">Peso: </label><input id="weight" type="number" name="peso_unitario">
+                    <label for="weight" style = "display : block">Peso: </label><input id="weight" type="number" name="peso_unitario" required>
                     <label for="stock" style = "display : block">Stock: </label><input id="stock" type="number" name="stock">
                     <label for="reserve" style = "display : block">Reservado: </label><input id="reserve" type="number" name="reservado">
                 </div>
@@ -94,12 +94,16 @@ $(document).ready(function () {
         if ($('input[name="habilitar-alimento"]:checked').val() === 'yes') {
             $("#agregar-alimento").show();
             $("#select-alimento").hide();
+            $("#codigo-nuevo").prop("required", true);
+            $("#descripcion-nueva").prop("required", true);
             $("#flag").val(1); // setea en verdadero para pasar al controlador
         }
         else {
             $("#flag").val(0); // setea en falso para pasar al controlador.
             $("#agregar-alimento").hide();
             $("#select-alimento").show();
+            $("#codigo-nuevo").prop("required", false);
+            $("#descripcion-nueva").prop("required", false);
         }
     });
     $('#tabla-paquetes').dataTable();

@@ -26,14 +26,14 @@
                         <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input id="alimento_codigo" type="text" name="codigo-nuevo">
                         <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input name="descripcion-nueva" id="descripcion">
                     </div>
+                    <input id='flag' name='flag' type="hidden" value=0>
                     <label for="expiration" style = "display : block" >Fecha de Vencimiento: </label>
                     <input id="expiration" name="fecha_vencimiento" value="{{detalle.fecha_vencimiento}}" type="text" >
-                    <label for="content" style = "display : block">Contenido: </label><input id="content-food" type="text" name="contenido" value="{{detalle.contenido}}">
-                    <input id='flag' name='flag' type="hidden" value=0>
+                    <label for="content" style = "display : block">Contenido: </label><input required id="content-food" type="text" name="contenido" value="{{detalle.contenido}}">
                 </div>
                 <div class="conj-block">
 
-                    <label for="weight" style = "display : block">Peso: </label><input value="{{detalle.peso_unitario}}" id="weight" type="number" name="peso_unitario">
+                    <label for="weight" style = "display : block">Peso: </label><input value="{{detalle.peso_unitario}}" id="weight" type="number" name="peso_unitario" required>
                     <label for="stock" style = "display : block">Stock: </label><input id="stock" value="{{detalle.stock}}" type="number" name="stock">
                     <label for="reserve" style = "display : block">Reservado: </label><input value="{{detalle.reservado}}"id="reserve" type="number" name="reservado">
                 </div>
@@ -51,11 +51,15 @@
                 $("#agregar-alimento-edit").show();
                 $("#select-alimento-edit").hide();
                 $("#flag").val(1); // setea en verdadero para pasar al controlador
+                $("#codigo-nuevo").prop("required", true);
+                $("#descripcion-nueva").prop("required", true);
             }
             else {
                 $("#flag").val(0); // setea en falso para pasar al controlador.
                 $("#agregar-alimento-edit").hide();
                 $("#select-alimento-edit").show();
+                $("#codigo-nuevo").prop("required", false);
+                $("#descripcion-nueva").prop("required", false);
             }
         });
     });
