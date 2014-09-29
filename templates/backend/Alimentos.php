@@ -75,8 +75,8 @@
                         <td> {{ detalle.stock }} </td>
                         <td> {{ detalle.reservado }} </td>
 
-                        <td><a href="{{server}}/alimentos/edit/{{ detalle.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                        <td><a href="{{server}}/alimentos/remove/{{ detalle.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                        <td><a href="{{server}}alimentos/edit/{{ detalle.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                        <td><a href="{{server}}alimentos/remove/{{ detalle.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
