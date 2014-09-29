@@ -50,7 +50,7 @@ class BackEndView extends TwigView {
         echo self::getTwig()->render('EditViewAlimento.html.twig', array(
             'alimento' => $alimento,
             'detalle' => $detalle
-                )); //ver si esto anda
+                )); 
     }
 
 }
