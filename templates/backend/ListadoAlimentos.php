@@ -9,7 +9,8 @@
 
 {% block content %}
 <div id = "content">
-    <h3> ENTIDADES RECEPTORAS </h3>
+<!--    Haria falta css aca-->
+    <h3> LISTADO DE ALIMENTOS </h3>
     <div class="tabla-class">
         <table id="tabla-alimentos">
             <thead>
