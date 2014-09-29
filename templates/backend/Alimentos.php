@@ -35,11 +35,11 @@
                     </select>
                     </div>
                     <div hidden id="agregar-alimento">
-                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input id="codigo-nuevo" type="text" name="codigo-nuevo">
-                        <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input name="descripcion-nueva" id="descripcion-nueva">
+                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input placeholder="Aceites" id="codigo-nuevo" type="text" name="codigo-nuevo">
+                        <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input placeholder="Aceite vegetal de girasol" name="descripcion-nueva" id="descripcion-nueva">
                     </div>
                     <label for="expiration" style = "display : block" >Fecha de Vencimiento: </label><input id="expiration" name="fecha_vencimiento" type="text" >
-                    <label for="content" style = "display : block">Contenido: </label><input id="content-food" type="text" name="contenido">
+                    <label for="content" style = "display : block">Contenido: </label><input id="content-food" placeholder="10x3lt de Agua" type="text" name="contenido">
                     <input id='flag' name='flag' type="hidden" value=0>
                 </div>
                 <div class="conj-block">

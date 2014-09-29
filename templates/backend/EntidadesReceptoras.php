@@ -17,9 +17,9 @@
         <div>
             <form action="./{{server}}entidadesReceptoras/add" method="POST">
                 <div class="conj-block">
-                    <label for="nombreCompania" style = "display : block">Razon Social: </label><input id="razonSocial" name="razonSocial" type="text" required placeholder="Razon social">
-                    <label for="phone" style = "display : block">Teléfono: </label><input id="telefono" type="number" name="telefono"placeholder="Telefono">
-                    <label for="adress" style = "display : block">Domicilio: </label><input id="domicilio" type="text" name="domicilio" placeholder="Domicilio">
+                    <label for="nombreCompania" style = "display : block">Razon Social: </label><input placeholder="4991921" id="razonSocial" name="razonSocial" type="text" required placeholder="Razon social">
+                    <label for="phone" style = "display : block">Teléfono: </label><input id="telefono" placeholder="2215550000" type="number" name="telefono"placeholder="Telefono">
+                    <label for="adress" style = "display : block">Domicilio: </label><input id="domicilio" placeholder="9 de Julio numero 555" type="text" name="domicilio" placeholder="Domicilio">
                 </div>
                 <div class="conj-block">
                     <label for="service" style = "display : block">Servicio Prestado: </label>
