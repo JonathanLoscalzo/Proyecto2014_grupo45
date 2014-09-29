@@ -35,18 +35,18 @@
                     </select>
                     </div>
                     <div hidden id="agregar-alimento">
-                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input placeholder="Aceites" id="codigo-nuevo" type="text" name="codigo-nuevo">
-                        <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input placeholder="Aceite vegetal de girasol" name="descripcion-nueva" id="descripcion-nueva">
+                        <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input placeholder="Ej: Aceites" id="codigo-nuevo" type="text" name="codigo-nuevo">
+                        <label for="input_descripcion" style="display: block">Descripcion de Alimento</label><input placeholder="Ej: Aceite vegetal de girasol" name="descripcion-nueva" id="descripcion-nueva">
                     </div>
                     <label for="expiration" style = "display : block" >Fecha de Vencimiento: </label><input id="expiration" name="fecha_vencimiento" type="text" required>
-                    <label for="content" style = "display : block">Contenido: </label><input id="content-food" placeholder="10x3lt de Agua" type="text" name="contenido" required>
+                    <label for="content" style = "display : block">Contenido: </label><input id="content-food" placeholder="Ej: 10x3lt de Agua" type="text" name="contenido" required>
                     <input id='flag' name='flag' type="hidden" value=0>
                 </div>
                 <div class="conj-block">
 
-                    <label for="weight" style = "display : block">Peso: </label><input id="weight" type="number" name="peso_unitario" required>
-                    <label for="stock" style = "display : block">Stock: </label><input id="stock" type="number" name="stock">
-                    <label for="reserve" style = "display : block">Reservado: </label><input id="reserve" type="number" name="reservado">
+                    <label for="weight" style = "display : block">Peso: </label><input id="weight" type="number" name="peso_unitario" required placeholder="Ingrese el peso por unidad">
+                    <label for="stock" style = "display : block">Stock: </label><input id="stock" type="number" name="stock" placeholder="Ingrese el stock (opcional)">
+                    <label for="reserve" style = "display : block">Reservado: </label><input id="reserve" type="number" name="reservado" placeholder="Ingrese una cantidad reservada (opcional)">
                 </div>
                 <button type="submit"> Enviar </button>
             </form>
