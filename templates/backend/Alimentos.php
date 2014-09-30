@@ -20,19 +20,19 @@
                             $data['reservado']);-->
         <h3>ALTA</h3>
         <div>
-            <form action="{{server}}/alimentos/add" method="POST">
+            <form action="{{server}}alimentos/add" method="POST">
                 <div class="conj-block">
                     <label for="radio" style="display: block">Seleccione opcion</label>
                     <input type="radio" name="habilitar-alimento" id="radio" value="yes">Agregar nuevo Alimento<br>
                     <input type="radio" name="habilitar-alimento" id="radio" checked value="no">Utilizar existente
                     <div id="select-alimento">
-                    <label for="tipo" style = "display : block">Tipo: </label>
-                    <select id="tipo-alimento" name="alimento_codigo">
-                        {% for ali in alimentos %}
-                        <option value="{{ ali.codigo }}" id="{{ ali.codigo}}"  > {{ ali.codigo }}</option>
+                        <label for="tipo" style = "display : block">Tipo: </label>
+                        <select id="tipo-alimento" name="alimento_codigo">
+                            {% for ali in alimentos %}
+                            <option value="{{ ali.codigo }}" id="{{ ali.codigo}}"  > {{ ali.codigo }}</option>
 
-                        {% endfor %}
-                    </select>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div hidden id="agregar-alimento">
                         <label for="input_alimento" style="display: block" >Nombre de Alimento</label><input placeholder="Ej: Aceites" id="codigo-nuevo" type="text" name="codigo-nuevo">
@@ -75,8 +75,8 @@
                         <td> {{ detalle.stock }} </td>
                         <td> {{ detalle.reservado }} </td>
 
-                        <td><a href="{{server}}alimentos/edit/{{ detalle.id }}"><img src="../images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                        <td><a href="{{server}}alimentos/remove/{{ detalle.id }}"><img src="../images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                        <td><a href="{{server}}alimentos/edit/{{ detalle.id }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                        <td><a href="{{server}}alimentos/remove/{{ detalle.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -89,7 +89,7 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $('#expiration').datepicker();
-    $('#accordion').accordion({collapsible: true, active:false});
+    $('#accordion').accordion({collapsible: true, active: false});
     $('input:radio[name="habilitar-alimento"]').click(function () {
         if ($('input[name="habilitar-alimento"]:checked').val() === 'yes') {
             $("#agregar-alimento").show();
@@ -107,7 +107,7 @@ $(document).ready(function () {
         }
     });
     $('#tabla-paquetes').dataTable();
-    
+
 
 });
 </script>
