@@ -1,6 +1,8 @@
 <?php
 
 include_once("Controller.php");
+include_once("model/DonanteRepository.php");
+include_once("model/DonanteModel.php");
 
 class HomeController extends Controller {
 
@@ -44,6 +46,11 @@ class HomeController extends Controller {
         $view->dona_ahora();
     }
 
+    public function listDonante() {
+        $lista_donantes = DonanteRepository::getInstance()->getAll();
+        $view = new FrontEndView();
+        $view->listar_donantes($lista_donantes);
+    }
     public function create($entidad) {
         
     }

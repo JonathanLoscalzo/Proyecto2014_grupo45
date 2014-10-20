@@ -51,7 +51,7 @@ switch ($acciones[1]) {
         HomeController::getInstance()->dona_ahora();
         break;
     case "lista_donantes":
-        DonanteController::getInstance()->listDonante();
+        HomeController::getInstance()->listDonante();
         break;
     case "login-user":
         $username = (isset($_POST["username"])) ? $_POST["username"] : "";
