@@ -50,7 +50,7 @@ switch ($acciones[1]) {
     case "Dona-ahora":
         HomeController::getInstance()->dona_ahora();
         break;
-    case "listar_donantes":
+    case "lista_donantes":
         DonanteController::getInstance()->listDonante();
         break;
     case "login-user":
