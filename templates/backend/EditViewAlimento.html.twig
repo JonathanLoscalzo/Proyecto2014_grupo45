@@ -37,7 +37,10 @@
                 <label for="stock" style = "display : block">Stock: </label><input id="stock" value="{{detalle.stock}}" type="number" name="stock">
                 <label for="reserve" style = "display : block">Reservado: </label><input value="{{detalle.reservado}}"id="reserve" type="number" name="reservado">
             </div>
-            <button type="submit"> Enviar </button>
+            <div style="display: block;">
+                <button type="submit" name="submit" style="display:inline"> Enviar </button>
+                <button type="button" name="cancel" style="display:inline"><a href="./{{server}}alimentos">Cancelar</a></button>
+            </div>
         </form>
     </div>
 {% endblock %}
