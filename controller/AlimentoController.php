@@ -61,7 +61,6 @@ class AlimentoController extends Controller {
     }
 
     public function edit($post) {
-        $this->redirect();
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $data = $post->getParams(); // obtenemos Los parametros
