@@ -1,11 +1,5 @@
 {% extends "frontend_layout.php" %}
 
-{% block head %}
-<script src="{{server}}js/plugins/jquery-2.1.2.js"></script>
-
-<script type="text/javascript" charset="utf8" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
-{% endblock %}
-
 {% block content %}
 <div id = "content">
 <!--    Haria falta css aca-->
