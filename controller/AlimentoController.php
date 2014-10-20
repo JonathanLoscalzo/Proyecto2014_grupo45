@@ -69,8 +69,8 @@ class AlimentoController extends Controller {
                         $alimento = new AlimentoModel($data['codigo-nuevo'], $data['descripcion-nueva']);
                         AlimentoRepository::getInstance()->add($alimento); // es necesario que se haga en este instante para que funcione el
 // constructor de abajo
-                        $entidad = new DetalleModel($data['id'], $alimento->getCodigo(), $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']);
-                        DetalleRepository::getInstance()->edit($entidad);
+                        $detalle = new DetalleModel($data['id'], $alimento->getCodigo(), $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']);
+                        DetalleRepository::getInstance()->edit($detalle);
                         $_SESSION["message"] = new MessageService("modificationSuccess", ["detalle de alimento de tipo " . $data['codigo-nuevo']]);
                     }
                     else {
@@ -79,7 +79,7 @@ class AlimentoController extends Controller {
                 }
                 else {
                     $entidad = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
-                    DetalleRepository::getInstance()->add($entidad); 
+                    DetalleRepository::getInstance()->edit($entidad); 
                     $_SESSION["message"] = new MessageService("modificationSuccess", ["detalle de alimento de tipo " . $data['alimento_codigo']]);
                 }                    
                 $this->redirect();

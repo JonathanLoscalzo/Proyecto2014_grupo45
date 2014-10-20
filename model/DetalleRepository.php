@@ -46,15 +46,20 @@ class DetalleRepository extends PDORepository {
         return $ret;
     }
 
-    public function edit($alimento) {
+    public function edit($detalle) {
         // por ahora no permito cambiarle el codigo, desp se verá si es necesario
-        $sql = "UPDATE alimento SET descripcion=? WHERE alimento.codigo = ?";
-        $args = $alimento->getArray();
+        $sql = "UPDATE `detalle_alimento` SET `alimento_codigo`=?,"
+                . "`fecha_vencimiento`=?,"
+                . "`contenido`=?,`peso_unitario`=?,"
+                . "`stock`=?,`reservado`=?, WHERE Id=?";
+        $args = $detalle->getArray();
+        array_pop($args);
+        array_push($args, $args[0]);
         $mapper = function($row) {
-            
+            return $row;
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) > 0 ? $answer[0] : False; // short if, mas comodo
+        $ret = count($answer) > 0 ? $answer[0] : False;
         return $ret;
     }
 
