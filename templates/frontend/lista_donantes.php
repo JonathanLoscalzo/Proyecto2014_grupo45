@@ -1,5 +1,11 @@
 {% extends "frontend_layout.php" %}
+{% block head %}
+{{ parent() }}
+<script src="{{server}}js/plugins/jquery-2.1.2.js"></script>
 
+<script type="text/javascript" charset="utf8" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
+{% endblock %}
 {% block content %}
 <div id = "content">
 <!--    Haria falta css aca-->
@@ -15,7 +21,6 @@
 
             <tbody tbody style="text-align: center">
                 {% for donante in donantes %}
-<!--                deben ir todos los alimentos con stock > 0 aca?-->
                 <tr>
                     <td> {{ donante.nombre }} </td>
                     <td> {{ donante.apellido  }} </td>
@@ -28,6 +33,8 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+<script type="text/javascript" charset="utf8" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
 <script>
 $(document).ready(function () {
     $('#tabla-donantes').dataTable({
