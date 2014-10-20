@@ -5,6 +5,8 @@
         <title>Banco de Alimentos</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- FrontEnd page	 -->
+        <script src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+        <script type="text/javascript" charset="utf8" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
         <link href="./{{server}}css/style.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="./{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
         {% endblock %}    
