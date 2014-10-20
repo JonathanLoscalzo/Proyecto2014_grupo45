@@ -1,7 +1,6 @@
 {% extends "frontend_layout.php" %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
 <div id = "content">
 <!--    Haria falta css aca-->
     <h3> LISTADO DE DONANTES </h3>
