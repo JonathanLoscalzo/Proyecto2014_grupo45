@@ -6,6 +6,7 @@
 		<li><a href="./{{ server }}Proyectos">Proyectos</a></li>
 		<li><a href="#">Contacto</a></li>
 		<li><a href="./{{ server }}Dona-ahora">¡Dona Ahora!</a></li>
+                <li><a href="./{{ server }}lista_donantes">Ver nuestros donantes</a></li>
 		{% if session.username is defined %}
 		<li><a href= "./{{ server }}backend">BACKEND</a></li>
 		{% else %}

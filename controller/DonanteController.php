@@ -106,5 +106,11 @@ class DonanteController extends Controller {
             $view->donantes($donantes);
         }
     }
+    
+    public function listDonante() {
+        $lista_donantes = DonanteRepository::getInstance()->getAll();
+        $view = new FrontEndView();
+        $view->listar_donantes($donantes);
+    }
 
 }

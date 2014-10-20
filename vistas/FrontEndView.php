@@ -19,4 +19,8 @@ class FrontEndView extends TwigView {
 	public function dona_ahora(){
 		echo self::getTwig()->render('Dona-ahora.php');
 	}
+        public function listar_donantes($donantes) {
+            echo self::getTwig()->render('lista_donantes.php',
+                    array('donantes' => $donantes));
+        }
 }
