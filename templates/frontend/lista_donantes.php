@@ -20,14 +20,16 @@
                     <td> {{ donante.nombre }} </td>
                     <td> {{ donante.apellido  }} </td>
                 </tr>
+                {% endfor %}
             </tbody>
-            {% endfor %}
         </table>
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
+<script src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+<script type="text/javascript" charset="utf8" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
 <script>
 $(document).ready(function () {
     $('#tabla-donantes').dataTable({
