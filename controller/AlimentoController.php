@@ -62,6 +62,7 @@ class AlimentoController extends Controller {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $data = $post->getParams(); // obtenemos Los parametros
                 /* TODO: el modulo  se puede refactorizar, es igual al create */
+                var_dump($data['flag']);
                 if ($data['flag'] == 1) {
                     $query_alimento = AlimentoRepository::getInstance()->get($data['codigo-nuevo']);  
                     if (!$query_alimento) {
@@ -78,8 +79,8 @@ class AlimentoController extends Controller {
                         }
                 }
                 else {
-                    $entidad = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
-                    DetalleRepository::getInstance()->edit($entidad); 
+                    $detalle = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
+                    DetalleRepository::getInstance()->edit($detalle); 
                     $_SESSION["message"] = new MessageService("modificationSuccess", ["detalle de alimento de tipo " . $data['alimento_codigo']]);
                 }                    
                 $this->redirect();
