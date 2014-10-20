@@ -122,6 +122,7 @@ switch ($acciones[1]) {
                 /* deberia ser como la pantalla de crear */
                 AlimentoController::getInstance()->editView($acciones[3]);
             } else {
+                var_dump($_POST);
                 AlimentoController::getInstance()->edit(new Params($_POST));
             }
             break;

@@ -65,7 +65,6 @@ class AlimentoController extends Controller {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $data = $post->getParams(); // obtenemos Los parametros
                 /* TODO: el modulo  se puede refactorizar, es igual al create */
-                var_dump($data['flag']);
                 if ($data['flag'] == 1) {
                     $query_alimento = AlimentoRepository::getInstance()->get($data['codigo-nuevo']);  
                     if (!$query_alimento) {
