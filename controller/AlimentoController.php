@@ -61,12 +61,13 @@ class AlimentoController extends Controller {
     }
 
     public function edit($post) {
+        $this->redirect();
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $data = $post->getParams(); // obtenemos Los parametros
                 /* TODO: el modulo  se puede refactorizar, es igual al create */
                 if ($data['flag'] == 1) {
-                    $query_alimento = AlimentoRepository::getInstance()->get($data['codigo-nuevo']);  
+                    $query_alimento = AlimentoRepository::getInstance()->getByID($data['codigo-nuevo']);  
                     if (!$query_alimento) {
 // Si no hay alimento con el mismo codigo...
                         $alimento = new AlimentoModel($data['codigo-nuevo'], $data['descripcion-nueva']);
