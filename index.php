@@ -64,36 +64,32 @@ switch ($acciones[1]) {
         LoginController::getInstance()->backend();
         break;
     case 'donantes':
-        
         (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
         switch ($acciones[2]) {
-        case "edit":
-            if (!isset($_POST['submit'])) {
-                /* deberia ser como la pantalla de crear */
-                DonanteController::getInstance()->editView($acciones[3]);
-            } else {
+            case "edit":
+                if (!isset($_POST['submit'])) {
+                    DonanteController::getInstance()->editView($acciones[3]);
+                } else {
+                    $donante = new Params($_POST);
+                    DonanteController::getInstance()->edit($donante);
+                }
+                break;
+            case "remove":
+                DonanteController::getInstance()->remove($acciones[3]);
+                break;
+            case "add":
                 $donante = new Params($_POST);
-                DonanteController::getInstance()->edit($donante);
-            }
-            break;
-        case "remove":
-            DonanteController::getInstance()->remove($acciones[3]);
-            break;
-        case "add":
-            /* agarrar todas las variables del post y mandarlas */
-            $donante = new Params($_POST);
-
-            DonanteController::getInstance()->create($donante);
-            break;
-        default:
-            DonanteController::getInstance()->index();
-            break;
+                DonanteController::getInstance()->create($donante);
+                break;
+            default:
+                DonanteController::getInstance()->index();
+                break;
         }
         break;
     case 'entidadesReceptoras':
         (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
         switch ($acciones[2]) {
-        case "edit":
+            case "edit":
                 if (!isset($_POST['submit'])) {
                     /* deberia ser como la pantalla de crear */
                     EntidadReceptoraController::getInstance()->editView($acciones[3]);
@@ -115,39 +111,35 @@ switch ($acciones[1]) {
         break;
     case 'alimentos':
         (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
-        
+
         switch ($acciones[2]) {
-        case "edit":
-            if (!isset($_POST['submit'])) {
-                /* deberia ser como la pantalla de crear */
-                AlimentoController::getInstance()->editView($acciones[3]);
-            } else {
-                AlimentoController::getInstance()->edit(new Params($_POST));
-            }
-            break;
-        case "remove":
-            AlimentoController::getInstance()->remove($acciones[3]);
-            break;
-        case "add":
-            /* agarrar todas las variables del post y mandarlas */
-            AlimentoController::getInstance()->create(new Params($_POST));
-            break;
-        default:
-            AlimentoController::getInstance()->index();
-            break;
+            case "edit":
+                if (!isset($_POST['submit'])) {
+                    /* deberia ser como la pantalla de crear */
+                    AlimentoController::getInstance()->editView($acciones[3]);
+                } else {
+                    AlimentoController::getInstance()->edit(new Params($_POST));
+                }
+                break;
+            case "remove":
+                AlimentoController::getInstance()->remove($acciones[3]);
+                break;
+            case "add":
+                /* agarrar todas las variables del post y mandarlas */
+                AlimentoController::getInstance()->create(new Params($_POST));
+                break;
+            default:
+                AlimentoController::getInstance()->index();
+                break;
         }
         break;
     case 'listadoAlimentos':
-        if (LoginController::isSessionStart()){
+        if (LoginController::isSessionStart()) {
             AlimentoController::getInstance()->listarAlimentos();
-        }
-        else{
-            $view = new FrontEndView();
-            $view-> index(LoginStatus::call(3));
-        }
+        } 
         break;
     default:
-        HomeController::getInstance()->index(); 
+        HomeController::getInstance()->index();
         break;
     // Deberìa redireccionarte a una pagina 404 o algo asi	
 }
