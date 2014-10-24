@@ -52,6 +52,9 @@ switch ($acciones[1]) {
     case "lista_donantes":
         HomeController::getInstance()->listDonante();
         break;
+    case 'lista_entidadesreceptoras':
+        HomeController::getInstance()->listadoEntidadesReceptoras();
+        break;
     case "login-user":
         $username = (isset($_POST["username"])) ? $_POST["username"] : "";
         $pass = (isset($_POST["pass"])) ? $_POST["pass"] : "";
@@ -136,7 +139,7 @@ switch ($acciones[1]) {
     case 'listadoAlimentos':
         if (LoginController::isSessionStart()) {
             AlimentoController::getInstance()->listarAlimentos();
-        } 
+        }
         break;
     default:
         HomeController::getInstance()->index();

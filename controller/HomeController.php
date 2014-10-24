@@ -51,6 +51,13 @@ class HomeController extends Controller {
         $view = new FrontEndView();
         $view->listar_donantes($lista_donantes);
     }
+    
+    public function listadoEntidadesReceptoras() {
+        $entidades = EntidadReceptoraRepository::getInstance()->getAll();
+        $view = new FrontEndView();
+        $view->listar_entidadesreceptoras($entidades);
+    }
+    
     public function create($entidad) {
         
     }

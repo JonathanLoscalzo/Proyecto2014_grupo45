@@ -1,0 +1,43 @@
+{% extends "frontend_layout.php"%}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.11.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+{% endblock %}
+
+
+{% block content %}
+<div id="content">
+    <h3>Baja y Modificación</h3>
+    <div class = "tabla-class">
+        <table id="tabla-entidades">
+            <thead>
+                <tr>
+                    <th>Razón Social</th>
+                    <th>Teléfono</th>
+                    <th>Domicilio</th>
+                    <th>Estado</th>
+                    <th>Necesidad</th>
+                    <th>Servicio Prestado</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center">
+                {% for elem in entidades %}
+                    <tr>
+                        <td> {{ elem.razonSocial }} </td>
+                        <td> {{ elem.telefono }} </td>
+                        <td> {{ elem.domicilio }} </td>
+                        <td> {{ elem.estado.descripcion }} </td>
+                        <td> {{ elem.necesidad.descripcion }} </td>
+                        <td> {{ elem.servicio.descripcion }} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
