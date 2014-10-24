@@ -7,6 +7,7 @@
         <!-- FrontEnd page	 -->
         <link href="./{{server}}css/style.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="./{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
+        <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
         {% endblock %}    
 
     </head>
