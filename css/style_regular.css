@@ -129,7 +129,7 @@ nav ul li {
 
 
 #contentwrap {
-    width: 78%;
+    width: 80%;
     height: 85%;
     float: left;
     margin: 0 auto;
@@ -138,7 +138,7 @@ nav ul li {
 }
 
 #content {
-    position: absolute;
+    position: inherit;
     width:auto;
     height: auto;
     background: #FFDB63;
