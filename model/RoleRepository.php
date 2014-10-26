@@ -1,17 +1,11 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of RoleRepository
  *
  * @author loscalzo
  */
 class RoleRepository extends PDORepository{
+    /*solo se puede leer roles*/
     public function add($obj) {
         
     }
@@ -25,7 +19,12 @@ class RoleRepository extends PDORepository{
     }
 
     public function getAll() {
-        
+        $sql = "select * from role";
+        $args = [];
+        $mapper = function($row){
+            return new RoleModel($row['roleID'], $row['roleuser'], $row['description']);
+        };
+        return $this->queryList($sql, $args, $mapper);
     }
 
     public function getByID($id) {

@@ -5,7 +5,7 @@ include_once("PDOrepository.php");
 class UserRepository extends PDOrepository {
 
     private static $instance = null;
-
+    /* Metodo utilizado para el login. */
     public function getUser($username, $pass) {
         $sql = "SELECT user.username, user.roleID FROM user WHERE user.username = ? and user.pass = ?";
         $args = array($username, $pass);
@@ -27,17 +27,17 @@ class UserRepository extends PDOrepository {
         $args = $user->getArray();
         $mapper = function ($row)
         {
-            return new UserModel(NULL,row['username'],row['pass'],row['roleID']);
+            return new UserModel(NULL, row['username'],row['pass'],row['roleID']);
         };
         
         return $this->queryList($sql, $args, $mapper);
     }
 
     public function edit(UserModel $user) {
-        
+    /* Que datos deberian poder editarse? */
         $sql = "UPDATE entidad_receptora
                 SET username=?, pass=? , roleID=? 
-                WHERE Id=?";
+                WHERE userID=?";
         
         $args = $user->getArray();
         

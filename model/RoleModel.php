@@ -13,7 +13,19 @@
  */
 class RoleModel extends Model {
     //put your code here
-    private $;
-    private $;
+    private $roleID;
+    private $roleuser;
+    private $description;
     
+    public function __construct($roleID, $roleuser, $description) {
+        $this->roleID = $roleID;
+        $this->roleuser = $roleuser;
+        $this->description = $description;
+    }
+
+    public function getRoleID(){ return $this->roleID; }
+    public function getRoleuser(){ return $this->roleuser; }
+    public function getDescription(){return $this->description; }
+    
+       
 }
