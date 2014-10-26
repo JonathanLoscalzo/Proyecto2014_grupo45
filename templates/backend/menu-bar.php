@@ -6,8 +6,7 @@
         <li><a href ="./{{ server }}alimentos">ABM de paquetes</a></li>
         <li disabled><a href = "#"  >ABM de servicios prestados</a></li>
         <li disabled><a href = "#"  >ABM de turnos de entrega</a></li>		
-        
-        
+        <li disabled><a href = "./{{ server }}alimentos" >ABM de Usuarios</a></li>
         {% endif %}
         
         {% if session.roleID == 3 or session.roleID==1 %}

@@ -28,7 +28,7 @@ class RoleService {
      *  version 2 -> se deberian tener las funciones y los roles en la base de datos.
      *  Obtener estos roles cuando se necesitan y guardarlos. Un singleton vendría bien.
      *  Accede a la base, se trae los datos y estos no cambian. (no es muy querido
-     *  el patrón singleton.
+     *  el patrón singleton, sobretodo para los testers.
      * 
      */
 
@@ -81,7 +81,13 @@ class RoleService {
                 "AlimentoController:edit",
                 "AlimentoController:editView",
                 "AlimentoController:create",
-                "AlimentoController:listarAlimentos"
+                "AlimentoController:listarAlimentos",
+                "UsuarioController:index",
+                "UsuarioController:edit",
+                "UsuarioController:editView",
+                "UsuarioController:listarUsuarios",
+                "UsuarioController:remove",
+                "UsuarioController:create",
             ],
             2 => [" "],
             3 => ["AlimentoController:listarAlimentos"]

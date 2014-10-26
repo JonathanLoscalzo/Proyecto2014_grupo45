@@ -6,15 +6,6 @@ class UserRepository extends PDOrepository {
 
     private static $instance = null;
 
-    public static function getInstance() {
-
-        if (is_null(self::$instance)) {
-            self::$instance = new static();
-        }
-
-        return self::$instance;
-    }
-
     public function getUser($username, $pass) {
         $sql = "SELECT user.username, user.roleID FROM user WHERE user.username = ? and user.pass = ?";
         $args = array($username, $pass);
@@ -31,7 +22,7 @@ class UserRepository extends PDOrepository {
         }
     }
 
-    public function add($obj) {
+    public function add($user, $pass) {
         
     }
 

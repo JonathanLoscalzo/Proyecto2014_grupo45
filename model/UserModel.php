@@ -1,30 +1,41 @@
 <?php
 
-/* no deberìa ser singleton, dudas!*/
-/* no modelo la clase padre model porque estaria vacia?*/
+/* no deberìa ser singleton, dudas! */
+/* no modelo la clase padre model porque estaria vacia? */
 include_once("model/Model.php");
 
-class UserModel extends Model
-{
-	private $username;
-	private $role;
+class UserModel extends Model {
 
-	public function __construct( $username, $role )
-	{
-		$this->username = $username;
-		$this->role = $role;
-	}
+    private $userID;
+    private $username;
+    private $pass;
+    private $roleID;
 
-	public function getUsername()
-	{
-		return $this->username;
-	}
+    public function __construct($userID,$pass, $username, $roleID) {
+        $this->userID = $userID;
+        $this->username = $username;
+        $this->pass = $pass;
+        $this->roleID = $roleID;
+    }
 
-	public function getRole()
-	{
-		return $this->role;
-	}
+     public function getUserID() {
+        return $this->userID;
+    }
 
+    public function getUsername() {
+        return $this->username;
+    }
 
+    public function getRoleID() {
+        return $this->roleID;
+    }
+    
+    public function setUsername($username){
+        $this->username= $username;
+    }
+    
+    public function setRoleID($roleID) {
+        $this->roleID = $roleID;
+    }
 
 }

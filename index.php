@@ -136,6 +136,30 @@ switch ($acciones[1]) {
                 break;
         }
         break;
+    case 'usuarios':
+        (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
+
+        switch ($acciones[2]) {
+            case "edit":
+                if (!isset($_POST['submit'])) {
+                    /* deberia ser como la pantalla de crear */
+                    UsuarioController::getInstance()->editView($acciones[3]);
+                } else {
+                    UsuarioController::getInstance()->edit(new Params($_POST));
+                }
+                break;
+            case "remove":
+                UsuarioController::getInstance()->remove($acciones[3]);
+                break;
+            case "add":
+                /* agarrar todas las variables del post y mandarlas */
+                UsuarioController::getInstance()->create(new Params($_POST));
+                break;
+            default:
+                UsuarioController::getInstance()->index();
+                break;
+        }
+        break;
     case 'listadoAlimentos':
         if (LoginController::isSessionStart()) {
             AlimentoController::getInstance()->listarAlimentos();
