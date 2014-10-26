@@ -15,20 +15,38 @@
     <div id="accordion">
         <h3>Alta</h3>
         <div>
-            <form action="./{{server}}usuarios/add" method="POST">
+            <form action="./{{server}}entidadesReceptoras/add" method="POST">
                 <div class="conj-block">
-                    <label for="username" style = "display : block">Razon Social: </label><input placeholder="Empleados S.A" id="razonSocial" name="razonSocial" type="text" required placeholder="Razon social">
-                    <label for="pass" style = "display : block">Password: </label><input id="pass"  type="password" name="pass" >
-                    <label for="pass" style = "display : block">Repita Password: </label><input id="pass2"  type="password" name="pass" >
+                    <label for="nombreCompania" style = "display : block">Razon Social: </label><input placeholder="Empleados S.A" id="razonSocial" name="razonSocial" type="text" required placeholder="Razon social">
+                    <label for="phone" style = "display : block">Teléfono: </label><input id="telefono" placeholder="Ej: 2215550000" type="number" name="telefono"placeholder="Telefono">
+                    <label for="adress" style = "display : block">Domicilio: </label><input id="domicilio" placeholder="Ej: 9 de Julio numero 555" type="text" name="domicilio" placeholder="Domicilio">
                 </div>
                 <div class="conj-block">
-                    <label for="service" style = "display : block">Rol: </label>
-                    <select id="roleID" required >
+                    <label for="service" style = "display : block">Servicio Prestado: </label>
+                    <select id="servicio" required >
                         <option selected disabled hidden value=''></option>
-                        {% for rol in roles %}
-                        <option value="{{ rol.roleID }}"> {{ serv.roleuser }}</option>
+                        {% for serv in servicios %}
+                        <option value="{{ serv.id }}"> {{ serv.descripcion }}</option>
                         {% endfor %}
                     </select>
+                    <input id="servicio-input"  name="servicioEntidadID" hidden> 
+                    <label for="need" style = "display : block">Necesidad: </label>
+                    <select id="necesidad" required>
+                        <option selected disabled hidden value=''></option>
+                        {% for nec in necesidades %}
+                        <option value="{{ nec.id }}"> {{ nec.descripcion }}</option>
+                        {% endfor %}  
+                    </select>
+                    <input id="necesidad-input" name="necesidadEntidadID" hidden> 
+                    <label for="estado" style = "display : block">Estado: </label>
+                    <select id="estado" required>
+                        <option selected disabled hidden value=''></option>
+                        {% for est in estados %}
+                        <option value="{{ est.id }}"> {{ est.descripcion }}</option>
+                        {% endfor %}
+                    </select>
+                    <input id="estado-input" class="estado" name="estadoEntidadID" hidden> 
+                </div>
                 <button type="submit" name="submit"> Enviar </button>
             </form>
         </div>
@@ -37,18 +55,27 @@
             <table id="tabla-entidades">
                 <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>Rol</th>
+                        <th>Razón Social</th>
+                        <th>Teléfono</th>
+                        <th>Domicilio</th>
+                        <th>Estado</th>
+                        <th>Necesidad</th>
+                        <th>Servicio Prestado</th>
                         <th colspan="2"></th>
                     </tr>
                 </thead>
                 <tbody style="text-align: center">
-                    {% for user in users %}
+                    {% for elem in entidades %}
                     <tr>
-                        <td> {{ user.username }} </td>
-                        <td> {{ user.roleID }} </td>
-                        <td><a href="./{{server}}usuarios/edit/{{ user.userID }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                        <td><a href="./{{server}}usuarios/remove/{{ user.userID }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                        <td> {{ elem.razonSocial }} </td>
+                        <td> {{ elem.telefono }} </td>
+                        <td> {{ elem.domicilio }} </td>
+                        <td> {{ elem.estado.descripcion }} </td>
+                        <td> {{ elem.necesidad.descripcion }} </td>
+                        <td> {{ elem.servicio.descripcion }} </td>
+
+                        <td><a href="./{{server}}entidadesReceptoras/edit/{{ elem.id }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                        <td><a href="./{{server}}entidadesReceptoras/remove/{{ elem.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

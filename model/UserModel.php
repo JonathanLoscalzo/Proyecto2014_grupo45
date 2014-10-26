@@ -11,7 +11,7 @@ class UserModel extends Model {
     private $pass;
     private $roleID;
 
-    public function __construct($userID,$pass, $username, $roleID) {
+    public function __construct($userID, $username,$pass, $roleID) {
         $this->userID = $userID;
         $this->username = $username;
         $this->pass = $pass;

@@ -114,6 +114,8 @@ class EntidadReceptoraRepository extends PDORepository {
         }
     }
     
-    public function exist($id);
+    public function exist($id){
+        
+    }
 
 }

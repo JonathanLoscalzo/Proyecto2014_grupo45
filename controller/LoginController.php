@@ -78,7 +78,7 @@ class LoginController extends Controller {
             $actualUser = UserRepository::getInstance()->getUser($userName, $pass);
             if ($actualUser != false) {
                 $_SESSION['username'] = $actualUser->getUsername();
-                $_SESSION['roleID'] = $actualUser->getRole();
+                $_SESSION['roleID'] = $actualUser->getRoleID();
                 return 0;
             } else {
                 return 2;

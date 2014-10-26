@@ -5,12 +5,20 @@ include_once("PDOrepository.php");
 class UserRepository extends PDOrepository {
 
     private static $instance = null;
+    public static function getInstance() {
+
+        if (is_null(self::$instance)) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
+    }
     /* Metodo utilizado para el login. */
     public function getUser($username, $pass) {
-        $sql = "SELECT user.username, user.roleID FROM user WHERE user.username = ? and user.pass = ?";
+        $sql = "SELECT * FROM user WHERE user.username = ? and user.pass = ?";
         $args = array($username, $pass);
         $mapper = function($row) {
-            return new UserModel($row['username'], $row['roleID']);
+            return new UserModel($row['userID'],$row['username'],"",$row['roleID']);
         };
 
         $answer = $this->queryList($sql, $args, $mapper);
@@ -22,18 +30,18 @@ class UserRepository extends PDOrepository {
         }
     }
 
-    public function add(UserModel $user) {
+    public function add($user) {
         $sql = "insert into user values (?,?,?,?)";
         $args = $user->getArray();
         $mapper = function ($row)
         {
-            return new UserModel(NULL, row['username'],row['pass'],row['roleID']);
+            return new UserModel(NULL, $row['username'], $row['pass'], $row['roleID']);
         };
         
         return $this->queryList($sql, $args, $mapper);
     }
 
-    public function edit(UserModel $user) {
+    public function edit($user) {
     /* Que datos deberian poder editarse? */
         $sql = "UPDATE entidad_receptora
                 SET username=?, pass=? , roleID=? 

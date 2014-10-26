@@ -6,6 +6,17 @@
  */
 class RoleRepository extends PDORepository{
     /*solo se puede leer roles*/
+    
+    private static $instance = null;
+    public static function getInstance() {
+
+        if (is_null(self::$instance)) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
+    }
+    
     public function add($obj) {
         
     }

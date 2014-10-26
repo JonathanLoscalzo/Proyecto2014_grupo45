@@ -89,7 +89,7 @@ class RoleService {
                 "UsuarioController:remove",
                 "UsuarioController:create",
             ],
-            2 => [" "],
+            2 => [],
             3 => ["AlimentoController:listarAlimentos"]
         );
     }

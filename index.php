@@ -15,8 +15,11 @@ require_once('vistas/TwigView.php');
 require_once('vistas/BackEndView.php');
 require_once('vistas/FrontEndView.php');
 require_once("model/ParamsClass.php");
-
-
+require_once("model/UserModel.php");
+require_once 'model/UserRepository.php';
+require_once 'controller/UsuarioController.php';
+require_once 'model/RoleRepository.php';
+require_once 'model/RoleModel.php';
 
 /* ver como hacer para poder leer la uri en partes 
   ROUTE
