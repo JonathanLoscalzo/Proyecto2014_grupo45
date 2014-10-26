@@ -82,9 +82,9 @@ class UsuarioController extends Controller {
     public function remove($id) {
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
-                $userInfo = EntidadReceptoraRepository::getInstance()->getByID($id);
+                $userInfo = UserRepository::getInstance()->getByID($id);
                 if ($userInfo) {
-                    EntidadReceptoraRepository::getInstance()->remove($id);
+                    UserRepository::getInstance()->remove($id);
                     $_SESSION["message"] = new MessageService("removeSucess", ["entidad receptora"]);
                 } else {
                     $_SESSION["message"] = new MessageService("removeErrorNotExist", ["entidad receptora"]);
