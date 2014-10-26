@@ -6,19 +6,20 @@ include_once("model/Model.php");
 
 class UserModel extends Model {
 
-    private $userID;
-    private $username;
-    private $pass;
-    private $roleID;
+    protected $userID;
+    protected $username;
+    protected $pass;
+    protected $roleID;
 
-    public function __construct($userID, $username,$pass, $roleID) {
+    public function __construct($userID, $username, $pass, $roleID) {
         $this->userID = $userID;
         $this->username = $username;
         $this->pass = $pass;
         $this->roleID = $roleID;
+        return $this;
     }
 
-     public function getUserID() {
+    public function getUserID() {
         return $this->userID;
     }
 
@@ -29,13 +30,17 @@ class UserModel extends Model {
     public function getRoleID() {
         return $this->roleID;
     }
-    
-    public function setUsername($username){
-        $this->username= $username;
+
+    public function getPass() {
+        return $this->pass;
     }
-    
+
+    public function setUsername($username) {
+        return $this->username = $username;
+    }
+
     public function setRoleID($roleID) {
-        $this->roleID = $roleID;
+        return $this->roleID = $roleID;
     }
 
 }

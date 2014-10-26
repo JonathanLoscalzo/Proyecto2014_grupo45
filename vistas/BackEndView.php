@@ -1,6 +1,7 @@
 <?php
+
 /* Ver conceptos de metaprogramacion:
-EVITAR CODIGO REDUNDANTE. Convention over configuration.
+  EVITAR CODIGO REDUNDANTE. Convention over configuration.
  * USAR LOS MISMOS NOMBRES Y hago solo una funcion. Le mando el parametro que quiero.
  * parametros variables. 
  * Alto refactoring
@@ -30,20 +31,22 @@ class BackEndView extends TwigView {
     public function alimentos($alimentos, $detalles) {
         echo self::getTwig()->render('Alimentos.php', array(
             'alimentos' => $alimentos,
-            'detalles' => $detalles  
-                ));
+            'detalles' => $detalles
+        ));
     }
 
     public function donantes($donantes) {
         echo self::getTwig()->render('Donantes.php', array('donantes' => $donantes));
     }
-    public function usuarios($usuarios, $roles){
+
+    public function usuarios($usuarios, $roles) {
         echo self::getTwig()->render('usuarios.twig', array('usuarios' => $usuarios, 'roles' => $roles));
     }
-    public function editViewUsuarios($usuarios, $roles) {
 
-        echo self::getTwig()->render('EditViewUsuarios.html.twig', array('usuarios' => $usuarios, 'roles' => $roles)); //ver si esto anda
+    public function editViewUsuarios($us, $roles) {
+        echo self::getTwig()->render('EditViewUsuarios.html.twig', array('usuario' => $us, 'roles' => $roles)); //ver si esto anda
     }
+
     public function editViewDonante($donante) {
 
         echo self::getTwig()->render('EditViewDonante.html.twig', ['donante' => $donante]); //ver si esto anda
@@ -61,7 +64,7 @@ class BackEndView extends TwigView {
         echo self::getTwig()->render('EditViewAlimento.html.twig', array(
             'alimento' => $alimento,
             'detalle' => $detalle
-                )); 
+        ));
     }
 
 }

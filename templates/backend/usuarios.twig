@@ -11,26 +11,29 @@
 
 {% block content %}
     <div id = "content">
-        <h3> ENTIDADES RECEPTORAS </h3>
+        <h3> USUARIOS </h3>
         <div id="accordion">
             <h3>Alta</h3>
             <div>
                 <form action="./{{server}}usuarios/add" method="POST">
                     <div class="conj-block">
-                        <label for="nombreCompania" style = "display : block">Nombre usuario: </label><input placeholder="MiUsuario" id="username" name="razonSocial" type="text" required >
-                        <label for="pass1" style = "display : block">pass: </label><input id="telefono"  type="password" name="pass" placeholder="********">
-                        <label for="pass2" style = "display : block">repita pass: </label><input id="domicilio"  type="password" name="pass2" placeholder="********">
+                        <label for="nombreCompania" style = "display : block">Nombre usuario: </label><input placeholder="MiUsuario" id="username" name="username" type="text" required >
+                        <label for="pass1" style = "display : block">pass: </label><input id="pass"  type="password" name="pass" placeholder="********">
+                        <label for="pass2" style = "display : block">repita pass: </label><input id="pass1"  type="password" name="pass2" placeholder="********">
+                        <div id="dialog" title="ERROR EN EL FORMULARIO">
+                            <p>LAS CONTRASEÑAS DEBEN SER IGUALES!.</p>
+                        </div>
                     </div>
                     <div class="conj-block">
-                        <label for="service" style = "display : block">Rol del usuario: </label>
-                        <select id="roleID" required >
+                        <label for="roleID" style = "display : block">Rol del usuario: </label>
+                        <select id="roleID" required name ="roleID">
                             <option selected disabled hidden value=''></option>
                             {% for rol in roles %}
                                 <option value="{{ rol.roleID }}"> {{ rol.roleuser }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <button type="submit" name="submit"> Enviar </button>
+                    <button id="submit" type="submit" name="submit" style="display: none"> Enviar </button>
                 </form>
             </div>
             <h3>Baja y Modificación</h3>
@@ -44,7 +47,7 @@
                         </tr>
                     </thead>
                     <tbody style="text-align: center">
-                        {% for user in usuarios%}
+                        {% for user in usuarios %}
                             <tr>
                                 <td> {{ user.username }} </td>
                                 <td> 
@@ -74,7 +77,27 @@
                 var x = $(this).val();
                 $("#" + $(this).attr('id') + "-input").val(x);
             });
+            
+            $("#dialog").dialog({
+                autoOpen: false
+            });
+            
             //$('#tabla-entidades').dataTable();
+            $("form").change(function(){
+                if ($("#pass").val() === $("#pass1").val() && $('#pass').val() !== ""){
+                    $("#submit").css("display", "");
+                }else{
+                     $("#submit").css("display", "none");
+                }
+            });
+            
+            $("#pass, #pass1").blur(function () {
+                if ($("#pass").val() !== $("#pass1").val())
+                {
+                    $("#dialog").dialog("open");
+                }
+            });
+
 
         });
     </script>
