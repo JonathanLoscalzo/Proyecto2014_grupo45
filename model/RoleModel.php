@@ -13,4 +13,7 @@
  */
 class RoleModel extends Model {
     //put your code here
+    private $;
+    private $;
+    
 }
