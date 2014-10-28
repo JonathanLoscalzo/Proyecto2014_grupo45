@@ -76,6 +76,7 @@ class RoleService {
                 "EntidadReceptoraController:edit",
                 "EntidadReceptoraController:editView",
                 "EntidadReceptoraController:create",
+                'EnviosController:index', // ok?
                 "AlimentoController:index",
                 "AlimentoController:remove",
                 "AlimentoController:edit",

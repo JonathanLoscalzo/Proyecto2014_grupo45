@@ -63,5 +63,8 @@ class BackEndView extends TwigView {
             'detalle' => $detalle
                 )); 
     }
+    public function Envios() {
+        echo self::getTwig()->render('Envios.php');
+    }
 
 }
