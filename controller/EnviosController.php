@@ -17,7 +17,12 @@ class EnviosController extends Controller {
         
     }
     public function remove($id) {}
-    public function editView($id) {} 
+    public function editView($id) {
+        $date = $id; // la fecha en la cual se deben procesar los envios
+        $data['ejemplo'] = 'Estos son datos de ejemplo';
+        echo json_encode($data);
+        die();
+    } 
     public static function getInstance() {
 
         if (is_null(self::$instance)) {
@@ -34,6 +39,5 @@ class EnviosController extends Controller {
                     }
                 }
         }
-    
 }
 ?>

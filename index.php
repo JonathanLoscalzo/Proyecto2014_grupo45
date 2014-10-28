@@ -37,6 +37,11 @@ require_once 'model/RoleModel.php';
 
 $acciones = split("/", $_SERVER['REQUEST_URI']);
 
+if (isset($_POST['date'])) {
+    EnviosController::getInstance()->editView(new Params($_POST));
+}
+else {
+
 switch ($acciones[1]) {
     case "index":
         HomeController::getInstance()->index();
@@ -179,3 +184,4 @@ switch ($acciones[1]) {
 }
 
 
+}
