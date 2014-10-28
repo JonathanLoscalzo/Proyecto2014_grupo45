@@ -1,100 +1,74 @@
 {% extends "backend_layout.php" %}
 {% block head %}
-{{ parent() }}
-<link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
-<script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
-<script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
-<script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.11.js"></script>
-<script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.11.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.css"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min   "></script>
+
+
 {% endblock %}
 
 
 {% block content %}
-<div id = "content">
-    <h3> Turnos de Entrega </h3>
-    <div id="accordion">
-        <h3>Alta</h3>
-        <div>
+    <div id = "content">
+        <h3> Turnos de Entrega </h3>
+        <Button id ="alta">Alta</button>
+        <div id ="dialog" >
             <form action="./{{server}}turnosEntrega/add" method="POST">
                 <div class="conj-block">
-                    <label for="fecha" style = "display : block">Teléfono: </label><input id="telefono" placeholder="Ej: 2215550000" type="number" name="telefono"placeholder="Telefono">
-                    <label for="hora" style = "display : block">Domicilio: </label><input id="domicilio" placeholder="Ej: 9 de Julio numero 555" type="text" name="domicilio" placeholder="Domicilio">
-                </div>
-                <div class="conj-block">
-                    <label for="service" style = "display : block">Servicio Prestado: </label>
-                    <select id="servicio" required >
-                        <option selected disabled hidden value=''></option>
-                        {% for serv in servicios %}
-                        <option value="{{ serv.id }}"> {{ serv.descripcion }}</option>
-                        {% endfor %}
-                    </select>
-                    <input id="servicio-input"  name="servicioEntidadID" hidden> 
-                    <label for="need" style = "display : block">Necesidad: </label>
-                    <select id="necesidad" required>
-                        <option selected disabled hidden value=''></option>
-                        {% for nec in necesidades %}
-                        <option value="{{ nec.id }}"> {{ nec.descripcion }}</option>
-                        {% endfor %}  
-                    </select>
-                    <input id="necesidad-input" name="necesidadEntidadID" hidden> 
-                    <label for="estado" style = "display : block">Estado: </label>
-                    <select id="estado" required>
-                        <option selected disabled hidden value=''></option>
-                        {% for est in estados %}
-                        <option value="{{ est.id }}"> {{ est.descripcion }}</option>
-                        {% endfor %}
-                    </select>
-                    <input id="estado-input" class="estado" name="estadoEntidadID" hidden> 
+                    <label for="fecha" style = "display : block">Fecha: </label><input id="fecha" placeholder="Ej: 22/09/2014" type="text" name="fecha" >
+                    <label for="hora" style = "display : block">Hora: </label><input id="hora" placeholder="Ej: 20:00 " type="text" name="hora">
                 </div>
                 <button type="submit" name="submit"> Enviar </button>
             </form>
         </div>
         <h3>Baja y Modificación</h3>
         <div class = "tabla-class">
-            <table id="tabla-entidades">
+            <table id="tabla-Turnos">
                 <thead>
                     <tr>
-                        <th>Razón Social</th>
-                        <th>Teléfono</th>
-                        <th>Domicilio</th>
-                        <th>Estado</th>
-                        <th>Necesidad</th>
-                        <th>Servicio Prestado</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
                         <th colspan="2"></th>
                     </tr>
                 </thead>
                 <tbody style="text-align: center">
-                    {% for elem in entidades %}
-                    <tr>
-                        <td> {{ elem.razonSocial }} </td>
-                        <td> {{ elem.telefono }} </td>
-                        <td> {{ elem.domicilio }} </td>
-                        <td> {{ elem.estado.descripcion }} </td>
-                        <td> {{ elem.necesidad.descripcion }} </td>
-                        <td> {{ elem.servicio.descripcion }} </td>
-
-                        <td><a href="./{{server}}entidadesReceptoras/edit/{{ elem.id }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                        <td><a href="./{{server}}entidadesReceptoras/remove/{{ elem.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
-                    </tr>
+                    {% for turno in turnos %}
+                        <tr>
+                            <td> {{ turno.fecha }} </td>
+                            <td> {{ turno.hora }} </td>
+                            <td><a href="./{{server}}turnosEntrega/edit/{{ turno.id }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                            <td><a href="./{{server}}turnosEntrega/remove/{{ turno.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+
     </div>
-</div>
 {% endblock %}
 
 {% block scripts %}
-<script>
-$(document).ready(function () {
-    $('#accordion').accordion({collapsible: true, active:false});
-    console.log($("select"));
-    $('select').change(function () {
-        var x = $(this).val();
-        $("#" + $(this).attr('id') + "-input").val(x);
-    });
-    //$('#tabla-entidades').dataTable();
+    <script>
+        $(document).ready(function () {
+            //$('#tabla-entidades').dataTable();
+            $("#hora").timepicker();
 
-});
-</script>
+            $("#fecha").datepicker();
+
+            $("#dialog").dialog({
+                autoOpen: false
+            });
+
+            $("#alta").click(function () {
+                $("#dialog").dialog("open");
+            });
+        });
+    </script>
 {% endblock %}

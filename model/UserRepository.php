@@ -108,7 +108,6 @@ class UserRepository extends PDOrepository {
             return $row;
         };
         return $this->queryList($sql, $args, $mapper)[0];
-        
     }
 
 }

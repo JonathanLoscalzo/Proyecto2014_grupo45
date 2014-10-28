@@ -38,6 +38,14 @@ class BackEndView extends TwigView {
     public function donantes($donantes) {
         echo self::getTwig()->render('Donantes.php', array('donantes' => $donantes));
     }
+    
+    public function turnos($turnos) {
+        echo self::getTwig()->render('turnosEntrega.html.twig', array('turnos' => $turnos));
+    }
+    
+     public function editViewTurno($turno) {
+        echo self::getTwig()->render('EditViewTurnoEntrega.html.twig', array('turno' => $turno)); //ver si esto anda
+    }
 
     public function usuarios($usuarios, $roles) {
         echo self::getTwig()->render('usuarios.twig', array('usuarios' => $usuarios, 'roles' => $roles));
