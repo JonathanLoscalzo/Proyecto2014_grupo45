@@ -21,7 +21,13 @@ class EnviosController extends Controller {
         $date = $id; // la fecha en la cual se deben procesar los envios
         
         $entidad_receptora['id'] = 1;
-        $entidad_receptora['razonSocial'] = "Carlos Saez";
+        if ($id > "2014-20-10") {
+            $entidad_receptora['razonSocial'] = "Carlitos Tevez";
+        }
+        else 
+        {
+            $entidad_receptora['razonSocial'] = "Carlos Sanchez";
+        }
         $entidad_receptora['telefono'] = "4225252";
         $entidad_receptora['domicilio'] = "60 1821, La Plata";
         $entidad_receptora['lat'] = -34.930596;

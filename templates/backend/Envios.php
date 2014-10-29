@@ -35,7 +35,7 @@
                        <td>42411111</td>
                        <td>4921112</td>
                        <td>No Entregado</td>
-                       <td><button>Ver Detalle</button></td>
+                       <td></td>
                    </tr>
                </tbody>
        </table>
@@ -48,7 +48,12 @@
 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        tabla = $("#tabla-pedidos").DataTable();
+        tabla = $("#tabla-pedidos").DataTable({
+           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                $('td:eq(5)', nRow).append("<button>Ver Detalle</button>"); // trigger que se activa
+                // cuando se genera una nueva linea en la tabla, deberia agregar el boton de Ver Detalle
+           }
+        });
         var zoom = 13;
         function mapInit() {
             var map = new OpenLayers.Map({
@@ -74,7 +79,9 @@
         //map.setCenter(, zoom);
         function refreshTabla(tabla, data) {
                 
-                tabla.row.add([data['razonSocial'],data['fecha_entrega'],data['telefono'],data['domicilio'],data['estado_entrega'],]).draw();
+                tabla.clear();
+                tabla.row.add(data);
+                tabla.draw();
             
         }
         function refreshMap(json_object) {
@@ -112,17 +119,21 @@
         $('#day-input').datepicker();
         $("#refresh-date").on("click", function () {
             $.post('index.php',{ date: $('#day-input').val() }, function(json_object, status, xhr) {
-                console.log(json_object);
-                var tableData = {};
-                tableData['razonSocial'] = json_object['entidad_receptora']['razonSocial'];
-                tableData['domicilio'] = json_object['entidad_receptora']['domicilio'];
-                tableData['telefono'] = json_object['entidad_receptora']['telefono'];
-                tableData['fecha_entrega'] = json_object['turno']['date'];
-                tableData['estado_entrega'] = json_object['pedido']['estado'];
-                tabla.clear();
-                tabla.rows.add(tableData);
-                tabla.draw();
-                //refreshMap(json_object);
+                
+                var tablaData = {
+                    razonSocial: json_object['entidad_receptora']['razonSocial'],
+                    domicilio: json_object['entidad_receptora']['domicilio'],
+                    telefono: json_object['entidad_receptora']['telefono'],
+                    fecha_entrega: json_object['turno']['date'],
+                    estado_entrega: json_object['pedido']['estado'],
+                    button: ""
+                };
+                var dataArray = $.map(tablaData, function(value, index) {
+                    return [value];
+                });
+                console.log(dataArray);
+                refreshTabla(tabla, dataArray);
+                //refreshMap(tablaData);
                 
             }, 'json');            
         });
