@@ -19,7 +19,28 @@ class EnviosController extends Controller {
     public function remove($id) {}
     public function editView($id) {
         $date = $id; // la fecha en la cual se deben procesar los envios
-        $data['ejemplo'] = 'Estos son datos de ejemplo';
+        
+        $entidad_receptora['id'] = 1;
+        $entidad_receptora['razonSocial'] = "Carlos Saez";
+        $entidad_receptora['telefono'] = "4225252";
+        $entidad_receptora['domicilio'] = "60 1821, La Plata";
+        $entidad_receptora['lat'] = -34.930596;
+        $entidad_receptora['long'] = -57.952437;
+        $pedido['id'] = 2;
+        $pedido['entidad_receptora_id'] = 1;
+        $pedido['fecha_ingreso'] = "22-05-2014";
+        $pedido['estado'] = "En Espera";
+        $turno['date'] = "24-05-2014";
+        $turno['time'] = 20;
+        $detalle['id'] = 3;
+        $detalle['cantidad'] = 10;
+        $detalle['alimento_codigo'] = "Almendras";
+        
+        $data['entidad_receptora'] = $entidad_receptora;
+        $data['pedido'] =   $pedido;
+        $data['turno'] =   $turno;
+        $data['detalle'] =  $detalle;
+        
         echo json_encode($data);
         die();
     } 
