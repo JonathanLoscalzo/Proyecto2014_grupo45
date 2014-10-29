@@ -1,1 +1,40 @@
-{# empty Twig template #}
+{% extends "backend_layout.php" %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.css"></script>
+
+
+{% endblock %}
+
+{% block content %}
+    <div id="content">
+        <h3> Editar Usuario </h3>
+        <form action="./{{server}}turnosEntrega/add" method="POST">
+            <div class="conj-block">
+                <div class="conj-block">
+                    <label for="fecha" style = "display : block">Fecha: </label><input id="fecha" placeholder="Ej: 22/09/2014" type="text" name="fecha" >
+                    <label for="hora" style = "display : block">Hora: </label><input id="hora" placeholder="Ej: 20:00 " type="text" name="hora">
+                </div>
+                <button type="submit" name="submit"> Enviar </button>
+            </div>
+            <button id="submit" type="submit" name="submit"> Enviar </button>
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            //$('#tabla-entidades').dataTable();
+            $("#hora").timepicker();
+
+            $("#fecha").datepicker();
+
+        });
+    </script>
+{% endblock %}
