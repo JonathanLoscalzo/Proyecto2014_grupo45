@@ -19,7 +19,9 @@ class EnviosController extends Controller {
     public function remove($id) {}
     public function editView($id) {
         $date = $id; // la fecha en la cual se deben procesar los envios
-        
+        $banco['lat'] = -34.930500;
+        $banco['long'] = -57.952400;
+   
         $entidad_receptora['id'] = 1;
         if ($id > "2014-20-10") {
             $entidad_receptora['razonSocial'] = "Carlitos Tevez";
@@ -46,6 +48,7 @@ class EnviosController extends Controller {
         $data['pedido'] =   $pedido;
         $data['turno'] =   $turno;
         $data['detalle'] =  $detalle;
+        $data['banco'] = $banco;
         
         echo json_encode($data);
         die();

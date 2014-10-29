@@ -47,13 +47,6 @@
 {% block scripts %}
 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        tabla = $("#tabla-pedidos").DataTable({
-           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-                $('td:eq(5)', nRow).append("<button>Ver Detalle</button>"); // trigger que se activa
-                // cuando se genera una nueva linea en la tabla, deberia agregar el boton de Ver Detalle
-           }
-        });
         var zoom = 13;
         function mapInit() {
             var map = new OpenLayers.Map({
@@ -73,10 +66,26 @@
             });
             return map;
         }
+        
         map = mapInit();
         var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
         var toProjection   = map.getProjectionObject(); // to Spherical Mercator Projection
-        //map.setCenter(, zoom);
+        var lat = -34.910531;
+        var lon = -57.950203;
+        zoom = 13;
+        position = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+        map.setCenter(position, zoom);
+        
+          
+    $(document).ready(function () {
+        button_row = 'td:eq(5)';
+        tabla = $("#tabla-pedidos").DataTable({
+           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                $(button_row, nRow).append("<button>Ver Detalle</button>"); // trigger que se activa
+                // cuando se genera una nueva linea en la tabla, deberia agregar el boton de Ver Detalle
+           }
+        });
+
         function refreshTabla(tabla, data) {
                 
                 tabla.clear();
@@ -84,8 +93,7 @@
                 tabla.draw();
             
         }
-        function refreshMap(json_object) {
-                OpenLayers.Layer.Markers.clearMarkers();
+        function refreshMap(entidades) {
                  function crearMarcador(entidad) {
                       var icono = new OpenLayers.Icon("/images/icons/pin.png");
                       icono.size.w *=2;
@@ -93,7 +101,6 @@
                       icono.title = entidad.nombre;
                       var lugar=  entidad.dire;
                       var marcador = new OpenLayers.Marker(lugar, icono);
-
                       return marcador;
                    }
 
@@ -103,12 +110,14 @@
                                     markers.addMarker(crearMarcador(entidades[i]));
 
                  }
+                 var bounds = markers.getDataExtent();
+                 map.zoomToExtent(bounds);
          }
         
        
         
         
-        function EntidadReceptora(nombre, lat, lon, tipo){
+        function EntidadReceptora(nombre, lat, lon){
              this.nombre=nombre;
              this.dire=new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
              return this;
@@ -117,6 +126,7 @@
         
         
         $('#day-input').datepicker();
+        
         $("#refresh-date").on("click", function () {
             $.post('index.php',{ date: $('#day-input').val() }, function(json_object, status, xhr) {
                 
@@ -133,8 +143,12 @@
                 });
                 console.log(dataArray);
                 refreshTabla(tabla, dataArray);
-                //refreshMap(tablaData);
+                lon = json_object['banco']['long'];
+                lat = json_object['banco']['lat'];
                 
+                refreshMap([new EntidadReceptora(json_object['entidad_receptora']['nombre'],
+                            json_object['entidad_receptora']['lat'], 
+                            json_object['entidad_receptora']['long'])]);
             }, 'json');            
         });
         
