@@ -1,0 +1,87 @@
+{% extends "backend_layout.php" %}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.11.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.css"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.js"></script>
+
+
+
+{% endblock %}
+
+
+
+{% block content %}
+    <div id = "content">
+        <h3> Turnos de Entrega </h3>
+        <Button id ="alta">Alta</button>
+        <div id ="dialog" Title ="Alta de Turno" >
+            <form action="./{{server}}turnosEntrega/add" method="POST">
+                <div class="conj-block">
+                    <label for="fecha" style = "display : block">Fecha: </label><input id="fecha" placeholder="Ej: 22/09/2014" type="text" name="fecha" required>
+                    <label for="hora" style = "display : block">Hora: </label><input id="hora" placeholder="Ej: 20:00 " type="text" name="hora" required >
+                </div>
+                <button type="submit" name="submit"> Enviar </button>
+            </form>
+        </div>
+        <br><br>
+        <h3>Baja y Modificación</h3>
+        <div class = "tabla-class">
+            <table id="tabla-Turnos">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th colspan="2"></th>
+                    </tr>
+                </thead>
+                <tbody style="text-align: center">
+                    {% for turno in turnos %}
+                        <tr>
+                            <td> {{ turno.fecha }} </td>
+                            <td> {{ turno.hora }} </td>
+                            <td><a href="./{{server}}turnosEntrega/edit/{{ turno.id }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                            <td><a href="./{{server}}turnosEntrega/remove/{{ turno.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            //$('#tabla-entidades').dataTable();
+            $("#hora").timepicker({
+                'minTime': '8:00',
+                'maxTime': '20:30',
+                'timeFormat': 'H:i',
+                'forceRoundTime': true
+            });
+            $("#hora").timepicker('option', {useSelect: true});
+
+            $("#fecha").datepicker({
+                minDate: 0,
+                showOn: "button",
+                buttonImage: "./{{server}}images/icons/calendar.gif",
+                buttonImageOnly: true,
+                buttonText: "Seleccione fecha"
+            });
+            $( "#fecha" ).datepicker( "option", "dateFormat", 'dd/mm/yy' );
+            $("#dialog").dialog({
+                autoOpen: false
+            });
+
+            $("#alta").click(function () {
+                $("#dialog").dialog("open");
+            });
+        });
+    </script>
+{% endblock %}

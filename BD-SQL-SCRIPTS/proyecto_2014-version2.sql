@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-10-2014 a las 00:38:36
+-- Tiempo de generación: 29-10-2014 a las 23:02:36
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -19,8 +19,54 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `grupo_45`
 --
-CREATE DATABASE IF NOT EXISTS `grupo_45` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `grupo_45`;
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`grupo_45`@`localhost` PROCEDURE `alimentos_por_entidad_entre_fechas`(
+in fechaIni date,
+in fechaFin date
+)
+begin
+	-- Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (gráfico de torta)
+	select e.*, sum(d.peso_unitario * ap.cantidad) as kilogramos
+	from entidad_receptora as e
+	inner join 
+	(
+		select p1.* 
+		from pedido_alimento as p1 
+		inner join turno_entrega as t 
+		on  t.Id = p1.turno_entrega_id
+		where p1.estado_pedido_id = 1 and t.fecha between fechaIni and fechaFin
+	) as p on p.entidad_receptora_id = e.Id
+	inner join alimento_pedido as ap on p.numero = ap.pedido_numero
+	inner join detalle_alimento as d on ap.detalle_alimento_id = d.Id
+	group by e.Id;
+
+end$$
+
+CREATE DEFINER=`grupo_45`@`localhost` PROCEDURE `alimentos_por_fechas_entre`(
+in fechaIni date,
+in fechaFin date
+)
+begin
+	-- Listado (entre fechas) de los kilos de alimento que fueron entregados (gráfico de torta)
+	select p.fecha, sum(d.peso_unitario * ap.cantidad) as kilogramos
+	from (
+		select p1.*,t.fecha as fecha
+		from pedido_alimento as p1 
+		inner join turno_entrega as t 
+		on  t.Id = p1.turno_entrega_id
+		where p1.estado_pedido_id = 1 and t.fecha between fechaIni and fechaFin
+	) as p 
+	inner join alimento_pedido as ap on p.numero = ap.pedido_numero
+	inner join detalle_alimento as d on ap.detalle_alimento_id = d.Id
+	group by p.fecha;
+
+end$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -28,7 +74,6 @@ USE `grupo_45`;
 -- Estructura de tabla para la tabla `alimento`
 --
 
-DROP TABLE IF EXISTS `alimento`;
 CREATE TABLE IF NOT EXISTS `alimento` (
   `codigo` varchar(11) NOT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
@@ -45,10 +90,19 @@ INSERT INTO `alimento` (`codigo`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `alimentosvencidos`
+--
+CREATE TABLE IF NOT EXISTS `alimentosvencidos` (
+`codigo` varchar(11)
+,`descripcion` varchar(45)
+,`cantidad` decimal(32,0)
+);
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `alimento_donante`
 --
 
-DROP TABLE IF EXISTS `alimento_donante`;
 CREATE TABLE IF NOT EXISTS `alimento_donante` (
   `cantidad` int(11) DEFAULT NULL,
   `donante_Id` int(11) NOT NULL DEFAULT '0',
@@ -64,7 +118,6 @@ CREATE TABLE IF NOT EXISTS `alimento_donante` (
 -- Estructura de tabla para la tabla `alimento_entrega_directa`
 --
 
-DROP TABLE IF EXISTS `alimento_entrega_directa`;
 CREATE TABLE IF NOT EXISTS `alimento_entrega_directa` (
   `entrega_directa_id` int(11) NOT NULL,
   `detalle_alimento_id` int(11) NOT NULL,
@@ -79,7 +132,6 @@ CREATE TABLE IF NOT EXISTS `alimento_entrega_directa` (
 -- Estructura de tabla para la tabla `alimento_pedido`
 --
 
-DROP TABLE IF EXISTS `alimento_pedido`;
 CREATE TABLE IF NOT EXISTS `alimento_pedido` (
   `pedido_numero` int(11) NOT NULL,
   `detalle_alimento_id` int(11) NOT NULL,
@@ -88,13 +140,29 @@ CREATE TABLE IF NOT EXISTS `alimento_pedido` (
   KEY `fk_alimento_pedido_2_idx` (`detalle_alimento_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Disparadores `alimento_pedido`
+--
+DROP TRIGGER IF EXISTS `alimento_pedido_insert`;
+DELIMITER //
+CREATE TRIGGER `alimento_pedido_insert` AFTER INSERT ON `alimento_pedido`
+ FOR EACH ROW begin
+	
+	declare alimento_id int(11) default new.detalle_alimento_id; 
+	declare delta int(11) default new.cantidad;
+
+	update detalle_alimento set reserva = reserva + delta  where Id = alimento_id;
+
+end
+//
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `configuracion`
 --
 
-DROP TABLE IF EXISTS `configuracion`;
 CREATE TABLE IF NOT EXISTS `configuracion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `clave` varchar(45) DEFAULT NULL,
@@ -108,7 +176,6 @@ CREATE TABLE IF NOT EXISTS `configuracion` (
 -- Estructura de tabla para la tabla `detalle_alimento`
 --
 
-DROP TABLE IF EXISTS `detalle_alimento`;
 CREATE TABLE IF NOT EXISTS `detalle_alimento` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_vencimiento` date DEFAULT NULL,
@@ -135,7 +202,6 @@ INSERT INTO `detalle_alimento` (`Id`, `fecha_vencimiento`, `contenido`, `peso_un
 -- Estructura de tabla para la tabla `donante`
 --
 
-DROP TABLE IF EXISTS `donante`;
 CREATE TABLE IF NOT EXISTS `donante` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `razon_social` varchar(100) DEFAULT NULL,
@@ -162,7 +228,6 @@ INSERT INTO `donante` (`Id`, `razon_social`, `apellido_contacto`, `nombre_contac
 -- Estructura de tabla para la tabla `entidad_receptora`
 --
 
-DROP TABLE IF EXISTS `entidad_receptora`;
 CREATE TABLE IF NOT EXISTS `entidad_receptora` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `razon_social` varchar(100) DEFAULT NULL,
@@ -197,7 +262,6 @@ INSERT INTO `entidad_receptora` (`Id`, `razon_social`, `telefono`, `domicilio`, 
 -- Estructura de tabla para la tabla `entrega_directa`
 --
 
-DROP TABLE IF EXISTS `entrega_directa`;
 CREATE TABLE IF NOT EXISTS `entrega_directa` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `entidad_receptora_id` int(11) DEFAULT NULL,
@@ -212,7 +276,6 @@ CREATE TABLE IF NOT EXISTS `entrega_directa` (
 -- Estructura de tabla para la tabla `estado_entidad`
 --
 
-DROP TABLE IF EXISTS `estado_entidad`;
 CREATE TABLE IF NOT EXISTS `estado_entidad` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(20) DEFAULT NULL,
@@ -235,12 +298,19 @@ INSERT INTO `estado_entidad` (`Id`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `estado_pedido`
 --
 
-DROP TABLE IF EXISTS `estado_pedido`;
 CREATE TABLE IF NOT EXISTS `estado_pedido` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `estado_pedido`
+--
+
+INSERT INTO `estado_pedido` (`id`, `descripcion`) VALUES
+(0, 'sin enviar'),
+(1, 'enviado');
 
 -- --------------------------------------------------------
 
@@ -248,7 +318,6 @@ CREATE TABLE IF NOT EXISTS `estado_pedido` (
 -- Estructura de tabla para la tabla `necesidad_entidad`
 --
 
-DROP TABLE IF EXISTS `necesidad_entidad`;
 CREATE TABLE IF NOT EXISTS `necesidad_entidad` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(15) DEFAULT NULL,
@@ -270,7 +339,6 @@ INSERT INTO `necesidad_entidad` (`Id`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `pedido_modelo`
 --
 
-DROP TABLE IF EXISTS `pedido_modelo`;
 CREATE TABLE IF NOT EXISTS `pedido_modelo` (
   `numero` int(11) NOT NULL AUTO_INCREMENT,
   `entidad_receptora_id` int(11) DEFAULT NULL,
@@ -284,13 +352,103 @@ CREATE TABLE IF NOT EXISTS `pedido_modelo` (
   KEY `fk_pedido_model_3_idx` (`turno_entrega_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Disparadores `pedido_modelo`
+--
+DROP TRIGGER IF EXISTS `pedido_modelo_delete`;
+DELIMITER //
+CREATE TRIGGER `pedido_modelo_delete` BEFORE DELETE ON `pedido_modelo`
+ FOR EACH ROW begin
+/* Si el pedido tiene estado sin enviar, se debe sumar de cada alimento asociado
+La cantidad que tiene el alimento, se resta de reserva, y se suma en cantidad
+Luego (para ambos casos) se eliminan todos los alimento_pedidos asociados
+*/
+	declare numero_old int(11) default OLD.numero;
+	declare estado_pedido int(11) default OLD.estado_pedido_id;
+
+	declare pn int(11) default 0;
+	declare dai int(11) default 0;
+	declare delta int(11) default 0;
+
+	DECLARE done boolean default false;
+	DECLARE cursor_alimento_pedido 
+	CURSOR FOR 
+	select * from alimento_pedido where pedido_numero = numero_old;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+	
+
+	if (estado_pedido = 0) then
+		open cursor_alimento_pedido;
+		read_loop : loop
+			
+			fetch cursor_alimento_pedido into pn, dai, delta;
+			
+			IF done THEN
+				LEAVE read_loop;
+			END IF;
+
+			update detalle_alimento 
+			set cantidad = cantidad + delta, reserva = reserva - delta 
+			where id = dai;
+			
+		end loop;
+	end if;
+	
+	delete from alimento_pedido 
+	where pedido_numero = numero_old;
+	
+end
+//
+DELIMITER ;
+DROP TRIGGER IF EXISTS `pedido_modelo_update`;
+DELIMITER //
+CREATE TRIGGER `pedido_modelo_update` BEFORE UPDATE ON `pedido_modelo`
+ FOR EACH ROW begin
+/*
+	si cambio de estado "no-enviado" a "enviado" ->
+	deberia "actualizar" los datos de alimentos. Es decir ->
+	restar por cada alimento del pedido la cantidad que tiene en reserva y cantidad del detalle.
+*/
+	declare estado_old int(11) default old.estado_pedido_id;
+	declare estado_new int(11) default new.estado_pedido_id;
+	declare id_pedido int(11) default old.numero;
+
+	declare pn int(11) default 0;
+	declare dai int(11) default 0;
+	declare delta int(11) default 0;
+	
+	DECLARE done boolean default false;
+	DECLARE cursor_alimento_pedido 
+	CURSOR FOR 
+	select * from alimento_pedido where pedido_numero = id_pedido;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+	if (estado_old = 0 and estado_new = 1)  then
+		open cursor_alimento_pedido;
+		read_loop : loop
+			
+			fetch cursor_alimento_pedido into pn, dai, delta;
+			
+			IF done THEN
+				LEAVE read_loop;
+			END IF;
+
+			update detalle_alimento 
+			set cantidad = cantidad - delta, reserva = reserva - delta 
+			where id = dai;
+			
+		end loop;
+	end if ;
+end
+//
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `role`
 --
 
-DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
   `roleID` int(11) NOT NULL AUTO_INCREMENT,
   `roleuser` varchar(20) NOT NULL,
@@ -313,7 +471,6 @@ INSERT INTO `role` (`roleID`, `roleuser`, `description`) VALUES
 -- Estructura de tabla para la tabla `servicio_prestado`
 --
 
-DROP TABLE IF EXISTS `servicio_prestado`;
 CREATE TABLE IF NOT EXISTS `servicio_prestado` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(100) DEFAULT NULL,
@@ -334,13 +491,39 @@ INSERT INTO `servicio_prestado` (`Id`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `turno_entrega`
 --
 
-DROP TABLE IF EXISTS `turno_entrega`;
 CREATE TABLE IF NOT EXISTS `turno_entrega` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Volcado de datos para la tabla `turno_entrega`
+--
+
+INSERT INTO `turno_entrega` (`id`, `fecha`, `hora`) VALUES
+(4, '2014-10-30', '17:00:00'),
+(7, '2014-10-31', '17:30:00'),
+(8, '2014-10-30', '17:30:00');
+
+--
+-- Disparadores `turno_entrega`
+--
+DROP TRIGGER IF EXISTS `turno_entrega_delete`;
+DELIMITER //
+CREATE TRIGGER `turno_entrega_delete` BEFORE DELETE ON `turno_entrega`
+ FOR EACH ROW begin
+-- Cuando se elimina un turno, se debe eliminar todos los pedidos asociados
+	
+	declare id_old int(11) default OLD.id;
+
+	delete from pedido_modelo 
+	where turno_entrega_id = id_old;
+	
+end
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -348,17 +531,15 @@ CREATE TABLE IF NOT EXISTS `turno_entrega` (
 -- Estructura de tabla para la tabla `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `userID` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) NOT NULL,
-  `pass` varchar(20) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `pass` varchar(50) NOT NULL,
   `roleID` int(11) NOT NULL,
   PRIMARY KEY (`userID`),
-  UNIQUE KEY `roleID_2` (`roleID`),
-  KEY `roleID` (`roleID`),
-  KEY `roleID_3` (`roleID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Deberia hash contraseña' AUTO_INCREMENT=4 ;
+  KEY `userID` (`userID`),
+  KEY `fk_user_1_idx` (`roleID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `user`
@@ -368,6 +549,15 @@ INSERT INTO `user` (`userID`, `username`, `pass`, `roleID`) VALUES
 (1, 'admin1', '123456', 1),
 (2, 'gestion1', '123456', 2),
 (3, 'consulta1', '123456', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `alimentosvencidos`
+--
+DROP TABLE IF EXISTS `alimentosvencidos`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`grupo_45`@`localhost` SQL SECURITY DEFINER VIEW `alimentosvencidos` AS select `a`.`codigo` AS `codigo`,`a`.`descripcion` AS `descripcion`,sum(`d`.`stock`) AS `cantidad` from (`detalle_alimento` `d` join `alimento` `a` on((`d`.`alimento_codigo` = `a`.`codigo`))) where (`d`.`fecha_vencimiento` <= now()) group by `a`.`codigo`;
 
 --
 -- Restricciones para tablas volcadas
@@ -426,7 +616,7 @@ ALTER TABLE `pedido_modelo`
 -- Filtros para la tabla `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `fk_role_roleID` FOREIGN KEY (`roleID`) REFERENCES `role` (`roleID`);
+  ADD CONSTRAINT `fk_user_1` FOREIGN KEY (`roleID`) REFERENCES `role` (`roleID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

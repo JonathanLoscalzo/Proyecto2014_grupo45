@@ -31,11 +31,12 @@ class UserRepository extends PDOrepository {
     }
 
     public function add($user) {
-        $sql = "insert into user values (?,?,?,?)";
+        $sql = "insert into user (userID, username, pass, roleID) values (?,?,?,?)";
         $args = $user->getArray();
+        $args[0] = NULL;
         $mapper = function ($row)
         {
-            return new UserModel(NULL, $row['username'], $row['pass'], $row['roleID']);
+            return $row;
         };
         
         return $this->queryList($sql, $args, $mapper);
@@ -43,17 +44,15 @@ class UserRepository extends PDOrepository {
 
     public function edit($user) {
     /* Que datos deberian poder editarse? */
-        $sql = "UPDATE entidad_receptora
-                SET username=?, pass=? , roleID=? 
+        $sql = "UPDATE user
+                SET username= ?, pass= ? , roleID= ? 
                 WHERE userID=?";
         
         $args = $user->getArray();
         
-        array_pop($args);
-        array_pop($args);
-        array_pop($args);
         array_push($args, $args[0]);
-
+        array_shift($args);
+        
         $mapper = function($row) {
             return $row;
         };
@@ -62,8 +61,14 @@ class UserRepository extends PDOrepository {
         
     }
 
-    public function exist($id) {
+    public function exist($username) {
         
+        $sql = "select * from user where username = ?";
+        $args = [$username];
+        $mapper = function($row) { return $row; };
+        
+        $answer = $this->queryList($sql, $args, $mapper);
+        return ($answer) ? TRUE : FALSE;
     }
 
     public function getAll() {
@@ -83,7 +88,17 @@ class UserRepository extends PDOrepository {
             return new UserModel($row['userID'], $row['username'],$row['pass'], $row['roleID']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        return $answer;
+        return $answer[0];
+    }
+    
+    public function getByUsername($username) {
+        $sql = "SELECT * FROM user where username = ?";
+        $args = [$username];
+        $mapper = function ($row) {
+            return new UserModel($row['userID'], $row['username'], $row['pass'], $row['roleID']);
+        };
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer[0];
     }
 
     public function remove($id) {
@@ -92,8 +107,7 @@ class UserRepository extends PDOrepository {
         $mapper = function ($row) {
             return $row;
         };
-        return $this->queryList($sql, $args, $mapper);
-        
+        return $this->queryList($sql, $args, $mapper)[0];
     }
 
 }

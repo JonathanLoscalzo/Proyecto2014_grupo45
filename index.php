@@ -21,6 +21,9 @@ require_once 'model/UserRepository.php';
 require_once 'controller/UsuarioController.php';
 require_once 'model/RoleRepository.php';
 require_once 'model/RoleModel.php';
+require_once 'controller/TurnoController.php';
+require_once 'model/TurnoRepository.php';
+require_once 'model/TurnoModel.php';
 
 /* ver como hacer para poder leer la uri en partes 
   ROUTE
@@ -169,6 +172,30 @@ switch ($acciones[1]) {
                 break;
             default:
                 UsuarioController::getInstance()->index();
+                break;
+        }
+        break;
+    case 'turnosEntrega':
+        (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
+
+        switch ($acciones[2]) {
+            case "edit":
+                if (!isset($_POST['submit'])) {
+                    /* deberia ser como la pantalla de crear */
+                    TurnoController::getInstance()->editView($acciones[3]);
+                } else {
+                    TurnoController::getInstance()->edit(new Params($_POST));
+                }
+                break;
+            case "remove":
+                TurnoController::getInstance()->remove($acciones[3]);
+                break;
+            case "add":
+                /* agarrar todas las variables del post y mandarlas */
+                TurnoController::getInstance()->create(new Params($_POST));
+                break;
+            default:
+                TurnoController::getInstance()->index();
                 break;
         }
         break;
