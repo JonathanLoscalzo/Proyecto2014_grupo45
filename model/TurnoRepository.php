@@ -43,7 +43,9 @@ class TurnoRepository extends PDORepository{
         return count($answer) > 0 ? $answer[0] : False;
     }
 
-    public function exist($id) {
+    public function exist($id){}
+    
+    public function exists($fecha, $hora) {
         $sql = "SELECT * FROM turno_entrega where fecha = ? and hora = ?";
         $args = [$fecha, $hora];
         $mapper = function ($row) {

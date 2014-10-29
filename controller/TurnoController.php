@@ -32,8 +32,8 @@ class TurnoController extends Controller {
                 $data['fecha'] = DateTime::createFromFormat("d/m/Y", $data['fecha']);
                 $data['fecha']= $data['fecha']->format('Y-m-d');
                 $turnoAgregadoFecha = $data['fecha'];
-                $entidadActual = TurnoRepository::getInstance()->getByFechaHora($turnoAgregadoFecha, $turnoAgregadoFecha);
-                if (!$entidadActual) {
+                //$entidadActual = TurnoRepository::getInstance()->getByFechaHora($turnoAgregadoFecha, $turnoAgregadoFecha);
+                if (!TurnoRepository::getInstance()->exists($turnoAgregadoFecha, $turnoAgregadoHora)) {
                     $entidad = new TurnoModel(
                             null, $data["fecha"], $data["hora"]);
                     TurnoRepository::getInstance()->add($entidad);
