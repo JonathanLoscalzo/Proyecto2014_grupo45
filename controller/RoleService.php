@@ -88,6 +88,12 @@ class RoleService {
                 "UsuarioController:listarUsuarios",
                 "UsuarioController:remove",
                 "UsuarioController:create",
+                "TurnoController:index",
+                "TurnoController:edit",
+                "TurnoController:editView",
+                "TurnoController:listarUsuarios",
+                "TurnoController:remove",
+                "TurnoController:create"
             ],
             2 => [],
             3 => ["AlimentoController:listarAlimentos"]

@@ -9,7 +9,7 @@
 
 {% block content %}
 <div id = "content">
-<!--    Haria falta css aca-->
+    <!--    Haria falta css aca-->
     <h3> LISTADO DE ALIMENTOS </h3>
     <div class="tabla-class">
         <table id="tabla-alimentos">
@@ -26,7 +26,7 @@
 
             <tbody tbody style="text-align: center">
                 {% for detalle in detalles %}
-<!--                deben ir todos los alimentos con stock > 0 aca?-->
+                <!--                deben ir todos los alimentos con stock > 0 aca?-->
                 {% if detalle.stock > 0 %}
                 <tr>
                     <td> {{ detalle.alimento_codigo }} </td>

@@ -6,26 +6,29 @@
     <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
     <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.11.js"></script>
     <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
-    <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.js"></script>
     <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.css"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.js"></script>
+
 
 
 {% endblock %}
+
 
 
 {% block content %}
     <div id = "content">
         <h3> Turnos de Entrega </h3>
         <Button id ="alta">Alta</button>
-        <div id ="dialog" >
+        <div id ="dialog" Title ="Alta de Turno" >
             <form action="./{{server}}turnosEntrega/add" method="POST">
                 <div class="conj-block">
-                    <label for="fecha" style = "display : block">Fecha: </label><input id="fecha" placeholder="Ej: 22/09/2014" type="text" name="fecha" >
-                    <label for="hora" style = "display : block">Hora: </label><input id="hora" placeholder="Ej: 20:00 " type="text" name="hora">
+                    <label for="fecha" style = "display : block">Fecha: </label><input id="fecha" placeholder="Ej: 22/09/2014" type="text" name="fecha" required>
+                    <label for="hora" style = "display : block">Hora: </label><input id="hora" placeholder="Ej: 20:00 " type="text" name="hora" required >
                 </div>
                 <button type="submit" name="submit"> Enviar </button>
             </form>
         </div>
+        <br><br>
         <h3>Baja y Modificación</h3>
         <div class = "tabla-class">
             <table id="tabla-Turnos">
@@ -56,10 +59,22 @@
     <script>
         $(document).ready(function () {
             //$('#tabla-entidades').dataTable();
-            $("#hora").timepicker();
+            $("#hora").timepicker({
+                'minTime': '8:00',
+                'maxTime': '20:30',
+                'timeFormat': 'H:i',
+                'forceRoundTime': true
+            });
+            $("#hora").timepicker('option', {useSelect: true});
 
-            $("#fecha").datepicker();
-
+            $("#fecha").datepicker({
+                minDate: 0,
+                showOn: "button",
+                buttonImage: "./{{server}}images/icons/calendar.gif",
+                buttonImageOnly: true,
+                buttonText: "Seleccione fecha"
+            });
+            $( "#fecha" ).datepicker( "option", "dateFormat", 'dd/mm/yy' );
             $("#dialog").dialog({
                 autoOpen: false
             });

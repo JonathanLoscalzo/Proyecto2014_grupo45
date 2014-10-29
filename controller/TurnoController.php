@@ -29,16 +29,18 @@ class TurnoController extends Controller {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $data = $post->getParams(); // obtenemos Los parametros
                 $turnoAgregadoHora = $data['hora'];
+                $data['fecha'] = DateTime::createFromFormat("d/m/Y", $data['fecha']);
+                $data['fecha']= $data['fecha']->format('Y-m-d');
                 $turnoAgregadoFecha = $data['fecha'];
                 $entidadActual = TurnoRepository::getInstance()->getByFechaHora($turnoAgregadoFecha, $turnoAgregadoFecha);
                 if (!$entidadActual) {
                     $entidad = new TurnoModel(
                             null, $data["fecha"], $data["hora"]);
                     TurnoRepository::getInstance()->add($entidad);
-                    $_SESSION["message"] = new MessageService("createSuccess", ["Turno con fecha" . $turnoAgregadoFecha . " " . $turnoAgregadoHora]);
+                    $_SESSION["message"] = new MessageService("createSuccess", [" Turno con fecha" . $turnoAgregadoFecha . " " . $turnoAgregadoHora]);
                 } else {
                     // YA EXISTE LA ENTIDAD
-                    $_SESSION["message"] = new MessageService("createErrorExist", ["Turno con fecha" . $turnoAgregadoFecha . " " . $turnoAgregadoHora]);
+                    $_SESSION["message"] = new MessageService("createErrorExist", [" Turno con fecha" . $turnoAgregadoFecha . " " . $turnoAgregadoHora]);
                 }
                 $this->redirect();
             }
@@ -50,6 +52,8 @@ class TurnoController extends Controller {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $data = $post->getParams(); // obtenemos Los parametros
                 $entidadModificadaID = $data['id'];
+                $data['fecha'] = DateTime::createFromFormat("d/m/Y", $data['fecha']);
+                $data['fecha'] = $data['fecha']->format('Y-m-d');
                 $turnoAgregadoFecha = $data['fecha'];
                 $turnoAgregadoHora = $data['hora'];
                 $entidadActual = TurnoRepository::getInstance()->getByFechaHora($turnoAgregadoFecha, $turnoAgregadoHora);
@@ -57,11 +61,11 @@ class TurnoController extends Controller {
                 // CODE REFACTORIZADO, se puede transladar a otros casos.
                 if ((!$entidadActual) || ($entidadActual->getId() === $entidadModificadaID)) {
                     $entidad = new TurnoModel(
-                            null, $data["fecha"], $data["hora"]);
+                            $entidadModificadaID, $turnoAgregadoFecha,$turnoAgregadoHora);
                     TurnoRepository::getInstance()->edit($entidad);
-                    $_SESSION["message"] = new MessageService("modificationSuccess", ["Turno con fecha" . $turnoAgregadoFecha . " " . $turnoAgregadoHora]);
+                    $_SESSION["message"] = new MessageService("modificationSuccess", [" Turno con fecha" . $turnoAgregadoFecha . " " . $turnoAgregadoHora]);
                 } else {
-                    $_SESSION["message"] = new MessageService("modificationErrorExist", ["Turno", "Fecha (" . $turnoAgregadoFecha . " " . $turnoAgregadoHora . ")"]);
+                    $_SESSION["message"] = new MessageService("modificationErrorExist", [" Turno", " Fecha (" . $turnoAgregadoFecha . " " . $turnoAgregadoHora . ")"]);
                 }
             }
             $this->redirect();
@@ -77,9 +81,10 @@ class TurnoController extends Controller {
                     $view = new BackEndView();
                     $view->editViewTurno($turnoInfo); // si no devuelve nada esta vista se encarga
                 } else {
-                    $_SESSION["message"] = new MessageService("modificationErrorNotExist", ["Turno de entrega"]);
+                    $_SESSION["message"] = new MessageService("modificationErrorNotExist", [" Turno de entrega"]);
+                    $this->redirect();
                 }
-                $this->redirect();
+                
             }
         }
     }
@@ -93,9 +98,9 @@ class TurnoController extends Controller {
                 $entidadInfo = TurnoRepository::getInstance()->getByID($id);
                 if ($entidadInfo) {
                     TurnoRepository::getInstance()->remove($id);
-                    $_SESSION["message"] = new MessageService("removeSucess", ["Turno de entrega"]);
+                    $_SESSION["message"] = new MessageService("removeSucess", [" Turno de entrega"]);
                 } else {
-                    $_SESSION["message"] = new MessageService("removeErrorNotExist", ["Turno de entrega"]);
+                    $_SESSION["message"] = new MessageService("removeErrorNotExist", [" Turno de entrega"]);
                 }
                 $this->redirect();
             }

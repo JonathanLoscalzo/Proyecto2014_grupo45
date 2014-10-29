@@ -37,6 +37,7 @@ class TurnoRepository extends PDORepository{
         $args = $obj->getArray();
         array_push($args, $args[0]);
         array_shift($args);
+        
         $mapper = function($row){ return $row ; };
         $answer = $this->queryList($sql, $args, $mapper);
         return count($answer) > 0 ? $answer[0] : False;
@@ -57,7 +58,7 @@ class TurnoRepository extends PDORepository{
         $sql = "SELECT * FROM turno_entrega";
         $args = [];
         $mapper = function ($row) {
-            return new TurnoModel($row['id'], $row['fecha'],"", $row['hora']);
+            return new TurnoModel($row['id'],  date("d/m/Y", strtotime($row['fecha'])), $row['hora']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
@@ -65,10 +66,10 @@ class TurnoRepository extends PDORepository{
     }
 
     public function getByID($id) {
-         $sql = "SELECT * FROM turno_entrega where id = ?";
+        $sql = "SELECT * FROM turno_entrega where id = ?";
         $args = [$id];
         $mapper = function ($row) {
-            return new TurnoModel($row['id'], $row['fecha'],$row['hora']);
+            return new TurnoModel($row['id'], date("d/m/Y", strtotime($row['fecha'])),$row['hora']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer[0];
@@ -86,7 +87,7 @@ class TurnoRepository extends PDORepository{
         $sql = "SELECT * FROM turno_entrega where fecha = ? and hora = ?";
         $args = [$fecha, $hora];
         $mapper = function ($row) {
-            return new TurnoModel($row['id'], $row['fecha'], $row['hora']);
+            return new TurnoModel($row['id'],  date("d/m/Y", strtotime($row['fecha'])), $row['hora']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer[0];

@@ -20,6 +20,9 @@ require_once 'model/UserRepository.php';
 require_once 'controller/UsuarioController.php';
 require_once 'model/RoleRepository.php';
 require_once 'model/RoleModel.php';
+require_once 'controller/TurnoController.php';
+require_once 'model/TurnoRepository.php';
+require_once 'model/TurnoModel.php';
 
 /* ver como hacer para poder leer la uri en partes 
   ROUTE

@@ -15,14 +15,17 @@
 {% block content %}
     <div id="content">
         <h3> Editar Usuario </h3>
-        <form action="./{{server}}turnosEntrega/add" method="POST">
+        <form action="./{{server}}turnosEntrega/edit" method="POST">
             <div class="conj-block">
                 <div class="conj-block">
-                    <label for="fecha" style = "display : block">Fecha: </label><input id="fecha" placeholder="Ej: 22/09/2014" type="text" name="fecha" >
-                    <label for="hora" style = "display : block">Hora: </label><input id="hora" placeholder="Ej: 20:00 " type="text" name="hora">
+                    <input id="id" name ="id" value="{{turno.id}}" style="display:none">
+                    <label for="fecha" style = "display : block">Fecha: </label><input id="fecha" placeholder="Ej: 22/09/2014" type="text" name="fecha" value="{{ turno.fecha }}" >
+                    <br>
+                    <label for="hora" style = "display : block">Hora: </label><input id="hora" placeholder="Ej: 20:00 " type="text" name="hora" value = {{turno.hora}}>
+                   <br>
                 </div>
-                <button type="submit" name="submit"> Enviar </button>
-            </div>
+                <hr>
+            </div>  
             <button id="submit" type="submit" name="submit"> Enviar </button>
         </form>
     </div>
@@ -31,10 +34,23 @@
     <script>
         $(document).ready(function () {
             //$('#tabla-entidades').dataTable();
-            $("#hora").timepicker();
+            $("#hora").timepicker({
+                'timeFormat': 'H:i',
+                'minTime': '8:00',
+                'maxTime': '20:30',
+                'forceRoundTime': true
+            });
+            $("#hora").timepicker('option', {useSelect: true});
 
-            $("#fecha").datepicker();
-
+            $("#fecha").datepicker({
+                minDate: 0,
+                showOn: "button",
+                buttonImage: "./{{server}}images/icons/calendar.gif",
+                buttonImageOnly: true,
+                buttonText: "Seleccione fecha"
+            });
+            $( "#fecha" ).datepicker( "option", "dateFormat", 'dd/mm/yy' );
+            $("#fecha").val("{{turno.fecha}}");
         });
     </script>
 {% endblock %}

@@ -34,7 +34,7 @@ class TurnoModel extends Model {
     }
 
     public function getHora() {
-        return $this->Hora;
+        return $this->hora;
     }
 
     public function setFecha($fecha) {
