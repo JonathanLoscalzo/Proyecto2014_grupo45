@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-10-2014 a las 01:04:46
+-- Tiempo de generación: 30-10-2014 a las 01:10:59
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -408,7 +408,7 @@ Luego (para ambos casos) se eliminan todos los alimento_pedidos asociados
 			END IF;
 
 			update detalle_alimento 
-			set cantidad = cantidad + delta, reservado = reservado - delta 
+			set stock = stock + delta, reservado = reservado - delta 
 			where id = dai;
 			
 		end loop;
