@@ -37,7 +37,7 @@
 
 
 {% block scripts %}
-<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script src="{{server}}js/plugins/OpenLayers.js"></script>
 <script type="text/javascript">
         var zoom = 13;
         routeParams = "";
@@ -89,9 +89,9 @@
           
           
     $(document).ready(function () {
-        button_row = 'td:eq(5)';
+        button_row = 'td:eq(5)'; // row donde se pone el boton "ver detalle" de la tabla
         tabla = $("#tabla-pedidos").DataTable({
-           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+           "fnCreatedRow": function( nRow, aData, iDataIndex ) { // CALLBACK cuando se crea row
                 $(button_row, nRow).append("<button>Ver Detalle</button>"); // trigger que se activa
                 // cuando se genera una nueva linea en la tabla, deberia agregar el boton de Ver Detalle
            }
