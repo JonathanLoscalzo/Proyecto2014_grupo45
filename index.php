@@ -11,6 +11,7 @@ require_once('controller/LoginController.php');
 require_once('controller/AlimentoController.php');
 require_once('controller/EntidadReceptoraController.php');
 require_once('controller/DonanteController.php');
+require_once('controller/EnviosController.php');
 require_once('vistas/TwigView.php');
 require_once('vistas/BackEndView.php');
 require_once('vistas/FrontEndView.php');
@@ -38,6 +39,11 @@ require_once 'model/TurnoModel.php';
 
 
 $acciones = split("/", $_SERVER['REQUEST_URI']);
+
+if (isset($_POST['date'])) {
+    EnviosController::getInstance()->editView(new Params($_POST));
+}
+else {
 
 switch ($acciones[1]) {
     case "index":
@@ -71,6 +77,9 @@ switch ($acciones[1]) {
         break;
     case 'backend':
         LoginController::getInstance()->backend();
+        break;
+    case 'envios':
+        EnviosController::getInstance()->index();
         break;
     case 'donantes':
         (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
@@ -202,3 +211,4 @@ switch ($acciones[1]) {
 }
 
 
+}

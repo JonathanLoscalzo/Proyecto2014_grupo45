@@ -16,6 +16,7 @@
         {% if session.roleID == 2 or session.roleID==1 %}
         <li><a href = "#" disabled >Confección y entrega de pedidos</a></li>
         <li disabled><a href = "./{{server}}turnosEntrega"  >ABM de turnos de entrega</a></li>
+        <li disabled><a href = "./{{server}}envios"  >Envios</a></li>
         {% endif %}
 
         <li><a href="./{{ server }}index">FRONTEND</a></li>
