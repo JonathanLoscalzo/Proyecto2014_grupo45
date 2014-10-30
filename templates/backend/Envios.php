@@ -12,9 +12,11 @@
 {% block content %}
 <body>
    <div id="contentwrap" style="height: 550px">
-       <label for="expiration" style = "display : block" >Seleccione dia: </label>
+       <label for="day-input" style = "display : block" >Seleccione dia: </label>
        <input id="day-input" name="day-input" style="margin: 10px;"/> <button id="refresh-date" style="float: left;">Aceptar</button>
-        <div id="content" style="height:320px;width: 320px;"></div>
+        <div id="content" style="height:420px;width: 512px;"></div>
+        <label for="generate-route" style="display: block" >Ruta de envios</label>
+        <button type="button" id="generate-route">Generar recorrido</button>
    </div>
    <div id="content" class="tabla-class" >
        <table id="tabla-pedidos">
@@ -28,16 +30,6 @@
                    <th>Detalle Pedido</th>
                </tr>
             </thead>
-               <tbody style="text-align: center">
-                   <tr>
-                       <td>Entidad Cacho</td>
-                       <td>12-05-2014 12:23</td>
-                       <td>42411111</td>
-                       <td>4921112</td>
-                       <td>No Entregado</td>
-                       <td></td>
-                   </tr>
-               </tbody>
        </table>
    </div>
 </body>
@@ -48,6 +40,7 @@
 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 <script type="text/javascript">
         var zoom = 13;
+        routeParams = "";
         function mapInit() {
             var map = new OpenLayers.Map({
                 div: 'content',
@@ -62,20 +55,38 @@
                 ],
                 layers: [
                     new OpenLayers.Layer.OSM()
+     
                 ]
             });
             return map;
         }
         
         map = mapInit();
-        var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
-        var toProjection   = map.getProjectionObject(); // to Spherical Mercator Projection
+        route = new OpenLayers.Layer.Vector("route");
+        map.addLayer(route);
+        fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+        toProjection   = map.getProjectionObject(); // to Spherical Mercator Projection
         var lat = -34.910531;
         var lon = -57.950203;
         zoom = 13;
         position = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
         map.setCenter(position, zoom);
         
+        
+        
+        
+        
+        function EntidadReceptora(nombre, lat, lon){
+             this.nombre=nombre;
+             this.lat = lat;
+             this.lon = lon;
+             this.dire=new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+             return this;
+        }
+        home_base = new EntidadReceptora('Banco', -34.910531, -57.950203);
+          
+          
+          
           
     $(document).ready(function () {
         button_row = 'td:eq(5)';
@@ -94,6 +105,7 @@
             
         }
         function refreshMap(entidades) {
+                
                  function crearMarcador(entidad) {
                       var icono = new OpenLayers.Icon("/images/icons/pin.png");
                       icono.size.w *=2;
@@ -106,23 +118,40 @@
 
                 var markers = new OpenLayers.Layer.Markers( "Marcadores" );
                 map.addLayer(markers);
+                markers.addMarker(crearMarcador(home_base));
+                routeParams += "loc="+home_base.lat+","+home_base.lon+"&"; // HOME ADDRESS
                 for(var i = 0; i <entidades.length; i++) {
+                                    console.log(entidades[i]);
                                     markers.addMarker(crearMarcador(entidades[i]));
+                                    routeParams += "loc="+entidades[i].lat+","+entidades[i].lon+"&";
 
                  }
                  var bounds = markers.getDataExtent();
                  map.zoomToExtent(bounds);
          }
+         
+         
+        function parseRoute(waypoints) {
+            var route_style = {
+                strokeColor: "#0000ff",
+                strokeOpacity: 6,
+                strokeWidth: 2
+            };
+            var array_coordenadas = [];
+            for (i=0; i< waypoints.route_geometry.length; i++) {
+                
+                var coordenada = new OpenLayers.Geometry.Point(waypoints.route_geometry[i][1], waypoints.route_geometry[i][0])
+                        .transform( fromProjection, toProjection);
+                array_coordenadas.push(coordenada);
+            }
+            var lineString = new OpenLayers.Geometry.LineString(array_coordenadas);
+            var lineVector = new OpenLayers.Feature.Vector(lineString, null, route_style);
+            route.addFeatures([lineVector]);
+            //map.addControl(new OpenLayers.Control.LayerSwitcher({}));
+        };
         
-       
         
-        
-        function EntidadReceptora(nombre, lat, lon){
-             this.nombre=nombre;
-             this.dire=new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
-             return this;
-        }
-        
+     
         
         
         $('#day-input').datepicker();
@@ -146,11 +175,22 @@
                 lon = json_object['banco']['long'];
                 lat = json_object['banco']['lat'];
                 
-                refreshMap([new EntidadReceptora(json_object['entidad_receptora']['nombre'],
+                refreshMap([new EntidadReceptora(json_object['entidad_receptora']['razonSocial'],
                             json_object['entidad_receptora']['lat'], 
                             json_object['entidad_receptora']['long'])]);
             }, 'json');            
         });
+        $("#generate-route").on("click", function () {
+            $.ajax({
+                url: "https://router.project-osrm.org/viaroute?z=13&output=json&jsonp=OSRM.JSONP.callbacks.route&"
+                        +routeParams+"instructions=true&compression=false",
+                dataType: "jsonp",
+                jsonp: "jsonp",
+                cache: true,
+                success: parseRoute
+            });
+        });
+        
         
 
 
