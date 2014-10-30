@@ -381,6 +381,7 @@ CREATE TRIGGER `pedido_modelo_delete` BEFORE DELETE ON `pedido_modelo`
  FOR EACH ROW begin
 /* Si el pedido tiene estado sin enviar, se debe sumar de cada alimento asociado
 La cantidad que tiene el alimento, se resta de reserva, y se suma en cantidad
+MAL -> SE RESTA DE RESERVADO PERO NO SE SUMA A STOCK
 Luego (para ambos casos) se eliminan todos los alimento_pedidos asociados
 */
 	declare numero_old int(11) default OLD.numero;
@@ -408,7 +409,7 @@ Luego (para ambos casos) se eliminan todos los alimento_pedidos asociados
 			END IF;
 
 			update detalle_alimento 
-			set stock = stock + delta, reservado = reservado - delta 
+			set reservado = reservado - delta 
 			where id = dai;
 			
 		end loop;
