@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 29-10-2014 a las 23:02:36
+-- Tiempo de generación: 30-10-2014 a las 01:04:46
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -35,7 +35,7 @@ begin
 	inner join 
 	(
 		select p1.* 
-		from pedido_alimento as p1 
+		from pedido_modelo as p1 
 		inner join turno_entrega as t 
 		on  t.Id = p1.turno_entrega_id
 		where p1.estado_pedido_id = 1 and t.fecha between fechaIni and fechaFin
@@ -55,7 +55,7 @@ begin
 	select p.fecha, sum(d.peso_unitario * ap.cantidad) as kilogramos
 	from (
 		select p1.*,t.fecha as fecha
-		from pedido_alimento as p1 
+		from pedido_modelo as p1 
 		inner join turno_entrega as t 
 		on  t.Id = p1.turno_entrega_id
 		where p1.estado_pedido_id = 1 and t.fecha between fechaIni and fechaFin
@@ -63,6 +63,7 @@ begin
 	inner join alimento_pedido as ap on p.numero = ap.pedido_numero
 	inner join detalle_alimento as d on ap.detalle_alimento_id = d.Id
 	group by p.fecha;
+	
 
 end$$
 
@@ -151,11 +152,26 @@ CREATE TRIGGER `alimento_pedido_insert` AFTER INSERT ON `alimento_pedido`
 	declare alimento_id int(11) default new.detalle_alimento_id; 
 	declare delta int(11) default new.cantidad;
 
-	update detalle_alimento set reserva = reserva + delta  where Id = alimento_id;
+	update detalle_alimento set reservado = reservado + delta  where Id = alimento_id;
 
 end
 //
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `banco`
+--
+
+CREATE TABLE IF NOT EXISTS `banco` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) DEFAULT NULL,
+  `ubicacion` varchar(255) DEFAULT NULL,
+  `lat` decimal(9,6) DEFAULT NULL,
+  `long` decimal(9,6) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -187,14 +203,18 @@ CREATE TABLE IF NOT EXISTS `detalle_alimento` (
   PRIMARY KEY (`Id`),
   KEY `alimento_codigo` (`alimento_codigo`),
   KEY `alimento_codigo_2` (`alimento_codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `detalle_alimento`
 --
 
 INSERT INTO `detalle_alimento` (`Id`, `fecha_vencimiento`, `contenido`, `peso_unitario`, `stock`, `reservado`, `alimento_codigo`) VALUES
-(1, '2014-09-02', '10x1kg', '1.00', 100, 10, 'aaaa');
+(1, '2014-09-02', '10x1kg', '1.00', 90, 10, 'aaaa'),
+(2, '2014-08-13', 'algo', '1.00', 10, 0, 'aaaa'),
+(3, '2014-08-15', 'algo', '1.00', 10, 0, 'aaaa'),
+(4, '2014-08-18', 'algo', '1.00', 20, 0, 'aaaa'),
+(5, '2014-07-18', 'algo', '1.00', 50, 10, 'aaaa');
 
 -- --------------------------------------------------------
 
@@ -350,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `pedido_modelo` (
   KEY `fk_pedido_model_1_idx` (`entidad_receptora_id`),
   KEY `fk_pedido_model_2_idx` (`estado_pedido_id`),
   KEY `fk_pedido_model_3_idx` (`turno_entrega_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Disparadores `pedido_modelo`
@@ -388,7 +408,7 @@ Luego (para ambos casos) se eliminan todos los alimento_pedidos asociados
 			END IF;
 
 			update detalle_alimento 
-			set cantidad = cantidad + delta, reserva = reserva - delta 
+			set cantidad = cantidad + delta, reservado = reservado - delta 
 			where id = dai;
 			
 		end loop;
@@ -434,8 +454,9 @@ CREATE TRIGGER `pedido_modelo_update` BEFORE UPDATE ON `pedido_modelo`
 			END IF;
 
 			update detalle_alimento 
-			set cantidad = cantidad - delta, reserva = reserva - delta 
+			set stock = stock - delta, reservado = reservado - delta 
 			where id = dai;
+			
 			
 		end loop;
 	end if ;
@@ -496,16 +517,7 @@ CREATE TABLE IF NOT EXISTS `turno_entrega` (
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
-
---
--- Volcado de datos para la tabla `turno_entrega`
---
-
-INSERT INTO `turno_entrega` (`id`, `fecha`, `hora`) VALUES
-(4, '2014-10-30', '17:00:00'),
-(7, '2014-10-31', '17:30:00'),
-(8, '2014-10-30', '17:30:00');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Disparadores `turno_entrega`
