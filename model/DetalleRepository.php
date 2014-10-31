@@ -51,10 +51,12 @@ class DetalleRepository extends PDORepository {
         $sql = "UPDATE `detalle_alimento` SET `alimento_codigo`=?,"
                 . "`fecha_vencimiento`=?,"
                 . "`contenido`=?,`peso_unitario`=?,"
-                . "`stock`=?,`reservado`=?, WHERE Id=?";
+                . "`stock`=?,`reservado`=? WHERE Id=?";
         $args = $detalle->getArray();
+
         array_pop($args);
         array_push($args, $args[0]);
+        array_shift($args);
         $mapper = function($row) {
             return $row;
         };

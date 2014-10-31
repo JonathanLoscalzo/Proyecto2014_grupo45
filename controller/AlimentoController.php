@@ -83,6 +83,7 @@ class AlimentoController extends Controller {
                 else {
                     $detalle = new DetalleModel($data['id'], $data['alimento_codigo'], $data['fecha_vencimiento'], $data['contenido'], $data['peso_unitario'], $data['stock'], $data['reservado']); // creamos el nuevo objeto que se introducira en la BD
                     DetalleRepository::getInstance()->edit($detalle); 
+                    
                     $_SESSION["message"] = new MessageService("modificationSuccess", ["detalle de alimento de tipo " . $data['alimento_codigo']]);
                 }                    
                 $this->redirect();

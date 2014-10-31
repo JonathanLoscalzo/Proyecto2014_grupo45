@@ -11,6 +11,7 @@
         <form action="./{{server}}alimentos/edit" method="POST">
             <div class="conj-block">
                 <label for="radio" style="display: block">Seleccione opcion</label>
+                <input id="id" name="id" value="{{detalle.id}}" hidden>
                 <input type="radio" name="habilitar-alimento-edit" id="radio" value="yes">Agregar Alimento<br>
                 <input type="radio" name="habilitar-alimento-edit" id="radio" checked value="no">Utilizar existente
                 <div id="select-alimento-edit">

@@ -106,7 +106,7 @@ $(document).ready(function () {
             $("#descripcion-nueva").prop("required", false);
         }
     });
-    $('#tabla-paquetes').dataTable();
+    //$('#tabla-paquetes').dataTable();
 
 
 });
