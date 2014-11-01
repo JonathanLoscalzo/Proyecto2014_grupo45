@@ -1,6 +1,6 @@
 <?php
 
-include_once("PDOrepository.php");
+include_once("repository/PDOrepository.php");
 
 class UserRepository extends PDOrepository {
 

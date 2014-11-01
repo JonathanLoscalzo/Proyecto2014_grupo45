@@ -1,9 +1,9 @@
 <?php
 
-include_once("model/PDOrepository.php");
-include_once("model/EstadoEntidadRepository.php");
-include_once("model/NecesidadEntidadRepository.php");
-include_once("model/ServicioPrestadoRepository.php");
+include_once("repository/PDOrepository.php");
+include_once("repository/EstadoEntidadRepository.php");
+include_once("repository/NecesidadEntidadRepository.php");
+include_once("repository/ServicioPrestadoRepository.php");
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

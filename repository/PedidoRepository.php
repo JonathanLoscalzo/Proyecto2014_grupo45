@@ -55,4 +55,17 @@ class PedidoRepository extends PDORepository {
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
+
+    public function edit($obj) {
+        
+    }
+
+    public function exist($id) {
+        
+    }
+
+    public function remove($id) {
+        
+    }
+
 }
