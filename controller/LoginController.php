@@ -2,8 +2,8 @@
 
 include_once("Controller.php");
 include_once("model/UserModel.php");
-include_once("model/UserRepository.php");
-include_once("model/PDOrepository.php");
+include_once("repository/UserRepository.php");
+include_once("repository/PDOrepository.php");
 include_once("controller/LoginStatusClass.php");
 
 class LoginController extends Controller {

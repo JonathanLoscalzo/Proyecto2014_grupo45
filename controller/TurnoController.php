@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of TurnoController
- *
- * @author loscalzo
- */
 class TurnoController extends Controller {
 
     //put your code here

@@ -1,7 +1,7 @@
 <?php
 
 include_once("Controller.php");
-include_once("model/DonanteRepository.php");
+include_once("repository/DonanteRepository.php");
 include_once("model/DonanteModel.php");
 
 class HomeController extends Controller {

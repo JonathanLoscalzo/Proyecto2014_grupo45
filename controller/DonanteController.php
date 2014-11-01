@@ -2,8 +2,8 @@
 
 include_once('Controller.php');
 include_once("model/DonanteModel.php");
-include_once("model/DonanteRepository.php");
-include_once("model/PDOrepository.php");
+include_once("repository/DonanteRepository.php");
+include_once("repository/PDOrepository.php");
 include_once("controller/RoleService.php");
 
 class DonanteController extends Controller {

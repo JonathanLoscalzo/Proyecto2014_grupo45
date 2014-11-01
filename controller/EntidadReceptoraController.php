@@ -1,6 +1,6 @@
 <?php
 
-include_once("model/EntidadReceptoraRepository.php"); //altos problemas con esta
+include_once("repository/EntidadReceptoraRepository.php"); //altos problemas con esta
 include_once("model/EntidadReceptoraModel.php");
 
 /**

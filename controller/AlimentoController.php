@@ -1,11 +1,11 @@
 <?php
 
 include_once('Controller.php');
-include_once("model/PDOrepository.php");
+include_once("repository/PDOrepository.php");
 include_once("controller/RoleService.php");
-include_once("model/AlimentoRepository.php");
+include_once("repository/AlimentoRepository.php");
 include_once("model/AlimentoModel.php");
-include_once("model/DetalleRepository.php");
+include_once("repository/DetalleRepository.php");
 include_once("model/DetalleModel.php");
 
 class AlimentoController extends Controller {
