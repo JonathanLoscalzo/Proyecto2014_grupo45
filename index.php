@@ -24,6 +24,11 @@ require_once 'model/RoleModel.php';
 require_once 'controller/TurnoController.php';
 require_once 'repository/TurnoRepository.php';
 require_once 'model/TurnoModel.php';
+require_once 'controller/EntregaDirectaController.php';
+require_once 'model/EntregaDirectaModel.php';
+require_once 'repository/EntregaDirectaRepository.php';
+require_once 'model/AlimentoEntregaDirectaModel.php';
+require_once 'repository/AlimentoEntregaDirectaRepository.php';
 
 /* ver como hacer para poder leer la uri en partes 
   ROUTE

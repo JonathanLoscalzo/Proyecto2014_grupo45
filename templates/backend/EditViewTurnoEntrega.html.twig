@@ -2,10 +2,10 @@
 
 {% block head %}
     {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
+
     <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
-    <script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
-    <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+    <link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+    <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.js"></script>
     <script type="text/javascript" src="{{server}}js/plugins/jquery.timepicker.css"></script>
 
@@ -22,7 +22,7 @@
                     <label for="fecha" style = "display : block">Fecha: </label><input id="fecha" placeholder="Ej: 22/09/2014" type="text" name="fecha" value="{{ turno.fecha }}" >
                     <br>
                     <label for="hora" style = "display : block">Hora: </label><input id="hora" placeholder="Ej: 20:00 " type="text" name="hora" value = {{turno.hora}}>
-                   <br>
+                    <br>
                 </div>
                 <hr>
             </div>  
@@ -49,7 +49,7 @@
                 buttonImageOnly: true,
                 buttonText: "Seleccione fecha"
             });
-            $( "#fecha" ).datepicker( "option", "dateFormat", 'dd/mm/yy' );
+            $("#fecha").datepicker("option", "dateFormat", 'dd/mm/yy');
             $("#fecha").val("{{turno.fecha}}");
         });
     </script>

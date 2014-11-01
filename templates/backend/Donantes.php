@@ -1,13 +1,10 @@
 {% extends "backend_layout.php" %}
 {% block head %}
 {{ parent() }}
-<link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
-
 <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
-<script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
-<script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.11.js"></script>
-<script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
-<!--<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css">-->
+<link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+<script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
+
 
 {% endblock %}
 {% block content %}

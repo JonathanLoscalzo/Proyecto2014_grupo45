@@ -3,15 +3,14 @@
 
 {% block head %}
 {{ parent() }}
-<link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
 <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
-<script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.11.js"></script>
-<script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
+<link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+<script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
 {% endblock %}
 
 {% block content %}
 <div id="content">
-    
+
     <h2>
         Lo que hacemos en el Banco Alimentario			
     </h2>

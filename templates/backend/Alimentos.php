@@ -2,12 +2,10 @@
 
 {% block head %}
 {{ parent() }}
-<link rel="stylesheet" type="text/css" href="{{server}}css/sunny/jquery-ui-1.9.2.custom.css">
 <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
-<script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.9.2.custom.js"></script>
-<script type="text/javascript" src="{{server}}js/plugins/jquery-ui-1.11.js"></script>
+<link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+<script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
 <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
-<link rel="stylesheet" type="text/css" href="{{server}}js/plugins/smoothness-jquery-ui.css">
 
 {% endblock %}
 
@@ -44,7 +42,7 @@
                 </div>
                 <div class="conj-block">
 
-                    <label for="weight" style = "display : block">Peso: </label><input id="weight" type="number" name="peso_unitario" required placeholder="Ingrese el peso por unidad">
+                    <label for="weight" style = "display : block">Peso: </label><input id="weight" type="number" name="peso_unitario" required placeholder="Ingrese el peso por unidad" min="0.1">
                     <label for="stock" style = "display : block">Stock: </label><input id="stock" type="number" name="stock" placeholder="Ingrese el stock (opcional)">
                     <label for="reserve" style = "display : block">Reservado: </label><input id="reserve" type="number" name="reservado" placeholder="Ingrese una cantidad reservada (opcional)">
                 </div>
