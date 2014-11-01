@@ -25,7 +25,7 @@
                 </tr>
             </thead>
 
-            <tbody tbody style="text-align: center">
+            <tbody style="text-align: center">
                 {% for detalle in detalles %}
                 <!--                deben ir todos los alimentos con stock > 0 aca?-->
                 {% if detalle.stock > 0 %}
