@@ -34,6 +34,12 @@ class BackEndView extends TwigView {
             'detalles' => $detalles
         ));
     }
+    
+    public function entregaDirecta() {
+        echo self::getTwig()->render('EntregaDirecta.html.twig');
+    }
+    
+    
 
     public function donantes($donantes) {
         echo self::getTwig()->render('Donantes.php', array('donantes' => $donantes));

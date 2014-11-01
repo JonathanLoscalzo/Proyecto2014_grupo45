@@ -1,0 +1,37 @@
+<h3>Alta</h3>
+<div>
+    <form action="./{{server}}entidadesReceptoras/add" method="POST">
+        <div class="conj-block">
+            <label for="nombreCompania" style = "display : block">Razon Social: </label><input placeholder="Empleados S.A" id="razonSocial" name="razonSocial" type="text" required placeholder="Razon social">
+            <label for="phone" style = "display : block">Teléfono: </label><input id="telefono" placeholder="Ej: 2215550000" type="number" name="telefono"placeholder="Telefono">
+            <label for="adress" style = "display : block">Domicilio: </label><input id="domicilio" placeholder="Ej: 9 de Julio numero 555" type="text" name="domicilio" placeholder="Domicilio">
+        </div>
+        <div class="conj-block">
+            <label for="service" style = "display : block">Servicio Prestado: </label>
+            <select id="servicio" required >
+                <option selected disabled hidden value=''></option>
+                {% for serv in servicios %}
+                    <option value="{{ serv.id }}"> {{ serv.descripcion }}</option>
+                {% endfor %}
+            </select>
+            <input id="servicio-input"  name="servicioEntidadID" hidden> 
+            <label for="need" style = "display : block">Necesidad: </label>
+            <select id="necesidad" required>
+                <option selected disabled hidden value=''></option>
+                {% for nec in necesidades %}
+                    <option value="{{ nec.id }}"> {{ nec.descripcion }}</option>
+                {% endfor %}  
+            </select>
+            <input id="necesidad-input" name="necesidadEntidadID" hidden> 
+            <label for="estado" style = "display : block">Estado: </label>
+            <select id="estado" required>
+                <option selected disabled hidden value=''></option>
+                {% for est in estados %}
+                    <option value="{{ est.id }}"> {{ est.descripcion }}</option>
+                {% endfor %}
+            </select>
+            <input id="estado-input" class="estado" name="estadoEntidadID" hidden> 
+        </div>
+        <button type="submit" name="submit"> Enviar </button>
+    </form>
+</div>

@@ -15,11 +15,12 @@
 
             </div>
             <div id="navigationwrap">
-                {%	include 'menu-bar.php'	%}
+                {% include 'menu-bar.php' %}
             </div>
 
             {% if message is defined and not(message.text=="") %}
             {# JRL -> deberiamos agregar un alert que se pueda cerrar #}
+            
             <div id="errorwrap">
                 <div id="alert-dialog" class="alert-dialog {{ message.class }}" title="ALERTA">
                     <ul>

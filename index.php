@@ -199,6 +199,29 @@ switch ($acciones[1]) {
                 break;
         }
         break;
+    case 'EntregaDirecta':
+        (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
+        switch ($acciones[2]) {
+            case "edit":
+                if (!isset($_POST['submit'])) {
+                    /* deberia ser como la pantalla de crear */
+                    EntregaDirectaController::getInstance()->editView($acciones[3]);
+                } else {
+                    EntregaDirectaController::getInstance()->edit(new Params($_POST));
+                }
+                break;
+            case "remove":
+                EntregaDirectaController::getInstance()->remove($acciones[3]);
+                break;
+            case "add":
+                /* agarrar todas las variables del post y mandarlas */
+                EntregaDirectaController::getInstance()->create(new Params($_POST));
+                break;
+            default:
+                EntregaDirectaController::getInstance()->index();
+                break;
+        }
+        break;
     case 'listadoAlimentos':
         if (LoginController::isSessionStart()) {
             AlimentoController::getInstance()->listarAlimentos();
