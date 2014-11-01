@@ -1,6 +1,6 @@
 <?php
 
-include_once('model/PDOrepository.php');
+include_once('repository/PDOrepository.php');
 include_once('model/DonanteModel.php');
 
 class DonanteRepository extends PDOrepository {
