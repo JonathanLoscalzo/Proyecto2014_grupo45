@@ -1,4 +1,17 @@
 {% extends "backend_layout.php"%}
+
+{#
+    que datos deben llegar : 
+    -> Todas las entregas directas. Cada una un arreglo con los alimentos que tienen asociados.
+    -> por cada alimento_entregadirecta se deberian tener contenido, peso, y descripcion (eso es de alimento)
+    -> Cada entrega deberia tener el objeto entrega ! esto hace que se puedan enviar los mensajes que se necesiten! 
+        gracias por ser dinamico, yo puedo agregar un id, o una referencia segun lo que necesite.
+    -> para las altas, deberian llegar cada detalle_alimento asociado con su alimento. 
+    -> par las altas deberian llegar todas las entidades receptoras. 
+-> ¿Se podra hacer que se cargue por json las cosas? cada vez que se aprieta la pestaña?
+#}
+    
+    
 {% block head %}
     {{ parent() }}
     <script src="{{server}}js/plugins/jquery-2.1.2.js"></script>
@@ -8,8 +21,8 @@
 {% endblock %}
 
 {% block content %}
-    <div id="content">
-        <div id="tabs">
+    
+        <div id="content">
             <ul>
                 <li><a href="#tabs-1">Historial</a></li>
                 <li><a href="#tabs-2">Nueva entrega</a></li>
@@ -22,14 +35,11 @@
             </div>
         </div>    
 
-    </div>
-
-
 {% endblock %}
 {% block scripts %}
     <script>
         $(document).ready(function () {
-            $("#tabs").tabs();
+            $("#content").tabs();
         });
     </script>
 {% endblock %}

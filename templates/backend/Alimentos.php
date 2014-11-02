@@ -63,7 +63,7 @@
                         <th colspan="2"></th>
                     </tr>
                 </thead>
-                <tbody tbody style="text-align: center">
+                <tbody style="text-align: center">
                     {% for detalle in detalles %}
                     <tr>
                         <td> {{ detalle.alimento_codigo }} </td>

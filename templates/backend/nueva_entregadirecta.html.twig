@@ -1,37 +1,98 @@
-<h3>Alta</h3>
+{#
+Cada vez que apreto +, aparece la tabla de alimentos (no deberian aparecer todos los renglones)
+cuando pongo agregar, deberia aparecer un input para agregar cuantos y el alimento en detalle para que se vea
+#}
+
 <div>
-    <form action="./{{server}}entidadesReceptoras/add" method="POST">
+
+    <form action="./{{server}}EntregaDirecta/add" method="POST">
         <div class="conj-block">
-            <label for="nombreCompania" style = "display : block">Razon Social: </label><input placeholder="Empleados S.A" id="razonSocial" name="razonSocial" type="text" required placeholder="Razon social">
-            <label for="phone" style = "display : block">Teléfono: </label><input id="telefono" placeholder="Ej: 2215550000" type="number" name="telefono"placeholder="Telefono">
-            <label for="adress" style = "display : block">Domicilio: </label><input id="domicilio" placeholder="Ej: 9 de Julio numero 555" type="text" name="domicilio" placeholder="Domicilio">
+            <label for="entidad" style = "display : block">Entidad destinadas: </label>
+            <select id="entidad" required >
+                <option selected disabled hidden value=''></option>
+                {% for ent in entidades %}
+                    <option value="{{ ent.id }}"> {{ ent.razonSocial }}</option>
+                {% endfor %}
+            </select>
         </div>
-        <div class="conj-block">
-            <label for="service" style = "display : block">Servicio Prestado: </label>
-            <select id="servicio" required >
-                <option selected disabled hidden value=''></option>
-                {% for serv in servicios %}
-                    <option value="{{ serv.id }}"> {{ serv.descripcion }}</option>
-                {% endfor %}
-            </select>
-            <input id="servicio-input"  name="servicioEntidadID" hidden> 
-            <label for="need" style = "display : block">Necesidad: </label>
-            <select id="necesidad" required>
-                <option selected disabled hidden value=''></option>
-                {% for nec in necesidades %}
-                    <option value="{{ nec.id }}"> {{ nec.descripcion }}</option>
-                {% endfor %}  
-            </select>
-            <input id="necesidad-input" name="necesidadEntidadID" hidden> 
-            <label for="estado" style = "display : block">Estado: </label>
-            <select id="estado" required>
-                <option selected disabled hidden value=''></option>
-                {% for est in estados %}
-                    <option value="{{ est.id }}"> {{ est.descripcion }}</option>
-                {% endfor %}
-            </select>
-            <input id="estado-input" class="estado" name="estadoEntidadID" hidden> 
+        <div class="conj-block elem">
         </div>
         <button type="submit" name="submit"> Enviar </button>
+        <img id="mas" style="position:inherit; " src="{{server}}images/icons/glyphicons_190_circle_plus.png">
     </form>
+
+    <div id="dialog" title ="Alimentos">
+        <div class="tabla-class">
+            <table id="tabla-paquetes">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Vencimiento</th>
+                        <th>Contenido</th>
+                        <th>Peso Unitario</th>
+                        <th>Stock</th>
+                        <th>Reservado</th>
+                        <th colspan="1"></th>
+                    </tr>
+                </thead>
+                <tbody style="text-align: center">
+                    {% for detalle in detalles %}
+                        <tr id="{{ detalle.Id }}" style="display:block">
+                            <td> {{ detalle.alimento_codigo }} </td>
+                            <td> {{ detalle.fecha_vencimiento }} </td>
+                            <td> {{ detalle.contenido }} </td>
+                            <td> {{ detalle.peso_unitario }} </td>
+                            <td id="stock"> {{ detalle.stock }} </td>
+                            <td id="reservado"> {{ detalle.reservado }} </td>
+                            <td style="display:none" id="cantidad"> 
+                                <div id="{{detalle.Id}}">
+                                    <select id="cantidad">
+                                        {% for cant in (detalle.stock - detalle.reservado) %}
+                                            <option value="{{ cant }}">{{ cant }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <img onclick="quitar({{detalle.Id}});" src="{{server}}images/icons/glyphicons_209_cart_in.png" >
+                                </div>
+                            </td>
+                            <td onclick="agregar(this);"><img src="{{server}}images/icons/glyphicons_209_cart_in.png" ></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#dialog").dialog({
+            autoOpen: false,
+            show: {
+                effect: "blind",
+                duration: 1000
+            },
+            hide: {
+                effect: "explode",
+                duration: 1000
+            },
+            height: 300,
+            width: 600
+        });
+        $("#mas").click(function () {
+            $("#dialog").dialog("open");
+        });
+    });
+
+
+    function agregar(elem) {
+        $(elem).parent().css("display", "none");
+        cant = $($(elem).siblings("#cantidad").children());
+        $(".elem").append(cant.clone());
+    }
+    function quitar(id) {
+        $(".conj-block div[id=" + id + "]").remove();
+        $("#dialog table tr[id=" + id + "]").css("display", "block");
+    }
+
+</script>
+

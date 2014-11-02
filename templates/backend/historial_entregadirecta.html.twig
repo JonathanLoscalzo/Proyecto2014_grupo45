@@ -1,31 +1,60 @@
-<h3>Baja y Modificación</h3>
-        <div class = "tabla-class">
-            <table id="tabla-entidades">
-                <thead>
-                    <tr>
-                        <th>Razón Social</th>
-                        <th>Teléfono</th>
-                        <th>Domicilio</th>
-                        <th>Estado</th>
-                        <th>Necesidad</th>
-                        <th>Servicio Prestado</th>
-                        <th colspan="2"></th>
-                    </tr>
-                </thead>
-                <tbody style="text-align: center">
-                    {% for elem in entidades %}
-                    <tr>
-                        <td> {{ elem.razonSocial }} </td>
-                        <td> {{ elem.telefono }} </td>
-                        <td> {{ elem.domicilio }} </td>
-                        <td> {{ elem.estado.descripcion }} </td>
-                        <td> {{ elem.necesidad.descripcion }} </td>
-                        <td> {{ elem.servicio.descripcion }} </td>
+<div class = "tabla-class">
+    <table id="tabla-entidades">
+        <thead>
+            <tr>
+                <th>Entidad Receptora</th>
+                <th>Fecha de envio</th>
+                <th>Detalles</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody style="text-align: center">
+            {% for elem in entregas %}
+                <tr>
+                    <td> {{ elem.entidad.razonSocial }} </td>
+                    <td> {{ elem.fecha }} </td>
+                    <td><img src="{{server}}images/icons/glyphicons_027_search.png" alt="modificar"> </td>
+                    <td><a href="./{{server}}EntregaDirecta/remove/{{ elem.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                    <td><a href="./{{server}}EntregaDirecta/edit/{{ elem.id }}" disable ><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                </tr>
+            <div class="dialog" onclick="$(this).dialog('open');" title ="Detalles">  
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descripcion</th>
+                            <th>Contenido</th>
+                            <th>Peso Unitario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alim in elem.alimentos %}
+                            <tr>
+                                <td> {{ alim.descripcion }} </td>
+                                <td> {{ alim.contenido }} </td>
+                                <td> {{ alim.peso_unitario }} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-                        <td><a href="./{{server}}entidadesReceptoras/edit/{{ elem.id }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                        <td><a href="./{{server}}entidadesReceptoras/remove/{{ elem.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+
+<script>
+    $(function () {
+        $(".dialog").dialog({
+            autoOpen: false,
+            show: {
+                effect: "blind",
+                duration: 800
+            },
+            hide: {
+                effect: "explode",
+                duration: 800
+            }
+        });
+    });
+</script>
