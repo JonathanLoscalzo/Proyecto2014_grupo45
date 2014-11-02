@@ -3,96 +3,62 @@ Cada vez que apreto +, aparece la tabla de alimentos (no deberian aparecer todos
 cuando pongo agregar, deberia aparecer un input para agregar cuantos y el alimento en detalle para que se vea
 #}
 
-<div>
-
-    <form action="./{{server}}EntregaDirecta/add" method="POST">
-        <div class="conj-block">
-            <label for="entidad" style = "display : block">Entidad destinadas: </label>
-            <select id="entidad" required >
-                <option selected disabled hidden value=''></option>
-                {% for ent in entidades %}
-                    <option value="{{ ent.id }}"> {{ ent.razonSocial }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="conj-block elem">
-        </div>
+<form action="./{{server}}EntregaDirecta/add" method="POST">
+    <div class="conj-block" >        
+        <label for="entidad" style = "display : block">Entidad destinadas: </label>
+        <select id="entidad" required >
+            <option selected disabled hidden value=''></option>
+            {% for ent in entidades %}
+                <option value="{{ ent.id }}"> {{ ent.razonSocial }}</option>
+            {% endfor %}
+        </select>
+        <div class ="elem"></div>
+    </div>
+    
+    <div class="conj-block">
         <button type="submit" name="submit"> Enviar </button>
-        <img id="mas" style="position:inherit; " src="{{server}}images/icons/glyphicons_190_circle_plus.png">
-    </form>
+        <img id="mas" style="position:inherit;" src="{{server}}images/icons/glyphicons_190_circle_plus.png">
+    </div>
+</form>
 
-    <div id="dialog" title ="Alimentos">
-        <div class="tabla-class">
-            <table id="tabla-paquetes">
-                <thead>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Vencimiento</th>
-                        <th>Contenido</th>
-                        <th>Peso Unitario</th>
-                        <th>Stock</th>
-                        <th>Reservado</th>
-                        <th colspan="1"></th>
+<div id="dialog" title ="Alimentos">
+    <div class="tabla-class">
+        <table id="tabla-paquetes">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Vencimiento</th>
+                    <th>Contenido</th>
+                    <th>Peso Unitario</th>
+                    <th>Stock</th>
+                    <th>Reservado</th>
+                    <th colspan="1"></th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center">
+                {% for detalle in detalles %}
+                    <tr id="{{ detalle.id }}">
+                        <td> {{ detalle.alimento_codigo }} </td>
+                        <td> {{ detalle.fecha_vencimiento }} </td>
+                        <td> {{ detalle.contenido }} </td>
+                        <td> {{ detalle.peso_unitario }} </td>
+                        <td id="stock"> {{ detalle.stock }} </td>
+                        <td id="reservado"> {{ detalle.reservado }} </td>
+                        <td style="display:none" id="cantidad"> 
+                            <div id="{{detalle.id}}" style="display:inline; padding:2px">
+                                <label for="cantidad"> {{ detalle.alimento_codigo }} - {{detalle.contenido}} </label>
+                                <select id="cantidad">
+                                    {% for cant in 1..(detalle.stock-detalle.reservado) %}
+                                        <option value="{{ cant }}">{{ cant }}</option>
+                                    {% endfor %}
+                                </select>
+                                <img onclick="quitar({{detalle.id}});" src="{{server}}images/icons/glyphicons_209_cart_in.png" >
+                            </div>
+                        </td>
+                        <td onclick="agregar(this);"><img src="{{server}}images/icons/glyphicons_209_cart_in.png" ></td>
                     </tr>
-                </thead>
-                <tbody style="text-align: center">
-                    {% for detalle in detalles %}
-                        <tr id="{{ detalle.Id }}" style="display:block">
-                            <td> {{ detalle.alimento_codigo }} </td>
-                            <td> {{ detalle.fecha_vencimiento }} </td>
-                            <td> {{ detalle.contenido }} </td>
-                            <td> {{ detalle.peso_unitario }} </td>
-                            <td id="stock"> {{ detalle.stock }} </td>
-                            <td id="reservado"> {{ detalle.reservado }} </td>
-                            <td style="display:none" id="cantidad"> 
-                                <div id="{{detalle.Id}}">
-                                    <select id="cantidad">
-                                        {% for cant in (detalle.stock - detalle.reservado) %}
-                                            <option value="{{ cant }}">{{ cant }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <img onclick="quitar({{detalle.Id}});" src="{{server}}images/icons/glyphicons_209_cart_in.png" >
-                                </div>
-                            </td>
-                            <td onclick="agregar(this);"><img src="{{server}}images/icons/glyphicons_209_cart_in.png" ></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $("#dialog").dialog({
-            autoOpen: false,
-            show: {
-                effect: "blind",
-                duration: 1000
-            },
-            hide: {
-                effect: "explode",
-                duration: 1000
-            },
-            height: 300,
-            width: 600
-        });
-        $("#mas").click(function () {
-            $("#dialog").dialog("open");
-        });
-    });
-
-
-    function agregar(elem) {
-        $(elem).parent().css("display", "none");
-        cant = $($(elem).siblings("#cantidad").children());
-        $(".elem").append(cant.clone());
-    }
-    function quitar(id) {
-        $(".conj-block div[id=" + id + "]").remove();
-        $("#dialog table tr[id=" + id + "]").css("display", "block");
-    }
-
-</script>
-

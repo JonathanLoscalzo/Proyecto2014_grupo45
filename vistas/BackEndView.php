@@ -34,22 +34,20 @@ class BackEndView extends TwigView {
             'detalles' => $detalles
         ));
     }
-    
-    public function entregaDirecta() {
-        echo self::getTwig()->render('EntregaDirecta.html.twig');
+
+    public function entregaDirecta($entregas, $entidades, $detalles) {
+        echo self::getTwig()->render('EntregaDirecta.html.twig', ['entregas' => $entregas, 'entidades' => $entidades, 'detalles' => $detalles]);
     }
-    
-    
 
     public function donantes($donantes) {
         echo self::getTwig()->render('Donantes.php', array('donantes' => $donantes));
     }
-    
+
     public function turnos($turnos) {
         echo self::getTwig()->render('turnosEntrega.html.twig', array('turnos' => $turnos));
     }
-    
-     public function editViewTurno($turno) {
+
+    public function editViewTurno($turno) {
         echo self::getTwig()->render('EditViewTurnoEntrega.html.twig', array('turno' => $turno)); //ver si esto anda
     }
 
@@ -80,6 +78,7 @@ class BackEndView extends TwigView {
             'detalle' => $detalle
         ));
     }
+
     public function Envios() {
         echo self::getTwig()->render('Envios.php');
     }

@@ -29,8 +29,11 @@ class EntregaDirectaController extends Controller {
         
     }
     public function index() {
-        $view = new BackEndView;
-        $view->entregaDirecta();
+        $entidades = EntidadReceptoraRepository::getInstance()->getAll();
+        $detalles = DetalleRepository::getInstance()->getAll();
+        $entregas = EntregaDirectaRepository::getInstance()->getAll();
+        $view = new BackEndView();
+        $view->entregaDirecta($entregas, $entidades, $detalles);
     }
 
 }

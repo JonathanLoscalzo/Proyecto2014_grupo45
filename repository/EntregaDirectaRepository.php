@@ -1,6 +1,18 @@
 <?php
 
-class EntregaDirectaRepository extends PDORepository{
+class EntregaDirectaRepository extends PDORepository {
+
+    private static $instance = null;
+
+    public static function getInstance() {
+
+        if (is_null(self::$instance)) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
+    }
+
     public function add($obj) {
         
     }

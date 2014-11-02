@@ -9,9 +9,14 @@
     -> para las altas, deberian llegar cada detalle_alimento asociado con su alimento. 
     -> par las altas deberian llegar todas las entidades receptoras. 
 -> ¿Se podra hacer que se cargue por json las cosas? cada vez que se aprieta la pestaña?
+
+
+ENTONCES ->
+ENTIDADES ->entidades
+DETALLES_ALIMENTOS ->detalles
 #}
-    
-    
+
+
 {% block head %}
     {{ parent() }}
     <script src="{{server}}js/plugins/jquery-2.1.2.js"></script>
@@ -21,25 +26,61 @@
 {% endblock %}
 
 {% block content %}
-    
-        <div id="content">
-            <ul>
-                <li><a href="#tabs-1">Historial</a></li>
-                <li><a href="#tabs-2">Nueva entrega</a></li>
-            </ul>
-            <div id="tabs-1">
-                {% include 'historial_entregadirecta.html.twig' %}
-            </div>
-            <div id="tabs-2">
-                {% include 'nueva_entregadirecta.html.twig' %}
-            </div>
-        </div>    
+
+    <div id="content">
+        <ul>
+            <li><a href="#tabs-1">Historial</a></li>
+            <li><a href="#tabs-2">Nueva entrega</a></li>
+        </ul>
+        <div id="tabs-1">
+            {% include 'historial_entregadirecta.html.twig' %}
+        </div>
+        <div id="tabs-2">
+            {% include 'nueva_entregadirecta.html.twig' %}
+        </div>
+    </div>    
 
 {% endblock %}
 {% block scripts %}
     <script>
         $(document).ready(function () {
+            $(".dialog").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 800
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 800
+                }
+            });
             $("#content").tabs();
+            $("#dialog").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                },
+                height: 300,
+                width: 1000
+            });
+            $("#mas").click(function () {
+                $("#dialog").dialog("open");
+            });
         });
+        function agregar(elem) {
+            $(elem).parent().css("display", "none");
+            cant = $($(elem).siblings("#cantidad").children());
+            $(".elem").append(cant.clone());
+        }
+        function quitar(id) {
+            $(".conj-block div[id=" + id + "]").remove();
+            $("#dialog table tr[id=" + id + "]").css("display", "");
+        }
     </script>
 {% endblock %}
