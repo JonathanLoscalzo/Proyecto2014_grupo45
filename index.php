@@ -29,6 +29,7 @@ require_once 'model/EntregaDirectaModel.php';
 require_once 'repository/EntregaDirectaRepository.php';
 require_once 'model/AlimentoEntregaDirectaModel.php';
 require_once 'repository/AlimentoEntregaDirectaRepository.php';
+require_once 'controller/EstadisticasController.php';
 
 /* ver como hacer para poder leer la uri en partes 
   ROUTE
@@ -230,6 +231,9 @@ if (isset($_POST['date'])) {
             if (LoginController::isSessionStart()) {
                 AlimentoController::getInstance()->listarAlimentos();
             }
+            break;
+        case 'Estadisticas':
+            EstadisticasController::getInstance()->index();
             break;
         default:
             HomeController::getInstance()->index();

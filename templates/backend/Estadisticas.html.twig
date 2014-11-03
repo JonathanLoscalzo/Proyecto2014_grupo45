@@ -1,0 +1,212 @@
+{% extends "backend_layout.php" %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <link href="{{server}}js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+    <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+
+
+{% endblock %}
+
+
+{% block content %}
+    <div id = "content">
+        <div>
+            <h3>Listado (entre fechas) de los kilos de pedidos que fueron entregados (gráfico de barra)</h3>
+            <form id="form-1"> 
+
+                <button id="button-2"> consultar </button>
+            </form>
+            <div id="container-1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        </div>
+        <div>
+            <h3>Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (gráfico de torta)</h3>
+            <form id="form-2"> 
+                <label for="from">Desde</label>
+                <input type="text" id="from" name="from">
+                <label for="to">hasta</label>
+                <input type="text" id="to" name="to">
+                <button id="button-2"> consultar </button>
+            </form>
+            <div id="container-2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        </div>
+        <div>
+            <h3>Alimentos vencidos sin entregar (agrupados por descripción)</h3>
+            <form id="form-3"> 
+                
+                <button id="button-2"> consultar </button>
+            </form>
+            <div id="container-3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{server}}js/plugins/Highcharts-4.0.4/js/highcharts.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/Highcharts-4.0.4/js/highcharts-3d.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/Highcharts-4.0.4/js/modules/exporting.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#from").datepicker({
+                defaultDate: "+1w",
+                onClose: function (selectedDate) {
+                    $("#to").datepicker("option", "minDate", selectedDate);
+                }
+            });
+            $("#to").datepicker({
+                defaultDate: "+1w",
+                onClose: function (selectedDate) {
+                    $("#from").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+//=========================================================================================
+            $("#form-2").submit(function (e) {
+                e.preventDefault();
+                if ($(".elem").children().size() > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: location.href + '/dos',
+                        dataType: 'json',
+                        data: "datos=" + JSON.stringify($("form").serialize()),
+                        complete: function (aData) {
+                            $("#container-2").highcharts().series[0].update({data: aData});
+                        }
+                    });
+                }
+                else
+                {
+                    $("#error-widget").css("display", "block");
+                }
+            });
+
+            $("#form-1").submit(function (e) {
+                e.preventDefault();
+                if ($(".elem").children().size() > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: location.href + '/uno',
+                        dataType: 'json',
+                        data: "datos=" + JSON.stringify($("form").serialize()),
+                        complete: function (aData) {
+                            $("#container-1").highcharts().series[0].update({data: aData});
+                        }
+                    });
+                }
+                else
+                {
+                    $("#error-widget").css("display", "block");
+                }
+            });
+
+            $("#form-3").submit(function (e) {
+                e.preventDefault();
+                if ($(".elem").children().size() > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: location.href + '/tres',
+                        dataType: 'json',
+                        data: "datos=" + JSON.stringify($("form").serialize()),
+                        complete: function (aData) {
+                            $("#container-3").highcharts().series[0].update({data: aData});
+                        }
+                    });
+                }
+                else
+                {
+                    $("#error-widget").css("display", "block");
+                }
+            });
+//=========================================================================================
+
+            $('#container-2').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 1, //null,                     plotShadow: false
+                },
+                title: {
+                    text: 'Browser market shares at a specific website, 2014'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }},
+                series: [{
+                        type: 'pie',
+                        name: 'Browser share',
+                        data: [['hola', 0], ['pepe', 0]]
+                    }]
+            });
+            $('#container-1').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 1 //null,                     plotShadow: false
+                },
+                title: {
+                    text: 'Browser market shares at a specific website, 2014'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }},
+                series: [{
+                        type: 'pie',
+                        name: 'Browser share',
+                        data: [['hola', 0], ['pepe', 0]]
+                    }]
+            });
+            $('#container-3').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 1, //null,                     plotShadow: false
+                },
+                title: {
+                    text: 'Browser market shares at a specific website, 2014'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }},
+                series: [{
+                        type: 'pie',
+                        name: 'Browser share',
+                        data: [['hola', 0], ['pepe', 0]]
+                    }]
+            });
+        });
+    </script>
+
+{% endblock %}

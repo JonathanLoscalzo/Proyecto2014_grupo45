@@ -46,6 +46,9 @@ class BackEndView extends TwigView {
     public function turnos($turnos) {
         echo self::getTwig()->render('turnosEntrega.html.twig', array('turnos' => $turnos));
     }
+    public function estadisticas() {
+        echo self::getTwig()->render('Estadisticas.html.twig');
+    }
 
     public function editViewTurno($turno) {
         echo self::getTwig()->render('EditViewTurnoEntrega.html.twig', array('turno' => $turno)); //ver si esto anda
