@@ -79,6 +79,16 @@ class DetalleRepository extends PDORepository {
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer;
     }
+    
+    public function getAllVencimientoCercano() {
+        $sql = "SELECT * FROM detalle_alimento";
+        $args = [];
+        $mapper = function($row) {
+            return new DetalleModel($row['Id'], $row['alimento_codigo'], $row['fecha_vencimiento'], $row['contenido'], $row['peso_unitario'], $row['stock'], $row['reservado'], $row['alimento_codigo']);
+        };
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
+    }
 
     public function getByID($id) {
         $sql = "SELECT * FROM detalle_alimento WHERE detalle_alimento.Id = ?";

@@ -15,14 +15,17 @@ class EntregaDirectaRepository extends PDORepository {
 
     public function add($obj) {
         $sql = "INSERT INTO entrega_directa(id, entidad_receptora_id, fecha) VALUES(?, ?, ?)";
+        $sql2 = "select MAX(id) as id FROM entrega_directa";
         $args = $obj->getArray();
         //array_shift($args); // corremos el null
-        //array_pop($args); // quitamos el model sino da error de string parse
+        array_pop($args); // quitamos el model sino da error de string parse
         $mapper = function($row) {
-            return $row;
+            return $row["id"];
         };
-        $answer = $this->queryList($sql, $args, $mapper);
-        return $answer;
+        
+        $this->queryList($sql, $args, $mapper);
+        
+        return $this->queryList($sql2, [], $mapper)[0];
     }
 
     public function edit($obj) {
@@ -50,7 +53,7 @@ class EntregaDirectaRepository extends PDORepository {
         $args = [$id];
         $mapper = function($row) {
             return new EntregaDirectaModel(
-                    $row['id'],$row['entidad_receptora_id'], $row['fecha']);
+                    $row['id'], $row['entidad_receptora_id'], $row['fecha']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
         return $answer[0];

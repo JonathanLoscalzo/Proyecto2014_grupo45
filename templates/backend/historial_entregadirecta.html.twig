@@ -15,7 +15,7 @@
                     <td> {{ elem.fecha }} </td>
                     <td onclick="$('#dialog-{{elem.id}}').dialog('open');"><img src="{{server}}images/icons/glyphicons_027_search.png" alt="modificar"> </td>
                     <td><a href="./{{server}}EntregaDirecta/remove/{{ elem.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
-                    <td><a href="./{{server}}EntregaDirecta/edit/{{ elem.id }}" disable ><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                    <td style="display:none"><a href="./{{server}}EntregaDirecta/edit/{{ elem.id }}" disable ><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                 </tr>
             {% endfor %}
         </tbody>
