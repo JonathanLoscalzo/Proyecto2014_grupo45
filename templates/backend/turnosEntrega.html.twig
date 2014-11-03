@@ -21,10 +21,11 @@
         <div id ="dialog" Title ="Alta de Turno" >
             <form action="./{{server}}turnosEntrega/add" method="POST">
                 <div class="conj-block">
-                    <label for="fecha" style = "display : block">Fecha: </label><input id="fecha" placeholder="Ej: 22/09/2014" type="text" name="fecha" required>
-                    <label for="hora" style = "display : block">Hora: </label><input id="hora" placeholder="Ej: 20:00 " type="text" name="hora" required >
+                    <label for="fecha" style = "display : block;">Fecha: </label><input style="margin-right:3%;" id="fecha" placeholder="Ej: 22/09/2014" type="text" name="fecha" required>
+                    <label for="hora" style = "display : block ; margin-top : 3%">Hora: </label><input id="hora" placeholder="Ej: 20:00 " type="text" name="hora" required >
+                    <button type="submit" name="submit" style=""> Enviar </button>
                 </div>
-                <button type="submit" name="submit"> Enviar </button>
+                
             </form>
         </div>
         <br><br>
@@ -69,7 +70,7 @@
             $("#fecha").datepicker({
                 minDate: 0,
                 showOn: "button",
-                buttonImage: "./{{server}}images/icons/calendar.gif",
+                buttonImage: "./{{server}}images/icons/glyphicons_045_calendar.png",
                 buttonImageOnly: true,
                 buttonText: "Seleccione fecha"
             });
