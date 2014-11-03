@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2014 a las 13:45:32
+-- Tiempo de generación: 03-11-2014 a las 13:50:51
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `alimento_entrega_directa` (
 --
 
 INSERT INTO `alimento_entrega_directa` (`entrega_directa_id`, `detalle_alimento_id`, `cantidad`) VALUES
-(1, 1, 10);
+(2, 1, 10);
 
 --
 -- Disparadores `alimento_entrega_directa`
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `detalle_alimento` (
 --
 
 INSERT INTO `detalle_alimento` (`Id`, `fecha_vencimiento`, `contenido`, `peso_unitario`, `stock`, `reservado`, `alimento_codigo`) VALUES
-(1, '2014-09-02', '10x1kg', '1.00', 90, 10, 'aaaa'),
+(1, '2014-09-02', '10x1kg', '1.00', 80, 10, 'aaaa'),
 (3, '2014-08-15', 'algo', '1.00', 10, 0, 'aaaa'),
 (4, '2014-08-18', 'algo', '1.00', 20, 0, 'aaaa'),
 (5, '2014-07-18', 'algo', '1.00', 50, 10, 'aaaa');
@@ -328,14 +328,14 @@ CREATE TABLE IF NOT EXISTS `entrega_directa` (
 `id` int(11) NOT NULL,
   `entidad_receptora_id` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `entrega_directa`
 --
 
 INSERT INTO `entrega_directa` (`id`, `entidad_receptora_id`, `fecha`) VALUES
-(1, 2, '2014-08-10');
+(2, 2, '2014-08-20');
 
 -- --------------------------------------------------------
 
@@ -764,7 +764,7 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 -- AUTO_INCREMENT de la tabla `entrega_directa`
 --
 ALTER TABLE `entrega_directa`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `estado_entidad`
 --
@@ -820,7 +820,7 @@ ADD CONSTRAINT `fk_alimento_donante_donante1` FOREIGN KEY (`donante_Id`) REFEREN
 -- Filtros para la tabla `alimento_entrega_directa`
 --
 ALTER TABLE `alimento_entrega_directa`
-ADD CONSTRAINT `fk_alimento_entrega_directa_1` FOREIGN KEY (`entrega_directa_id`) REFERENCES `entrega_directa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_alimento_entrega_directa_1` FOREIGN KEY (`entrega_directa_id`) REFERENCES `entrega_directa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `fk_alimento_entrega_directa_2` FOREIGN KEY (`detalle_alimento_id`) REFERENCES `detalle_alimento` (`Id`) ON UPDATE NO ACTION;
 
 --
