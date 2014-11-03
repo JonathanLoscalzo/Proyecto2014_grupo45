@@ -20,9 +20,12 @@ DETALLES_ALIMENTOS ->detalles
 {% block head %}
     {{ parent() }}
     <script src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <script src="{{server}}js/plugins/jquery.serializejson.js"></script>
     <script type="text/javascript" charset="utf8" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
     <link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
     <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
+
+
 {% endblock %}
 
 {% block content %}
@@ -44,6 +47,7 @@ DETALLES_ALIMENTOS ->detalles
 {% block scripts %}
     <script>
         $(document).ready(function () {
+            $(document).tooltip();
             $(".dialog").dialog({
                 autoOpen: false,
                 show: {
@@ -53,7 +57,9 @@ DETALLES_ALIMENTOS ->detalles
                 hide: {
                     effect: "explode",
                     duration: 800
-                }
+                },
+                height: 300,
+                width: 1000
             });
             $("#content").tabs();
             $("#dialog").dialog({
@@ -72,6 +78,27 @@ DETALLES_ALIMENTOS ->detalles
             $("#mas").click(function () {
                 $("#dialog").dialog("open");
             });
+
+            $("form").submit(function (e) {
+                e.preventDefault();
+                if ($(".elem").children().size() > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: location.href + '/add',
+                        dataType: 'json',
+                        data: "datos="+JSON.stringify($("form").serializeJSON()),
+                        success: function (success) {
+                            alert(JSON.stringify(success));
+                        }
+                    });
+                }
+                else
+                {
+                    $("#error-widget").css("display", "block");
+                }
+                console.log();
+            });
+
         });
         function agregar(elem) {
             $(elem).parent().css("display", "none");

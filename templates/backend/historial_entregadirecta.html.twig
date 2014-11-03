@@ -13,31 +13,35 @@
                 <tr>
                     <td> {{ elem.entidad.razonSocial }} </td>
                     <td> {{ elem.fecha }} </td>
-                    <td><img src="{{server}}images/icons/glyphicons_027_search.png" alt="modificar"> </td>
+                    <td onclick="$('#dialog-{{elem.id}}').dialog('open');"><img src="{{server}}images/icons/glyphicons_027_search.png" alt="modificar"> </td>
                     <td><a href="./{{server}}EntregaDirecta/remove/{{ elem.id }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                     <td><a href="./{{server}}EntregaDirecta/edit/{{ elem.id }}" disable ><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                 </tr>
-            <div class="dialog" onclick="$(this).dialog('open');" title ="Detalles">  
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Descripcion</th>
-                            <th>Contenido</th>
-                            <th>Peso Unitario</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for alim in elem.alimentos %}
-                            <tr>
-                                <td> {{ alim.descripcion }} </td>
-                                <td> {{ alim.contenido }} </td>
-                                <td> {{ alim.peso_unitario }} </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
+    {% for elem in entregas %}
+        <div class="dialog tabla-class" id="dialog-{{elem.id}}" title ="Detalles">  
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descripcion</th>
+                        <th>Contenido</th>
+                        <th>Peso Unitario</th>
+                        <th>cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alim in 0..(elem.alimentos|length -1) %}
+                        <tr>
+                            <td> {{ attribute(elem.alimentos,alim).detalle_alimento.alimento.descripcion }} </td>
+                            <td> {{ attribute(elem.alimentos,alim).detalle_alimento.contenido }} </td>
+                            <td> {{ attribute(elem.alimentos,alim).detalle_alimento.peso_unitario }} </td>
+                            <td> {{ attribute(elem.alimentos,alim).cantidad }} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
 </div>

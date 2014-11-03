@@ -4,17 +4,26 @@ cuando pongo agregar, deberia aparecer un input para agregar cuantos y el alimen
 #}
 
 <form action="./{{server}}EntregaDirecta/add" method="POST">
-    <div class="conj-block" >        
+    <div id="error-widget" class="ui-widget" style="display:none" onclick="$(this).css('display', 'none');">
+        <div style="padding: 0 .7em;" class="ui-state-error ui-corner-all">
+            <p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span>
+                <strong>Error:</strong> Debe haber al menos un alimento agregado.</p>
+        </div>
+    </div>
+    <div class="conj-block" >
         <label for="entidad" style = "display : block">Entidad destinadas: </label>
-        <select id="entidad" required >
+        <select id="entidad" required name="entidad">
             <option selected disabled hidden value=''></option>
             {% for ent in entidades %}
                 <option value="{{ ent.id }}"> {{ ent.razonSocial }}</option>
             {% endfor %}
         </select>
-        <div class ="elem"></div>
+
+        <div class ="elem">
+
+        </div>
     </div>
-    
+
     <div class="conj-block">
         <button type="submit" name="submit"> Enviar </button>
         <img id="mas" style="position:inherit;" src="{{server}}images/icons/glyphicons_190_circle_plus.png">
@@ -47,12 +56,13 @@ cuando pongo agregar, deberia aparecer un input para agregar cuantos y el alimen
                         <td style="display:none" id="cantidad"> 
                             <div id="{{detalle.id}}" style="display:inline; padding:2px">
                                 <label for="cantidad"> {{ detalle.alimento_codigo }} - {{detalle.contenido}} </label>
-                                <select id="cantidad">
+                                <input type="text" name="detalle_alimento_id[]" style="display:none" value="{{ detalle.id }}">
+                                <select id="cantidad" name="cantidad[]" required>
                                     {% for cant in 1..(detalle.stock-detalle.reservado) %}
                                         <option value="{{ cant }}">{{ cant }}</option>
                                     {% endfor %}
                                 </select>
-                                <img onclick="quitar({{detalle.id}});" src="{{server}}images/icons/glyphicons_209_cart_in.png" >
+                                <img onclick="quitar({{detalle.id}});" src="{{server}}images/icons/glyphicons_208_cart_out.png" >
                             </div>
                         </td>
                         <td onclick="agregar(this);"><img src="{{server}}images/icons/glyphicons_209_cart_in.png" ></td>
