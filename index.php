@@ -219,8 +219,7 @@ if (isset($_POST['date'])) {
                     break;
                 case "add":
                     /* agarrar todas las variables del post y mandarlas */
-                    print_r($_REQUEST["datos"]);
-                    //EntregaDirectaController::getInstance()->create(new Params($_POST));
+                    EntregaDirectaController::getInstance()->create(json_decode($_POST["datos"], true));
                     break;
                 default:
                     EntregaDirectaController::getInstance()->index();

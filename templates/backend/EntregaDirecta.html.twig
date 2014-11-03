@@ -78,7 +78,7 @@ DETALLES_ALIMENTOS ->detalles
             $("#mas").click(function () {
                 $("#dialog").dialog("open");
             });
-
+            
             $("form").submit(function (e) {
                 e.preventDefault();
                 if ($(".elem").children().size() > 0) {
@@ -87,8 +87,8 @@ DETALLES_ALIMENTOS ->detalles
                         url: location.href + '/add',
                         dataType: 'json',
                         data: "datos="+JSON.stringify($("form").serializeJSON()),
-                        success: function (success) {
-                            alert(JSON.stringify(success));
+                        complete: function () {
+                            window.location.reload(true);
                         }
                     });
                 }
