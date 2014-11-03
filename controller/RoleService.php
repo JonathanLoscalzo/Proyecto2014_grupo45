@@ -102,7 +102,21 @@ class RoleService {
                 "EntregaDirectaController:remove",
                 "EntregaDirectaController:create"
             ],
-            2 => [],
+            2 => [
+                "EntregaDirectaController:index",
+                "EntregaDirectaController:edit",
+                "EntregaDirectaController:editView",
+                "EntregaDirectaController:listarUsuarios",
+                "EntregaDirectaController:remove",
+                "EntregaDirectaController:create",
+                "TurnoController:index",
+                "TurnoController:edit",
+                "TurnoController:editView",
+                "TurnoController:listarUsuarios",
+                "TurnoController:remove",
+                "TurnoController:create",
+                "AlimentoController:listarAlimentos"
+                ],
             3 => ["AlimentoController:listarAlimentos"]
         );
     }
