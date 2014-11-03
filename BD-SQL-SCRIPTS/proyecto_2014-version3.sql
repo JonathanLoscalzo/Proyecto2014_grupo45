@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2014 a las 13:50:51
+-- Tiempo de generación: 03-11-2014 a las 14:01:36
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -848,7 +848,7 @@ ADD CONSTRAINT `fk_entidad_receptora_servicio_prestado1` FOREIGN KEY (`servicio_
 -- Filtros para la tabla `entrega_directa`
 --
 ALTER TABLE `entrega_directa`
-ADD CONSTRAINT `fk_entrega_directa_1` FOREIGN KEY (`entidad_receptora_id`) REFERENCES `entidad_receptora` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_entrega_directa_1` FOREIGN KEY (`entidad_receptora_id`) REFERENCES `entidad_receptora` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `pedido_modelo`
