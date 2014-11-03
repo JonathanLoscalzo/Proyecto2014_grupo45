@@ -81,7 +81,7 @@ class DetalleRepository extends PDORepository {
     }
     
     public function getAllVencimientoCercano() {
-        $sql = "SELECT * FROM detalle_alimento";
+        $sql = "SELECT * FROM alimentosparaentregadirecta";
         $args = [];
         $mapper = function($row) {
             return new DetalleModel($row['Id'], $row['alimento_codigo'], $row['fecha_vencimiento'], $row['contenido'], $row['peso_unitario'], $row['stock'], $row['reservado'], $row['alimento_codigo']);

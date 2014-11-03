@@ -42,7 +42,7 @@
                 </div>
                 <div class="conj-block">
 
-                    <label for="weight" style = "display : block">Peso: </label><input id="weight" type="number" name="peso_unitario" required placeholder="Ingrese el peso por unidad" min="0.1">
+                    <label for="weight" style = "display : block">Peso: </label><input id="weight" type="number" name="peso_unitario" required placeholder="Ingrese el peso por unidad" min="0.1" step="0.1" >
                     <label for="stock" style = "display : block">Stock: </label><input id="stock" type="number" name="stock" placeholder="Ingrese el stock (opcional)">
                     <label for="reserve" style = "display : block">Reservado: </label><input id="reserve" type="number" name="reservado" placeholder="Ingrese una cantidad reservada (opcional)">
                 </div>
