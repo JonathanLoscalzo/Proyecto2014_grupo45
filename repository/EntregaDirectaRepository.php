@@ -60,15 +60,15 @@ class EntregaDirectaRepository extends PDORepository {
     }
 
     public function remove($id) {
-        // triggers ??? 
+        
         $sql = "DELETE FROM entrega_directa WHERE id = ?";
         $args = [$id];
         $mapper = function ($row) {
             return $row;
         };
         $answer = $this->queryList($sql, $args, $mapper);
-        $ret = count($answer) > 0 ? $answer[0] : False; // short if, mas comodo 
-        return $ret;
+        return count($answer) > 0 ? $answer[0] : False;
+        
     }
 
 //put your code here

@@ -59,7 +59,18 @@ class EntregaDirectaController extends Controller {
     }
 
     public function remove($id) {
-        
+        if (parent::backendIsLogged()) {
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $entidadInfo = EntregaDirectaRepository::getInstance()->getByID($id);
+                if ($entidadInfo) {
+                    EntregaDirectaRepository::getInstance()->remove($id);
+                    $_SESSION["message"] = new MessageService("removeSucess", [" Entrega Directa"]);
+                } else {
+                    $_SESSION["message"] = new MessageService("removeErrorNotExist", [" Entrega Directa"]);
+                }
+                $this->redirect();
+            }
+        }
     }
 
     public function index() {
