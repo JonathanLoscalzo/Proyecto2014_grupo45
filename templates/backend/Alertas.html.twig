@@ -1,0 +1,57 @@
+{% extends "backend_layout.php" %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+    <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div id = "content">
+        <div class ="tabla-class">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Entidad Receptora</th>
+                        <th>Fecha ingreso</th>
+                        <th colspan="2">Turno</th>
+                        <th>estado pedido</th>
+                        <th>con envio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in pedidos %}
+                        <tr>
+                            <td>{{ e.entidad_receptora.razonSocial }}</td>
+                            <td>{{ e.fecha_ingreso}}</td>
+                            <td>{{ e.turno_entrega.fecha }}</td>
+                            <td>{{ e.turno_entrega.hora }}</td>
+                            <td>{{ e.estado_pedido}}</td>
+                            <td>{{ e.con_envio }}</td> {# Sigo sin saber que hace con_envio #}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            {% set cantidad = 0 %}
+            {% for d in detalles %}
+                {% cantidad = cantidad + d.stock - d.reservado %} 
+            {% endfor %}
+            Cantidad de unidades cerca del vencimiento: {{ cantidad }}
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+{% endblock %}
+
