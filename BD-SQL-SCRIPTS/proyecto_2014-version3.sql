@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2014 a las 14:01:36
+-- Tiempo de generación: 04-11-2014 a las 14:09:11
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -127,8 +127,23 @@ CREATE TABLE IF NOT EXISTS `alimento` (
 --
 
 INSERT INTO `alimento` (`codigo`, `descripcion`) VALUES
-('aaaa', 'Yerba');
+('aaaa', 'Yerba'),
+('Aceite', 'Barajo');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `alimentosparaentregadirecta`
+--
+CREATE TABLE IF NOT EXISTS `alimentosparaentregadirecta` (
+`Id` int(11)
+,`fecha_vencimiento` date
+,`contenido` varchar(200)
+,`peso_unitario` decimal(6,2)
+,`stock` int(11)
+,`reservado` int(11)
+,`alimento_codigo` varchar(11)
+);
 -- --------------------------------------------------------
 
 --
@@ -168,7 +183,10 @@ CREATE TABLE IF NOT EXISTS `alimento_entrega_directa` (
 --
 
 INSERT INTO `alimento_entrega_directa` (`entrega_directa_id`, `detalle_alimento_id`, `cantidad`) VALUES
-(2, 1, 10);
+(1, 1, 1),
+(1, 3, 1),
+(2, 1, 1),
+(2, 4, 1);
 
 --
 -- Disparadores `alimento_entrega_directa`
@@ -251,17 +269,20 @@ CREATE TABLE IF NOT EXISTS `detalle_alimento` (
   `stock` int(11) DEFAULT NULL,
   `reservado` int(11) DEFAULT NULL,
   `alimento_codigo` varchar(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `detalle_alimento`
 --
 
 INSERT INTO `detalle_alimento` (`Id`, `fecha_vencimiento`, `contenido`, `peso_unitario`, `stock`, `reservado`, `alimento_codigo`) VALUES
-(1, '2014-09-02', '10x1kg', '1.00', 80, 10, 'aaaa'),
-(3, '2014-08-15', 'algo', '1.00', 10, 0, 'aaaa'),
-(4, '2014-08-18', 'algo', '1.00', 20, 0, 'aaaa'),
-(5, '2014-07-18', 'algo', '1.00', 50, 10, 'aaaa');
+(1, '2014-09-02', '10x1kg', '1.00', 88, 10, 'aaaa'),
+(3, '2014-08-15', 'algo', '1.00', 8, 0, 'aaaa'),
+(4, '2014-08-18', 'algo', '1.00', 19, 0, 'aaaa'),
+(5, '2014-07-18', 'algo', '1.00', 49, 10, 'aaaa'),
+(6, '2015-01-17', '10x2', '2.10', 99, 0, 'Aceite'),
+(7, '2014-11-06', '10x2', '2.10', 101, 0, 'Aceite'),
+(8, '2014-11-07', '10x3', '3.00', 123, 0, 'Aceite');
 
 -- --------------------------------------------------------
 
@@ -335,7 +356,8 @@ CREATE TABLE IF NOT EXISTS `entrega_directa` (
 --
 
 INSERT INTO `entrega_directa` (`id`, `entidad_receptora_id`, `fecha`) VALUES
-(2, 2, '2014-08-20');
+(1, 2, '2014-11-03'),
+(2, 9, '2014-11-03');
 
 -- --------------------------------------------------------
 
@@ -384,15 +406,15 @@ INSERT INTO `estado_pedido` (`id`, `descripcion`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `fecha_configuracion` (
-  `fecha` date NOT NULL
+  `dias` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `fecha_configuracion`
 --
 
-INSERT INTO `fecha_configuracion` (`fecha`) VALUES
-('2014-08-10');
+INSERT INTO `fecha_configuracion` (`dias`) VALUES
+(10);
 
 -- --------------------------------------------------------
 
@@ -613,6 +635,15 @@ INSERT INTO `user` (`userID`, `username`, `pass`, `roleID`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `alimentosparaentregadirecta`
+--
+DROP TABLE IF EXISTS `alimentosparaentregadirecta`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`grupo_45`@`localhost` SQL SECURITY DEFINER VIEW `alimentosparaentregadirecta` AS select `d`.`Id` AS `Id`,`d`.`fecha_vencimiento` AS `fecha_vencimiento`,`d`.`contenido` AS `contenido`,`d`.`peso_unitario` AS `peso_unitario`,`d`.`stock` AS `stock`,`d`.`reservado` AS `reservado`,`d`.`alimento_codigo` AS `alimento_codigo` from `detalle_alimento` `d` where (`d`.`fecha_vencimiento` between (now() + interval 1 day) and (now() + interval (select `fecha_configuracion`.`dias` from `fecha_configuracion`) day));
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `alimentosvencidos`
 --
 DROP TABLE IF EXISTS `alimentosvencidos`;
@@ -749,7 +780,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `detalle_alimento`
 --
 ALTER TABLE `detalle_alimento`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `donante`
 --
