@@ -1,5 +1,7 @@
 <?php
 
+include_once("model/TurnoModel.php");
+
 class TurnoRepository extends PDORepository{
     private static $instance = null;
     public static function getInstance() {

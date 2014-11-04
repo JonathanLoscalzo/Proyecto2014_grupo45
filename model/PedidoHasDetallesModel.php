@@ -1,5 +1,6 @@
 <?php
 
+include_once("repository/DetalleRepository.php");
 
 class PedidoHasDetallesModel extends Model
 {

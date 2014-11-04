@@ -1,5 +1,7 @@
 <?php
 include_once("repository/PDOrepository.php");
+include_once("model/DetalleModel.php");
+include_once("repository/AlimentoRepository.php");
 
 class DetalleRepository extends PDORepository {
 

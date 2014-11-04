@@ -4,6 +4,7 @@ include_once("repository/PDOrepository.php");
 include_once("repository/EstadoEntidadRepository.php");
 include_once("repository/NecesidadEntidadRepository.php");
 include_once("repository/ServicioPrestadoRepository.php");
+include_once("model/EntidadReceptoraModel.php");
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,7 +13,7 @@ include_once("repository/ServicioPrestadoRepository.php");
 
 /**
  * Description of EntidadReceptoraRepository
- *
+ * 
  * @author jloscalzo
  */
 class EntidadReceptoraRepository extends PDORepository {

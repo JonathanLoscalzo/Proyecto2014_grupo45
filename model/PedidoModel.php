@@ -6,6 +6,11 @@
  * and open the template in the editor.
  */
 
+include_once("Model.php");
+include_once("repository/EstadoPedidoRepository.php");
+include_once("repository/TurnoRepository.php");
+include_once("repository/PedidoHasDetallesRepository.php");
+
 class PedidoModel extends Model
 {
 	protected $numero;
@@ -22,6 +27,9 @@ class PedidoModel extends Model
 	public function __construct($numero, $entidad_receptora_id, $fecha_ingreso, 
                 $estado_pedido_id, $turno_entrega_id, $con_envio){
             $this->numero = $numero;
+            $this->entidad_receptora_id = $entidad_receptora_id;
+            $this->estado_pedido_id = $estado_pedido_id;
+            $this->turno_entrega_id = $turno_entrega_id;
             $this->entidad_receptora_model = EntidadReceptoraRepository::
                     getInstance()->getByID($entidad_receptora_id);
             $this->fecha_ingreso = $fecha_ingreso;
@@ -35,6 +43,18 @@ class PedidoModel extends Model
             return $this;
 	}
         
+        public function setNumero($numero) {
+            $this->numero = $numero;
+        }
+        public function getNumero() {
+            return $this->numero;
+        }
+        public function getEntidad_receptora_id() {
+            return $this->entidad_receptora_id;
+        }
+        public function getTurno_entrega_id() {
+            return $this->turno_entrega_id;
+        }
         
 }
 

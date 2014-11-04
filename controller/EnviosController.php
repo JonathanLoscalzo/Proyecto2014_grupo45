@@ -2,6 +2,8 @@
 include_once('Controller.php');
 include_once("repository/PDOrepository.php");
 include_once("controller/RoleService.php");
+include_once("repository/PedidoRepository.php");
+include_once("model/EstadoPedidoModel.php");
 
 class EnviosController extends Controller {
 
@@ -50,6 +52,7 @@ class EnviosController extends Controller {
         $data['detalle'] =  $detalle;
         $data['banco'] = $banco;
         
+
         echo json_encode($data);
         die();
     } 
