@@ -233,7 +233,22 @@ if (isset($_POST['date'])) {
             }
             break;
         case 'Estadisticas':
-            EstadisticasController::getInstance()->index();
+            (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
+            $est = EstadisticasController::getInstance();
+            switch ($acciones[2]) {
+                case 'uno':
+                    $aux = $est->uno($_POST["from"], $_POST["to"]);
+                    break;
+                case 'dos':
+                    $est->dos($_POST["from"], $_POST["to"]);
+                    break;
+                case 'tres':
+                    $est->tres();
+                    break;
+                default:
+                    $est->index();
+                    break;
+            }
             break;
         default:
             HomeController::getInstance()->index();

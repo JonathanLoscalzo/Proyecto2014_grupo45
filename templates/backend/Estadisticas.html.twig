@@ -5,39 +5,68 @@
     <link href="{{server}}js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
     <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+    <link href="{{server}}css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="{{server}}css/bootstrap/js/bootstrap.min.js"></script>
 
 
 {% endblock %}
 
 
 {% block content %}
-    <div id = "content">
-        <div>
-            <h3>Listado (entre fechas) de los kilos de pedidos que fueron entregados (gráfico de barra)</h3>
-            <form id="form-1"> 
-
-                <button id="button-2"> consultar </button>
-            </form>
-            <div id="container-1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+    <div id = "content" class="container-fluid">
+        <div class="row">
+            <h3 class="col-md-12">Listado (entre fechas) de los kilos de pedidos que fueron entregados (gráfico de barra)</h3>
+            <div class="col-md-6">
+                <form id="form-1" class="form-inline" role="form"> 
+                    <label for="from">Desde</label>
+                    <input type="text" id="from1" name="from">
+                    <label for="to">hasta</label>
+                    <input type="text" id="to1" name="to">
+                    <button id="button-2"> consultar </button>
+                </form>
+                <div id="container-1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
+            </div>
+            <div class="col-md-6">
+                <table>
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
-        <div>
-            <h3>Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (gráfico de torta)</h3>
-            <form id="form-2"> 
-                <label for="from">Desde</label>
-                <input type="text" id="from" name="from">
-                <label for="to">hasta</label>
-                <input type="text" id="to" name="to">
-                <button id="button-2"> consultar </button>
-            </form>
-            <div id="container-2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        <div class="row">
+            <h3 >Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (gráfico de torta)</h3>
+            <div class="col-md-6">
+                <form id="form-2"  class="form-inline" role="form"> 
+                    <label for="from">Desde</label>
+                    <input type="text" id="from" name="from">
+                    <label for="to">hasta</label>
+                    <input type="text" id="to" name="to">
+                    <button id="button-2"> consultar </button>
+                </form>
+                <div id="container-2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
+            </div>
+            <div class="col-md-6">
+                <table>
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
-        <div>
+        <div class="row">
             <h3>Alimentos vencidos sin entregar (agrupados por descripción)</h3>
-            <form id="form-3"> 
+            <div class="col-md-6">
+                <form id="form-3"  class="form-inline" role="form"> 
 
-                <button id="button-2"> consultar </button>
-            </form>
-            <div id="container-3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                    <button id="button-2"> consultar </button>
+                </form>
+                <div id="container-3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
+            </div>
+            <div class="col-md-6">
+                <table>
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -54,68 +83,67 @@
                     $("#to").datepicker("option", "minDate", selectedDate);
                 }
             });
+            $("#from1").datepicker({
+                defaultDate: "+1w",
+                onClose: function (selectedDate) {
+                    $("#to1").datepicker("option", "minDate", selectedDate);
+                }
+            });
             $("#to").datepicker({
                 defaultDate: "+1w",
                 onClose: function (selectedDate) {
                     $("#from").datepicker("option", "maxDate", selectedDate);
                 }
             });
-//=========================================================================================
+            $("#to1").datepicker({
+                defaultDate: "+1w",
+                onClose: function (selectedDate) {
+                    $("#from1").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+            $("#from, #from1, #to, #to1").datepicker("option", "dateFormat", 'dd/mm/yy');
+            //=========================================================================================
             $("#form-2").submit(function (e) {
                 e.preventDefault();
-                if ($(".elem").children().size() > 0) {
-                    $.ajax({
-                        type: 'POST',
-                        url: location.href + '/dos',
-                        dataType: 'json',
-                        data: "datos=" + JSON.stringify($("form").serialize()),
-                        complete: function (aData) {
-                            $("#container-2").highcharts().series[0].update({data: aData});
-                        }
-                    });
-                }
-                else
-                {
-                    $("#error-widget").css("display", "block");
-                }
+                $.ajax({
+                    type: 'POST',
+                    url: location.href + '/dos',
+                    dataType: 'json',
+                    data: $("#form-2").serialize(),
+                    success: function (aData) {
+                        $("#container-2").highcharts().series[0].update({data: aData});
+                    }
+                });
             });
             $("#form-1").submit(function (e) {
                 e.preventDefault();
-                if ($(".elem").children().size() > 0) {
-                    $.ajax({
-                        type: 'POST',
-                        url: location.href + '/uno',
-                        dataType: 'json',
-                        data: "datos=" + JSON.stringify($("form").serialize()),
-                        complete: function (aData) {
-                            $("#container-1").highcharts().series[0].update({data: aData});
-                        }
-                    });
-                }
-                else
-                {
-                    $("#error-widget").css("display", "block");
-                }
+                $.ajax({
+                    type: 'POST',
+                    url: location.href + '/uno',
+                    dataType: "json",
+                    data: $("#form-1").serialize(),
+                    success: function (aData) {
+                        var el = aData[0][0].split('-');
+                        aData[0][0] = Date.UTC(parseInt(el[0]),parseInt(el[1]),parseInt(el[2]));
+                        
+                        console.log(Date.UTC(parseInt(el[0]),parseInt(el[1]),parseInt(el[2])));
+                        /* A cada fecha le deberia aplicar Date.UTC()*/
+                           
+                        $("#container-1").highcharts().series[0].update({data: aData});
+                    }
+                });
             });
             $("#form-3").submit(function (e) {
                 e.preventDefault();
-                if ($(".elem").children().size() > 0) {
-                    $.ajax({
-                        type: 'POST',
-                        url: location.href + '/tres',
-                        dataType: 'json',
-                        data: "datos=" + JSON.stringify($("form").serialize()),
-                        complete: function (aData) {
-                            $("#container-3").highcharts().series[0].update({data: aData});
-                        }
-                    });
-                }
-                else
-                {
-                    $("#error-widget").css("display", "block");
-                }
+                $.ajax({
+                    type: 'POST',
+                    url: location.href + '/tres',
+                    success: function (aData) {
+                        $("#container-3").highcharts().series[0].update({data: aData});
+                    }
+                });
             });
-//=========================================================================================
+            //=========================================================================================
 
             $('#container-2').highcharts({
                 chart: {
@@ -216,3 +244,4 @@
     </script>
 
 {% endblock %}
+{#/*http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/column-parsed/*/#}
