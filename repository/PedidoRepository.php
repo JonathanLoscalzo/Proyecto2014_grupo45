@@ -1,5 +1,7 @@
 <?php
 
+include_once("model/PedidoModel.php");
+
 class PedidoRepository extends PDORepository {
 
     private static $instance = null;
@@ -16,8 +18,8 @@ class PedidoRepository extends PDORepository {
         $sql = "SELECT * FROM pedido_modelo WHERE numero=?";
         $args = [$numero];
         $mapper = function ($row) {
-            return new EstadoPedidoModel($row['numero'], $row['entidad_receptora_id'], 
-                    $row['fecha_ingreso'], $row['estado_pedido_id'], 
+            return new PedidoModel($row['numero'], $row['entidad_receptora_id'], 
+                   $row['fecha_ingreso'], $row['estado_pedido_id'], 
                     $row['turno_entrega_id'], $row['con_envio']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
@@ -29,12 +31,13 @@ class PedidoRepository extends PDORepository {
                 . "`turno_entrega_id`, `con_envio`) "
                 . "VALUES (?, ?, ?, ?, ?)";
         $args = $obj->getArray();
-        array_shift($args); // corremos el null
-        // model delete
+        array_pop($args);
         array_pop($args);
         array_pop($args);
         array_pop($args);
         // end model delete
+        array_shift($args);
+        // corremos el null
         $mapper = function($row){
             return $row;
         };

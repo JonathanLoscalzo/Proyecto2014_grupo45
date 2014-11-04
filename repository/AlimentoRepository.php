@@ -1,6 +1,7 @@
 <?php
 
 include_once("repository/PDOrepository.php");
+include_once("model/AlimentoModel.php");
 
 class AlimentoRepository extends PDORepository {
 

@@ -1,5 +1,7 @@
 <?php
 
+include_once("model/PedidoHasDetallesModel.php");
+
 class PedidoHasDetallesRepository extends PDORepository {
 
     private static $instance = null;
@@ -16,7 +18,7 @@ class PedidoHasDetallesRepository extends PDORepository {
     public function getByID($id) {}
     
     public function getByPedido($numero) {
-        $sql = "SELECT * FROM alimento_pedido WHERE numero=?";
+        $sql = "SELECT * FROM alimento_pedido WHERE pedido_numero=?";
         $args = [$numero];
         $mapper = function ($row) {
             return new PedidoHasDetallesModel($row['pedido_numero'], $row['detalle_alimento_id'], $row['cantidad']); 
