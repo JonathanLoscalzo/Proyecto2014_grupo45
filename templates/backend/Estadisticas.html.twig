@@ -103,6 +103,12 @@
             });
             $("#from, #from1, #to, #to1").datepicker("option", "dateFormat", 'dd/mm/yy');
             //=========================================================================================
+
+            function parseToUTC(aDateString) {
+                var el = aDateString.split('-');
+                return Date.UTC(parseInt(el[0]), parseInt(el[1]) - 1, parseInt(el[2]));
+            }
+
             $("#form-2").submit(function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -123,12 +129,9 @@
                     dataType: "json",
                     data: $("#form-1").serialize(),
                     success: function (aData) {
-                        var el = aData[0][0].split('-');
-                        aData[0][0] = Date.UTC(parseInt(el[0]),parseInt(el[1]),parseInt(el[2]));
-                        
-                        console.log(Date.UTC(parseInt(el[0]),parseInt(el[1]),parseInt(el[2])));
-                        /* A cada fecha le deberia aplicar Date.UTC()*/
-                           
+                        $.map(aData, function (elem) {
+                            elem[0] = parseToUTC(elem[0]);
+                        });
                         $("#container-1").highcharts().series[0].update({data: aData});
                     }
                 });
@@ -205,9 +208,6 @@
                 series: [{
                         name: 'FECHAS',
                         data: [
-                            [Date.UTC(1970, 9, 9), 855],
-                            [Date.UTC(1970, 9, 14), 500],
-                            [Date.UTC(1970, 10, 28), 152]
                         ]
                     }]
             });

@@ -31,7 +31,7 @@ class EstadisticasController extends Controller {
         $from = DateTime::createFromFormat('d/m/Y',$from );
         $to = DateTime::createFromFormat('d/m/Y',$to );
 
-        echo json_encode([[$from->format("Y-m-d"), 10], [$to->format('Y-m-d'), 20]]);
+        echo json_encode([[$from->format("Y-m-d"), 10], [$to->format("Y-m-d"), 10]]);
     }
 
     public function dos($from, $to) {
