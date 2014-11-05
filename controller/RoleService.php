@@ -100,7 +100,8 @@ class RoleService {
                 "EntregaDirectaController:editView",
                 "EntregaDirectaController:listarUsuarios",
                 "EntregaDirectaController:remove",
-                "EntregaDirectaController:create"
+                "EntregaDirectaController:create",
+                "PedidosController:index"
             ],
             2 => [
                 "EntregaDirectaController:index",

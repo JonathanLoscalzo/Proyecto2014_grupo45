@@ -1,8 +1,9 @@
 {% extends "backend_layout.php" %}
 {% block head %}
+<link href="{{server}}css/bootstrap/css/bootstrap.css" rel="stylesheet">
 {{ parent() }}
 <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
-<link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+<link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet" rel="stylesheet">
 <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
 <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
 {% endblock %}
@@ -10,13 +11,23 @@
 
 {% block content %}
 <body>
-   <div id="contentwrap" style="height: 550px">
-       <label for="day-input" style = "display : block" >Seleccione dia: </label>
-       <input id="day-input" name="day-input" style="margin: 10px;"/> <button id="refresh-date" style="float: left;">Aceptar</button>
-        <div id="content" style="height:420px;width: 512px;"></div>
-        <label for="generate-route" style="display: block" >Ruta de envios</label>
-        <button type="button" id="generate-route">Generar recorrido</button>
-   </div>
+   <div id="content">
+        <div class="container">
+            <div class="row">
+                 <div class="col-md-2"></div>
+                 <div class="col-md-8">
+                          <label for="day-input" style = "display : block" >Seleccione dia: </label>
+                          <input id="day-input" name="day-input"/> <button id="refresh-date" style="float: left;">Aceptar</button>
+                          <div id="map" style="height: 400px; width: 400px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></div>
+                          <label for="generate-route" style="display: block" >Ruta de envios</label>
+                          <button type="button" id="generate-route">Generar recorrido</button>
+
+                 </div>
+                 <div class="col-md-2">
+
+                 </div>
+             </div>
+        </div>
    <div id="content" class="tabla-class" >
        <table id="tabla-pedidos">
            <thead>
@@ -31,6 +42,7 @@
             </thead>
        </table>
    </div>
+   </div>
 </body>
 {% endblock %}
 
@@ -42,7 +54,7 @@
         routeParams = "";
         function mapInit() {
             var map = new OpenLayers.Map({
-                div: 'content',
+                div: 'map',
                 controls: [
                     new OpenLayers.Control.Attribution(),
                     new OpenLayers.Control.TouchNavigation({
