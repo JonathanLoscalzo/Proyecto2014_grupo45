@@ -12,6 +12,7 @@ require_once('controller/AlimentoController.php');
 require_once('controller/EntidadReceptoraController.php');
 require_once('controller/DonanteController.php');
 require_once('controller/EnviosController.php');
+require_once('controller/PedidosController.php');
 require_once('vistas/TwigView.php');
 require_once('vistas/BackEndView.php');
 require_once('vistas/FrontEndView.php');
@@ -249,6 +250,9 @@ if (isset($_POST['date'])) {
                     $est->index();
                     break;
             }
+            break;
+        case "ConfeccionPedidos":
+            PedidosController::getInstance()->index();
             break;
         default:
             HomeController::getInstance()->index();

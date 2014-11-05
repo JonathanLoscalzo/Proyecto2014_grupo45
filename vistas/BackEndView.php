@@ -85,5 +85,8 @@ class BackEndView extends TwigView {
     public function Envios() {
         echo self::getTwig()->render('Envios.php');
     }
+    public function Pedidos() {
+        echo self::getTwig()->render("ConfeccionPedidos.html.twig");
+    }
 
 }
