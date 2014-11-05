@@ -1,5 +1,6 @@
 <?php
 
+include_once 'repository/EstadisticasRepository.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -28,18 +29,24 @@ class EstadisticasController extends Controller {
 
     public function uno($from, $to) {
 
-        $from = DateTime::createFromFormat('d/m/Y',$from );
-        $to = DateTime::createFromFormat('d/m/Y',$to );
+        $from = DateTime::createFromFormat('d/m/Y', $from);
+        $to = DateTime::createFromFormat('d/m/Y', $to);
 
-        echo json_encode([[$from->format("Y-m-d"), 10], [$to->format("Y-m-d"), 10]]);
+        $array = EstadisticasRepository::getInstance()->alimento_entre_fechas($from->format('Y-m-d'), $to->format('Y-m-d'));
+        echo json_encode($array);
     }
 
     public function dos($from, $to) {
-        echo $from . " " . $to;
+        $from = DateTime::createFromFormat('d/m/Y', $from);
+        $to = DateTime::createFromFormat('d/m/Y', $to);
+
+        $array = EstadisticasRepository::getInstance()->alimento_entre_fechas_por_entidad($from->format('Y-m-d'), $to->format('Y-m-d'));
+        echo json_encode($array);
     }
 
     public function tres() {
-        
+
+        echo json_encode($data);  
     }
 
     public function index() {
