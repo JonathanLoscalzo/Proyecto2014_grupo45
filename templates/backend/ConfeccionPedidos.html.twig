@@ -1,0 +1,41 @@
+{# empty Twig template #}
+
+{% extends "backend_layout.php" %}
+{% block head %}
+    
+    <link href="{{server}}css/bootstrap/css/bootstrap.css" rel="stylesheet">
+    {{ parent() }}
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+    <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="content">
+        
+        <div class="container">
+            <div class="col-md-3">
+                
+            </div>
+            <div class="col-md-6">
+                <label for="alimentos">Seleccionar Alimento</label>
+                <select id="alimentos">
+                    <option href="#">Hola</option>
+                </select>
+                <div id="form-data">
+                    <form id="forma-pedidos" name="forma-pedidos">
+                    </form>
+                    
+                    
+                </div>
+            </div>
+            <div class="col-md-3">
+                
+            </div>
+            
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
