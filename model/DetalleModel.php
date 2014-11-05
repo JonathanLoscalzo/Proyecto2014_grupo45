@@ -8,14 +8,14 @@
 
 class DetalleModel extends Model
 {
-	protected $id;
-	protected $alimento_codigo;
-        protected $fecha_vencimiento;
-        protected $contenido;
-        protected $peso_unitario;
-        protected $stock;
-        protected $reservado;
-        protected $alimento_model;
+	public $id;
+	public $alimento_codigo;
+        public $fecha_vencimiento;
+        public $contenido;
+        public $peso_unitario;
+        public $stock;
+        public $reservado;
+        public $alimento_model;
         
 	public function __construct($id, $alimento_codigo, $fecha_vencimiento,
                 $contenido, $peso_unitario, $stock, $reservado){
@@ -39,7 +39,7 @@ class DetalleModel extends Model
 		return $this->id;
 	}
 
-	protected function setAlimentoCodigo($codigo){
+	public function setAlimentoCodigo($codigo){
 		return $this->alimento_codigo = $codigo;
 	}
 

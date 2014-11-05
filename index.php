@@ -48,8 +48,24 @@ require_once 'controller/EstadisticasController.php';
 $acciones = split("/", $_SERVER['REQUEST_URI']);
 
 if (isset($_POST['date'])) {
+    
     EnviosController::getInstance()->editView(new Params($_POST));
-} else {
+}
+elseif (isset($_POST['data'])) { 
+    if ($_POST['data'] === "check_cantidad") {
+        PedidosController::getInstance()->AJAX_checkQty($_POST['cantidad']);
+    }
+    else {
+        PedidosController::getInstance()->AJAX_getAlimentos();
+    }
+} 
+elseif (isset($_POST['agregar_detalle'])) {
+    PedidosController::getInstance()->AJAX_agregarAlimento();
+}
+elseif (isset($_POST['datosForm'])) {
+    PedidosController::getInstance()->create(new Params($_POST['datosForm']));
+}
+else {
 
     switch ($acciones[1]) {
         case "index":

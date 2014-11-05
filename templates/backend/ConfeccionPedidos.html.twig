@@ -13,29 +13,123 @@
 
 {% block content %}
     <div id="content">
-        
+
         <div class="container">
-            <div class="col-md-3">
-                
+
+            <div class="conj-block">
+
+                <form action="./{{server}}ConfeccionPedidos/add" method="POST">
+                    <div id="error-widget" class="ui-widget" style="display:none" onclick="$(this).css('display', 'none');">
+                        <div style="padding: 0 .7em;" class="ui-state-error ui-corner-all">
+                            <p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span>
+                                <strong>Error:</strong> Debe haber al menos un alimento agregado.</p>
+                        </div>
+                    </div>
+                    <div class="conj-block" >
+                        <label for="entidad" style = "display : block">Entidad destinadas: </label>
+                        <select id="entidad" required name="entidad">
+                            <option selected disabled hidden value=''></option>
+                            {% for ent in entidades %}
+                                <option value="{{ ent.id }}"> {{ ent.razonSocial }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <div class ="elem">
+
+                        </div>
+                    </div>
+
+                    <div class="conj-block">
+                        <button type="submit" name="submit"> Enviar </button>
+                        <img id="mas" style="position:inherit;" src="{{server}}images/icons/glyphicons_190_circle_plus.png">
+                    </div>
+                </form>
             </div>
-            <div class="col-md-6">
-                <label for="alimentos">Seleccionar Alimento</label>
-                <select id="alimentos">
-                    <option href="#">Hola</option>
-                </select>
-                <div id="form-data">
-                    <form id="forma-pedidos" name="forma-pedidos">
-                    </form>
-                    
-                    
-                </div>
-            </div>
-            <div class="col-md-3">
-                
-            </div>
-            
+        </div>
     </div>
 {% endblock %}
 
 {% block scripts %}
+    <script>
+            function checkAvailable(detalle, cantidad_requerida) {
+                
+                $.post("index.php", { data: "check_cantidad", cantidad: cantidad_requerida }, function(data, status) {
+                    if (data === 0) {
+                        alert("ERROR, demasiado producto seleccionado");
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                }, "json");
+            }
+        
+        
+          function agregar(item) {
+                $.post("index.php", { agregar_detalle: item}, function(data) { 
+                    var elemento = '<div id='+data["id"]+' style="display:inline; padding:2px">'+
+                                    '<label for="cantidad">Cantidad de Unidades</label>'+
+                                    '<input type="text" name="detalle_alimento_id" style="display:none" value="'+data["id"]+'">'+
+                                    '<input type="number" id="cantidad" name="cantidad" onblur="checkAvailable('+data["id"]+',$(this).val());"'+
+                                    '<img onclick="quitar('+data["id"]+');" src="images/icons/glyphicons_208_cart_out.png" >'+
+                                    '</div>';
+                    $("elem").append(elemento);
+                    $("#tabla-paquetes tbody").closest("tr").remove();
+                }, "json");
+                
+            }
+        $(document).ready(function () {
+
+            var $dialog = $('<div></div>')
+			.load("templates/backend/alimento_tabla.html")
+			.dialog({ autoOpen: false,
+                                    show: {
+                                        effect: "blind",
+                                        duration: 1000
+                                    },
+                                    hide: {
+                                        effect: "explode",
+                                        duration: 1000
+                                    },
+                                    height: 300,
+                                    width: 1000
+			});
+            $("#mas").click(function () {
+                $.post('index.php', { data: "pedido_alimentos" }, function(data) {
+                    for (i=0; i<data.length; i++) {
+                        var table_entry = '<tr id='+data[i]["id"]+'>'+
+                            '<td>'+data[i]["alimento_codigo"]+'</td>'+
+                            '<td>'+data[i]["fecha_vencimiento"]+'</td>'+
+                            '<td>'+data[i]["contenido"]+'</td>'+
+                            '<td>'+data[i]["peso_unitario"]+'</td>'+
+                            '<td id="stock">'+data[i]['stock']+'</td>'+
+                            '<td id="reservado">'+data[i]["reservado"]+'</td>'+
+                            '<td onclick="agregar('+data[i]["id"]+');"><img src="images/icons/glyphicons_209_cart_in.png" ></td>'+
+                        '</tr>';
+                        $("#tabla-paquetes tbody").append(table_entry);
+                    }
+                    $dialog.dialog("open");
+                }, "json");
+                });
+ 
+            $("form").submit(function (e) {
+                e.preventDefault();
+                if ($(".elem").children().size() > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: location.href + '/add',
+                        dataType: 'json',
+                        data: "datos="+JSON.stringify($("form").serializeJSON()),
+                        complete: function () {
+                            window.location.reload(true);
+                        }
+                    });
+                }
+                else
+                {
+                    $("#error-widget").css("display", "block");
+                }
+            });
+    });            
+    </script>
 {% endblock %}
