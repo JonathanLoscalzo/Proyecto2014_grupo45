@@ -33,15 +33,23 @@
                                 <option value="{{ ent.id }}"> {{ ent.razonSocial }}</option>
                             {% endfor %}
                         </select>
-
+                        <span style="float:left;"><img id="mas" src="{{server}}images/icons/glyphicons_190_circle_plus.png"></span>
                         <div class ="elem">
 
                         </div>
+                        <div>
+                            <label for="turno" style = "display : block">Turnos disponibles: </label>
+                             <select id="turno" required name="turno">
+                            <option selected disabled hidden value=''></option>
+                            {% for tur in turnos %}
+                                <option value="{{ tur.id }}"> {{ tur.fecha }} - {{ tur.hora }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
                     </div>
-
-                    <div class="conj-block">
-                        <button type="submit" name="submit"> Enviar </button>
-                        <img id="mas" style="position:inherit;" src="{{server}}images/icons/glyphicons_190_circle_plus.png">
+                    <div class="conj-block" style="display: block;">
+                        <button type="submit" style="float:left;" name="submit"> Enviar </button>
+                        
                     </div>
                 </form>
             </div>
@@ -51,11 +59,11 @@
 
 {% block scripts %}
     <script>
-            function checkAvailable(detalle, cantidad_requerida) {
-                
-                $.post("index.php", { data: "check_cantidad", cantidad: cantidad_requerida }, function(data, status) {
+            function checkAvailable(elemento, detalle, cantidad_requerida) {
+                $.post("index.php", { data: "check_cantidad", id_detalle: detalle, cantidad: cantidad_requerida }, function(data, status) {
                     if (data === 0) {
                         alert("ERROR, demasiado producto seleccionado");
+                        $(elemento).val(0);
                         return false;
                     }
                     else {
@@ -63,18 +71,21 @@
                     }
                 }, "json");
             }
+        function quitar(item) {
+            $("#alimento_"+item).remove();
+            $("#lista_"+item).css("display", "");
+        }
         
-        
-          function agregar(item) {
-                $.post("index.php", { agregar_detalle: item}, function(data) { 
-                    var elemento = '<div id='+data["id"]+' style="display:inline; padding:2px">'+
-                                    '<label for="cantidad">Cantidad de Unidades</label>'+
+        function agregar(item) {
+                $.post("index.php", { agregar_detalle: item }, function(data) { 
+                    var elemento = '<div id=alimento_'+data["id"]+' >'+
+                                    '<label for="cantidad" >'+data["alimento_codigo"]+' - '+data["contenido"]+'</label>'+
                                     '<input type="text" name="detalle_alimento_id" style="display:none" value="'+data["id"]+'">'+
-                                    '<input type="number" id="cantidad" name="cantidad" onblur="checkAvailable('+data["id"]+',$(this).val());"'+
-                                    '<img onclick="quitar('+data["id"]+');" src="images/icons/glyphicons_208_cart_out.png" >'+
+                                    '<input type="number" min="0" id="cantidad" name="cantidad" onchange="checkAvailable(this, '+data["id"]+',$(this).val());" required'+
+                                    
                                     '</div>';
-                    $("elem").append(elemento);
-                    $("#tabla-paquetes tbody").closest("tr").remove();
+                    $(".elem").append(elemento); // agregamos el alimento a la lista principal
+                    $("#lista_"+item).remove(); // eliminamos la linea de la tabla MODAL
                 }, "json");
                 
             }
@@ -97,7 +108,7 @@
             $("#mas").click(function () {
                 $.post('index.php', { data: "pedido_alimentos" }, function(data) {
                     for (i=0; i<data.length; i++) {
-                        var table_entry = '<tr id='+data[i]["id"]+'>'+
+                        var table_entry = '<tr id=lista_'+data[i]["id"]+'>'+
                             '<td>'+data[i]["alimento_codigo"]+'</td>'+
                             '<td>'+data[i]["fecha_vencimiento"]+'</td>'+
                             '<td>'+data[i]["contenido"]+'</td>'+

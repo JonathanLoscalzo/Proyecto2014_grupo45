@@ -49,7 +49,25 @@ class PedidosController extends Controller {
             die();
         }
     }
-    
+    public function AJAX_checkQty($id, $value) {
+        // returns true if the entered qty is equal or less than 
+        // then stock qty - reserved qty.
+        if (parent::backendIsLogged()) {
+               if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                   // first check
+                   $element = DetalleRepository::getInstance()->getByID($id);
+                   $margin = $element->getStock() - $element->getReservado();
+                   if ($value <= $margin) {
+                       echo 1;
+                   }
+                   else {
+                       echo 0;
+                   }
+                   die();
+               }
+        
+        }
+    }
     
     public function AJAX_getAlimentos() {
 
@@ -69,8 +87,10 @@ class PedidosController extends Controller {
     public function index() {
         if (parent::backendIsLogged()) {
                if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                        $entidades = EntidadReceptoraRepository::getInstance()->getAll();
+                        $turnos = TurnoRepository::getInstance()->getAll();
                         $view = new BackEndView();
-                        $view->Pedidos();
+                        $view->Pedidos($entidades, $turnos);
                     }
                 }
         }

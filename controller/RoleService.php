@@ -101,7 +101,8 @@ class RoleService {
                 "EntregaDirectaController:listarUsuarios",
                 "EntregaDirectaController:remove",
                 "EntregaDirectaController:create",
-                "PedidosController:index"
+                "PedidosController:index",
+                "PedidosController:AJAX_checkQty"
             ],
             2 => [
                 "EntregaDirectaController:index",
@@ -116,6 +117,8 @@ class RoleService {
                 "TurnoController:listarUsuarios",
                 "TurnoController:remove",
                 "TurnoController:create",
+                "PedidosController:index",
+                "PedidosController:AJAX_checkQty",
                 "AlimentoController:listarAlimentos"
                 ],
             3 => ["AlimentoController:listarAlimentos"]

@@ -38,10 +38,14 @@
                    <th>Domicilio</th>
                    <th>Estado entrega</th>
                    <th>Detalle Pedido</th>
+                   <th>Despachar</th>
                </tr>
             </thead>
        </table>
    </div>
+       <div style="display: block">
+           <button id="confirmar_envios" name="confirmar" type="submit" style="float: left;">Confimar</button>
+       </div>
    </div>
 </body>
 {% endblock %}
@@ -101,10 +105,12 @@
           
     $(document).ready(function () {
         button_row = 'td:eq(5)'; // row donde se pone el boton "ver detalle" de la tabla
+        checkbox_row = 'td:eq(6)';
         tabla = $("#tabla-pedidos").DataTable({
            "fnCreatedRow": function( nRow, aData, iDataIndex ) { // CALLBACK cuando se crea row
                 $(button_row, nRow).append("<button>Ver Detalle</button>"); // trigger que se activa
-                // cuando se genera una nueva linea en la tabla, deberia agregar el boton de Ver Detalle
+                $(checkbox_row, nRow).append('<input type="checkbox" id="someCheckbox" name="someCheckbox" />');
+                 // cuando se genera una nueva linea en la tabla, deberia agregar el boton de Ver Detalle
            }
         });
 

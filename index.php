@@ -53,14 +53,14 @@ if (isset($_POST['date'])) {
 }
 elseif (isset($_POST['data'])) { 
     if ($_POST['data'] === "check_cantidad") {
-        PedidosController::getInstance()->AJAX_checkQty($_POST['cantidad']);
+        PedidosController::getInstance()->AJAX_checkQty($_POST['id_detalle'], $_POST['cantidad']);
     }
     else {
         PedidosController::getInstance()->AJAX_getAlimentos();
     }
 } 
 elseif (isset($_POST['agregar_detalle'])) {
-    PedidosController::getInstance()->AJAX_agregarAlimento();
+    PedidosController::getInstance()->AJAX_agregarAlimento($_POST['agregar_detalle']);
 }
 elseif (isset($_POST['datosForm'])) {
     PedidosController::getInstance()->create(new Params($_POST['datosForm']));
