@@ -16,3 +16,4 @@ Default-xampp-no-subir/
 *.jar
 *.war
 *.ear
+/test.php
