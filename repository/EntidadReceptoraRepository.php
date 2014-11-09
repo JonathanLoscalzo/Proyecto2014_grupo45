@@ -40,8 +40,6 @@ class EntidadReceptoraRepository extends PDORepository {
         array_pop($args);
         array_pop($args);
         array_pop($args);
-        var_dump($args);
-        die();
         $mapper = function($row) {
             return $row;
         };

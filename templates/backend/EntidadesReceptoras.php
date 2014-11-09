@@ -27,16 +27,14 @@
     <div id="accordion">
         <h3>Alta</h3>
         <div>
-            <form action="./{{server}}entidadesReceptoras/add" method="POST">
+            <form id="send-form" action="./{{server}}entidadesReceptoras/add" method="POST">
                 <div class="conj-block">
                     <label for="nombreCompania" style = "display : block">Razon Social: </label><input placeholder="Empleados S.A" id="razonSocial" name="razonSocial" type="text" required placeholder="Razon social">
                     <label for="phone" style = "display : block">Teléfono: </label><input id="telefono" placeholder="Ej: 2215550000" type="number" name="telefono"placeholder="Telefono">
                     <label for="adress" style = "display : block">Domicilio: </label><input id="domicilio" placeholder="Ej: 9 de Julio numero 555" type="text" name="domicilio" placeholder="Domicilio">
                     <button id="location-btn" type="button" style="display: block; margin: 10px ">Ubicar en mapa</button>
-                    
-                </div>
-                <div id="dialog">
-                    
+                    <input type="hidden" name="lat" id="form-lat" required>
+                    <input type="hidden" name="long" id="form-long" required>
                 </div>
                 <div class="conj-block">
                     <label for="service" style = "display : block">Servicio Prestado: </label>
@@ -107,15 +105,17 @@
 <script type="text/javascript" src="{{server}}js/scripts/mapHandler.js"></script>
 <script>
 $(".ui-widget").hide();
+
 $(document).ready(function () {
+
     $('#accordion').accordion({collapsible: true, active:false});
-    console.log($("select"));
     $('select').change(function () {
         var x = $(this).val();
         $("#" + $(this).attr('id') + "-input").val(x);
     });
     function handleMapClick(e)
     {
+
        var lonlat = map.getLonLatFromViewPortPx(e.xy);
        // use lonlat
 
@@ -128,10 +128,11 @@ $(document).ready(function () {
        
        $("#lat").val(Latitude);
        $("#long").val(Longitude);
-       
+       $("#form-lat").val(Latitude);
+       $("#form-long").val(Longitude);
        $("#btn-submit").prop("disabled", false);
     } 
-    var $dialog = $("#dialog")
+    var $dialog = $("<div></div>")
 			.load("templates/backend/map_display.html")
 			.dialog({ autoOpen: false,
                                     show: {
@@ -141,7 +142,7 @@ $(document).ready(function () {
                                     hide: {
                                         effect: "explode",
                                         duration: 1000
-                                    },
+                                    },            
                                     height: 500,
                                     width: 700
 			});
@@ -169,9 +170,9 @@ $(document).ready(function () {
              $(".ui-widget").show();
          }
     });
-        
-    
-    
+    function update() {
+        alert('hola');
+    }
     //$('#tabla-entidades').dataTable();
 
 });

@@ -11,11 +11,11 @@ class EntidadReceptoraModel extends Model {
     protected $razonSocial;
     protected $telefono;
     protected $domicilio;
+    protected $latitud;
+    protected $longitud;
     protected $estadoEntidadID;
     protected $necesidadEntidadID;
     protected $servicioPrestadoID;
-    protected $latitud;
-    protected $longitud;
     protected $estado;
     protected $necesidad;
     protected $servicio;
