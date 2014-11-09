@@ -1,6 +1,7 @@
 <?php
 
 include_once("model/PedidoHasDetallesModel.php");
+include_once("repository/PDOrepository.php");
 
 class PedidoHasDetallesRepository extends PDORepository {
 

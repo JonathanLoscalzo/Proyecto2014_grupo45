@@ -10,19 +10,20 @@ include_once("Model.php");
 include_once("repository/EstadoPedidoRepository.php");
 include_once("repository/TurnoRepository.php");
 include_once("repository/PedidoHasDetallesRepository.php");
+include_once("repository/EntidadReceptoraRepository.php");
 
 class PedidoModel extends Model
 {
-	protected $numero;
-        protected $entidad_receptora_id;
-	protected $fecha_ingreso;
-        protected $estado_pedido_id;
-        protected $turno_entrega_id;
-        protected $con_envio;
-        protected $entidad_receptora_model;
-        protected $estado_pedido_model;
-        protected $turno_entrega_model;
-        protected $alimento_pedido_array;
+	public $numero;
+        public $entidad_receptora_id;
+	public $fecha_ingreso;
+        public $estado_pedido_id;
+        public $turno_entrega_id;
+        public $con_envio;
+        public $entidad_receptora_model;
+        public $estado_pedido_model;
+        public $turno_entrega_model;
+        public $alimento_pedido_array;
 
 	public function __construct($numero, $entidad_receptora_id, $fecha_ingreso, 
                 $estado_pedido_id, $turno_entrega_id, $con_envio){
@@ -54,6 +55,9 @@ class PedidoModel extends Model
         }
         public function getTurno_entrega_id() {
             return $this->turno_entrega_id;
+        }
+        public function getAlimento_pedido_array() {
+            return $this->alimento_pedido_array;
         }
         
 }

@@ -4,8 +4,8 @@ include_once("model/Model.php");
 class NecesidadEntidadModel extends Model {
 
    
-    private $id;
-    private $descripcion;
+    public $id;
+    public $descripcion;
 
     public function __construct($id, $descripcion) {
         $this->id = $id;

@@ -6,6 +6,9 @@
  * and open the template in the editor.
  */
 
+include_once("PDOrepository.php");
+include_once("model/EstadoPedidoModel.php");
+
 class EstadoPedidoRepository extends PDORepository {
 
     private static $instance = null;

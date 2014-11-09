@@ -4,10 +4,10 @@ include_once("repository/DetalleRepository.php");
 
 class PedidoHasDetallesModel extends Model
 {
-	protected $numero;
-        protected $detalle_alimento_id;
-        protected $cantidad;
-        protected $detalle_alimento_model;
+	public $numero;
+        public $detalle_alimento_id;
+        public $cantidad;
+        public $detalle_alimento_model;
 
 	public function __construct($numero, $detalle_alimento_id, $cantidad){
             $this->numero = $numero;
@@ -17,4 +17,20 @@ class PedidoHasDetallesModel extends Model
             return $this;
             
         }
+        
+        public function getNumero() {
+            return $this->numero;
+            
+        }
+        
+        public function getDetalle_alimento_id(){
+            return $this->detalle_alimento_id;
+        }
+        public function getcantidad () {
+            return $this->cantidad;
+        }
+        public function getDetalle_alimento_model() {
+            return $this->detalle_alimento_model;
+        }
+        
 }

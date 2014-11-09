@@ -14,16 +14,14 @@
    <div id="content">
         <div class="container">
             <div class="row">
-                 <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <label for="day-input" style = "display : block" >Seleccione dia: </label>
+                    <input id="day-input" name="day-input"/> <button id="refresh-date" style="float: left;">Aceptar</button>
+                </div>
                  <div class="col-md-8">
-                          <label for="day-input" style = "display : block" >Seleccione dia: </label>
-                          <input id="day-input" name="day-input"/> <button id="refresh-date" style="float: left;">Aceptar</button>
                           <div id="map" style="height: 400px; width: 400px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></div>
                           <label for="generate-route" style="display: block" >Ruta de envios</label>
                           <button type="button" id="generate-route">Generar recorrido</button>
-
-                 </div>
-                 <div class="col-md-2">
 
                  </div>
              </div>
@@ -36,7 +34,6 @@
                    <th>Fecha de entrega</th>
                    <th>Telefono</th>
                    <th>Domicilio</th>
-                   <th>Estado entrega</th>
                    <th>Detalle Pedido</th>
                    <th>Despachar</th>
                </tr>
@@ -81,9 +78,7 @@
         map.addLayer(route);
         fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
         toProjection   = map.getProjectionObject(); // to Spherical Mercator Projection
-        var lat = -34.910531;
-        var lon = -57.950203;
-        $.get("index.php",{getHomePosition: true} function (data) {
+        $.get("index.php",{getHomePosition: true}, function (data) {
             zoom = 13;
             position = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
             map.setCenter(position, zoom);
@@ -107,8 +102,8 @@
           
           
     $(document).ready(function () {
-        button_row = 'td:eq(5)'; // row donde se pone el boton "ver detalle" de la tabla
-        checkbox_row = 'td:eq(6)';
+        button_row = 'td:eq(4)'; // row donde se pone el boton "ver detalle" de la tabla
+        checkbox_row = 'td:eq(5)';
         tabla = $("#tabla-pedidos").DataTable({
            "fnCreatedRow": function( nRow, aData, iDataIndex ) { // CALLBACK cuando se crea row
                 $(button_row, nRow).append("<button>Ver Detalle</button>"); // trigger que se activa
@@ -120,12 +115,15 @@
         function refreshTabla(tabla, data) {
                 
                 tabla.clear();
-                tabla.row.add(data);
+                tabla.rows.add(data);
                 tabla.draw();
+     
             
         }
-        function refreshMap(entidades) {
-                
+        function refreshMap(banco, entidades) {
+                 zoom = 13;
+                 position = new OpenLayers.LonLat(banco.lon, banco.lat).transform( fromProjection, toProjection);
+                 map.setCenter(position, zoom);
                  function crearMarcador(entidad) {
                       var icono = new OpenLayers.Icon("/images/icons/pin.png");
                       icono.size.w *=2;
@@ -139,7 +137,7 @@
                 var markers = new OpenLayers.Layer.Markers( "Marcadores" );
                 map.addLayer(markers);
                 markers.addMarker(crearMarcador(home_base));
-                routeParams += "loc="+home_base.lat+","+home_base.lon+"&"; // HOME ADDRESS
+                routeParams += "loc="+banco.lat+","+banco.long+"&"; // HOME ADDRESS
                 for(var i = 0; i <entidades.length; i++) {
                                     console.log(entidades[i]);
                                     markers.addMarker(crearMarcador(entidades[i]));
@@ -176,28 +174,39 @@
         
         $('#day-input').datepicker();
         
-        $("#refresh-date").on("click", function () {
-            $.post('index.php',{ date: $('#day-input').val() }, function(json_object, status, xhr) {
+        $("#refresh-date").on("blur", function () {
+            $.post('index.php',{ date: $('#day-input').val() }, function(data, status, xhr) {
+                console.log(data);
+                zoom = 13;
+                position = new OpenLayers.LonLat(data.banco.long, data.banco.lat).transform( fromProjection, toProjection);
+                map.setCenter(position, zoom);
+                var tablaData = [];
+                var entidades = [];
+                for (i=0; i<data.pedidos.length; i++) {
+                    tablaData.push( {
+                    entidad_receptora: data.pedidos[i].entidad_receptora_model.razonSocial,
+                    fecha_entrega: data.pedidos[i].turno_entrega_model.fecha,
+                    domicilio: data.pedidos[i].entidad_receptora_model.domicilio,
+                    telefono: data.pedidos[i].entidad_receptora_model.telefono,
+                    button: "",
+                    ckeckbox: ""});
                 
-                var tablaData = {
-                    razonSocial: json_object['entidad_receptora']['razonSocial'],
-                    domicilio: json_object['entidad_receptora']['domicilio'],
-                    telefono: json_object['entidad_receptora']['telefono'],
-                    fecha_entrega: json_object['turno']['date'],
-                    estado_entrega: json_object['pedido']['estado'],
-                    button: ""
+                
+                    entidades.push(new EntidadReceptora(data.pedidos[i].entidad_receptora_model.razonSocial,
+                    data.pedidos[i].entidad_receptora_model.latitud, 
+                    data.pedidos[i].entidad_receptora_model.longitud));
+                    
+                    
                 };
+                
                 var dataArray = $.map(tablaData, function(value, index) {
                     return [value];
                 });
                 console.log(dataArray);
                 refreshTabla(tabla, dataArray);
-                lon = json_object['banco']['long'];
-                lat = json_object['banco']['lat'];
                 
-                refreshMap([new EntidadReceptora(json_object['entidad_receptora']['razonSocial'],
-                            json_object['entidad_receptora']['lat'], 
-                            json_object['entidad_receptora']['long'])]);
+                
+                refreshMap(data.banco, entidades);
             }, 'json');            
         });
         $("#generate-route").on("click", function () {

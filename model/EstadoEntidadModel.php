@@ -3,8 +3,8 @@ include_once("model/Model.php");
 
 class EstadoEntidadModel extends Model {
 
-    private $id;
-    private $descripcion;
+    public $id;
+    public $descripcion;
 
     public function __construct($id, $descripcion) {
         $this->id = $id;
@@ -15,7 +15,7 @@ class EstadoEntidadModel extends Model {
         return $this->id;
     }
 
-    protected function setId($id) {
+    public function setId($id) {
         // only for exclusive usage.
         $this->id = $id;
     }

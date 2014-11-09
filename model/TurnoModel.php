@@ -4,9 +4,9 @@ class TurnoModel extends Model {
 
     //put your code here
 
-    protected $id;
-    protected $fecha;
-    protected $hora;
+    public $id;
+    public $fecha;
+    public $hora;
 
     public function __construct($id, $fecha, $hora) {
         $this->id = $id;

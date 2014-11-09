@@ -8,8 +8,8 @@
 
 class EstadoPedidoModel extends Model
 {
-	protected $id;
-        protected $descripcion;
+	public $id;
+        public $descripcion;
 
 	public function __construct($id, $descripcion){
             $this->id = $id;

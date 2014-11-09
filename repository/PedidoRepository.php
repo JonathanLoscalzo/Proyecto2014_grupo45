@@ -70,5 +70,40 @@ class PedidoRepository extends PDORepository {
     public function remove($id) {
         
     }
+    public function getPedidosByDate($date) {
+        $sql = "SELECT * FROM 
+            ( SELECT * FROM pedido_modelo INNER JOIN turno_entrega ON 
+            turno_entrega_id = turno_entrega.id ) 
+            AS pedidos 
+            WHERE fecha=?";
+        $args = [$date];
+        $mapper = function ($row) {
+            return new PedidoModel($row['numero'], 
+                    $row['entidad_receptora_id'], $row['fecha_ingreso'], 
+                    $row['estado_pedido_id'], $row['turno_entrega_id'], 
+                    $row['con_envio']);
+        };
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
+        
+    }
+    
+        public function getPedidosByDateSinEnviar($date) {
+        $sql = "SELECT * FROM 
+            ( SELECT * FROM pedido_modelo INNER JOIN turno_entrega ON 
+            turno_entrega_id = turno_entrega.id ) 
+            AS pedidos 
+            WHERE fecha=? and estado_pedido_id=0";
+        $args = [$date];
+        $mapper = function ($row) {
+            return new PedidoModel($row['numero'], 
+                    $row['entidad_receptora_id'], $row['fecha_ingreso'], 
+                    $row['estado_pedido_id'], $row['turno_entrega_id'], 
+                    $row['con_envio']);
+        };
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
+        
+    }
 
 }

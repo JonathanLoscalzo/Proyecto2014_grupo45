@@ -100,7 +100,11 @@ class EntidadReceptoraRepository extends PDORepository {
         $sql = "SELECT * FROM entidad_receptora WHERE Id=?";
         $args = [$id];
         $mapper = function ($row) {
-            return new EntidadReceptoraModel($row['Id'], $row['razon_social'], $row['telefono'], $row['domicilio'], $row['estado_entidad_Id'], $row['necesidad_entidad_Id'], $row['servicio_prestado_Id']);
+            return new EntidadReceptoraModel($row['Id'], 
+                    $row['razon_social'], $row['telefono'],
+                    $row['domicilio'], $row['latitud'], $row['longitud'], $row['estado_entidad_Id'],
+                    $row['necesidad_entidad_Id'],
+                    $row['servicio_prestado_Id']);
         };
         $answer = $this->queryList($sql, $args, $mapper);
         $ret = count($answer) > 0 ? $answer[0] : False;
@@ -111,7 +115,12 @@ class EntidadReceptoraRepository extends PDORepository {
         $sql = "SELECT entidad_receptora.* FROM entidad_receptora WHERE entidad_receptora.razon_social = ?";
         $args = [$razonSocial];
         $mapper = function($row) {
-            return new EntidadReceptoraModel($row['Id'], $row['razon_social'], $row['telefono'], $row['domicilio'], $row['estado_entidad_Id'], $row['necesidad_entidad_Id'], $row['servicio_prestado_Id']);
+            return new EntidadReceptoraModel($row['Id'], $row['razon_social'], 
+                    $row['telefono'], $row['domicilio'], $row['latitud'], 
+                    $row['longitud'],
+                    $row['estado_entidad_Id'], 
+                    $row['necesidad_entidad_Id'], 
+                    $row['servicio_prestado_Id']);
         }; // deberia crear un builder, feo esto.
 
         $answer = $this->queryList($sql, $args, $mapper);
