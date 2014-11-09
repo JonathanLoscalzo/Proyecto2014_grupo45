@@ -29,6 +29,7 @@ class PedidoHasDetallesRepository extends PDORepository {
     public function add($obj) {
         $sql = "insert into alimento_pedido values(?,?,?)";
         $args = $obj->getArray();
+        array_pop($args); // quitamos el model;
         $mapper = function($row){
             return $row;
         };

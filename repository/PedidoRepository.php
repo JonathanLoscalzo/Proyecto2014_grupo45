@@ -26,23 +26,23 @@ class PedidoRepository extends PDORepository {
         return $answer[0]; // deberia devolver solo 1. 
     }
     public function add($obj) {
-        $sql = "INSERT INTO `pedido_modelo`(`entidad_receptora_id`,"
-                . " `fecha_ingreso`, `estado_pedido_id`, "
+        $sql = "INSERT INTO `pedido_modelo`(`entidad_receptora_id`,`estado_pedido_id`,"
                 . "`turno_entrega_id`, `con_envio`) "
-                . "VALUES (?, ?, ?, ?, ?)";
+                . "VALUES (?, ?, ?, ?)";
+        $sql2 = "select MAX(numero) as numero FROM pedido_modelo";
         $args = $obj->getArray();
+        unset($args[2], $args[0]);
         array_pop($args);
         array_pop($args);
         array_pop($args);
         array_pop($args);
-        // end model delete
-        array_shift($args);
-        // corremos el null
+        $args = array_values($args); // reindexamos array.
         $mapper = function($row){
-            return $row;
+            return $row["numero"];
         };
         
-        return $this->queryList($sql, $args, $mapper);
+        $this->queryList($sql, $args, $mapper);
+        return $this->queryList($sql2, [], $mapper)[0];
     }
     public function getAll() {
         $sql = "SELECT * FROM pedido_model";

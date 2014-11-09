@@ -21,21 +21,31 @@ class PedidosController extends Controller {
 
         return self::$instance;
     }
-    
-    
-    public function edit($id) {
-        
-    }
-    public function create($pedido) {
-        
-        // mucho por hacer aca....
-        $arr_pedido = $pedido->getParams();
+    public function create($params) {
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
-                $pedidoModelo = new PedidoModel(null, $arr_pedido['']);
-                PedidoRepository::getInstance()->add($pedido);
+                try {
+                    $obj = $params;
+                    
+                    $pedido = new PedidoModel(null, $obj['entidad'], null, 0, $obj['turno'], true);
+                    $id = PedidoRepository::getInstance()->add($pedido);
+                    foreach ($obj["detalle_alimento_id"] as $k => $v) {       
+                        $pedido_has_detalle = new PedidoHasDetallesModel($id, $v, $obj["cantidad"][$k]);     
+                        PedidoHasDetallesRepository::getInstance()->add($pedido_has_detalle);
+
+                    }  
+                    $_SESSION["message"] = new MessageService("createSuccess", [" pedido "]);
+                }
+                catch (Exception $e) {
+                    echo $e->getMessage();
+                    die();
+                }
+                
             }
         }
+    }
+    
+    public function edit($id) {
         
     }
     public function remove($id) {}

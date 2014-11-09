@@ -268,7 +268,18 @@ else {
             }
             break;
         case "ConfeccionPedidos":
-            PedidosController::getInstance()->index();
+            (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
+            switch ($acciones[2]) {
+                case "add":
+                    PedidosController::getInstance()->create(json_decode($_POST['dataEnvio'],true));
+                    break;
+                case "edit":
+                    break;
+                default:
+                    PedidosController::getInstance()->index();
+                    break;
+            }
+            
             break;
         default:
             HomeController::getInstance()->index();

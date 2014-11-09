@@ -6,6 +6,7 @@
     <link href="{{server}}css/bootstrap/css/bootstrap.css" rel="stylesheet">
     {{ parent() }}
     <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <script src="{{server}}js/plugins/jquery.serializejson.js"></script>
     <link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
     <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
@@ -18,7 +19,7 @@
 
             <div class="conj-block">
 
-                <form action="./{{server}}ConfeccionPedidos/add" method="POST">
+                <form id="dataForm" action="./{{server}}ConfeccionPedidos/add" method="POST">
                     <div id="error-widget" class="ui-widget" style="display:none" onclick="$(this).css('display', 'none');">
                         <div style="padding: 0 .7em;" class="ui-state-error ui-corner-all">
                             <p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span>
@@ -63,7 +64,7 @@
                 $.post("index.php", { data: "check_cantidad", id_detalle: detalle, cantidad: cantidad_requerida }, function(data, status) {
                     if (data === 0) {
                         alert("ERROR, demasiado producto seleccionado");
-                        $(elemento).val(0);
+                        $(elemento).val(1);
                         return false;
                     }
                     else {
@@ -80,8 +81,8 @@
                 $.post("index.php", { agregar_detalle: item }, function(data) { 
                     var elemento = '<div id=alimento_'+data["id"]+' >'+
                                     '<label for="cantidad" >'+data["alimento_codigo"]+' - '+data["contenido"]+'</label>'+
-                                    '<input type="text" name="detalle_alimento_id" style="display:none" value="'+data["id"]+'">'+
-                                    '<input type="number" min="0" id="cantidad" name="cantidad" onchange="checkAvailable(this, '+data["id"]+',$(this).val());" required'+
+                                    '<input type="text" name="detalle_alimento_id[]" style="display:none" value="'+data["id"]+'">'+
+                                    '<input type="number" min="1" id="cantidad" name="cantidad[]" onchange="checkAvailable(this, '+data["id"]+',$(this).val());" required'+
                                     
                                     '</div>';
                     $(".elem").append(elemento); // agregamos el alimento a la lista principal
@@ -123,23 +124,26 @@
                 }, "json");
                 });
  
-            $("form").submit(function (e) {
+            $("#dataForm").submit(function (e) {
                 e.preventDefault();
                 if ($(".elem").children().size() > 0) {
                     $.ajax({
                         type: 'POST',
                         url: location.href + '/add',
                         dataType: 'json',
-                        data: "datos="+JSON.stringify($("form").serializeJSON()),
-                        complete: function () {
+                        data: "dataEnvio="+JSON.stringify($("#dataForm").serializeJSON()),
+                        complete: function (data) {
+                            //alert(data);
                             window.location.reload(true);
                         }
                     });
+                    
                 }
                 else
                 {
                     $("#error-widget").css("display", "block");
                 }
+                return false;
             });
     });            
     </script>
