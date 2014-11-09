@@ -20,7 +20,9 @@ class EntidadReceptoraModel extends Model {
     protected $necesidad;
     protected $servicio;
 
-    public function __construct($id, $razonSocial, $telefono, $domicilio, $estadoEntidadID, $necesidadEntidadID, $servicioPrestadoID, $latitud=0, $longitud=0 ) {
+    public function __construct($id, $razonSocial, $telefono,
+            $domicilio, $latitud, $longitud, $estadoEntidadID,
+            $necesidadEntidadID, $servicioPrestadoID) {
         /*
          * Se podria agregar un getByID en cada uno en vez de crear una clase e insertarsela (inyeccion). 
          * No se cual es la mejor opción

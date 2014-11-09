@@ -30,12 +30,18 @@ class EntidadReceptoraRepository extends PDORepository {
     }
 
     public function add($entidadReceptora) {
-        $sql = "INSERT INTO entidad_receptora(razon_social, telefono, domicilio, estado_entidad_Id, necesidad_entidad_Id, servicio_prestado_Id) VALUES(?,?,?,?,?,?)";
+        $sql = "INSERT INTO entidad_receptora(razon_social, telefono, domicilio,"
+                . " latitud, longitud,"
+                . " estado_entidad_Id, "
+                . "necesidad_entidad_Id, "
+                . "servicio_prestado_Id) VALUES(?,?,?,?,?,?,?,?)";
         $args = $entidadReceptora->getArray();
         array_shift($args);
         array_pop($args);
         array_pop($args);
         array_pop($args);
+        var_dump($args);
+        die();
         $mapper = function($row) {
             return $row;
         };
@@ -46,7 +52,7 @@ class EntidadReceptoraRepository extends PDORepository {
     public function edit($entidadReceptora) {
 
         $sql = "UPDATE entidad_receptora
-                SET Id=?,razon_social=?,telefono=?,domicilio=?,estado_entidad_Id=?,necesidad_entidad_Id=?,servicio_prestado_Id=? 
+                SET Id=?,razon_social=?,telefono=?,domicilio=?,latitud=?,longitud=?,estado_entidad_Id=?,necesidad_entidad_Id=?,servicio_prestado_Id=? 
                 WHERE Id=?";
         $args = $entidadReceptora->getArray();
         array_pop($args);
@@ -82,7 +88,10 @@ class EntidadReceptoraRepository extends PDORepository {
             // esto significa que si traemos un EntidadReceptora TAMBIEN TRAEMOS sus models referenciados
             // ya que la relacion es 1 a 1 SUPUESTAMENTE es preferible manejar la informacion de a bloques
             // para las altas / bajas / modificaciones.
-            return new EntidadReceptoraModel($row['Id'], $row['razon_social'], $row['telefono'], $row['domicilio'], $row['estado_entidad_Id'], $row['necesidad_entidad_Id'], $row['servicio_prestado_Id']);
+        return new EntidadReceptoraModel($row['Id'], $row['razon_social'], $row['telefono'], 
+                $row['domicilio'], $row['latitud'], $row['longitud'], 
+                $row['estado_entidad_Id'], $row['necesidad_entidad_Id'], 
+                $row['servicio_prestado_Id']);
         }; // deberia crear un builder, feo esto.
 
         $answer = $this->queryList($sql, $args, $mapper);

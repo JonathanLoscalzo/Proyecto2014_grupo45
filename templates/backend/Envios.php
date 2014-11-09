@@ -83,9 +83,12 @@
         toProjection   = map.getProjectionObject(); // to Spherical Mercator Projection
         var lat = -34.910531;
         var lon = -57.950203;
-        zoom = 13;
-        position = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
-        map.setCenter(position, zoom);
+        $.get("index.php",{getHomePosition: true} function (data) {
+            zoom = 13;
+            position = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+            map.setCenter(position, zoom);
+        }, "json");
+        
         
         
         

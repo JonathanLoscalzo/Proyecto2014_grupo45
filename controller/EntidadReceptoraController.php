@@ -35,7 +35,7 @@ class EntidadReceptoraController extends Controller {
                 $entidadActual = EntidadReceptoraRepository::getInstance()->getByRazonSocial($entidadAgregadaID);
                 if (!$entidadActual) {
                     $entidad = new EntidadReceptoraModel(
-                            null, $data["razonSocial"], $data["telefono"], $data["domicilio"], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioEntidadID"]);
+                            null, $data["razonSocial"], $data["telefono"], $data["domicilio"], $data['lat'], $data['long'], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioEntidadID"]);
                     EntidadReceptoraRepository::getInstance()->add($entidad);
                     $_SESSION["message"] = new MessageService("createSuccess", ["entidad con razón social " . $data['razonSocial']]);
                 }
@@ -58,7 +58,7 @@ class EntidadReceptoraController extends Controller {
                 // CODE REFACTORIZADO, se puede transladar a otros casos.
                 if ((!$entidadActual) || ($entidadActual->getId() === $entidadModificadaID)) {
                     $entidad = new EntidadReceptoraModel(
-                            $data["id"], $data["razonSocial"], $data["telefono"], $data["domicilio"], $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioPrestadoID"]);
+                            $data["id"], $data["razonSocial"], $data["telefono"], $data["domicilio"], 0, 0, $data["estadoEntidadID"], $data["necesidadEntidadID"], $data["servicioPrestadoID"]);
                 
                     EntidadReceptoraRepository::getInstance()->edit($entidad);
                     $_SESSION["message"] = new MessageService("modificationSuccess", ["entidad con razón social " . $data['razonSocial']]);
