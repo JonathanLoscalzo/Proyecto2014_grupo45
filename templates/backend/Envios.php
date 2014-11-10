@@ -167,7 +167,7 @@
             var lineString = new OpenLayers.Geometry.LineString(array_coordenadas);
             var lineVector = new OpenLayers.Feature.Vector(lineString, null, route_style);
             route.addFeatures([lineVector]);
-            //map.addControl(new OpenLayers.Control.LayerSwitcher({}));
+            map.addControl(new OpenLayers.Control.LayerSwitcher({}));
         };
         
         
