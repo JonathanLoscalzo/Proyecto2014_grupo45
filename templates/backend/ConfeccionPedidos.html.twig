@@ -82,7 +82,7 @@
                     var elemento = '<div class="well well-lg" id=alimento_'+data["id"]+' >'+
                                     '<label for="cantidad" >'+data["alimento_codigo"]+' - '+data["contenido"]+'</label>'+
                                     '<input type="text"  name="detalle_alimento_id[]" style="display:none" value="'+data["id"]+'">'+
-                                    '<input type="number" placeholder="Cantidad de unidades" class="form-control" min="1" id="cantidad" name="cantidad[]" onchange="checkAvailable(this, '+data["id"]+',$(this).val());" required'+
+                                    '<input type="number" class="form-control" min=1 id="cantidad" value=1  name="cantidad[]" onchange="checkAvailable(this, '+data["id"]+',$(this).val());" placeholder="Cantidad de unidades" required'+
                                     
                                     '</div>';
                     $(".elem").append(elemento); // agregamos el alimento a la lista principal
