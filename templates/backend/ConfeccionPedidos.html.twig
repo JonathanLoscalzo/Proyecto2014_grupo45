@@ -3,8 +3,9 @@
 {% extends "backend_layout.php" %}
 {% block head %}
     
-    <link href="{{server}}css/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="{{server}}css/bootstrap/css/bootstrap.css" rel="stylesheet">
     {{ parent() }}
+
     <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
     <script src="{{server}}js/plugins/jquery.serializejson.js"></script>
     <link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
@@ -14,8 +15,6 @@
 
 {% block content %}
     <div id="content">
-
-        <div class="container">
 
             <div class="conj-block">
 
@@ -35,10 +34,14 @@
                             {% endfor %}
                         </select>
                         <span style="float:left;"><img id="mas" src="{{server}}images/icons/glyphicons_190_circle_plus.png"></span>
-                        <div class ="elem">
+                        
+                        
+                    </div>
+                        <div class ="elem" style="width: 30%">
 
                         </div>
-                        <div>
+                    <div class="conj-block" style="display: block; width:30%">
+                        <div style="margin-top:100px">
                             <label for="turno" style = "display : block">Turnos disponibles: </label>
                              <select id="turno" required name="turno">
                             <option selected disabled hidden value=''></option>
@@ -47,14 +50,11 @@
                             {% endfor %}
                         </select>
                         </div>
-                    </div>
-                    <div class="conj-block" style="display: block;">
                         <button type="submit" style="float:left;" name="submit"> Enviar </button>
                         
                     </div>
                 </form>
             </div>
-        </div>
     </div>
 {% endblock %}
 
@@ -79,10 +79,10 @@
         
         function agregar(item) {
                 $.post("index.php", { agregar_detalle: item }, function(data) { 
-                    var elemento = '<div id=alimento_'+data["id"]+' >'+
+                    var elemento = '<div class="well well-lg" id=alimento_'+data["id"]+' >'+
                                     '<label for="cantidad" >'+data["alimento_codigo"]+' - '+data["contenido"]+'</label>'+
-                                    '<input type="text" name="detalle_alimento_id[]" style="display:none" value="'+data["id"]+'">'+
-                                    '<input type="number" min="1" id="cantidad" name="cantidad[]" onchange="checkAvailable(this, '+data["id"]+',$(this).val());" required'+
+                                    '<input type="text"  name="detalle_alimento_id[]" style="display:none" value="'+data["id"]+'">'+
+                                    '<input type="number" placeholder="Cantidad de unidades" class="form-control" min="1" id="cantidad" name="cantidad[]" onchange="checkAvailable(this, '+data["id"]+',$(this).val());" required'+
                                     
                                     '</div>';
                     $(".elem").append(elemento); // agregamos el alimento a la lista principal
@@ -109,16 +109,18 @@
             $("#mas").click(function () {
                 $.post('index.php', { data: "pedido_alimentos" }, function(data) {
                     for (i=0; i<data.length; i++) {
-                        var table_entry = '<tr id=lista_'+data[i]["id"]+'>'+
-                            '<td>'+data[i]["alimento_codigo"]+'</td>'+
-                            '<td>'+data[i]["fecha_vencimiento"]+'</td>'+
-                            '<td>'+data[i]["contenido"]+'</td>'+
-                            '<td>'+data[i]["peso_unitario"]+'</td>'+
-                            '<td id="stock">'+data[i]['stock']+'</td>'+
-                            '<td id="reservado">'+data[i]["reservado"]+'</td>'+
-                            '<td onclick="agregar('+data[i]["id"]+');"><img src="images/icons/glyphicons_209_cart_in.png" ></td>'+
-                        '</tr>';
-                        $("#tabla-paquetes tbody").append(table_entry);
+                        if (data[i]['stock'] > data[i]["reservado"]) {
+                            var table_entry = '<tr id=lista_'+data[i]["id"]+'>'+
+                                '<td>'+data[i]["alimento_codigo"]+'</td>'+
+                                '<td>'+data[i]["fecha_vencimiento"]+'</td>'+
+                                '<td>'+data[i]["contenido"]+'</td>'+
+                                '<td>'+data[i]["peso_unitario"]+'</td>'+
+                                '<td id="stock">'+data[i]['stock']+'</td>'+
+                                '<td id="reservado">'+data[i]["reservado"]+'</td>'+
+                                '<td onclick="agregar('+data[i]["id"]+');"><img src="images/icons/glyphicons_209_cart_in.png" ></td>'+
+                            '</tr>';
+                            $("#tabla-paquetes tbody").append(table_entry);
+                        }
                     }
                     $dialog.dialog("open");
                 }, "json");

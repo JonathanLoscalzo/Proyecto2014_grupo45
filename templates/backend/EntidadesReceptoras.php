@@ -121,8 +121,8 @@ $(document).ready(function () {
 
        // If you are using OpenStreetMap (etc) tiles and want to convert back 
        // to gps coords add the following line :-
-       lonlat.transform( map.projection,map.displayProjection);
-       
+       toProjection = new OpenLayers.Projection("EPSG:4326");
+       lonlat.transform( map.getProjectionObject(), toProjection); // map.displayProjection
        var Longitude = lonlat.lon;
        var Latitude  = lonlat.lat;
        

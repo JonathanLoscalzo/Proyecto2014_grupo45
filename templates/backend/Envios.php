@@ -51,7 +51,6 @@
 {% block scripts %}
 <script src="{{server}}js/plugins/OpenLayers.js"></script>
 <script type="text/javascript">
-        var zoom = 13;
         routeParams = "";
         function mapInit() {
             var map = new OpenLayers.Map({
@@ -78,11 +77,6 @@
         map.addLayer(route);
         fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
         toProjection   = map.getProjectionObject(); // to Spherical Mercator Projection
-        $.get("index.php",{getHomePosition: true}, function (data) {
-            zoom = 13;
-            position = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
-            map.setCenter(position, zoom);
-        }, "json");
         
         
         
@@ -96,7 +90,6 @@
              this.dire=new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
              return this;
         }
-        home_base = new EntidadReceptora('Banco', -34.910531, -57.950203);
           
           
           
@@ -107,7 +100,7 @@
         tabla = $("#tabla-pedidos").DataTable({
            "fnCreatedRow": function( nRow, aData, iDataIndex ) { // CALLBACK cuando se crea row
                 $(button_row, nRow).append("<button>Ver Detalle</button>"); // trigger que se activa
-                $(checkbox_row, nRow).append('<input type="checkbox" id="someCheckbox" name="someCheckbox" />');
+                $(checkbox_row, nRow).append('<input class="checkbox" type="checkbox" name="checkbox" />');
                  // cuando se genera una nueva linea en la tabla, deberia agregar el boton de Ver Detalle
            }
         });
@@ -115,37 +108,46 @@
         function refreshTabla(tabla, data) {
                 
                 tabla.clear();
-                tabla.rows.add(data);
+                for (i=0;i<data.length; i++) { 
+                    tabla.row.add(data[i]);
+                }
                 tabla.draw();
      
             
         }
-        function refreshMap(banco, entidades) {
-                 zoom = 13;
-                 position = new OpenLayers.LonLat(banco.lon, banco.lat).transform( fromProjection, toProjection);
-                 map.setCenter(position, zoom);
-                 function crearMarcador(entidad) {
+        function crearMarcador(entidad) {
                       var icono = new OpenLayers.Icon("/images/icons/pin.png");
                       icono.size.w *=2;
                       icono.size.h *=2;
                       icono.title = entidad.nombre;
-                      var lugar=  entidad.dire;
+                      var lugar=  new OpenLayers.LonLat(entidad.lon, entidad.lat).transform( fromProjection, toProjection);
                       var marcador = new OpenLayers.Marker(lugar, icono);
                       return marcador;
                    }
-
+                   
+                   
+        function refreshMap(banco, entidades) {
+                
+        
+                zoom = 13;
+                position = new OpenLayers.LonLat(banco.long, banco.lat).transform( fromProjection, toProjection);
+                map.setCenter(position, zoom);
+                 
+                
                 var markers = new OpenLayers.Layer.Markers( "Marcadores" );
+                
+                
                 map.addLayer(markers);
-                markers.addMarker(crearMarcador(home_base));
+                
+                markers.addMarker(crearMarcador(new EntidadReceptora(banco.nombre, banco.lat, banco.long)));
                 routeParams += "loc="+banco.lat+","+banco.long+"&"; // HOME ADDRESS
                 for(var i = 0; i <entidades.length; i++) {
-                                    console.log(entidades[i]);
                                     markers.addMarker(crearMarcador(entidades[i]));
                                     routeParams += "loc="+entidades[i].lat+","+entidades[i].lon+"&";
 
-                 }
-                 var bounds = markers.getDataExtent();
-                 map.zoomToExtent(bounds);
+                }
+                var bounds = markers.getDataExtent();
+                map.zoomToExtent(bounds);
          }
          
          
@@ -174,20 +176,26 @@
         
         $('#day-input').datepicker();
         
-        $("#refresh-date").on("blur", function () {
+        $("#refresh-date").on("click", function () {
             $.post('index.php',{ date: $('#day-input').val() }, function(data, status, xhr) {
                 console.log(data);
                 zoom = 13;
+                window.pedidos_index = data.pedidos;
                 position = new OpenLayers.LonLat(data.banco.long, data.banco.lat).transform( fromProjection, toProjection);
                 map.setCenter(position, zoom);
+                
                 var tablaData = [];
                 var entidades = [];
+                var dataArray = [];
+                
                 for (i=0; i<data.pedidos.length; i++) {
+                    
+                    
                     tablaData.push( {
-                    entidad_receptora: data.pedidos[i].entidad_receptora_model.razonSocial,
+                    razonSocial: data.pedidos[i].entidad_receptora_model.razonSocial,
                     fecha_entrega: data.pedidos[i].turno_entrega_model.fecha,
-                    domicilio: data.pedidos[i].entidad_receptora_model.domicilio,
                     telefono: data.pedidos[i].entidad_receptora_model.telefono,
+                    domicilio: data.pedidos[i].entidad_receptora_model.domicilio,
                     button: "",
                     ckeckbox: ""});
                 
@@ -195,14 +203,11 @@
                     entidades.push(new EntidadReceptora(data.pedidos[i].entidad_receptora_model.razonSocial,
                     data.pedidos[i].entidad_receptora_model.latitud, 
                     data.pedidos[i].entidad_receptora_model.longitud));
-                    
+                    dataArray.push($.map(tablaData[i], function(value, index) {
+                        return [value];
+                    }));
                     
                 };
-                
-                var dataArray = $.map(tablaData, function(value, index) {
-                    return [value];
-                });
-                console.log(dataArray);
                 refreshTabla(tabla, dataArray);
                 
                 
@@ -220,13 +225,28 @@
             });
         });
         
-        
-
-
-
-        
-
-
+        $("#confirmar_envios").on("click", function () {
+            if ($("#tabla-pedidos").children('td').eq(5).is(':checked')) {
+                var pedido_id = $("#tabla-pedidos").children('td').attr("id");
+            };
+            var id_array = [];
+            $('#tabla-pedidos tr').each(function (i, row) {
+                if ($(row).find('input:checked').length > 0) {
+                    id_array.push($(row).index());
+                }
+            });
+            enviados_array = [];
+            for (i=0; i<id_array.length; i++) {  // obtenemos los pedidos seleccionados
+                // con el checkbox en la dataTable y los insertamos en un array //
+                enviados_array.push(window.pedidos_index[i].numero);
+            }
+            $.post("index.php", {sendEnvios: JSON.stringify(enviados_array)}, function(data) {
+                alert("Se han despachado los pedidos correctamente");
+                window.location.reload(true);
+            });
+         
+            
+        });
             
     });
 </script>

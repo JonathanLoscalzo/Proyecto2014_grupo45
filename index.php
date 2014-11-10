@@ -65,6 +65,10 @@ elseif (isset($_POST['agregar_detalle'])) {
 elseif (isset($_POST['datosForm'])) {
     PedidosController::getInstance()->create(new Params($_POST['datosForm']));
 }
+elseif (isset($_POST['sendEnvios'])) {
+        
+    EnviosController::getInstance()->AJAX_enviarPedidos(json_decode($_POST['sendEnvios']));
+}
 else {
 
     switch ($acciones[1]) {

@@ -46,5 +46,17 @@ class EnviosController extends Controller {
                     }
                 }
         }
+        
+        
+    public function AJAX_enviarPedidos($id_array) {
+ 
+        if (parent::backendIsLogged()) {
+               if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                   for ($i=0; $i<count($id_array); $i++) {
+                       PedidoRepository::getInstance()->setEstado($id_array[$i]);
+                   }
+               }      
+        }
+    }
 }
 ?>

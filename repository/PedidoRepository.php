@@ -105,5 +105,15 @@ class PedidoRepository extends PDORepository {
         return $answer;
         
     }
+    
+    public function setEstado($id) {
+        $sql = "UPDATE pedido_modelo SET estado_pedido_id=1 WHERE numero=?";
+        $args = [$id];
+        $mapper = function ($row) {
+            return $row;
+        };
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
+    }
 
 }
