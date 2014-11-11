@@ -18,30 +18,39 @@
             return map;
         }
         
-        function refreshMap(entidades) {
+        function crearMarcador(entidad) {
+              var icono = new OpenLayers.Icon("/images/icons/pin.png");
+              icono.size.w *=2;
+              icono.size.h *=2;
+              icono.title = entidad.nombre;
+              var lugar=  new OpenLayers.LonLat(entidad.lon, entidad.lat).transform( fromProjection, toProjection);
+              var marcador = new OpenLayers.Marker(lugar, icono);
+              return marcador;
+           }
+                   
+        
+        function refreshMap(banco, entidades) {
                 
-                 function crearMarcador(entidad) {
-                      var icono = new OpenLayers.Icon("/images/icons/pin.png");
-                      icono.size.w *=2;
-                      icono.size.h *=2;
-                      icono.title = entidad.nombre;
-                      var lugar=  entidad.dire;
-                      var marcador = new OpenLayers.Marker(lugar, icono);
-                      return marcador;
-                   }
-
+        
+                zoom = 13;
+                position = new OpenLayers.LonLat(banco.long, banco.lat).transform( fromProjection, toProjection);
+                map.setCenter(position, zoom);
+                 
+                
                 var markers = new OpenLayers.Layer.Markers( "Marcadores" );
+                
+                
                 map.addLayer(markers);
-                markers.addMarker(crearMarcador(home_base));
-                routeParams += "loc="+home_base.lat+","+home_base.lon+"&"; // HOME ADDRESS
+                
+                markers.addMarker(crearMarcador(new EntidadReceptora(banco.nombre, banco.lat, banco.long)));
+                routeParams += "loc="+banco.lat+","+banco.long+"&"; // HOME ADDRESS
                 for(var i = 0; i <entidades.length; i++) {
-                                    console.log(entidades[i]);
                                     markers.addMarker(crearMarcador(entidades[i]));
                                     routeParams += "loc="+entidades[i].lat+","+entidades[i].lon+"&";
 
-                 }
-                 var bounds = markers.getDataExtent();
-                 map.zoomToExtent(bounds);
+                }
+                var bounds = markers.getDataExtent();
+                map.zoomToExtent(bounds);
          }
          
         function parseRoute(waypoints) {
@@ -60,5 +69,5 @@
             var lineString = new OpenLayers.Geometry.LineString(array_coordenadas);
             var lineVector = new OpenLayers.Feature.Vector(lineString, null, route_style);
             route.addFeatures([lineVector]);
-            //map.addControl(new OpenLayers.Control.LayerSwitcher({}));
+            map.addControl(new OpenLayers.Control.LayerSwitcher({}));
         };
