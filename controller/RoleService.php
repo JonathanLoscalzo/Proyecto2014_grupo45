@@ -106,7 +106,9 @@ class RoleService {
                 "PedidosController:AJAX_agregarAlimento",
                 "EnviosController:AJAX_enviarPedidos",
                 "PedidosController:create",
-                "EstadisticasController:alertas"
+                "EstadisticasController:alertas",
+                "ConfiguracionController:index",
+                "ConfiguracionController:edit"
             ],
             2 => [
                 "EntregaDirectaController:index",
