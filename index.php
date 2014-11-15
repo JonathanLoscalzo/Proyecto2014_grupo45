@@ -48,32 +48,29 @@ require_once 'controller/EstadisticasController.php';
 $acciones = split("/", $_SERVER['REQUEST_URI']);
 
 if (isset($_POST['date'])) {
-    
+
     EnviosController::getInstance()->editView(new Params($_POST));
-}
-elseif (isset($_POST['data'])) { 
+} elseif (isset($_POST['data'])) {
     if ($_POST['data'] === "check_cantidad") {
         PedidosController::getInstance()->AJAX_checkQty($_POST['id_detalle'], $_POST['cantidad']);
-    }
-    else {
+    } else {
         PedidosController::getInstance()->AJAX_getAlimentos();
     }
-} 
-elseif (isset($_POST['agregar_detalle'])) {
+} elseif (isset($_POST['agregar_detalle'])) {
     PedidosController::getInstance()->AJAX_agregarAlimento($_POST['agregar_detalle']);
-}
-elseif (isset($_POST['datosForm'])) {
+} elseif (isset($_POST['datosForm'])) {
     PedidosController::getInstance()->create(new Params($_POST['datosForm']));
-}
-elseif (isset($_POST['sendEnvios'])) {
-        
+} elseif (isset($_POST['sendEnvios'])) {
+
     EnviosController::getInstance()->AJAX_enviarPedidos(json_decode($_POST['sendEnvios']));
-}
-else {
+} else {
 
     switch ($acciones[1]) {
         case "index":
             HomeController::getInstance()->index();
+            break;
+        case "alertas":
+            EstadisticasController::getInstance()->alertas();
             break;
         case "login":
             HomeController::getInstance()->login();
@@ -275,7 +272,7 @@ else {
             (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
             switch ($acciones[2]) {
                 case "add":
-                    PedidosController::getInstance()->create(json_decode($_POST['dataEnvio'],true));
+                    PedidosController::getInstance()->create(json_decode($_POST['dataEnvio'], true));
                     break;
                 case "edit":
                     break;
@@ -283,7 +280,6 @@ else {
                     PedidosController::getInstance()->index();
                     break;
             }
-            
             break;
         default:
             HomeController::getInstance()->index();
