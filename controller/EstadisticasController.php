@@ -48,6 +48,17 @@ class EstadisticasController extends Controller {
 
         echo json_encode($data);  
     }
+    
+    public function alertas() {
+        if (parent::backendIsLogged()) {
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $view = new BackEndView();
+                $pedidos = null;
+                $detalles = DetalleRepository::getInstance()->getAllVencimientoCercano();
+                $view->alertas($pedidos, $detalles);
+            }
+        }
+    }
 
     public function index() {
         $view = new BackEndView();

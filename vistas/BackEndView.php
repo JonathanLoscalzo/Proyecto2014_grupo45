@@ -15,6 +15,10 @@ class BackEndView extends TwigView {
         echo self::getTwig()->render('index-backend.php');
     }
 
+    public function alertas($pedidos, $detalles) {
+        echo self::getTwig()->render('Alertas.html.twig', ["pedidos"=>$pedidos, "detalles"=>$detalles]);
+    }
+
     public function listado_alimentos($lista) {
         echo self::getTwig()->render('ListadoAlimentos.php', array('detalles' => $lista));
     }
@@ -46,6 +50,7 @@ class BackEndView extends TwigView {
     public function turnos($turnos) {
         echo self::getTwig()->render('turnosEntrega.html.twig', array('turnos' => $turnos));
     }
+
     public function estadisticas() {
         echo self::getTwig()->render('Estadisticas.html.twig');
     }
@@ -85,8 +90,9 @@ class BackEndView extends TwigView {
     public function Envios() {
         echo self::getTwig()->render('Envios.php');
     }
+
     public function Pedidos($entidades, $turnos) {
-        echo self::getTwig()->render("ConfeccionPedidos.html.twig", array (
+        echo self::getTwig()->render("ConfeccionPedidos.html.twig", array(
             'entidades' => $entidades,
             'turnos' => $turnos
         ));

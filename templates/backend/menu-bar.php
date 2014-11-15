@@ -21,6 +21,7 @@
         {% endif %}
         <li><a href="./{{ server }}Estadisticas">Estadisticas</a></li>
         <li><a href="./{{ server }}index">FRONTEND</a></li>
+        <li><a href="./{{ server }}alertas">Alertas</a></li>
 
     </ul>
 </nav>

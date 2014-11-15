@@ -1,4 +1,5 @@
-<?php    
+<?php
+
 include_once('Controller.php');
 include_once("repository/PDOrepository.php");
 include_once("controller/RoleService.php");
@@ -13,23 +14,29 @@ class EnviosController extends Controller {
     protected function redirect() {
         parent::redirect("envios");
     }
+
     public function edit($id) {
         
     }
+
     public function create($entidad) {
         
     }
-    public function remove($id) {}
+
+    public function remove($id) {
+        
+    }
+
     public function editView($id) {
         $date = $id->getParams()['date']; // la fecha en la cual se deben procesar los envios
         $banco = BancoRepository::getInstance()->getAll()[0];
-        $format_date = date("Y-m-d", strtotime($date) );
+        $format_date = date("Y-m-d", strtotime($date));
         $pedidos = PedidoRepository::getInstance()->getPedidosByDateSinEnviar($format_date);
         $data['banco'] = $banco;
         $data['pedidos'] = $pedidos;
         echo json_encode($data);
-        die();
-    } 
+    }
+
     public static function getInstance() {
 
         if (is_null(self::$instance)) {
@@ -38,25 +45,25 @@ class EnviosController extends Controller {
 
         return self::$instance;
     }
+
     public function index() {
         if (parent::backendIsLogged()) {
-               if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
-                        $view = new BackEndView();
-                        $view->Envios();
-                    }
-                }
-        }
-        
-        
-    public function AJAX_enviarPedidos($id_array) {
- 
-        if (parent::backendIsLogged()) {
-               if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
-                   for ($i=0; $i<count($id_array); $i++) {
-                       PedidoRepository::getInstance()->setEstado($id_array[$i]);
-                   }
-               }      
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                $view = new BackEndView();
+                $view->Envios();
+            }
         }
     }
+
+    public function AJAX_enviarPedidos($id_array) {
+
+        if (parent::backendIsLogged()) {
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                for ($i = 0; $i < count($id_array); $i++) {
+                    PedidoRepository::getInstance()->setEstado($id_array[$i]);
+                }
+            }
+        }
+    }
+
 }
-?>
