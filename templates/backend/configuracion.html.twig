@@ -1,0 +1,120 @@
+
+{% extends "backend_layout.php" %}
+{% block head %}
+    
+    <link href="{{server}}css/bootstrap/css/bootstrap.css" rel="stylesheet">
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+    <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="ui-widget">
+    <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"> 
+        <p>
+            <span class="ui-icon ui-icon-alert" 
+                style="float: left; margin-right: .3em;"></span>
+            <strong>Alert:</strong> Geolocation no disponible.
+        </p>
+    </div>
+</div>    
+    
+    
+<div id="content">
+    
+    <div class="conj-block">
+         <form id="send-form" action="./{{server}}configuracion/edit" method="POST">
+             <h2>Editar datos del Banco</h2>
+                <div class="conj-block">
+                    <input type="hidden" value="{{banco.id}}" name="id">
+                    <label for="nombre" style = "display : block">Nombre del banco</label><input placeholder="Asociacion de Alimentos" value="{{banco.nombre}}" id="nombre" name="nombre" type="text" required>
+                    <label for="ubicacion" style = "display : block">Domicilio: </label><input id="ubicacion" value="{{banco.ubicacion}}" placeholder="Ej: 9 de Julio numero 555" type="text" name="ubicacion">
+                    <button id="location-banco-btn" type="button" style="display: block; margin: 10px ">Ubicar en mapa</button>
+                    <input type="hidden" name="lat" id="form-lat" required value="{{banco.lat}}">
+                    <input type="hidden" name="long" id="form-long" required value="{{banco.long}}">
+                </div>
+             <h2> Configuracion del sistema </h2>
+             <div class="conj-block">
+                 <label for="dias-vencimiento" style="display: block;">Margen de Vencimiento</label><input id="dias-vencimiento" name="dias-vencimiento" value="{{configuracion.dias_vencimiento}}">
+             </div>
+                <button type="submit" name="submit" id="btn-submit"> Enviar </button>
+         </form>
+    </div>  
+    
+</div>
+    
+{% endblock %}
+
+{% block scripts %}
+<script src="{{server}}js/plugins/OpenLayers.js"></script>
+<script type="text/javascript" src="{{server}}js/scripts/mapHandler.js"></script>
+<script>
+$(".ui-widget").hide();
+
+$(document).ready(function () {
+    function handleMapClick(e)
+    {
+
+       var lonlat = map.getLonLatFromViewPortPx(e.xy);
+       // use lonlat
+
+       // If you are using OpenStreetMap (etc) tiles and want to convert back 
+       // to gps coords add the following line :-
+       toProjection = new OpenLayers.Projection("EPSG:4326");
+       lonlat.transform( map.getProjectionObject(), toProjection); // map.displayProjection
+       var Longitude = lonlat.lon;
+       var Latitude  = lonlat.lat;
+       
+       $("#lat").val(Latitude);
+       $("#long").val(Longitude);
+       $("#form-lat").val(Latitude);
+       $("#form-long").val(Longitude);
+    } 
+    var $dialog = $("<div></div>")
+			.load("templates/backend/map_display.html")
+			.dialog({ autoOpen: false,
+                                    show: {
+                                        effect: "blind",
+                                        duration: 1000
+                                    },
+                                    hide: {
+                                        effect: "explode",
+                                        duration: 1000
+                                    },            
+                                    height: 500,
+                                    width: 700
+			});
+    function displayMap(position) {
+        
+        $dialog.dialog("open");
+        map = mapInit();
+        fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+        toProjection   = map.getProjectionObject(); // to Spherical Mercator Projection
+        zoom = 13;
+        position = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude).transform( fromProjection, toProjection);
+        map.setCenter(position, zoom);
+        map.events.register('click', map, handleMapClick);
+        
+    }
+    
+
+
+    // select dir modal to get lat/long.
+    $("#location-banco-btn").click(function () {
+         if (navigator.geolocation) {
+             $("#lat").val($("#form-lat").val());
+             $("#long").val($("#form-long").val());
+             navigator.geolocation.getCurrentPosition(displayMap);
+         }
+         else {
+             $(".ui-widget").show();
+             
+         }
+    });
+    //$('#tabla-entidades').dataTable();
+
+});
+</script>
+{% endblock %}

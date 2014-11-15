@@ -56,7 +56,17 @@ class BancoRepository extends PDORepository {
         return $answer;    
     }
     public function edit($obj) {
-        
+        $sql = "UPDATE `banco` SET `nombre`=?,"
+                . "`ubicacion`=?,`lat`=?,"
+                . "`long`=? WHERE id=?";
+        $args = $obj->getArray();
+        array_push($args, $args[0]);
+        array_shift($args);
+        $mapper = function($row) {
+            return $row;
+        };
+        $answer = $this->queryList($sql, $args, $mapper);
+        return $answer;
     }
     public function remove($id) {
         
