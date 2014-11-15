@@ -170,11 +170,6 @@ $(document).ready(function () {
              $(".ui-widget").show();
          }
     });
-    function update() {
-        alert('hola');
-    }
-    //$('#tabla-entidades').dataTable();
-
 });
 </script>
 {% endblock %}

@@ -91,5 +91,11 @@ class BackEndView extends TwigView {
             'turnos' => $turnos
         ));
     }
+    public function configuracion($banco, $configuracion) {
+        echo self::getTwig()->render("configuracion.html.twig", array(
+            'banco' => $banco,
+            'configuracion' => $configuracion
+        ));
+    }
 
 }

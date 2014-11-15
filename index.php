@@ -7,10 +7,13 @@
 /* Esto es el manejador de la URL, o Front-controller, o nose como se llama */
 
 require_once('controller/HomeController.php');
+require_once('repository/BancoRepository.php');
+require_once("repository/ConfiguracionRepository.php");
 require_once('controller/LoginController.php');
 require_once('controller/AlimentoController.php');
 require_once('controller/EntidadReceptoraController.php');
 require_once('controller/DonanteController.php');
+require_once("controller/ConfiguracionController.php");
 require_once('controller/EnviosController.php');
 require_once('controller/PedidosController.php');
 require_once('vistas/TwigView.php');
@@ -100,6 +103,18 @@ else {
             break;
         case 'logout':
             LoginController::getInstance()->logout();
+            break;
+        case 'configuracion':
+            (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo
+            switch ($acciones[2]) {
+                case "edit":
+                    ConfiguracionController::getInstance()->edit(new Params($_POST));
+                default:
+                    ConfiguracionController::getInstance()->index();
+                    break;
+               
+            }
+            
             break;
         case 'backend':
             LoginController::getInstance()->backend();
