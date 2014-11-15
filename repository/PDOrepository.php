@@ -46,7 +46,6 @@ abstract class PDORepository {
             return $list;
         } catch (PDOException $e) {
             echo "ERROR ", $e->getMessage();
-            die;
         }
     }
     
