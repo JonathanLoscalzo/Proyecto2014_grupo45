@@ -53,7 +53,7 @@ class EstadisticasController extends Controller {
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $view = new BackEndView();
-                $pedidos = null;
+                $pedidos = PedidoRepository::getInstance()->getPedidosByDate(Date('Y-m-d'));
                 $detalles = DetalleRepository::getInstance()->getAllVencimientoCercano();
                 $view->alertas($pedidos, $detalles);
             }
