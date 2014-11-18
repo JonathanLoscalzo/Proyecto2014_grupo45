@@ -1,13 +1,13 @@
 {% extends "backend_layout.php" %}
 {% block head %}
+    <link href="{{server}}css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    {{ parent() }}
     <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
     <link href="{{server}}js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
     <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
-    <link href="{{server}}css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="{{server}}css/bootstrap/js/bootstrap.min.js"></script>
-    {{ parent() }}
-
+    <link href="{{server}}css/dataTables.bootstrap.css" rel="stylesheet">
 
 {% endblock %}
 
@@ -27,7 +27,7 @@
                 <div id="container-1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
             </div>
             <div class="col-md-6">
-                <table class = "tabla-class">
+                <table id = "t1" class = "table table-striped">
                     <thead>
                         <tr>
                             <th> Fecha </th>
@@ -38,6 +38,7 @@
                 </table>
             </div>
         </div>
+
         <div class="row">
             <h3 >Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (gráfico de torta)</h3>
             <div class="col-md-6">
@@ -51,23 +52,23 @@
                 <div id="container-2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
             </div>
             <div class="col-md-6">
-                <table  class="tabla-class">
-                    <thead></thead>
-                    <tbody id="tabla-2" ></tbody>
+                <table  id="t2" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Entidad</th>
+                            <th>kg</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-2"></tbody>
                 </table>
             </div>
         </div>
+
         <div class="row">
             <h3>Alimentos vencidos sin entregar (agrupados por descripción)</h3>
-            <div class="col-md-6">
-                <form id="form-3"  class="form-inline" role="form"> 
-
-                    <button id="button-2"> consultar </button>
-                </form>
-                <div id="container-3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
-            </div>
-            <div class="col-md-6">
-                <table class = "tabla-class">
+            <br><br>
+            <div class="col-md-12">
+                <table class = "table table-bordered">
                     <thead>
                         <tr>
                             <th> Fecha </th>
@@ -87,6 +88,7 @@
     <script type="text/javascript" src="{{server}}js/plugins/Highcharts-4.0.4/js/modules/exporting.js"></script>
     <script>
         $(document).ready(function () {
+
             $("#from").datepicker({
                 defaultDate: "+1w",
                 onClose: function (selectedDate) {
@@ -127,11 +129,18 @@
                     dataType: 'json',
                     data: $("#form-2").serialize(),
                     success: function (aData) {
+
+                        $("#t2").DataTable().destroy();
+
+                        $("#t2").dataTable({
+                            data: aData,
+                            "info":false
+                        });
                         $.map(aData, function (elem) {
                             elem[1] = parseInt(elem[1]);
                         });
                         $("#container-2").highcharts().series[0].update({data: aData});
-                        $("#tabla-2").html(aData);
+
                     }
                 });
             });
@@ -143,7 +152,14 @@
                     dataType: "json",
                     data: $("#form-1").serialize(),
                     success: function (aData) {
-                        $("#tabla-1").html(aData);
+
+                        $("#t1").DataTable().destroy();
+
+                        $("#t1").dataTable({
+                            data: aData,
+                            "info":false
+                        });
+
                         $.map(aData, function (elem) {
 
                             elem[0] = parseToUTC(elem[0]);
