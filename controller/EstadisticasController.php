@@ -45,7 +45,7 @@ class EstadisticasController extends Controller {
     }
 
     public function tres() {
-
+        $data = EstadisticasRepository::getInstance()->alimentos_vencidos_agrupados_descripcion();
         echo json_encode($data);  
     }
     
