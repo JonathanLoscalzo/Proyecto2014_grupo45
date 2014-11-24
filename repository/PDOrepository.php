@@ -18,7 +18,7 @@ abstract class PDORepository {
         try {
             $connection = new PDO("mysql:dbname=$db;host=$host", $u, $p);
         } catch (PDOException $e) {
-            echo "problema ", $e->getMessage(); // nose que hacer.
+            $_SESSION['message'] = $e->getMessage(); // nose que hacer.
         }
         return $connection;
     }
