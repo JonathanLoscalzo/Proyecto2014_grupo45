@@ -167,14 +167,19 @@
                 }
             });
             enviados_array = [];
-            for (i=0; i<id_array.length; i++) {  // obtenemos los pedidos seleccionados
+            if (id_array.length > 0) {
+                for (i=0; i<id_array.length; i++) {  // obtenemos los pedidos seleccionados
                 // con el checkbox en la dataTable y los insertamos en un array //
-                enviados_array.push(window.pedidos_index[i].numero);
+                    enviados_array.push(window.pedidos_index[i].numero);
+                }
+                $.post("index.php", {sendEnvios: JSON.stringify(enviados_array)}, function(data) {
+                    alert("Se han despachado los pedidos correctamente");
+                    window.location.reload(true);
+                });
             }
-            $.post("index.php", {sendEnvios: JSON.stringify(enviados_array)}, function(data) {
-                alert("Se han despachado los pedidos correctamente");
-                window.location.reload(true);
-            });
+            else {
+                alert("Por favor seleccione algun producto para despachar");
+            }
          
             
         });
