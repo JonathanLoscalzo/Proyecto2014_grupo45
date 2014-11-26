@@ -29,7 +29,7 @@
            }
                    
         
-        function refreshMap(banco, entidades) {
+        function refreshMap(banco, entidades, routeParams) {
                 
         
                 zoom = 13;
@@ -51,6 +51,7 @@
                 }
                 var bounds = markers.getDataExtent();
                 map.zoomToExtent(bounds);
+                return routeParams;
          }
          
         function parseRoute(waypoints) {

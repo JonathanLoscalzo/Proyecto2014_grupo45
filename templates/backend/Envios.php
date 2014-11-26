@@ -142,7 +142,7 @@
                 refreshTabla(tabla, dataArray);
                 
                 
-                refreshMap(data.banco, entidades);
+                routeParams = refreshMap(data.banco, entidades, routeParams);
             }, 'json');            
         });
         $("#generate-route").on("click", function () {
