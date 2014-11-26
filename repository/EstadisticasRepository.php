@@ -66,6 +66,15 @@ class EstadisticasRepository extends PDORepository {
         return $this->queryList($sql, $args, $mapper);
     }
     
+    public function alimentos_vencidos_agrupados_descripcion(){
+        $sql = "select * from alimentosvencidos";
+        $args = [];
+        $mapper = function($row){
+            return [$row['descripcion'], $row['cantidad']];
+        };
+        return $this->queryList($sql, $args, $mapper);
+    }
+    
     
 
 //put your code here

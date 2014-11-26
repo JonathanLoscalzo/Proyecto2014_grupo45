@@ -1,13 +1,13 @@
 {% extends "backend_layout.php" %}
 {% block head %}
+    <link href="{{server}}css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     {{ parent() }}
     <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
     <link href="{{server}}js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
     <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
-    <link href="{{server}}css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="{{server}}css/bootstrap/js/bootstrap.min.js"></script>
-
+    <link href="{{server}}css/dataTables.bootstrap.css" rel="stylesheet">
 
 {% endblock %}
 
@@ -27,12 +27,19 @@
                 <div id="container-1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
             </div>
             <div class="col-md-6">
-                <table>
-                    <thead></thead>
-                    <tbody></tbody>
+                <button style="margin-top:1%; margin-bottom: 1%"> Exportar PDF </button>
+                <table id = "t1" class = "tabla-class table table-striped" style="margin-top:1%; margin-bottom: 1%">
+                    <thead>
+                        <tr>
+                            <th> Fecha </th>
+                            <th> KG </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-1"style="text-align: center" ></tbody>
                 </table>
             </div>
         </div>
+
         <div class="row">
             <h3 >Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (gráfico de torta)</h3>
             <div class="col-md-6">
@@ -46,25 +53,35 @@
                 <div id="container-2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
             </div>
             <div class="col-md-6">
-                <table>
-                    <thead></thead>
-                    <tbody></tbody>
+                <button style="margin-top:1%; margin-bottom: 1%"> Exportar PDF </button>
+                <table  id="t2" class=" tabla-class table table-striped" style="margin-top:1%; margin-bottom: 1%">
+                    <thead>
+                        <tr>
+                            <th>Entidad</th>
+                            <th>kg</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-2" style="text-align: center"></tbody>
                 </table>
             </div>
         </div>
+
         <div class="row">
             <h3>Alimentos vencidos sin entregar (agrupados por descripción)</h3>
-            <div class="col-md-6">
-                <form id="form-3"  class="form-inline" role="form"> 
-
-                    <button id="button-2"> consultar </button>
-                </form>
-                <div id="container-3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
+            
+            <div class = "row col-md-8" style = "margin-top: 1%; margin-bottom: 1%">
+                <button id="refresh" class = "col-md-4">Actualizar</button>
+                <button class = "col-md-4"> Exportar PDF </button>
             </div>
-            <div class="col-md-6">
-                <table>
-                    <thead></thead>
-                    <tbody></tbody>
+            <div class="col-md-12">
+                <table id = "t3" class = "tabla-class table table-bordered" style="text-align: center">
+                    <thead style="text-align: center">
+                        <tr>
+                            <th> Fecha </th>
+                            <th> KG </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-3" style="text-align: center"></tbody>
                 </table>
             </div>
         </div>
@@ -77,6 +94,7 @@
     <script type="text/javascript" src="{{server}}js/plugins/Highcharts-4.0.4/js/modules/exporting.js"></script>
     <script>
         $(document).ready(function () {
+
             $("#from").datepicker({
                 defaultDate: "+1w",
                 onClose: function (selectedDate) {
@@ -117,11 +135,18 @@
                     dataType: 'json',
                     data: $("#form-2").serialize(),
                     success: function (aData) {
+
+                        $("#t2").DataTable().destroy();
+
+                        $("#t2").dataTable({
+                            data: aData,
+                            "info": false
+                        });
                         $.map(aData, function (elem) {
                             elem[1] = parseInt(elem[1]);
                         });
-                        console.log(aData);
                         $("#container-2").highcharts().series[0].update({data: aData});
+
                     }
                 });
             });
@@ -133,24 +158,36 @@
                     dataType: "json",
                     data: $("#form-1").serialize(),
                     success: function (aData) {
+
+                        $("#t1").DataTable().destroy();
+
+                        $("#t1").dataTable({
+                            data: aData,
+                            "info": false
+                        });
+
                         $.map(aData, function (elem) {
+
                             elem[0] = parseToUTC(elem[0]);
                             elem[1] = parseInt(elem[1]);
                         });
-                        console.log(aData);
                         $("#container-1").highcharts().series[0].update({data: aData});
                     }
                 });
             });
-            $("#form-3").submit(function (e) {
+
+            $("#refresh").click(function (e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
                     url: location.href + '/tres',
                     success: function (aData) {
-                        
-                        $("#container-3").highcharts().xAxis[0].update({});
-                        $("#container-3").highcharts().series[0].update({data: aData});
+
+                        $("#t3").DataTable().destroy();
+
+                        $("#t3").dataTable({
+                            data: [["Yerba", "150"], ["Barajo", "236"]]
+                        });
                     }
                 });
             });
@@ -223,58 +260,6 @@
                     }]
             });
 
-
-            $('#container-3').highcharts({
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Monthly Average Rainfall'
-                },
-                subtitle: {
-                    text: 'Source: WorldClimate.com'
-                },
-                xAxis: {
-                    categories: [ ]
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Stock (unidades)'
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                series: [{
-                        name: 'Tokyo',
-                        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-
-                    }, {
-                        name: 'New York',
-                        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-                    }, {
-                        name: 'London',
-                        data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-
-                    }, {
-                        name: 'Berlin',
-                        data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-
-                    }]
-            });
         });
     </script>
 

@@ -1,10 +1,14 @@
 {% extends "backend_layout.php" %}
 {% block head %}
-    {{ parent() }}
+
     <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
     <link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
     <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="{{server}}js/plugins/jquery.dataTables-1.10.2.min.js"></script>
+    <link href="{{server}}css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="{{server}}css/bootstrap/js/bootstrap.min.js"></script>
+    {{ parent() }}
+
 {% endblock %}
 
 
@@ -12,46 +16,50 @@
     <div id = "content">
         <div class ="tabla-class">
             <table>
-                <thead>
+                <thead style="text-align: center">
                     <tr>
                         <th>Entidad Receptora</th>
                         <th>Fecha ingreso</th>
-                        <th colspan="2">Turno</th>
+                        <th>Turno fecha</th>
+                        <th>Turno hora</th>
                         <th>estado pedido</th>
                         <th>con envio</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="text-align: center">
                     {% for e in pedidos %}
-                        <tr>
-                            <td>{{ e.entidad_receptora.razonSocial }}</td>
-                            <td>{{ e.fecha_ingreso }}</td>
-                            <td>{{ e.turno_entrega.fecha }}</td>
-                            <td>{{ e.turno_entrega.hora }}</td>
-                            <td>{{ e.estado_pedido}}</td>
-                            <td>{{ e.con_envio }}</td> 
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                        <tr style="{% if e.estadoPedido.id == 0 %}
+                            background-color: red;
+                            {% endif%}">
+                                <td>{{ e.entidad_receptora_model.razonSocial }}</td>
+                                <td>{{ e.fecha_ingreso }}</td>
+                                <td>{{ e.turno_entrega_model.fecha }}</td>
+                                <td>{{ e.turno_entrega_model.hora }}</td>
+                                <td>{{ e.estadoPedido.descripcion }}</td>
+                                <td>{{ e.con_envio }}</td> 
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
 
-        <div>
-            {% set cantidad = 0 %}
-            {% for d in detalles %}
-                {% cantidad = cantidad + d.stock - d.reservado %} 
-            {% endfor %}
-            Cantidad de unidades cerca del vencimiento: {{ cantidad }}
+                    <div class="alert alert-warning" role="alert">
+                        {% set cantidad = 0 %}
 
-        </div>
-    </div>
-{% endblock %}
+                        {% for dist in detalles %}
+                            {% set cantidad = cantidad + dist.stock - dist.reservado %} 
+                        {% endfor %}
 
-{% block scripts %}
-    <script>
-        $(document).ready(function () {
+                        Cantidad de unidades cerca del vencimiento: <span class="badge">{{ cantidad }}</span>
+                    </div>
+                </div>
+                {% endblock %}
 
-        });
-    </script>
-{% endblock %}
+                    {% block scripts %}
+                        <script>
+                            $(document).ready(function () {
+
+                            });
+                        </script>
+                    {% endblock %}
 

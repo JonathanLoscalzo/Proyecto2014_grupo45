@@ -60,6 +60,10 @@ class PedidoModel extends Model
             return $this->alimento_pedido_array;
         }
         
+        public function getEstadoPedido(){
+            return $this->estado_pedido_model;
+        }
+        
 }
 
 
