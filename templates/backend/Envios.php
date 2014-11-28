@@ -160,6 +160,7 @@
             if ($("#tabla-pedidos").children('td').eq(5).is(':checked')) {
                 var pedido_id = $("#tabla-pedidos").children('td').attr("id");
             };
+            
             var id_array = [];
             $('#tabla-pedidos tr').each(function (i, row) {
                 if ($(row).find('input:checked').length > 0) {

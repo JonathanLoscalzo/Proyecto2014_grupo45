@@ -46,7 +46,12 @@ class EntidadReceptoraModel extends Model {
     public function getId() {
         return $this->id;
     }
-
+    public function getLatitud() {
+        return $this->latitud;
+    }
+    public function getLongitud() {
+        return $this->longitud;
+    }
     public function getEstado() {
         return $this->estado;
     }
