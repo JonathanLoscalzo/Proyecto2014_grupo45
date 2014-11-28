@@ -1,8 +1,12 @@
 {% extends "backend_layout.php" %}
 {% block head %}
-    {{ parent() }}
-    <script type="text/javascript" src="{{ server }}js/plugins/jquery-2.1.2.js"></script>
 
+    {{ parent() }}
+    <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
+    <link href="/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+    <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
+    
 {% endblock %}
 {% block content %}
     <div id="content">
@@ -13,6 +17,9 @@
                 <label for="razonSocial" style = "display : block">Razon Social: </label><input id="razonSocial" name="razonSocial"type="text" value = "{{ entidad.razonSocial }}" required>
                 <label for="telefono" style = "display : block">Teléfono: </label><input id="telefono" type="number" name = "telefono" value = "{{ entidad.telefono }}" required >
                 <label for="domicilio" style = "display : block">Domicilio: </label><input id="domicilio" type="text" name = "domicilio" value = "{{ entidad.domicilio }}" required >
+                <button id="location-btn-edit" type="button" style="display: block; margin: 10px ">Ubicar en mapa</button>
+                <input type="hidden" name="lat" id="form-lat" required value="{{entidad.latitud}}">
+                <input type="hidden" name="long" id="form-long" required value="{{entidad.longitud}}">
             </div>
             <div class="conj-block">
                 <input id="estado-input" class="estado" name="estadoEntidadID" hidden value="{{entidad.estadoEntidadID}}">
@@ -56,12 +63,78 @@
 
 {% endblock %}
 {% block scripts %}
+    <script src="{{server}}js/plugins/OpenLayers.js"></script>
+    <script type="text/javascript" src="{{server}}js/scripts/mapHandler.js"></script>
     <script>
         $(document).ready(function () {
             $('select').change(function () {
                 var x = $(this).val();
                 $("#" + $(this).attr('id') + "-input").val(x);
             });
+            function handleMapClick(e)
+    {
+
+       var lonlat = map.getLonLatFromViewPortPx(e.xy);
+       // use lonlat
+
+       // If you are using OpenStreetMap (etc) tiles and want to convert back 
+       // to gps coords add the following line :-
+       toProjection = new OpenLayers.Projection("EPSG:4326");
+       lonlat.transform( map.getProjectionObject(), toProjection); // map.displayProjection
+       var Longitude = lonlat.lon;
+       var Latitude  = lonlat.lat;
+       
+       $("#lat").val(Latitude);
+       $("#long").val(Longitude);
+       $("#form-lat").val(Latitude);
+       $("#form-long").val(Longitude);
+    } 
+    var $dialog = $("<div></div>")
+			.load("http://"+$(location).attr("hostname")+"/templates/backend/map_display.html")
+			.dialog({ autoOpen: false,
+                                    show: {
+                                        effect: "blind",
+                                        duration: 1000
+                                    },
+                                    hide: {
+                                        effect: "explode",
+                                        duration: 1000
+                                    },            
+                                    height: 500,
+                                    width: 700
+			});
+    function displayMap(position) {
+        
+        $dialog.dialog("open");
+        map = mapInit();
+        fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+        toProjection   = map.getProjectionObject(); // to Spherical Mercator Projection
+        zoom = 13;
+        position = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude).transform( fromProjection, toProjection);
+        map.setCenter(position, zoom);
+        map.events.register('click', map, handleMapClick);
+        
+    }
+    
+
+
+    // select dir modal to get lat/long.
+    $("#location-btn-edit").click(function () {
+         if (navigator.geolocation) {
+             var position = {
+                coords: {
+                    longitude: $("#form-long").val(),
+                    latitude: $("#form-lat").val()
+                }
+             };
+             displayMap(position); // CENTER ON ENTIDAD RECEPTORA POSITION
+             $("#lat").val($("#form-lat").val());
+             $("#long").val($("#form-long").val());
+         }
+         else {
+             $(".ui-widget").show();
+         }
+    });
         });
     </script>
 {% endblock %}
