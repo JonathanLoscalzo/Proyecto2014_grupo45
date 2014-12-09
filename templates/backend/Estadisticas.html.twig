@@ -27,7 +27,7 @@
                 <div id="container-1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
             </div>
             <div class="col-md-6">
-                <button style="margin-top:1%; margin-bottom: 1%"> Exportar PDF </button>
+                <button id="exportar-1" data-type="Listado (entre fechas) de los kilos de pedidos que fueron entregados (gráfico de barra)" style="margin-top:1%; margin-bottom: 1%"> Exportar PDF </button>
                 <table id = "t1" class = "tabla-class table table-striped" style="margin-top:1%; margin-bottom: 1%">
                     <thead>
                         <tr>
@@ -53,7 +53,7 @@
                 <div id="container-2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
             </div>
             <div class="col-md-6">
-                <button style="margin-top:1%; margin-bottom: 1%"> Exportar PDF </button>
+                <button id="exportar-2" data-type="Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (gráfico de torta)" style="margin-top:1%; margin-bottom: 1%"> Exportar PDF </button>
                 <table  id="t2" class=" tabla-class table table-striped" style="margin-top:1%; margin-bottom: 1%">
                     <thead>
                         <tr>
@@ -68,10 +68,10 @@
 
         <div class="row">
             <h3>Alimentos vencidos sin entregar (agrupados por descripción)</h3>
-            
+
             <div class = "row col-md-8" style = "margin-top: 1%; margin-bottom: 1%">
                 <button id="refresh" class = "col-md-4">Actualizar</button>
-                <button class = "col-md-4"> Exportar PDF </button>
+                <button id="exportar-3"class = "col-md-4"> Exportar PDF </button>
             </div>
             <div class="col-md-12">
                 <table id = "t3" class = "tabla-class table table-bordered" style="text-align: center">
@@ -127,6 +127,8 @@
                 return Date.UTC(parseInt(el[0]), parseInt(el[1]) - 1, parseInt(el[2]));
             }
 
+
+
             $("#form-2").submit(function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -176,6 +178,19 @@
                 });
             });
 
+            $("#exportar-1, #exportar-2, #exportar-3").click(function () {
+                //console.log($(this).siblings().children("table"));
+                $.ajax({
+                    type: 'POST',
+                    url: location.href + '/exportarpdf',
+                    data: {html: '<h3>'+$(this).attr('data-type')+'</h3><table>' + $(this).siblings().children("table").html() + '</table>'},
+                    success: function (aData) {
+                        window.open("https://drive.google.com/viewerng/viewer?url=http://grupo_45.proyecto2014.linti.unlp.edu.ar/images/file.pdf");
+                    }
+                });
+
+            });
+
             $("#refresh").click(function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -186,7 +201,8 @@
                         $("#t3").DataTable().destroy();
 
                         $("#t3").dataTable({
-                            data: [["Yerba", "150"], ["Barajo", "236"]]
+                            //data: [["Yerba", "150"], ["Barajo", "236"]]
+                            data: aData
                         });
                     }
                 });

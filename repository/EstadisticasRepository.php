@@ -74,8 +74,5 @@ class EstadisticasRepository extends PDORepository {
         };
         return $this->queryList($sql, $args, $mapper);
     }
-    
-    
 
-//put your code here
 }
