@@ -18,6 +18,10 @@
             return map;
         }
         
+        function clearMap(layer) {
+            layer.destroyFeatures();
+        }
+        
         function crearMarcador(entidad) {
               var icono = new OpenLayers.Icon("/images/icons/pin.png");
               icono.size.w *=2;
@@ -31,7 +35,6 @@
         
         function refreshMap(banco, entidades, routeParams) {
                 
-        
                 zoom = 13;
                 position = new OpenLayers.LonLat(banco.long, banco.lat).transform( fromProjection, toProjection);
                 map.setCenter(position, zoom);

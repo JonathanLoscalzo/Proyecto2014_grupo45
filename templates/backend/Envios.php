@@ -51,7 +51,7 @@
 <script src="{{server}}js/plugins/OpenLayers.js"></script>
 <script src="{{server}}js/scripts/mapHandler.js"></script>
 <script type="text/javascript">
-        routeParams = "";
+        
 
         
         map = mapInit();
@@ -107,6 +107,7 @@
         
         $("#refresh-date").on("click", function () {
             $.post('index.php',{ date: $('#day-input').val() }, function(data, status, xhr) {
+                routeParams = "";
                 console.log(data);
                 zoom = 13;
                 window.pedidos_index = data.pedidos;
@@ -139,11 +140,11 @@
                 };
                 refreshTabla(tabla, dataArray);
                 
-                
-                routeParams = refreshMap(data.banco, entidades, routeParams);
+                clearMap(route); // limpia la capa del mapa que contiene el trazado de la ruta
+                routeParams = refreshMap(data.banco, entidades, routeParams); // regenera la ruta
             }, 'json');            
         });
-        $("#generate-route").on("click", function () {
+        $("#generate-route").on("click", function () { // traza el mapa cuando se aprieta el boton
             $.ajax({
                 url: "https://router.project-osrm.org/viaroute?z=13&output=json&jsonp=OSRM.JSONP.callbacks.route&"
                         +routeParams+"instructions=true&compression=false",
