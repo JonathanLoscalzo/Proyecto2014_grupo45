@@ -278,6 +278,9 @@ if (isset($_POST['date'])) {
                 case 'tres':
                     $est->tres();
                     break;
+                case 'exportarpdf':
+                    $est->exportarPDF($_POST["html"]);
+                    break;
                 default:
                     $est->index();
                     break;

@@ -1,6 +1,9 @@
 <?php
 
 include_once 'repository/EstadisticasRepository.php';
+require 'vendor/autoload.php';
+define('DOMPDF_ENABLE_AUTOLOAD', false);
+include 'vendor/dompdf/dompdf/dompdf_config.inc.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -46,9 +49,9 @@ class EstadisticasController extends Controller {
 
     public function tres() {
         $data = EstadisticasRepository::getInstance()->alimentos_vencidos_agrupados_descripcion();
-        echo json_encode($data);  
+        echo json_encode($data);
     }
-    
+
     public function alertas() {
         if (parent::backendIsLogged()) {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
@@ -63,6 +66,17 @@ class EstadisticasController extends Controller {
     public function index() {
         $view = new BackEndView();
         $view->estadisticas();
+    }
+
+    public function exportarPDF($html) {
+
+        $dompdf = new DOMPDF();
+        $dompdf->load_html($html);
+        $dompdf->render();
+        $dompdf->stream("sample.pdf");
+        
+        $output = $dompdf->output();
+        file_put_contents('images/file.pdf', $output);
     }
 
 }
