@@ -140,7 +140,6 @@
                 };
                 refreshTabla(tabla, dataArray);
                 
-                clearMap(route); // limpia la capa del mapa que contiene el trazado de la ruta
                 routeParams = refreshMap(data.banco, entidades, routeParams); // regenera la ruta
             }, 'json');            
         });
