@@ -9,7 +9,6 @@
 {% endblock %}
 {% block content %}
 <div id = "content">
-    <h3> ENTIDADES RECEPTORAS </h3>
     <div id = "accordion">
         <h3>ALTA</h3>
         <div>

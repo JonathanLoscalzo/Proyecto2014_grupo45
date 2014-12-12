@@ -23,7 +23,6 @@
 
 
 <div id = "content">
-    <h3> ENTIDADES RECEPTORAS </h3>
     <div id="accordion">
         <h3>Alta</h3>
         <div>
