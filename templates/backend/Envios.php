@@ -34,7 +34,6 @@
                    <th>Fecha de entrega</th>
                    <th>Telefono</th>
                    <th>Domicilio</th>
-                   <th>Detalle Pedido</th>
                    <th>Despachar</th>
                </tr>
             </thead>
@@ -79,13 +78,12 @@
           
     $(document).ready(function () {
         button_row = 'td:eq(4)'; // row donde se pone el boton "ver detalle" de la tabla
-        checkbox_row = 'td:eq(5)';
+        checkbox_row = 'td:eq(4)';
         tabla = $("#tabla-pedidos").DataTable({
             paging: false,
             searching: false,
             stateSave: false,
            "fnCreatedRow": function( nRow, aData, iDataIndex ) { // CALLBACK cuando se crea row
-                $(button_row, nRow).append("<button>Ver Detalle</button>"); // trigger que se activa
                 $(checkbox_row, nRow).append('<input class="checkbox" type="checkbox" name="checkbox" />');
                  // cuando se genera una nueva linea en la tabla, deberia agregar el boton de Ver Detalle
            }
