@@ -42,8 +42,8 @@
                 
                 map.addLayer(markers);
                 var layer = map.getLayersByName("route");
-                layer[0].destroyFeatures();
-                markers.clearMarkers();
+                layer[0].destroyFeatures(); // limpia los recorridos generados previos.
+                markers.clearMarkers(); // limpia los marcadores previos
                 
                 markers.addMarker(crearMarcador(new EntidadReceptora(banco.nombre, banco.lat, banco.long)));
                 routeParams += "loc="+banco.lat+","+banco.long+"&"; // HOME ADDRESS

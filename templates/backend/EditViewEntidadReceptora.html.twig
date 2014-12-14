@@ -89,8 +89,9 @@
        $("#form-lat").val(Latitude);
        $("#form-long").val(Longitude);
     } 
+    
     var $dialog = $("<div></div>")
-			.load("http://"+$(location).attr("hostname")+"/templates/backend/map_display.html")
+			.load(window.location.protocol+"//"+$(location).attr("hostname")+"/templates/backend/map_display.html")
 			.dialog({ autoOpen: false,
                                     show: {
                                         effect: "blind",
