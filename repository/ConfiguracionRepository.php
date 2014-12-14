@@ -56,7 +56,7 @@ class ConfiguracionRepository extends PDOrepository {
             $sql = "UPDATE `configuracion` SET `API-Key`=?"
                     . ",`API-Secret`=?,"
                     . "`OAuth-Token`=?,"
-                    . "`OAuth-Secret`=? WHERE id=1";
+                    . "`OAuth-Secret`=? WHERE 1";
         }
         $args = [$user, $pass, $token_id, $token_secret];
         $mapper = function($row) {
