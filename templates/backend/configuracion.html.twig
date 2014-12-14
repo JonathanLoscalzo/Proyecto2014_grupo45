@@ -38,8 +38,10 @@
              <h2> Configuracion del sistema </h2>
              <div class="conj-block">
                  <label for="dias-vencimiento" style="display: block;">Margen de Vencimiento</label><input id="dias-vencimiento" name="dias-vencimiento" value="{{configuracion.dias_vencimiento}}">
-                 <label for="user-linkedin" style="display: block;">User Token</label><input type="text" name="user-linkedin" />
-                 <label for="password-linkedin" style="display: block;">User Secret</label><input type="password" name="password-linkedin"/>
+                 <label for="user-linkedin" style="display: block;">API Key</label><input type="text" name="user-linkedin" value="{{ oauth.api_key }}" />
+                 <label for="password-linkedin" style="display: block;">API Secret</label><input type="password" name="password-linkedin" value="{{ oauth.api_secret }}"/>
+                 <label for="token-id" style="display: block;">Token ID</label><input type="text" name="token-id" value="{{ oauth.token_id }}"/>
+                 <label for="token-secret" style="display: block;">Token Secret</label><input type="password" name="token-secret" value="{{ oauth.token_secret }}"/>
              </div>
                 <button type="submit" name="submit" id="btn-submit"> Enviar </button>
          </form>

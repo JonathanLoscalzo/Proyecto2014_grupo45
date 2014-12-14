@@ -36,6 +36,8 @@ class ConfiguracionController extends Controller {
             if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
                 $datos = $obj->getParams();
                 ConfiguracionRepository::getInstance()->editDiasVencimiento($datos['dias-vencimiento']);
+                ConfiguracionRepository::getInstance()->editOAuth($datos['user-linkedin'],
+                        $datos['password-linkedin'], $datos['token-id'], $datos['token-secret']);
                 BancoRepository::getInstance()->edit(new BancoModel($datos['id'], $datos['nombre'], $datos['ubicacion'], $datos['lat'], $datos['long']));
               
             }
@@ -55,7 +57,8 @@ class ConfiguracionController extends Controller {
                 $view = new BackEndView();
                 $banco = BancoRepository::getInstance()->getAll();
                 $configuracion = ConfiguracionRepository::getInstance()->getAll();
-                $view->configuracion($banco[0], $configuracion[0]);
+                $OAuth = ConfiguracionRepository::getInstance()->getAllOauth();
+                $view->configuracion($banco[0], $configuracion[0], $OAuth);
             }
         }
         
