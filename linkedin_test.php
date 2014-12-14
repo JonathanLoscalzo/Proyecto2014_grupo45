@@ -7,7 +7,7 @@
  */
 
 
-
+try {
 $oauth = new OAuth("750f8wbrxd35zJ", "pmLeubPRbY5brPNd");
 $oauth->setToken("78b0d37d-0c44-4543-bdfb-0febf50b8b94", "b1f894f4-4129-4c07-85e4-563d19776b0f");
  
@@ -25,4 +25,10 @@ $url = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,location:(
 $oauth->fetch($url, $params, $method, $headers);
   
 echo $oauth->getLastResponse();
+}
+ catch(OAuthException $E) {
+    echo "Excepción atrapada!\n";
+    echo "Respuesta: ". $E->lastResponse . "\n";
+}
 
+?>
