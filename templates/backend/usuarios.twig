@@ -47,6 +47,7 @@
                     </thead>
                     <tbody style="text-align: center">
                         {% for user in usuarios %}
+                            {% if (user.username != session.username) %}
                             <tr>
                                 <td> {{ user.username }} </td>
                                 <td> 
@@ -59,6 +60,7 @@
                                 <td><a href="./{{server}}usuarios/edit/{{ user.userID }}"><img src="{{server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
                                 <td><a href="./{{server}}usuarios/remove/{{ user.userID }}"><img src="{{server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                             </tr>
+                            {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
