@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 12, 2014 at 10:09 PM
+-- Generation Time: Dec 14, 2014 at 08:25 
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -209,7 +209,10 @@ CREATE TABLE IF NOT EXISTS `alimento_pedido` (
 --
 
 INSERT INTO `alimento_pedido` (`pedido_numero`, `detalle_alimento_id`, `cantidad`) VALUES
-(16, 9, 5);
+(16, 9, 5),
+(21, 14, 2),
+(22, 14, 1),
+(23, 14, 1);
 
 --
 -- Triggers `alimento_pedido`
@@ -256,8 +259,10 @@ INSERT INTO `banco` (`id`, `nombre`, `ubicacion`, `lat`, `long`) VALUES
 
 CREATE TABLE IF NOT EXISTS `configuracion` (
 `id` int(11) NOT NULL,
-  `clave` varchar(45) DEFAULT NULL,
-  `valor` varchar(150) DEFAULT NULL
+  `API-Key` varchar(150) DEFAULT NULL,
+  `API-Secret` varchar(150) DEFAULT NULL,
+  `OAuth-Token` varchar(150) DEFAULT NULL,
+  `OAuth-Secret` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -274,14 +279,15 @@ CREATE TABLE IF NOT EXISTS `detalle_alimento` (
   `stock` int(11) DEFAULT NULL,
   `reservado` int(11) DEFAULT NULL,
   `alimento_codigo` varchar(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `detalle_alimento`
 --
 
 INSERT INTO `detalle_alimento` (`Id`, `fecha_vencimiento`, `contenido`, `peso_unitario`, `stock`, `reservado`, `alimento_codigo`) VALUES
-(9, '2015-01-16', '2x1lt', '1.00', 5, 5, 'Aceite');
+(9, '2015-01-16', '2x1lt', '1.00', 5, 5, 'Aceite'),
+(14, '2014-12-23', '10x2', '2.00', 4, 3, 'Aceite');
 
 -- --------------------------------------------------------
 
@@ -323,14 +329,15 @@ CREATE TABLE IF NOT EXISTS `entidad_receptora` (
   `servicio_prestado_Id` int(11) NOT NULL,
   `latitud` varchar(17) DEFAULT NULL,
   `longitud` varchar(17) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `entidad_receptora`
 --
 
 INSERT INTO `entidad_receptora` (`Id`, `razon_social`, `telefono`, `domicilio`, `estado_entidad_Id`, `necesidad_entidad_Id`, `servicio_prestado_Id`, `latitud`, `longitud`) VALUES
-(24, 'Un Techo para mi pais', '221491222', '22 y 15 n 818', 1, 2, 1, '-34.9195315802940', '-57.9741730587921');
+(24, 'Un Techo para mi pais', '221491222', '22 y 15 n 818', 1, 2, 1, '-34.9195315802940', '-57.9741730587921'),
+(28, 'Caritas', '22151481', '48 y 5 811', 1, 1, 1, '-34.9128900255442', '-57.9402670765195');
 
 -- --------------------------------------------------------
 
@@ -342,7 +349,7 @@ CREATE TABLE IF NOT EXISTS `entrega_directa` (
 `id` int(11) NOT NULL,
   `entidad_receptora_id` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -434,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `pedido_modelo` (
   `estado_pedido_id` int(11) DEFAULT '0',
   `turno_entrega_id` int(11) DEFAULT NULL,
   `con_envio` tinyint(4) DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `pedido_modelo`
@@ -443,7 +450,10 @@ CREATE TABLE IF NOT EXISTS `pedido_modelo` (
 INSERT INTO `pedido_modelo` (`numero`, `entidad_receptora_id`, `fecha_ingreso`, `estado_pedido_id`, `turno_entrega_id`, `con_envio`) VALUES
 (14, 24, '2014-12-12 15:09:35', 1, 4, 1),
 (15, 24, '2014-12-12 15:10:01', 0, 3, 1),
-(16, 24, '2014-12-12 15:24:33', 1, 5, 1);
+(16, 24, '2014-12-12 15:24:33', 1, 5, 1),
+(21, 24, '2014-12-12 18:15:32', 0, 5, 1),
+(22, 28, '2014-12-12 18:15:45', 1, 4, 1),
+(23, 24, '2014-12-12 18:15:58', 0, 3, 1);
 
 --
 -- Triggers `pedido_modelo`
@@ -783,7 +793,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `detalle_alimento`
 --
 ALTER TABLE `detalle_alimento`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `donante`
 --
@@ -793,12 +803,12 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `entidad_receptora`
 --
 ALTER TABLE `entidad_receptora`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `entrega_directa`
 --
 ALTER TABLE `entrega_directa`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `estado_entidad`
 --
@@ -818,7 +828,7 @@ MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `pedido_modelo`
 --
 ALTER TABLE `pedido_modelo`
-MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `role`
 --
