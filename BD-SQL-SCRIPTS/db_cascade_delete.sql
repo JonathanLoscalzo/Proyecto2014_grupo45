@@ -67,7 +67,7 @@ begin
 
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `probando`(
+CREATE DEFINER=`grupo_45`@`localhost` PROCEDURE `probando`(
 in fechaIni date,
 in fechaFin date
 )
@@ -89,7 +89,7 @@ begin
 
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `probando2`(
+CREATE DEFINER=`grupo_45`@`localhost` PROCEDURE `probando2`(
 in fechaIni date,
 in fechaFin date
 )

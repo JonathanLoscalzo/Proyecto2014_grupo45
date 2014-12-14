@@ -83,6 +83,8 @@ class HomeController extends Controller {
         $credentials = ConfiguracionRepository::getInstance()->getAllOauth();
         if ($credentials) {
             $linkedin_data = $this->getDataLinkedin($credentials);
+            echo $linkedin_data;
+            die();
         }
         else {
             $linkedin_data = "No esta configurado el enlace";
