@@ -33,5 +33,9 @@ class FrontEndView extends TwigView {
     public function listar_entidadesreceptoras($entidades) {
         echo self::getTwig()->render('listado_entidadesreceptoras.html.twig', array('entidades' => $entidades));
     }
+    
+    public function acerca_de($linkedin_data) {
+        echo self::getTwig()->render('acerca_de_nosotros.twig', array('linkedin_data' => $linkedin_data));
+    }
 
 }

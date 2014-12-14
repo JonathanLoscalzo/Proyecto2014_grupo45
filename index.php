@@ -87,6 +87,9 @@ if (isset($_POST['date'])) {
         case "Dona-ahora":
             HomeController::getInstance()->dona_ahora();
             break;
+        case "acerca_de":
+            HomeController::getInstance()->acerca_de();
+            break;
         case "lista_donantes":
             HomeController::getInstance()->listDonante();
             break;

@@ -57,7 +57,12 @@ class HomeController extends Controller {
         $view = new FrontEndView();
         $view->listar_entidadesreceptoras($entidades);
     }
-    
+    public function acerca_de() {
+        // LOGIN LINKEDIN and retrive data
+        $view = new FrontEndView();
+        $linkedin_data = "";
+        $view->acerca_de($linkedin_data);
+    }
     public function create($entidad) {
         
     }
