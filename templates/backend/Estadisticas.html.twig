@@ -15,7 +15,7 @@
 {% block content %}
     <div id = "content" class="container-fluid">
         <div class="row">
-            <h3 class="col-md-12">Listado (entre fechas) de los kilos de pedidos que fueron entregados (gráfico de barra)</h3>
+            <h3 class=" h3 col-md-12">Listado (entre fechas) de los kilos de pedidos que fueron entregados (gráfico de barra)</h3>
             <div class="col-md-6">
                 <form id="form-1" class="form-inline" role="form"> 
                     <label for="from">Desde</label>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="row">
-            <h3 >Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (gráfico de torta)</h3>
+            <h3 class="h3">Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (gráfico de torta)</h3>
             <div class="col-md-6">
                 <form id="form-2"  class="form-inline" role="form"> 
                     <label for="from">Desde</label>
@@ -74,26 +74,28 @@
         </div>
 
         <div class="row">
-            <h3>Alimentos vencidos sin entregar (agrupados por descripción)</h3>
+            <h3 class="h3">Alimentos vencidos sin entregar (agrupados por descripción)</h3>
             <form id="exportar-3" action="./{{server}}Estadisticas/exportarpdf2" method="post">
                     <input name="html" type="textarea" value="" hidden/>
-                    <button id="refresh" class = "col-md-4">Actualizar</button>
+                    <div><button id="refresh" class = "col-md-4">Actualizar</button></div>
                     <button type="submit" data-type="Alimentos vencidos sin entregar (agrupados por descripción)" class = "col-md-4"> Exportar PDF </button>
-                </form>
-            <div class = "row col-md-8" style = "margin-top: 1%; margin-bottom: 1%">
-                
-            </div>
-            <div class="col-md-12">
-                <table id = "t3" class = "tabla-class table table-bordered" style="text-align: center">
-                    <thead style="text-align: center">
-                        <tr>
-                            <th> Fecha </th>
-                            <th> KG </th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-3" style="text-align: center"></tbody>
-                </table>
-            </div>
+            </form>
+            <div style="padding:1.3%;margin:1%"></div>
+            <table id = "t3" class = "tabla-class table-striped" style="
+                   margin-top:1%;
+                   margin-bottom: 1%;
+                   margin-left:10%;
+                   max-width: 80%;
+                   min-width: 50%
+                ">
+                <thead>
+                    <tr>
+                        <th> Fecha </th>
+                        <th> KG </th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-3" style="text-align: center"></tbody>
+            </table>
         </div>
     </div>
 {% endblock %}
@@ -199,10 +201,8 @@
                         //window.location.hostname
                     }
                 });*/
-                
                 var str = '<h3>'+$(this).children("button").attr('data-type')+'</h3><table>' + $(this).siblings().children("table").html() + '</table>';
                 $(this).children("input").val(str);
-               //$(this).submit();
             });
 
             $("#refresh").click(function (e) {
@@ -212,10 +212,8 @@
                     url: location.href + '/tres',
                     success: function (aData) {
                         $("#t3").DataTable().destroy();
-                        alert(aData);
                         $("#t3").dataTable({
-                            data: [["Yerba", "150"], ["Barajo", "236"]]
-                            //data: aData
+                            data: $.parseJSON(aData)
                         });
                     }
                 });
