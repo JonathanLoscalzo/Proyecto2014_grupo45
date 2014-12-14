@@ -10,9 +10,19 @@
 	<h2>
 		Acerca de Nosotros			
 	</h2>
-		 <label>Email</label>
-                 <p>{{ linkedin_data.emailAddress }}</p>
+		 
                  <label>Quienes somos</label>
                  <p>{{ linkedin_data.summary }}</p>
+                 
+                 <label>Premios</label>
+                 
+                 {% for premio in linkedin_data.honorsAwards.values %}
+                 <p>{{ premio.name }}</p>
+                 <p>{{ premio.issuer }}</p>
+                 {% endfor %}
+                 
+                 
+                 <label>Contacto</label>
+                 <p>{{ linkedin_data.emailAddress }}</p>
 </div>	
 {% endblock %}
