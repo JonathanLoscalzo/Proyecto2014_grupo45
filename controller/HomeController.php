@@ -87,8 +87,7 @@ class HomeController extends Controller {
         else {
             $linkedin_data = "No esta configurado el enlace";
         }
-        var_dump($linkedin_data["emailAddress"]);
-        die();
+        
         $view->acerca_de($linkedin_data);
     }
     public function create($entidad) {
