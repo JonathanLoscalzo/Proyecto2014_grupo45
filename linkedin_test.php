@@ -30,7 +30,7 @@
 define('API_KEY',      '750f8wbrxd35z2'                                          );
 define('API_SECRET',   'pmLeubPRbY5brPNd'                                       );
 // You must pre-register your redirect_uri at https://www.linkedin.com/secure/developer
-define('REDIRECT_URI', "https://grupo_45.proyecto2014.linti.unlp.edu.ar");
+define('REDIRECT_URI', 'https://grupo_45.proyecto2014.linti.unlp.edu.ar');
 define('SCOPE',        'r_basicprofile r_emailaddress'                              );
  
 // You'll probably use a database
