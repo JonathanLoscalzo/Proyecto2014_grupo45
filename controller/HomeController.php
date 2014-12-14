@@ -81,10 +81,10 @@ class HomeController extends Controller {
         // LOGIN LINKEDIN and retrive data
         $view = new FrontEndView();
         $credentials = ConfiguracionRepository::getInstance()->getAllOauth();
+        echo $credentials;
+        die();
         if ($credentials) {
             $linkedin_data = $this->getDataLinkedin($credentials);
-            echo $linkedin_data;
-            die();
         }
         else {
             $linkedin_data = "No esta configurado el enlace";
