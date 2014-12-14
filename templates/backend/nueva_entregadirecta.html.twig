@@ -46,6 +46,7 @@ cuando pongo agregar, deberia aparecer un input para agregar cuantos y el alimen
             </thead>
             <tbody style="text-align: center">
                 {% for detalle in detalles %}
+                    {% if detalle.stock > detalle.reservado %}
                     <tr id="{{ detalle.id }}">
                         <td> {{ detalle.alimento_codigo }} </td>
                         <td> {{ detalle.fecha_vencimiento }} </td>
@@ -58,7 +59,7 @@ cuando pongo agregar, deberia aparecer un input para agregar cuantos y el alimen
                                 <label for="cantidad"> {{ detalle.alimento_codigo }} - {{detalle.contenido}} </label>
                                 <input type="text" name="detalle_alimento_id[]" style="display:none" value="{{ detalle.id }}">
                                 <select id="cantidad" name="cantidad[]" required>
-                                    {% for cant in 1..(detalle.stock-detalle.reservado) %}
+                                    {% for cant in 1..((detalle.stock)-detalle.reservado) %}
                                         <option value="{{ cant }}">{{ cant }}</option>
                                     {% endfor %}
                                 </select>
@@ -67,6 +68,7 @@ cuando pongo agregar, deberia aparecer un input para agregar cuantos y el alimen
                         </td>
                         <td onclick="agregar(this);"><img src="{{server}}images/icons/glyphicons_209_cart_in.png" ></td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
             </tbody>
         </table>
