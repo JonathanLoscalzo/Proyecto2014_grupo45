@@ -4,7 +4,7 @@
         <li><a href="./{{ server }}donantes">ABM de donantes</a></li>
         <li><a href="./{{ server }}entidadesReceptoras">ABM de entidades receptoras</a></li>
         <li><a href ="./{{ server }}alimentos">ABM de paquetes</a></li>
-        <li disabled><a href = "#"  >ABM de servicios prestados(falta)</a></li> 		
+        <li disabled hidden><a href = "#"  >ABM de servicios prestados(falta)</a></li> 		
         <li disabled><a href = "./{{ server }}usuarios" >ABM de Usuarios</a></li>
         <li disabled><a href = "./{{server}}EntregaDirecta" >Entrega Directa</a></li>
         {% endif %}
