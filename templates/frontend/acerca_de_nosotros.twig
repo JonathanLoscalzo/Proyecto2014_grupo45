@@ -13,9 +13,8 @@
 		 {% if linkedin_data.id is defined %}
                     <label>Quienes somos</label>
                     <p>{{ linkedin_data.summary }}</p>
-
+                    
                     <label>Premios</label>
-
                     {% for premio in linkedin_data.honorsAwards.values %}
                     <p>Titulo: {{ premio.name }}</p>
                     <p>Emisor: {{ premio.issuer }}</p>
@@ -25,7 +24,7 @@
                     <label>Contacto</label>
                     <p>{{ linkedin_data.emailAddress }}</p>
                  {% else %}
-                     <p>No se pudo obtener los datos </p>
+                     <p>{{ linkedin_data }}</p>
                  {% endif %}
 </div>	
 {% endblock %}

@@ -23,23 +23,28 @@ class HomeController extends Controller {
         
     }
     private function getDataLinkedin($credentials) {
-        $oauth = new OAuth($credentials->getApi_key(), $credentials->getApi_secret());
-        $oauth->setToken($credentials->getToken_id(), $credentials->getToken_secret());
+        try {
+            $oauth = new OAuth($credentials->getApi_key(), $credentials->getApi_secret());
+            $oauth->setToken($credentials->getToken_id(), $credentials->getToken_secret());
 
-        $params = array();
-        $headers = array();
-        $method = OAUTH_HTTP_METHOD_GET;
+            $params = array();
+            $headers = array();
+            $method = OAUTH_HTTP_METHOD_GET;
 
-        // Specify LinkedIn API endpoint to retrieve your own profile
-        $url = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,location:(name),summary,email-address,honors-awards)?format=json";
+            // Specify LinkedIn API endpoint to retrieve your own profile
+            $url = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,location:(name),summary,email-address,honors-awards)?format=json";
 
-        // By default, the LinkedIn API responses are in XML format. If you prefer JSON, simply specify the format in your call
-        // $url = "https://api.linkedin.com/v1/people/~?format=json";
+            // By default, the LinkedIn API responses are in XML format. If you prefer JSON, simply specify the format in your call
+            // $url = "https://api.linkedin.com/v1/people/~?format=json";
 
-        // Make call to LinkedIn to retrieve your own profile
-        $oauth->fetch($url, $params, $method, $headers);
+            // Make call to LinkedIn to retrieve your own profile
+            $oauth->fetch($url, $params, $method, $headers);
 
-        return json_decode($oauth->getLastResponse());
+            return json_decode($oauth->getLastResponse());
+        }
+        catch (Exception $e) {
+            return "Error ocurred".$e;
+        }
     }
     public function index() {
         $view = new FrontEndView();
