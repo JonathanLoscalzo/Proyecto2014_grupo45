@@ -87,7 +87,8 @@ class HomeController extends Controller {
         else {
             $linkedin_data = "No esta configurado el enlace";
         }
-        echo $linkedin_data['firstName'];
+        var_dump($credentials);
+        var_dump($linkedin_data);
         die();
         $view->acerca_de($linkedin_data);
     }
