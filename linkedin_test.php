@@ -16,7 +16,7 @@ $headers = array();
 $method = OAUTH_HTTP_METHOD_GET;
   
 // Specify LinkedIn API endpoint to retrieve your own profile
-$url = "https://api.linkedin.com/v1/people/~?format=json";
+$url = "https://api.linkedin.com/v1/people/~:(honors-awards)?format=json";
  
 // By default, the LinkedIn API responses are in XML format. If you prefer JSON, simply specify the format in your call
 // $url = "https://api.linkedin.com/v1/people/~?format=json";
