@@ -1,8 +1,8 @@
 {% extends "backend_layout.php" %}
 {% block head %}
+<link href="/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 {{ parent() }}
 <script type="text/javascript" src="{{server}}js/plugins/jquery-2.1.2.js"></script>
-<link href="/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="{{server}}/js/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
 <script src="{{server}}js/plugins/jquery-ui/jquery-ui.js"></script>
 
