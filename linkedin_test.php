@@ -26,9 +26,7 @@ $oauth->fetch($url, $params, $method, $headers);
   
 echo $oauth->getLastResponse();
 }
- catch(OAuthException $E) {
-    echo "Excepción atrapada!\n";
-    echo "Respuesta: ". $E->lastResponse . "\n";
+ catch(Exception $E) {
+    echo "Excepción atrapada!\n".$E;
 }
 
-?>
