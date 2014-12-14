@@ -282,7 +282,11 @@ if (isset($_POST['date'])) {
                     $est->tres();
                     break;
                 case 'exportarpdf':
+                    /*TODO : quitar esto */
                     $est->exportarPDF($_POST["html"]);
+                    break;
+                case 'exportarpdf2':
+                    $est->exportarPDF2($_POST["html"]);
                     break;
                 default:
                     $est->index();
