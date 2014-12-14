@@ -17,8 +17,8 @@
                  <label>Premios</label>
                  
                  {% for premio in linkedin_data.honorsAwards.values %}
-                 <p>{{ premio.name }}</p>
-                 <p>{{ premio.issuer }}</p>
+                 <p>Titulo: {{ premio.name }}</p>
+                 <p>Emisor: {{ premio.issuer }}</p>
                  {% endfor %}
                  
                  
