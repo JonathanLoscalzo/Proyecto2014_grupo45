@@ -11,7 +11,7 @@
 
         {% if session.roleID == 3 or session.roleID==1 %}
         <li><a href="./{{ server }}listadoAlimentos">Listado de alimentos</a></li>
-        <li disabled><a href="#">Consulta stock de alimentos</a></li>
+        <li disabled hidden><a href="#">Consulta stock de alimentos</a></li>
         {% endif %}
 
         {% if session.roleID == 2 or session.roleID==1 %}
