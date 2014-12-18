@@ -151,7 +151,6 @@
                 routeParams = refreshMap(data.banco, entidades, routeParams); // regenera la ruta
                 $("#weather-iframes").html(""); // clear old iframes (if any)
                 $.post('/envios', { weather_entidades : JSON.stringify(entidades) }, function(data, status, xhr) {
-                        alert("weather_being_processed_test");
                         $("#weather-iframes").append(data);
                     }, "html"); 
                
