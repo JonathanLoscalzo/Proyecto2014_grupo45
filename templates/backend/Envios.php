@@ -14,16 +14,23 @@
    <div id="content">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="day-input" style = "display : block" >Seleccione dia: </label>
                     <input id="day-input" name="day-input"/> <button id="refresh-date" style="float: left;">Aceptar</button>
                 </div>
-                 <div class="col-md-8">
+                 <div class="col-md-6">
                           <div id="map" style="height: 400px; width: 400px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></div>
                           <label for="generate-route" style="display: block" >Ruta de envios</label>
                           <button type="button" id="generate-route">Generar recorrido</button>
 
                  </div>
+                <div class="col-md-3" >
+                    <h3>El tiempo en ruta</h3>
+                    <div id="weather-iframes">
+                        
+                    </div>
+                    
+                </div>
              </div>
         </div>
    <div id="content" class="tabla-class" >
@@ -53,7 +60,7 @@
 <script type="text/javascript">
         
 
-        
+        stations = '';
         map = mapInit();
         route = new OpenLayers.Layer.Vector("route");
         map.addLayer(route);
@@ -107,6 +114,7 @@
         
         $("#refresh-date").on("click", function () {
             $.post('index.php',{ date: $('#day-input').val() }, function(data, status, xhr) {
+                
                 routeParams = "";
                 console.log(data);
                 zoom = 13;
@@ -139,9 +147,17 @@
                     
                 };
                 refreshTabla(tabla, dataArray);
-                
+                stations = entidades;
                 routeParams = refreshMap(data.banco, entidades, routeParams); // regenera la ruta
-            }, 'json');            
+                $("#weather-iframes").html(""); // clear old iframes (if any)
+                $.post('/envios', { weather_entidades : JSON.stringify(entidades) }, function(data, status, xhr) {
+                        alert("weather_being_processed_test");
+                        $("#weather-iframes").append(data);
+                    }, "html"); 
+               
+               
+            }, 'json');
+            
         });
         $("#generate-route").on("click", function () { // traza el mapa cuando se aprieta el boton
             $.ajax({

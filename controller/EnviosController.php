@@ -65,5 +65,16 @@ class EnviosController extends Controller {
             }
         }
     }
+    
+    
+    public function AJAX_getWeather($entidades) {
+         if (parent::backendIsLogged()) {
+            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
+                // return weather iframes
+                    $view = new BackEndView();
+                    $view->Weather(array_unique(json_decode($entidades), SORT_REGULAR)); // que crack
+                }
+            }
+    }
 
 }

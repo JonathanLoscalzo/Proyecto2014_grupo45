@@ -120,7 +120,12 @@ if (isset($_POST['date'])) {
             LoginController::getInstance()->backend();
             break;
         case 'envios':
-            EnviosController::getInstance()->index();
+            if (isset($_POST["weather_entidades"])) {
+                EnviosController::getInstance()->AJAX_getWeather($_POST["weather_entidades"]);
+            }
+            else {
+                EnviosController::getInstance()->index(); 
+            }
             break;
         case 'donantes':
             (!isset($acciones[2]) ? $acciones[2] = "" : ""); //feo

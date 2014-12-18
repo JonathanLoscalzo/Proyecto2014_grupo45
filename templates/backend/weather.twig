@@ -1,0 +1,9 @@
+{# weather iframe template #}
+
+{% for s in stations %}
+{{ s.nombre }}
+
+<iframe src="http://api.openweathermap.org/data/2.5/weather?lat={{ s.lat }}&lon={{ s.lon }}&lang=es&mode=html&"></iframe>
+
+{% endfor %}
+

@@ -108,9 +108,11 @@
 			});
             $("#mas").click(function () {
                 $.post('index.php', { data: "pedido_alimentos" }, function(data) {
+                    var table_entry =  '';
                     for (i=0; i<data.length; i++) {
-                        if (data[i]['stock'] > data[i]["reservado"]) {
-                            var table_entry = '<tr id=lista_'+data[i]["id"]+'>'+
+                        
+                        if (parseInt(data[i]['stock']) > parseInt(data[i]['reservado'])) {
+                            table_entry = '<tr id=lista_'+data[i]["id"]+'>'+
                                 '<td>'+data[i]["alimento_codigo"]+'</td>'+
                                 '<td>'+data[i]["fecha_vencimiento"]+'</td>'+
                                 '<td>'+data[i]["contenido"]+'</td>'+

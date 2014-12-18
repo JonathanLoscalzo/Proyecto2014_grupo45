@@ -38,7 +38,6 @@ class PedidosController extends Controller {
                 }
                 catch (Exception $e) {
                     echo $e->getMessage();
-                    die();
                 }
                 
             }
@@ -56,7 +55,6 @@ class PedidosController extends Controller {
         if (parent::backendIsLogged()) {
             $detalle = DetalleRepository::getInstance()->getByID($id);
             echo json_encode($detalle);
-            die();
         }
     }
     public function AJAX_checkQty($id, $value) {
@@ -73,7 +71,6 @@ class PedidosController extends Controller {
                    else {
                        echo 0;
                    }
-                   die();
                }
         
         }
@@ -90,7 +87,6 @@ class PedidosController extends Controller {
                         array_push($key_arr, get_object_vars($detalles[$i]));
                     }
                     echo json_encode($key_arr);
-                    die();
         }
     }
 

@@ -105,6 +105,7 @@ class RoleService {
                 "PedidosController:AJAX_checkQty",
                 "PedidosController:AJAX_agregarAlimento",
                 "EnviosController:AJAX_enviarPedidos",
+                "EnviosController:AJAX_getWeather",
                 "PedidosController:create",
                 "EstadisticasController:alertas",
                 "ConfiguracionController:index",
