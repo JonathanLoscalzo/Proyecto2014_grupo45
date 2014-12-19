@@ -76,7 +76,7 @@ class RoleService {
                 "EntidadReceptoraController:edit",
                 "EntidadReceptoraController:editView",
                 "EntidadReceptoraController:create",
-                'EnviosController:index', // ok?
+                'EnviosController:index',
                 "AlimentoController:index",
                 "AlimentoController:remove",
                 "AlimentoController:edit",
@@ -130,6 +130,7 @@ class RoleService {
                 "PedidosController:AJAX_agregarAlimento",
                 "EnviosController:index",
                 "EnviosController:AJAX_enviarPedidos",
+                "EnviosController:AJAX_getWeather",
                 "AlimentoController:listarAlimentos",
                 "EstadisticasController:alertas",
                 ],
