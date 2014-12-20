@@ -37,7 +37,7 @@ class PedidosController extends Controller {
                     $_SESSION["message"] = new MessageService("createSuccess", [" pedido "]);
                 }
                 catch (Exception $e) {
-                    echo $e->getMessage();
+                    $_SESSION['message'] = $e->getMessage();
                 }
                 
             }

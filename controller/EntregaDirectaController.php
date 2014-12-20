@@ -44,7 +44,7 @@ class EntregaDirectaController extends Controller {
                     }
                     $_SESSION["message"] = new MessageService("createSuccess", [" envío inmediato " . $data['razonSocial']]);
                 } catch (Exception $e) {
-                    echo $e->getMessage();
+                   $_SESSION['message'] = $e->getMessage();
                 }
             }
         }
