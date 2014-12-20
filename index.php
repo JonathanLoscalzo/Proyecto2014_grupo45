@@ -97,8 +97,10 @@ if (isset($_POST['date'])) {
             HomeController::getInstance()->listadoEntidadesReceptoras();
             break;
         case "login-user":
-            $username = (isset($_POST["username"])) ? $_POST["username"] : "";
-            $pass = (isset($_POST["pass"])) ? $_POST["pass"] : "";
+            //TODO: usar params para xss
+            $user = new Params($_POST);
+            $username = (isset($user["username"])) ? $user["username"] : "";
+            $pass = (isset($user["pass"])) ? $user["pass"] : "";
             LoginController::getInstance()->login($username, $pass);
             break;
         case 'logout':
