@@ -99,6 +99,7 @@ if (isset($_POST['date'])) {
         case "login-user":
             //TODO: usar params para xss
             $user = new Params($_POST);
+            $user = $user->getParams();
             $username = (isset($user["username"])) ? $user["username"] : "";
             $pass = (isset($user["pass"])) ? $user["pass"] : "";
             LoginController::getInstance()->login($username, $pass);
