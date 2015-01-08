@@ -1,4 +1,5 @@
 
+
 {% extends "frontend_layout.php" %}
 
 {% block head %}
@@ -20,4 +21,5 @@
     <img class ="image-frontend" alt="imagen-banco" src="{{server}}/images/imagen-banco.jpg" style="border-radius: 15px;">
 </div>	
 {% endblock %}
+
 

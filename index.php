@@ -311,9 +311,10 @@ if (isset($_POST['date'])) {
                     break;
             }
             break;
-        default:
+        case "index":
             HomeController::getInstance()->index();
             break;
         // Deberìa redireccionarte a una pagina 404 o algo asi	
     }
 }
+

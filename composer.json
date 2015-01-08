@@ -3,5 +3,4 @@
         "twig/twig": "1.*",
 	"dompdf/dompdf" : "0.6.*"
     }
-    
 }
