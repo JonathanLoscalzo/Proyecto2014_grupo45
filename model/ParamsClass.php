@@ -1,12 +1,16 @@
 <?php
+
 /*
  *  Clase helper para obtener los parametros. 
  * 
  * 
  */
+
 class Params {
+
     private static $instance = null;
     private $paramsArray;
+
     public static function getInstance() {
 
         if (is_null(self::$instance)) {
@@ -15,16 +19,17 @@ class Params {
 
         return self::$instance;
     }
+
     public function __construct($params) {
-        $this->paramsArray = $params;
+        $this->paramsArray = array_map("strip_tags", $params);
     }
-    public function getParams () {
-        return $this->paramsArray;   
+
+    public function getParams() {
+        return $this->paramsArray;
     }
-    public function setParams () {
+
+    public function setParams() {
         
     }
-    
-    
-}
 
+}
