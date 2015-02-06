@@ -1,6 +1,6 @@
-{% extends "frontend_layout.php" %}
+@extends('layouts.frontend_layout.php')
 
-{% block content %}
+@section('content')
 <div id="content">
 <!-- JRL => LAS CONTRASEÑAS DEBERÌAN IR CIFRADAS? CAMBIAR EL CONTROLADOR!--> 
 	<form id="login-form" action = "./login-user" method="POST">
@@ -9,4 +9,5 @@
         <button type="submit" >iniciar sesión</button>
     </form>
 </div>
-{% endblock %}
+@stop
+

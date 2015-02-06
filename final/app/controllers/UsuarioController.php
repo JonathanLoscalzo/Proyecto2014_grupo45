@@ -1,6 +1,6 @@
 <?php
 
-class UsuarioController extends Controller {
+class UsuarioController extends BaseController {
 
     private static $instance = null;
 
@@ -95,6 +95,4 @@ class UsuarioController extends Controller {
             }
         }
     }
-
-//put your code here
 }

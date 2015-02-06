@@ -11,12 +11,21 @@
 |
 */
 
+// TODO: COMO PASO PARAMETROS AL CONTROLLER?
+
+
 Route::get('/','HomeController@index', function()
 {
 	//return View::make('HomeController.index');
 });
 
-Route::get('login', function()
+Route::get('login', 'LoginController@showLogin');
+
+Route::post('login', array( datos => 'LoginController@login'));
+
+Route::get('backend', function()
 {
-    return View::make('login');
+    return View::make('backend');
 });
+
+

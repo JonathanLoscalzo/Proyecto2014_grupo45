@@ -10,7 +10,7 @@ include 'vendor/dompdf/dompdf/dompdf_config.inc.php';
  * and open the template in the editor.
  */
 
-class EstadisticasController extends Controller {
+class EstadisticasController extends BaseController {
 
     public function create($entidad) {
         

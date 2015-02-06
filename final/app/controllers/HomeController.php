@@ -22,5 +22,7 @@ class HomeController extends BaseController {
                 View::share('server', $var);
 		return View::make('HomeController.index');
 	}
+        
+        
 
 }
