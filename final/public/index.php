@@ -46,4 +46,13 @@ $app = require_once __DIR__.'/../bootstrap/start.php';
 |
 */
 
+
+// global var with before event, when APP is loaded the event triggers and the global 
+// gets registered.
+App::before(function($request) {
+    $cant = count(explode("/", $_SERVER['REQUEST_URI'])) - 2;
+    $var = str_repeat("../", $cant);
+    View::share('server', $var);
+});
+
 $app->run();

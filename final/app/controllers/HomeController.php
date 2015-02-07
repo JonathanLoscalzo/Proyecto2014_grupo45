@@ -17,9 +17,7 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-                $cant = count(explode("/", $_SERVER['REQUEST_URI'])) - 2;
-                $var = str_repeat("../", $cant);
-                View::share('server', $var);
+                
 		return View::make('HomeController.index');
 	}
         

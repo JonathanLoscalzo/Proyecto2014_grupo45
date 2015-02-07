@@ -13,7 +13,6 @@
 
 // TODO: COMO PASO PARAMETROS AL CONTROLLER?
 
-
 Route::get('/','HomeController@index', function()
 {
 	//return View::make('HomeController.index');
@@ -21,7 +20,7 @@ Route::get('/','HomeController@index', function()
 
 Route::get('login', 'LoginController@showLogin');
 
-Route::post('login', array( datos => 'LoginController@login'));
+Route::post('login', ['uses' => 'LoginController@dologin'] );
 
 Route::get('backend', function()
 {

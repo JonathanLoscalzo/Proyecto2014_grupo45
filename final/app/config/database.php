@@ -1,5 +1,10 @@
 <?php
 
+ const USERNAME = "grupo_45";
+ const PASSWORD = "1aGUQ3ASOu81kJSu";
+ const HOST = "localhost";
+ const DB = "grupo_45";
+
 return array(
 
 	/*
@@ -26,7 +31,7 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'local-mysql',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -82,6 +87,24 @@ return array(
 			'password' => '',
 			'prefix'   => '',
 		),
+            
+                'local-mysql' => array(
+                         'read' => array(
+                             'host'      => 'localhost',
+                         ),
+                         'write' => array(
+                             'host'      => 'localhost',
+                         ),
+                        'driver' => 'mysql',
+                        'host' => HOST,
+                        'database' => DB,
+                        'username' => USERNAME,
+                        'password' => PASSWORD,
+                        'charset'   => 'utf8',
+                        'collation' => 'utf8_unicode_ci',
+                        'prefix'    => '',
+                        
+                ),
 
 	),
 
