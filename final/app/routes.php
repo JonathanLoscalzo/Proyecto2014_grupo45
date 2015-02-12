@@ -22,20 +22,26 @@ Route::get('login', 'LoginController@showLogin');
 
 Route::post('login', ['uses' => 'LoginController@dologin'] );
 
-Route::get('backend', function()
-{
-    return View::make('LoginController.index-backend');
+Route::group(array('before' => 'auth'), function() {
+            Route::get('backend', function()
+        {
+            return View::make('LoginController.index-backend');
+        });
+
+        Route::get('logout', 'LoginController@logout' );
+
+        Route::get('backend/usuarios', 'UsuarioController@index');
+
+        Route::post('backend/usuarios/add', 'UsuarioController@add');
+
+        Route::get('backend/usuarios/edit/{userID}', 'UsuarioController@edit');
+
+        Route::get('backend/usuarios/remove/{userID}', 'UsuarioController@remove');
 });
 
-Route::get('logout', 'LoginController@logout' );
 
-Route::get('backend/usuarios', 'UsuarioController@index');
 
-Route::post('backend/add', 'UsuarioController@add');
 
-Route::get('backend/usuarios/edit/{userID}', 'UsuarioController@edit');
-
-Route::get('backend/usuarios/remove/{userID}', 'UsuarioController@remove');
 
 
 

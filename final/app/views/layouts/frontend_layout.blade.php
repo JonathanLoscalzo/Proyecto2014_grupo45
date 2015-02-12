@@ -19,7 +19,9 @@
         <div id="navigationwrap">
             @include('layouts._nav-home')
         </div>
-
+        @if (Session::has('message'))
+            <div>{{ Session::get('message') }}</div>
+        @endif
         @if ($errors->has())
         <div id="errorwrap">
             <div id="alert-dialog" class="alert-dialog" title="ALERTA">

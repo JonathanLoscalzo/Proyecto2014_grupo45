@@ -12,7 +12,7 @@
             <div>
                 <form action="./{{$server}}final/public/backend/usuarios/add" method="POST">
                     <div class="conj-block">
-                        <label for="nombreCompania" style = "display : block">Nombre usuario: </label><input placeholder="MiUsuario" id="username" name="username" type="text" required >
+                        <label for="nombreUsuario" style = "display : block">Nombre usuario: </label><input placeholder="MiUsuario" id="username" name="username" type="text" required >
                         <label for="pass1" style = "display : block">pass: </label><input id="pass"  type="password" name="pass" placeholder="********">
                         <label for="pass2" style = "display : block">repita pass: </label><input id="pass1"  type="password" name="pass2" placeholder="********">
                         <div id="dialog" title="ERROR EN EL FORMULARIO">
@@ -28,7 +28,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <button id="submit" type="submit" name="submit" style="display: none"> Enviar </button>
+                    <button id="submit" type="submit" name="submit" disabled> Enviar </button>
                 </form>
             </div>
             <h3>Baja y Modificación</h3>
@@ -85,18 +85,18 @@
             //$('#tabla-entidades').dataTable();
             $("form").change(function(){
                 if ($("#pass").val() === $("#pass1").val() && $('#pass').val() !== ""){
-                    $("#submit").css("display", "");
+                    $("#submit").prop("disabled", false);
                 }else{
-                     $("#submit").css("display", "none");
+                     $("#submit").css("disabled", true);
                 }
             });
             
-            $("#pass, #pass1").blur(function () {
-                if ($("#pass").val() !== $("#pass1").val())
-                {
-                    $("#dialog").dialog("open");
-                }
-            });
+//            $("#pass, #pass1").blur(function () {
+//                if ($("#pass").val() !== $("#pass1").val())
+//                {
+//                    $("#dialog").dialog("open");
+//                }
+//            });
 
         });
     </script>

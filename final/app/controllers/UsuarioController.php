@@ -2,7 +2,33 @@
 
 class UsuarioController extends BaseController {
 
-    public function create($post) {
+    public function add() {
+        $rules = array(
+			'username'    => 'required|alphaNum|unique:user',
+			'pass' => 'required|alphaNum|min:3', // password can only be alphanumeric and has to be greater than 3 characters
+                        'pass2' => 'required|alphaNum|same:pass',
+        );  // validation rules
+        $messages = array(
+              'unique' => Input::get('username').' ya se encuentra registrado',
+              'required' => 'El :attribute es requerido para el login',
+              'alphaNum' => ':attribute debe ser alfanumerico',
+        );
+	// run the validation rules on the inputs from the form
+	$validator = Validator::make(Input::all(), $rules, $messages);
+        if ($validator->fails()) {
+            return Redirect::to('backend/usuarios')->withErrors($validator);
+        }
+        else {
+            $user = new User();
+            $user->username = Input::get('username');
+            $user->roleID = Input::get('roleID');
+            $user->pass = Hash::make(Input::get('pass'));
+            $user->save();
+            $messages = 'Se ha registrado el usuario '.$user->username.' correctamente';
+            return Redirect::to('backend/usuarios')->with('message', $messages);
+        }
+        
+        
     }
 
     public function edit($post) {
