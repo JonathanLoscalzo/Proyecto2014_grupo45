@@ -29,5 +29,14 @@ Route::get('backend', function()
 
 Route::get('logout', 'LoginController@logout' );
 
+Route::get('backend/usuarios', 'UsuarioController@index');
+
+Route::post('backend/add', 'UsuarioController@add');
+
+Route::get('backend/usuarios/edit/{userID}', 'UsuarioController@edit');
+
+Route::get('backend/usuarios/remove/{userID}', 'UsuarioController@remove');
+
+
 
 
