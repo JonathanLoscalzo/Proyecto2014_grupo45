@@ -48,6 +48,7 @@ require_once 'controller/EstadisticasController.php';
  */
 
 
+
 $acciones = split("/", $_SERVER['REQUEST_URI']);
 
 if (isset($_POST['date'])) {
@@ -318,6 +319,9 @@ if (isset($_POST['date'])) {
             HomeController::getInstance()->index();
             break;
         // Deberìa redireccionarte a una pagina 404 o algo asi	
+        default:
+			header('Location: /final/public');
+        
     }
 }
 
