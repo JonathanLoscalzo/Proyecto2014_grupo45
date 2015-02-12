@@ -24,7 +24,10 @@ Route::post('login', ['uses' => 'LoginController@dologin'] );
 
 Route::get('backend', function()
 {
-    return View::make('backend');
+    return View::make('LoginController.index-backend');
 });
+
+Route::get('logout', 'LoginController@logout' );
+
 
 

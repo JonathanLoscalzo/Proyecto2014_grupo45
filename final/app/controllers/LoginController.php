@@ -19,8 +19,12 @@ class LoginController extends BaseController {
 			'pass' => 'required|alphaNum|min:3', // password can only be alphanumeric and has to be greater than 3 characters
 		
                 );
+                $messages = array(
+                    'required' => 'El :attribute es requerido para el login',
+                    'alphaNum' => ':attribute debe ser alfanumerico',
+                );
 		// run the validation rules on the inputs from the form
-		$validator = Validator::make(Input::all(), $rules);
+		$validator = Validator::make(Input::all(), $rules, $messages);
 		// if the validator fails, redirect back to the form
 		if ($validator->fails()) {
 			return Redirect::to('login')
@@ -33,14 +37,16 @@ class LoginController extends BaseController {
 				'password' 	=> Input::get('pass'),
 			);
 			// attempt to do the login
+                        Redirect::to('backend');
 			if (Auth::attempt($userdata)) {
 				// validation successful!
 				// redirect them to the secure section or whatever
 				// return Redirect::to('secure');
 				// for now we'll just echo success (even though echoing in a controller is bad)
-				echo 'SUCCESS!';
+				return Redirect::to('backend')->with('message', 'Ha ingresado como '.$userdata['username']);
 			} else {
 				// validation not successful, send back to form
+                                
 				return Redirect::to('login');
 			}
 		}
@@ -50,12 +56,10 @@ class LoginController extends BaseController {
         return View::make('LoginController.login');
     }
         
-    public function backend() {
-        /* verificar si la sesion està iniciada? Todos pueden acceder a este */
-        if (parent::backendIsLogged()) {
-            $view = new BackEndView();
-            $view->index();
-        }
+    public function logout() {
+        Auth::logout();
+        return Redirect::to('/');
+    
     }
     
     

@@ -20,16 +20,18 @@
             @include('layouts._nav-home')
         </div>
 
-        @if (isset($message) and not($message==""))
+        @if ($errors->has())
         <div id="errorwrap">
-            <div id="alert-dialog" class="alert-dialog {{ $message->class }}" title="ALERTA">
+            <div id="alert-dialog" class="alert-dialog" title="ALERTA">
                 <ul>
-                    <li><p> {{ $message->text }} </p></li>
-                    <li><button id="dismiss" >X</button></li>
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}<br>
+                    @endforeach
                 </ul>
             </div>
         </div>
-        @endif  
+
+        @endif
         <div id="leftcolumnwrap">
             @include('layouts._aside-content')
 
