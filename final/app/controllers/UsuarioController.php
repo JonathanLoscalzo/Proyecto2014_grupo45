@@ -73,7 +73,7 @@ class UsuarioController extends BaseController {
     public function remove($userID) {
         
         $rules = array(
-                        'userID' => 'notLogged|exists:user',
+                        'userID' => 'integer|notLogged|exists:user',
         );  // validation rules
         $messages = array(
               'exists' => 'El usuario no existe',
