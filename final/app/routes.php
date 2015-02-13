@@ -1,5 +1,10 @@
 <?php
 
+Validator::extend('notLogged', function($attribute, $value, $parameters)
+ {
+            return $value != Auth::User()->userID;
+ });
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -18,6 +23,9 @@ Route::get('/','HomeController@index', function()
 	//return View::make('HomeController.index');
 });
 
+
+
+
 Route::get('login', 'LoginController@showLogin');
 
 Route::post('login', ['uses' => 'LoginController@dologin'] );
@@ -34,9 +42,10 @@ Route::group(array('before' => 'auth'), function() {
 
         Route::post('backend/usuarios/add', 'UsuarioController@add');
 
-        Route::get('backend/usuarios/edit/{userID}', 'UsuarioController@edit');
+        Route::get('backend/usuarios/edit/{userID}', ['uses' => 'UsuarioController@edit' ]);
 
-        Route::get('backend/usuarios/remove/{userID}', 'UsuarioController@remove');
+        Route::get('backend/usuarios/remove/{userID}', [ 'uses' => 'UsuarioController@remove'] );
+        
 });
 
 

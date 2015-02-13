@@ -70,18 +70,25 @@ class UsuarioController extends BaseController {
         }
     }
 
-    public function remove($id) {
-        if (parent::backendIsLogged()) {
-            if (RoleService::getInstance()->hasRolePermission($_SESSION["roleID"], __CLASS__ . ":" . __FUNCTION__)) {
-                $userInfo = UserRepository::getInstance()->getByID($id);
-                if ($userInfo) {
-                    UserRepository::getInstance()->remove($id);
-                    $_SESSION["message"] = new MessageService("removeSucess", ["entidad receptora"]);
-                } else {
-                    $_SESSION["message"] = new MessageService("removeErrorNotExist", ["entidad receptora"]);
-                }
-                $this->redirect();
-            }
+    public function remove($userID) {
+        
+        $rules = array(
+                        'userID' => 'notLogged|exists:user',
+        );  // validation rules
+        $messages = array(
+              'exists' => 'El usuario no existe',
+              'not_logged' => 'El usuario que desea editar se encuentra logueado',
+        );
+	// run the validation rules on the inputs from the form
+	$validator = Validator::make([
+            'userID' => $userID] , $rules, $messages);
+        if ($validator->fails()) {
+            return Redirect::to('backend/usuarios')->withErrors($validator);
+        }
+        else {
+            $user = User::find($userID);
+            $user->delete();
+            return Redirect::to('backend/usuarios')->with('message', 'Se ha eliminado correctamente');
         }
     }
 

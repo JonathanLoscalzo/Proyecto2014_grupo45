@@ -53,8 +53,8 @@
                                         @endif
                                     @endforeach
                                 </td>
-                                <td><a href="./{{$server}}/final/public/backend/usuarios/edit/{{ $user->userID }}"><img src="{{$server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                                <td><a href="./{{$server}}/final/public/backend/usuarios/remove/{{ $user->userID }}"><img src="{{$server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                                <td><a href="./{{$server}}final/public/backend/usuarios/edit/{{ $user->userID }}"><img src="{{$server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                                <td><a href="./{{$server}}final/public/backend/usuarios/remove/{{ $user->userID }}"><img src="{{$server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                             </tr>
                             @endif
                         @endforeach
