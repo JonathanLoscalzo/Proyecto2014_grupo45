@@ -4,6 +4,17 @@ Validator::extend('notLogged', function($attribute, $value, $parameters)
  {
             return $value != Auth::User()->userID;
  });
+ 
+Validator::extend('passcheck', function ($attribute, $value, $parameters) {
+    $user = DB::table($parameters[0])->where($parameters[2], $parameters[3])->first([$parameters[1]]);
+    if (Hash::check($value, $user->{$parameters[1]})) {
+        return true;
+    } else {
+        return false;
+    }
+});
+ 
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +53,10 @@ Route::group(array('before' => 'auth'), function() {
 
         Route::post('backend/usuarios/add', 'UsuarioController@add');
 
-        Route::get('backend/usuarios/edit/{userID}', ['uses' => 'UsuarioController@edit' ]);
-
+        Route::get('backend/usuarios/edit/{userID}', ['uses' => 'UsuarioController@edit']);
+        
+        Route::post('backend/usuarios/edit', 'UsuarioController@editView');
+        
         Route::get('backend/usuarios/remove/{userID}', [ 'uses' => 'UsuarioController@remove'] );
         
 });
