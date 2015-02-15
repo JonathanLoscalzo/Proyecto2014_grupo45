@@ -78,7 +78,7 @@ class UsuarioController extends BaseController {
         else {
             $user = User::find(Input::get('userID'));
             $user->username = Input::get('username');
-            $user->pass = Hash::make(Input::get('pass'));
+            $user->pass = Hash::make(Input::get('pass2'));
             $user->roleID = Input::get('roleID');
             $user->save();
             return Redirect::to('backend/usuarios')->with('message',
