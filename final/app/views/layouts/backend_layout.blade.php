@@ -16,23 +16,7 @@
             <div id="navigationwrap">
                 @include('layouts.menu-bar')
             </div>
-            @if ($errors->has())
-                <div id="errorwrap">
-                    <div id="alert-dialog" class="alert-dialog" title="ALERTA">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                {{ $error }}<br>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
-            
-            
-            @if (Session::has('message'))
-                <div>{{ Session::get('message') }}</div> <!-- aqui se deberia incluir un 
-                                                         template para el error !-->
-            @endif
+            @include('layouts.messages')
 
             <div id="contentwrap">
                 @yield('content')

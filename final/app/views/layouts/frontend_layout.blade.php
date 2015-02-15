@@ -19,21 +19,7 @@
         <div id="navigationwrap">
             @include('layouts._nav-home')
         </div>
-        @if (Session::has('message'))
-            <div>{{ Session::get('message') }}</div>
-        @endif
-        @if ($errors->has())
-        <div id="errorwrap">
-            <div id="alert-dialog" class="alert-dialog" title="ALERTA">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        {{ $error }}<br>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-
-        @endif
+        @include('layouts.messages')
         <div id="leftcolumnwrap">
             @include('layouts._aside-content')
 

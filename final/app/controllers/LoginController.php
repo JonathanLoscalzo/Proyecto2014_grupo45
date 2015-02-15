@@ -28,8 +28,7 @@ class LoginController extends BaseController {
 		// if the validator fails, redirect back to the form
 		if ($validator->fails()) {
 			return Redirect::to('login')
-				->withErrors($validator) // send back all errors to the login form
-				->withInput(Input::except('pass')); // send back the input (not the password) so that we can repopulate the form
+				->withErrors($validator); // send back all errors to the login form
 		} else {
 			// create our user data for the authentication
 			$userdata = array(
@@ -47,7 +46,7 @@ class LoginController extends BaseController {
 			} else {
 				// validation not successful, send back to form
                                 
-				return Redirect::to('login');
+				return Redirect::to('login')->withErrors(array('error' => 'Username y/o password incorrectos'));
 			}
 		}
 	}
