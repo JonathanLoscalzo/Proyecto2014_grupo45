@@ -29,6 +29,7 @@
                         </select>
                     </div>
                     <button id="submit" type="submit" name="submit" disabled> Enviar </button>
+                    {{ Form::token() }}
                 </form>
             </div>
             <h3>Baja y Modificación</h3>
@@ -45,7 +46,7 @@
                         @foreach ($usuario->all() as $user)
                             @if ($user->username != Auth::User()->username)
                             <tr>
-                                <td> {{ $user->username }} </td>
+                                <td> {{{ $user->username }}} </td>
                                 <td> 
                                     @foreach ($roles->all() as $rol)
                                         @if ($rol->roleID === $user->roleID)
@@ -53,8 +54,8 @@
                                         @endif
                                     @endforeach
                                 </td>
-                                <td><a href="./{{$server}}final/public/backend/usuarios/edit/{{ $user->userID }}"><img src="{{$server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
-                                <td><a href="./{{$server}}final/public/backend/usuarios/remove/{{ $user->userID }}"><img src="{{$server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
+                                <td><a href="./{{$server}}final/public/backend/usuarios/edit/{{{ $user->userID }}}"><img src="{{$server}}images/icons/glyphicons_235_pen.png" alt="modificar"></a></td>
+                                <td><a href="./{{$server}}final/public/backend/usuarios/remove/{{{ $user->userID }}}"><img src="{{$server}}images/icons/glyphicons_197_remove.png" alt="borrar"></a></td>
                             </tr>
                             @endif
                         @endforeach

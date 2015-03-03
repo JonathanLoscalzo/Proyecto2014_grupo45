@@ -41,6 +41,8 @@ Route::get('login', 'LoginController@showLogin');
 
 Route::post('login', ['uses' => 'LoginController@dologin'] );
 
+Route::when('backend/*', 'csrf', array('post'));
+
 Route::group(array('before' => 'auth'), function() {
             Route::get('backend', function()
         {
@@ -48,16 +50,18 @@ Route::group(array('before' => 'auth'), function() {
         });
 
         Route::get('logout', 'LoginController@logout' );
-
-        Route::get('backend/usuarios', 'UsuarioController@index');
-
-        Route::post('backend/usuarios/add', 'UsuarioController@add');
-
-        Route::get('backend/usuarios/edit/{userID}', ['uses' => 'UsuarioController@edit']);
         
-        Route::post('backend/usuarios/edit', 'UsuarioController@editView');
-        
-        Route::get('backend/usuarios/remove/{userID}', [ 'uses' => 'UsuarioController@remove'] );
+        Route::group(array('before' => 'role-admin'), function() {
+            Route::get('backend/usuarios', 'UsuarioController@index');
+
+            Route::post('backend/usuarios/add', 'UsuarioController@add');
+
+            Route::get('backend/usuarios/edit/{userID}', ['uses' => 'UsuarioController@edit']);
+
+            Route::post('backend/usuarios/edit', 'UsuarioController@editView');
+
+            Route::get('backend/usuarios/remove/{userID}', [ 'uses' => 'UsuarioController@remove'] );
+        });
         
 });
 

@@ -33,6 +33,7 @@
                 </select>
             </div>
             <button id="submit" type="submit" name="submit" > Enviar </button>
+            {{ Form::token() }}
         </form>
     </div>
 @stop

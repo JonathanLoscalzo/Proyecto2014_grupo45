@@ -85,6 +85,27 @@ Route::filter('csrf', function()
 {
 	if (Session::token() !== Input::get('_token'))
 	{
-		throw new Illuminate\Session\TokenMismatchException;
+		App::abort(401, 'Not authenticated');
 	}
 });
+
+Route::filter('role-admin', function() 
+{
+    
+});
+
+Route::filter('role-gestion', function()
+{
+    
+    
+});
+
+Route::filter('role-consulta', function() {
+       
+    
+    
+});
+
+
+                
+                
