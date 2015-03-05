@@ -91,17 +91,11 @@ Route::filter('csrf', function()
 
 Route::filter('role-admin', function() 
 {
-    
-});
-
-Route::filter('role-gestion', function()
-{
-    
-    
-});
-
-Route::filter('role-consulta', function() {
-       
+    $role = Role::find(Auth::User()->roleID);
+    $arr_role = ['Administrador']; # forma generica
+    if ( !in_array($role->roleuser, $arr_role)) {
+        App::abort(403, 'Not authorized');
+    }
     
     
 });

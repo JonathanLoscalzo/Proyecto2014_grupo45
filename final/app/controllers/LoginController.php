@@ -16,7 +16,7 @@ class LoginController extends BaseController {
                 
 		$rules = array(
 			'username'    => 'required|alphaNum',
-			'pass' => 'required|alphaNum|min:3', // password can only be alphanumeric and has to be greater than 3 characters
+			'pass' => 'required|alphaNum', // password can only be alphanumeric and has to be greater than 3 characters
 		
                 );
                 $messages = array(
