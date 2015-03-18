@@ -1,6 +1,8 @@
 <nav>
     <ul id="mainNavBar">
-        <li><a href="./{{ $server }}final/public/">Home</a></li>
+        <!-- http://laravel-recipes.com/recipes/186/generating-a-html-link -->
+        <!-- {{ HTML::link('/login', 'log in', array('id' => 'linkid'), true)}} -->
+        <li>{{ HTML::link('/', 'Home') }}</li>
         <li><a href="#">Quienes somos</a></li>
         <li><a href="./{{ $server }}/final/public/Voluntariado">Voluntariado</a></li>
         <li><a href="./{{ $server }}/final/public/Proyectos">Proyectos</a></li>
@@ -10,9 +12,9 @@
         <li><a href="./{{ $server }}final/public/lista_entidadesreceptoras">Ver nuestras Entidades Receptoras</a></li>
         <li><a href="./{{ $server }}final/public/acerca_de">Acerca de nosotros</a></li>
         @if  (Auth::check())
-        <li><a href= "./{{ $server }}final/public/backend">BACKEND</a></li>
+        <li>{{ HTML::link('/backend', 'Backend') }}</li>
         @else
-        <li><a href= "{{$server}}final/public/login">INICIAR SESION</a></li>		
+        <li>{{ HTML::link('/login', 'Log-in') }}</li>		
         @endif
     </ul>
 </nav>
