@@ -4,13 +4,13 @@
         <!-- {{ HTML::link('/login', 'log in', array('id' => 'linkid'), true)}} -->
         <li>{{ HTML::link('/', 'Home') }}</li>
         <li><a href="#">Quienes somos</a></li>
-        <li><a href="./{{ $server }}/final/public/Voluntariado">Voluntariado</a></li>
-        <li><a href="./{{ $server }}/final/public/Proyectos">Proyectos</a></li>
+        <li><a href="#">Voluntariado</a></li>
+        <li><a href="#">Proyectos</a></li>
         <li><a href="#">Contacto</a></li>
-        <li><a href="./{{ $server }}final/public/Dona-ahora">¡Dona Ahora!</a></li>
-        <li><a href="./{{ $server }}final/public/lista_donantes">Ver nuestros donantes</a></li>
-        <li><a href="./{{ $server }}final/public/lista_entidadesreceptoras">Ver nuestras Entidades Receptoras</a></li>
-        <li><a href="./{{ $server }}final/public/acerca_de">Acerca de nosotros</a></li>
+        <li><a href="#">¡Dona Ahora!</a></li>
+        <li><a href="#">Ver nuestros donantes</a></li>
+        <li><a href="#">Ver nuestras Entidades Receptoras</a></li>
+        <li>{{ HTML::link('/acerca_de', 'Acerca de Nosotros'}}</li>
         @if  (Auth::check())
         <li>{{ HTML::link('/backend', 'Backend') }}</li>
         @else
