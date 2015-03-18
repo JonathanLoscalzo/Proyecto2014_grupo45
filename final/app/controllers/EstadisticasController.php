@@ -1,14 +1,7 @@
 <?php
-
-include_once 'repository/EstadisticasRepository.php';
 require 'vendor/autoload.php';
 define('DOMPDF_ENABLE_AUTOLOAD', false);
 include 'vendor/dompdf/dompdf/dompdf_config.inc.php';
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 class EstadisticasController extends BaseController {
 
@@ -35,21 +28,18 @@ class EstadisticasController extends BaseController {
         $from = DateTime::createFromFormat('d/m/Y', $from);
         $to = DateTime::createFromFormat('d/m/Y', $to);
 
-        $array = EstadisticasRepository::getInstance()->alimento_entre_fechas($from->format('Y-m-d'), $to->format('Y-m-d'));
-        echo json_encode($array);
+        return Response::json(AlimentosVencidos::alimento_entre_fechas($from->format('Y-m-d'), $to->format('Y-m-d')));
     }
 
     public function dos($from, $to) {
         $from = DateTime::createFromFormat('d/m/Y', $from);
         $to = DateTime::createFromFormat('d/m/Y', $to);
 
-        $array = EstadisticasRepository::getInstance()->alimento_entre_fechas_por_entidad($from->format('Y-m-d'), $to->format('Y-m-d'));
-        echo json_encode($array);
+        return Response::json(AlimentosVencidos::alimento_entre_fechas_por_entidad($from->format('Y-m-d'), $to->format('Y-m-d')));
     }
 
     public function tres() {
-        $data = EstadisticasRepository::getInstance()->alimentos_vencidos_agrupados_descripcion();
-        echo json_encode($data);
+        return Response::json(AlimentosVencidos::alimentos_vencidos_agrupados_descripcion());
     }
 
     public function alertas() {
@@ -64,8 +54,9 @@ class EstadisticasController extends BaseController {
     }
 
     public function index() {
-        $view = new BackEndView();
-        $view->estadisticas();
+        /*$view = new BackEndView();
+        $view->estadisticas();*/
+        return  View::make('EstadisticasController.Estadisticas');
     }
 
     public function exportarPDF($html) {
@@ -79,7 +70,7 @@ class EstadisticasController extends BaseController {
         file_put_contents('images/file.pdf', $output);
     }
 
-    function exportarPDF2($html) {
+    public function exportarPDF2($html) {
         $prints = '<html>
 <head>
     <title>Banco Alimentario</title>
