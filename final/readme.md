@@ -1,25 +1,38 @@
-## Laravel PHP Framework
+----- Trabajo final de Proyecto de Software 2014 ----
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Integrantes: Dante Barba, Jonathan Lozcalzo.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+Framework utilizado: Laravel 4.2
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+Base de datos: Mysql
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Documentación se encuentra en /final/docs. Allí se describen las consignas presentadas.
 
-## Official Documentation
+Para acceder a la página web, se debe usar la dirección /final/public como índice, todas las rutas se encuentran a partir de /final/public/
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+Puntos a considerar a la hora de utilizar la App:
 
-### Contributing To Laravel
+-Unicamente se realizaron las vistas: index, login, backend, estadísticas, ABM de Usuarios, Editar Usuario debido a que era lo solicitado por el enunciado. El resto de los links se encuentran inoperativos.
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+-La pagina base del proyecto esta deshabilitada también, automáticamente se redirige a la pagina Final.
 
-### License
+-Se consideraron a los roles como parte del Login.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Usuario Admin: admin1 
+Pass: 123456
+
+Usuario Gestion: gestion1
+Pass: 123456
+
+Usuario Consulta: consulta1
+Pass: 123456
+
+Si bien se implementaron los roles, tenga en cuenta que no es posible probar las funcionalidades de los roles debido a que no estaban incluidas en el enunciado. Unicamente puede intentar acceder a /final/public/backend/usuarios con por ej. un usuario Consulta y ver como es rechazado por el servidor. 
+
+Tenga en cuenta también que los datos para generar las Estadísticas estan pre-cargados con un muestreo básico. Se incluirá un boton para resetear toda la base de datos al muestreo inicial. Esto se debe a que para generar los datos de Estadisticas se requieren otras funcionalidades que no serán incluidas.
+
+
+
+
+
+
