@@ -27,9 +27,8 @@
             <div id="container-1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
         </div>
         <div class="col-md-6">
-            {{ Form::open(array('id'=>"exportar-1", 'action'=>'EstadisticasController@exportarPDF2', 'method'=>'post')) }}
-            {{ Form::submit('Exportar PDF', array('data-type' => 'Listado (entre fechas) de los kilos de pedidos que fueron entregados (gráfico de barra)',
-                            'style'=>'margin-top:1%; margin-bottom: 1%')) }}
+            {{ Form::open(array('id'=>"exportar-1", 'action'=>'EstadisticasController@exportarPDF2', 'method'=>'post', 'data-type' => 'Listado (entre fechas) de los kilos de pedidos que fueron entregados (gráfico de barra)')) }}
+            {{ Form::submit('Exportar PDF', array('style'=>'margin-top:1%; margin-bottom: 1%')) }}
             {{ Form::textarea('html','', array('hidden'=>'')) }}
             {{ Form::close() }}
             
@@ -59,8 +58,8 @@
         </div>
         <div class="col-md-6">
             
-            {{ Form::open(array('id'=>'exportar-2', 'action'=>'EstadisticasController@exportarPDF2', 'method'=>'post')) }}
-            {{ Form::button('Exportar PDF', array('id'=>'exportar-2', 'data-type'=>'Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (grafico de torta)', 'style'=>'margin-top:1%; margin-bottom: 1%')) }}
+            {{ Form::open(array('id'=>'exportar-2', 'action'=>'EstadisticasController@exportarPDF2', 'method'=>'post', 'data-type'=>'Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (grafico de torta)')) }}
+            {{ Form::submit('Exportar PDF', array('id'=>'exportar-2', 'style'=>'margin-top:1%; margin-bottom: 1%')) }}
             {{ Form::textarea('html', '', array('hidden'=>'')) }}
             {{ Form::close() }}
             
@@ -83,9 +82,9 @@
             <div><button id="refresh" type="submit" class = "col-md-4">Actualizar</button></div>
             {{ Form::close() }}
 
-            {{ Form::open(array('id'=>'exportar-3', 'action'=>'EstadisticasController@exportarPDF2', 'method'=>'post')) }}
+            {{ Form::open(array('id'=>'exportar-3', 'action'=>'EstadisticasController@exportarPDF2', 'method'=>'post', 'data-type'=>'Alimentos vencidos sin entregar (agrupados por descripción)')) }}
             {{ Form::textarea('html', '', array('hidden'=>'')) }}
-            {{ Form::submit('Exportar PDF', ['data-type'=>'Alimentos vencidos sin entregar (agrupados por descripción)', 'class' => 'col-md-4' ])}}
+            {{ Form::submit('Exportar PDF', ['class' => 'col-md-4' ])}}
             {{ Form::close() }}
         <div style="padding:1.3%;margin:1%"></div>
         <table id = "t3" class = "tabla-class table-striped" style="
@@ -97,8 +96,8 @@
                ">
             <thead>
                 <tr>
-                    <th> Fecha </th>
-                    <th> KG </th>
+                    <th> Descripción </th>
+                    <th> Cantidad </th>
                 </tr>
             </thead>
             <tbody id="tabla-3" style="text-align: center"></tbody>
@@ -156,7 +155,9 @@ $(document).ready(function () {
             dataType: 'json',
             data: $("#form-2").serialize(),
             success: function (aData) {
-
+                aData = aData.map(function(e){return [e.razon_social, e.kilogramos]});
+                console.log(aData);
+                debugger;
                 $("#t2").DataTable().destroy();
 
                 $("#t2").dataTable({
@@ -179,7 +180,9 @@ $(document).ready(function () {
             dataType: "json",
             data: $("#form-1").serialize(),
             success: function (aData) {
-
+                aData = aData.map(function(e){return [e.fecha, e.kilogramos]});
+                console.log(aData);
+                debugger;
                 $("#t1").DataTable().destroy();
 
                 $("#t1").dataTable({
@@ -205,9 +208,10 @@ $(document).ready(function () {
             dataType: "json",
             data: $("#form-3").serialize(),
             success: function (aData) {
+                aData = aData.map(function(e){return [e.descripcion, e.cantidad]});
                 $("#t3").DataTable().destroy();
                 $("#t3").dataTable({
-                    data: $.parseJSON(aData)
+                    data: aData
                 });
             }
         });
@@ -224,7 +228,7 @@ $(document).ready(function () {
          //window.location.hostname
          }
          });*/
-        var str = '<h3>' + $(this).children("button").attr('data-type') + '</h3><table>' + $(this).siblings().children("table").html() + '</table>';
+        var str = '<h3>' + $(this).attr('data-type') + '</h3><table>' + $(this).siblings().children("table").html() + '</table>';
         $(this).children("textarea").val(str);
         
     });
