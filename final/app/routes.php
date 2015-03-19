@@ -62,9 +62,9 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::group(['prefix' => 'backend/Estadisticas'], function() {
         Route::get('/', ['uses' => 'EstadisticasController@index']);
-        Route::post('/uno', ['uses' => 'EstadisticasController@uno']);
-        Route::post('/dos', ['uses' => 'EstadisticasController@dos']);
-        Route::post('/tres', ['uses' => 'EstadisticasController@tres']);
+        Route::post('/uno', ['before' => 'csrf', 'uses' => 'EstadisticasController@uno']);
+        Route::post('/dos', ['before' => 'csrf', 'uses' => 'EstadisticasController@dos']);
+        Route::post('/tres', ['before' => 'csrf', 'uses' => 'EstadisticasController@tres']);
         Route::post('/exportarpdf2', ['uses' => 'EstadisticasController@exportarPDF2']);
     });
 });

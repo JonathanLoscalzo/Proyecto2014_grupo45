@@ -1,0 +1,262 @@
+@import url("reset.css");
+
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    color:#333;
+    margin: 0 auto;
+    background-color: #dddddd;
+}
+
+/*p {
+    padding: 10px;
+}*/
+
+a:visited , a:link, a:active{
+    text-decoration: none;
+    color: inherit;
+
+}
+
+#wrapper {
+    width: 100%;
+    min-width: 1000px;
+    max-width: 2000px;
+    margin: 0 auto;
+}
+
+#headerwrap {
+    width: 100%;
+    float: left;
+    margin: 0 auto;
+}
+
+header {
+    height:10%;
+    background: #FF6633;
+    border-radius: 10px;
+    border: 1px solid #eb521f;
+    margin: 5px;
+}
+
+#navigationwrap {
+    width: 100%;
+    float: left;
+    margin: 0 auto;
+}
+
+nav{
+    height: 10%;
+    background: #FFCC33;
+    border-radius: 4px;
+    border: 1px solid #ebb81f;
+    margin: 5px;
+}
+
+nav ul {
+    padding-left: 5%;
+    padding-top: 0px;
+}
+
+nav ul li:hover{
+    color: white;
+    font-weight: bold;
+    background-color: #D2691E;
+}
+
+nav ul li { 
+    display: inline-table;
+    padding: 10px;
+    max-width: 11%;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+h2{
+    font-size : 2em;
+    margin: 1%;
+}
+#errorwrap{
+    width: 100%;
+    float: left;
+    margin: 0 auto;
+}
+
+#errorwrap #alert-dialog{
+    height: 10%;
+    border-radius: 4px;
+    border: 1px solid;
+    margin: 5px;
+
+}
+#errorwrap .success{
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+
+}
+#errorwrap .error{
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+}
+#errorwrap #dismiss {
+    opacity: .2;
+}
+#errorwrap p{
+    width: 80%;
+}
+
+#errorwrap ul li {
+    display: inline-table;
+    padding: 10px;
+}
+#errorwrap ul li:first-child {
+    width: 80%;
+    display: inline-table;
+    padding: 10px;
+}
+#errorwrap ul li:nth-child(2){
+    width: 5%;
+    display: inline-table;
+    padding: 10px;
+    float:right;
+}
+
+#contentwrap {
+    float: left;
+    width: 100%;
+}
+
+
+#content {
+    background: #FFDB63;
+    border-radius: 10px;
+    border: 1px solid #ebebeb;
+    margin: 5px;
+    padding: 2%;
+}
+#content form .conj-block{
+    display: inline-block;
+    padding-left: 5%;
+}
+/**___________________________________--*/
+#content form .conj-block label{
+    padding-bottom: 3%;
+    padding-top: 3%;
+
+}
+
+#content form select {
+    width: 100%;
+
+}
+
+#content .image-frontend{
+    width: 50%;
+    height: auto;
+    max-width: 60%; 
+    /* max-height: 80%;*/
+
+}
+/*-------------------------------------------*/
+
+#footerwrap {
+    width: 100%;
+    float: left;
+    margin: 0 auto;
+    clear: both;
+}
+
+footer {
+    height: 40px;
+    background: #33FF66;
+    border-radius: 10px;
+    border: 1px solid #1feb52;
+    margin: 5px;
+    text-align: center;
+    padding-top: 1%;
+}
+
+.tabla-class {
+    margin:0px;
+    padding:0px;
+    box-shadow: 10px 10px 5px #888888;
+    border:1px solid #000000;
+
+}
+.tabla-class table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+
+.tabla-class tr:nth-child(odd){ 
+    background-color:#ffaa56; 
+}
+
+.tabla-class tr:nth-child(even){ 
+    background-color:#ffffff; 
+}
+.tabla-class td{
+    vertical-align:middle;
+    border:1px solid #000000;
+    border-width:1px 0px 1px 0px;
+    text-align:center;
+    padding:0.5%;
+    font-family:Arial;
+    font-weight:normal;
+    color:#000000;
+}
+
+.tabla-class tr:hover td{
+
+    background-color:#ff7f00;
+    border:0px solid #000000;
+    text-align:center;
+    border-width:1px 0px 1px 0px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#ffffff;
+}
+
+.truncate {
+    white-space: nowrap; 
+    width: 12em; 
+    overflow: hidden; 
+    border: 1px solid #000000;
+    text-overflow:ellipsis;
+}
+
+.truncate:hover {
+    text-overflow: inherit;
+    overflow: visible;
+}
+
+input:not([type="radio"]), textarea, select{
+    border-radius: 0.5em;
+    padding: 0.3em;
+    box-shadow: 10px 10px 5px #888888;
+
+}
+
+button:not(#dismiss)
+{
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0px 5px  #888888;
+    padding: 0.5em;
+    background-color: #FFAD33;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+button:hover{
+    box-shadow: 0px 2px  #888888;
+}
+button:active{
+    box-shadow: 0px 0px  #888888;
+    cursor: wait;
+}
+

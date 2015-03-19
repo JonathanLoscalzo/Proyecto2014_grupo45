@@ -1,13 +1,14 @@
 @extends('layouts.backend_layout')
 @section('head')
-{{ HTML::style('css/bootstrap/css/bootstrap.min.css'); }}
+{{ HTML::style('css/bootstrap/css/bootstrap.min.css') }}
+{{ HTML::style('js/plugins/jquery-ui/jquery-ui.min.css') }}
+{{ HTML::style('css/dataTables.bootstrap.css') }}
 @parent
-{{ HTML::script('js/plugins/jquery-2.1.2.js'); }}
-{{ HTML::style('js/plugins/jquery-ui/jquery-ui.css'); }}
-{{ HTML::script('js/plugins/jquery-ui/jquery-ui.js'); }}
-{{ HTML::script('js/plugins/jquery.dataTables-1.10.2.min.js'); }}
-{{ HTML::script('css/bootstrap/js/bootstrap.min.js'); }}
-{{ HTML::style('css/dataTables.bootstrap.css'); }}
+{{ HTML::script('js/plugins/jquery-2.1.2.js') }}
+{{ HTML::script('js/plugins/jquery-ui/jquery-ui.min.js') }}
+{{ HTML::script('js/plugins/jquery.dataTables-1.10.2.min.js') }}
+{{ HTML::script('css/bootstrap/js/bootstrap.min.js') }}
+
 @stop
 
 @section('content')
@@ -20,28 +21,18 @@
             {{ Form::text('from', '', array('id' => 'from1')) }}
             {{ Form::label('to1', 'Hasta') }}
             {{ Form::text('to', '', array('id' => 'to1')) }}
-            {{ Form::button('Consultar', array('id' => 'button-2')) }}
+            {{ Form::submit('Consultar', array('id' => 'button-1')) }}
             {{ Form::close() }}
 
-            <!--<form id="form-1" class="form-inline" role="form"> 
-                <label for="from">Desde</label>
-                <input type="text" id="from1" name="from">
-                <label for="to">hasta</label>
-                <input type="text" id="to1" name="to">
-                <button id="button-2"> consultar </button>
-            </form>-->
             <div id="container-1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
         </div>
         <div class="col-md-6">
-            {{ Form::open('exportar-1', array('id'=>"exportar-1", 'action'=>'Estadisticas/exportarpdf2', 'method'=>'post')) }}
+            {{ Form::open(array('id'=>"exportar-1", 'action'=>'EstadisticasController@exportarPDF2', 'method'=>'post')) }}
             {{ Form::submit('Exportar PDF', array('data-type' => 'Listado (entre fechas) de los kilos de pedidos que fueron entregados (gráfico de barra)',
-                            'style'=>'margin-top:1%; margin-bottom: 1%'))}}
+                            'style'=>'margin-top:1%; margin-bottom: 1%')) }}
             {{ Form::textarea('html','', array('hidden'=>'')) }}
             {{ Form::close() }}
-            <!--<form id="exportar-1" action="./{{server}}Estadisticas/exportarpdf2" method="post">
-                <button type="submit" data-type="Listado (entre fechas) de los kilos de pedidos que fueron entregados (gráfico de barra)" style="margin-top:1%; margin-bottom: 1%"> Exportar PDF </button>
-                <input name="html" type="textarea" value="" hidden/>
-            </form>-->
+            
             <table id = "t1" class = "tabla-class table table-striped" style="margin-top:1%; margin-bottom: 1%">
                 <thead>
                     <tr>
@@ -62,29 +53,17 @@
             {{ Form::text('from', '', array('id' => 'from')) }}
             {{ Form::label('to', 'Hasta') }}
             {{ Form::text('to', '', array('id' => 'to')) }}
-            {{ Form::button('Consultar', array('id' => 'button-2')) }}
+            {{ Form::submit('Consultar', array('id' => 'button-2')) }}
             {{ Form::close() }}
-
-            <!--<form id="form-2"  class="form-inline" role="form"> 
-                <label for="from">Desde</label>
-                <input type="text" id="from" name="from">
-                <label for="to">hasta</label>
-                <input type="text" id="to" name="to">
-                <button id="button-2"> consultar </button>
-            </form>-->
             <div id="container-2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 3% auto"></div>
         </div>
         <div class="col-md-6">
             
-            {{ Form::open('exportar-2', array('id'=>'exportar-2', 'action'=>'Estadisticas/exportarpdf2', 'method'=>'post') }}
-            {{ Form::button('Exportar PDF', array('id'=>'exportar-2', 'data-type'=>'Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (grafico de torta)', 'style'=>'margin-top:1%; margin-bottom: 1%'))}}
-            {{ Form::textarea('html', '', array('hidden'=>'')}}
-            {{ Form:close() }}
-            <!-- <form id="exportar-2" action="./{{server}}Estadisticas/exportarpdf2" method="post">
-                <button id="exportar-2" data-type="Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (grafico de torta)" style="margin-top:1%; margin-bottom: 1%"> Exportar PDF </button>
-                <input name="html" type="textarea" value="" hidden/>
-            </form> --> 
-
+            {{ Form::open(array('id'=>'exportar-2', 'action'=>'EstadisticasController@exportarPDF2', 'method'=>'post')) }}
+            {{ Form::button('Exportar PDF', array('id'=>'exportar-2', 'data-type'=>'Listado (entre fechas) de cada E.R y los kilos de alimento que le fueron entregados (grafico de torta)', 'style'=>'margin-top:1%; margin-bottom: 1%')) }}
+            {{ Form::textarea('html', '', array('hidden'=>'')) }}
+            {{ Form::close() }}
+            
             <table  id="t2" class=" tabla-class table table-striped" style="margin-top:1%; margin-bottom: 1%">
                 <thead>
                     <tr>
@@ -99,11 +78,15 @@
 
     <div class="row">
         <h3 class="h3">Alimentos vencidos sin entregar (agrupados por descripción)</h3>
-        <form id="exportar-3" action="./{{server}}Estadisticas/exportarpdf2" method="post">
-            <input name="html" type="textarea" value="" hidden/>
-            <div><button id="refresh" class = "col-md-4">Actualizar</button></div>
-            <button type="submit" data-type="Alimentos vencidos sin entregar (agrupados por descripción)" class = "col-md-4"> Exportar PDF </button>
-        </form>
+
+            {{ Form::open(['id'=>'form-3']) }}
+            <div><button id="refresh" type="submit" class = "col-md-4">Actualizar</button></div>
+            {{ Form::close() }}
+
+            {{ Form::open(array('id'=>'exportar-3', 'action'=>'EstadisticasController@exportarPDF2', 'method'=>'post')) }}
+            {{ Form::textarea('html', '', array('hidden'=>'')) }}
+            {{ Form::submit('Exportar PDF', ['data-type'=>'Alimentos vencidos sin entregar (agrupados por descripción)', 'class' => 'col-md-4' ])}}
+            {{ Form::close() }}
         <div style="padding:1.3%;margin:1%"></div>
         <table id = "t3" class = "tabla-class table-striped" style="
                margin-top:1%;
@@ -130,7 +113,7 @@
 {{ Html::script('js/plugins/Highcharts-4.0.4/js/modules/exporting.js') }}
 <script>
 $(document).ready(function () {
-
+    var $j = jQuery.noConflict();
     $("#from").datepicker({
         defaultDate: "+1w",
         onClose: function (selectedDate) {
@@ -214,6 +197,22 @@ $(document).ready(function () {
         });
     });
 
+    $("#form-3").submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: location.href + '/tres',
+            dataType: "json",
+            data: $("#form-3").serialize(),
+            success: function (aData) {
+                $("#t3").DataTable().destroy();
+                $("#t3").dataTable({
+                    data: $.parseJSON(aData)
+                });
+            }
+        });
+    });
+
     $("#exportar-1, #exportar-2, #exportar-3").submit(function (e) {
         //console.log($(this).siblings().children("table"));
         /*$.ajax({
@@ -226,25 +225,12 @@ $(document).ready(function () {
          }
          });*/
         var str = '<h3>' + $(this).children("button").attr('data-type') + '</h3><table>' + $(this).siblings().children("table").html() + '</table>';
-        $(this).children("input").val(str);
-    });
-
-    $("#refresh").click(function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: location.href + '/tres',
-            success: function (aData) {
-                $("#t3").DataTable().destroy();
-                $("#t3").dataTable({
-                    data: $.parseJSON(aData)
-                });
-            }
-        });
+        $(this).children("textarea").val(str);
+        
     });
 //=========================================================================================
 
-    $('#container-2').highcharts({
+    $j('#container-2').highcharts({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: 1
@@ -275,7 +261,7 @@ $(document).ready(function () {
     });
 
 
-    $('#container-1').highcharts({
+    $j('#container-1').highcharts({
         chart: {
             type: 'bar'
         },
@@ -314,5 +300,5 @@ $(document).ready(function () {
 });
 </script>
 @stop
-{#/*http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/column-parsed/*/#}
+<!--/*http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/column-parsed/*/ -->
 

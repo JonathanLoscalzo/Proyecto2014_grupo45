@@ -1,0 +1,6 @@
+@import url("reset.css");
+
+
+@import url("mobile/style_mobile.css") (max-width: 500px);
+@import url("style_regular.css") (min-width: 501px);
+
