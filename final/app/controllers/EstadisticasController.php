@@ -3,16 +3,44 @@ class EstadisticasController extends BaseController {
     /* una por cada enunciado */
 
     public function uno() {
-        $from = DateTime::createFromFormat('d/m/Y', Input::get('from'));
-        $to = DateTime::createFromFormat('d/m/Y', Input::get('to'));
-        return Response::json(AlimentosVencidos::alimento_entre_fechas($from->format('Y-m-d'), $to->format('Y-m-d')));
+        $rules=array(
+            'from'    => 'required|date_format:"d/m/Y"',
+            'to' => 'required|date_format:"d/m/Y"|after:from', // Nose si hay que poner Input::get(from)
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()){
+            return Response::json(array(
+                'error' => array( $validator->messages()->all() ),
+                'code' => 401), 401);
+        }
+        else{
+            $from = DateTime::createFromFormat('d/m/Y', Input::get('from'));
+            $to = DateTime::createFromFormat('d/m/Y', Input::get('to'));
+            return Response::json(AlimentosVencidos::alimento_entre_fechas($from->format('Y-m-d'), $to->format('Y-m-d')));
+        }
+        
     }
 
     public function dos() {
-        $from = DateTime::createFromFormat('d/m/Y', Input::get('from'));
-        $to = DateTime::createFromFormat('d/m/Y', Input::get('from'));
+        $rules=array(
+            'from'    => 'required|date_format:"d/m/Y"',
+            'to' => 'required|date_format:"d/m/Y"|after:from', // Nose si hay que poner Input::get(from)
+        );
 
-        return Response::json(AlimentosVencidos::alimentos_por_entidad_entre_fechas($from->format('Y-m-d'), $to->format('Y-m-d')));
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()){
+            return Response::json(array(
+                'error' => array( $validator->messages()->all() ),
+                'code' => 401), 401);
+        }
+        else{
+            $from = DateTime::createFromFormat('d/m/Y', Input::get('from'));
+            $to = DateTime::createFromFormat('d/m/Y', Input::get('from'));
+            return Response::json(AlimentosVencidos::alimentos_por_entidad_entre_fechas($from->format('Y-m-d'), $to->format('Y-m-d')));
+        }
     }
 
     public function tres() {

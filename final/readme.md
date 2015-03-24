@@ -20,5 +20,9 @@ Documentación se encuentra en **/final/docs**. Allí se describen las consignas
 
 #####Ver el funcionamiento con datos (DataSeed)
 
-Tenga en cuenta también que los datos para generar las Estadísticas están pre-cargados con un muestreo básico. Se incluirá un boton para resetear toda la base de datos al muestreo inicial. Esto se debe a que para generar los datos de Estadisticas se requieren otras funcionalidades que no serán incluidas.
+Tenga en cuenta también que los datos para generar las Estadísticas están pre-cargados con un muestreo básico. Esto se debe a que para generar los datos de Estadisticas se requieren otras funcionalidades que no serán incluidas.
+Los Datos son:
+- Gráfico 1
+- Grafico 2
+- Grafico 3
 

@@ -8,6 +8,7 @@
 {{ HTML::script('js/plugins/jquery-ui/jquery-ui.min.js') }}
 {{ HTML::script('js/plugins/jquery.dataTables-1.10.2.min.js') }}
 {{ HTML::script('css/bootstrap/js/bootstrap.min.js') }}
+{{ HTML::script('js/plugins/notifier.js') }}
 
 @stop
 
@@ -168,7 +169,9 @@ $(document).ready(function () {
                     elem[1] = parseInt(elem[1]);
                 });
                 $("#container-2").highcharts().series[0].update({data: aData});
-
+            },
+            error: function(data){
+                Notifier.error(data.responseJSON.error.join('<br>'));
             }
         });
     });
@@ -196,6 +199,9 @@ $(document).ready(function () {
                     elem[1] = parseInt(elem[1]);
                 });
                 $("#container-1").highcharts().series[0].update({data: aData});
+            },
+            error: function(data){
+                Notifier.error(data.responseJSON.error.join('<br>'));
             }
         });
     });
@@ -213,6 +219,9 @@ $(document).ready(function () {
                 $("#t3").dataTable({
                     data: aData
                 });
+            },
+            error: function(data){
+                Notifier.error(data.responseJSON.error.join('<br>'));
             }
         });
     });

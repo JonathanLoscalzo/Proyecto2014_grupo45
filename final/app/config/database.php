@@ -88,23 +88,23 @@ return array(
 			'prefix'   => '',
 		),
             
-                'local-mysql' => array(
-                         'read' => array(
-                             'host'      => 'localhost',
-                         ),
-                         'write' => array(
-                             'host'      => 'localhost',
-                         ),
-                        'driver' => 'mysql',
-                        'host' => HOST,
-                        'database' => DB,
-                        'username' => USERNAME,
-                        'password' => PASSWORD,
-                        'charset'   => 'utf8',
-                        'collation' => 'utf8_unicode_ci',
-                        'prefix'    => '',
-                        
-                ),
+        'local-mysql' => array(
+                 'read' => array(
+                     'host'      => 'localhost',
+                 ),
+                 'write' => array(
+                     'host'      => 'localhost',
+                 ),
+                'driver' => 'mysql',
+                'host' => HOST,
+                'database' => DB,
+                'username' => USERNAME,
+                'password' => PASSWORD,
+                'charset'   => 'utf8',
+                'collation' => 'utf8_unicode_ci',
+                'prefix'    => '',
+                
+        ),
 
 	),
 

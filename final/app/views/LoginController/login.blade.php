@@ -2,7 +2,6 @@
 
 @section('content')
 <div id="content">
-<!-- JRL => LAS CONTRASEÑAS DEBERÌAN IR CIFRADAS? CAMBIAR EL CONTROLADOR!--> 
 <!-- se puede usar 'action' => 'LoginController@doLogin' pero no anda REVISAR !-->
 	{{ Form::open(array(
                     'url' => 'login', 
