@@ -157,8 +157,7 @@ $(document).ready(function () {
             data: $("#form-2").serialize(),
             success: function (aData) {
                 aData = aData.map(function(e){return [e.razon_social, e.kilogramos]});
-                console.log(aData);
-                debugger;
+                
                 $("#t2").DataTable().destroy();
 
                 $("#t2").dataTable({
@@ -168,7 +167,7 @@ $(document).ready(function () {
                 $.map(aData, function (elem) {
                     elem[1] = parseInt(elem[1]);
                 });
-                $("#container-2").highcharts().series[0].update({data: aData});
+                $j("#container-2").highcharts().series[0].update({data: aData});
             },
             error: function(data){
                 Notifier.error(data.responseJSON.error.join('<br>'));
@@ -184,8 +183,7 @@ $(document).ready(function () {
             data: $("#form-1").serialize(),
             success: function (aData) {
                 aData = aData.map(function(e){return [e.fecha, e.kilogramos]});
-                console.log(aData);
-                debugger;
+                
                 $("#t1").DataTable().destroy();
 
                 $("#t1").dataTable({
@@ -198,7 +196,7 @@ $(document).ready(function () {
                     elem[0] = parseToUTC(elem[0]);
                     elem[1] = parseInt(elem[1]);
                 });
-                $("#container-1").highcharts().series[0].update({data: aData});
+                $j("#container-1").highcharts().series[0].update({data: aData});
             },
             error: function(data){
                 Notifier.error(data.responseJSON.error.join('<br>'));
