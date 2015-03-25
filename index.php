@@ -315,13 +315,13 @@ if (isset($_POST['date'])) {
                     break;
             }
             break;
-        case "index":
-            HomeController::getInstance()->index();
-            break;
-        // Deberìa redireccionarte a una pagina 404 o algo asi	
+//        case "index":
+//            HomeController::getInstance()->index();
+//            break;
+//        // Deberìa redireccionarte a una pagina 404 o algo asi	
         default:
-			header('Location: /final/public');
-        
+			header('Location: /final/public/');
+			break;
     }
 }
 
