@@ -22,6 +22,7 @@ Documentación se encuentra en **/final/docs**. Allí se describen las consignas
 
 Tenga en cuenta también que los datos para generar las Estadísticas están pre-cargados con un muestreo básico. Esto se debe a que para generar los datos de Estadisticas se requieren otras funcionalidades que no serán incluidas.
 Los datos que se deben ingresar para probar la funcionalidad de estadísticas son:
+
 - Gráfico 1: 1ro de Diciembre de 2014, a 31 de Enero de 2015.
 - Grafico 2: 1ro de Diciembre de 2014, a 31 de Enero de 2015.
 - Grafico 3: Se pone el botón actualizar y carga datos directamente.
