@@ -51,6 +51,8 @@ $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SE
 
 $acciones = explode("/", $_SERVER['REQUEST_URI']);
 
+header('Location: '.$protocol.$_SERVER['HTTP_HOST'].'/final/public/');
+die();
 
 if (isset($_POST['date'])) {
 
