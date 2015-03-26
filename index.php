@@ -47,7 +47,7 @@ require_once 'controller/EstadisticasController.php';
 
  */
 
-
+$protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SERVER_PROTOCOL"],'/'))).'://';
 
 $acciones = explode("/", $_SERVER['REQUEST_URI']);
 
@@ -321,7 +321,7 @@ if (isset($_POST['date'])) {
 //            break;
 //        // Deberìa redireccionarte a una pagina 404 o algo asi	
         default:
-			header('Location: /final/public/');
+			header('Location: '.$protocol.$_SERVER['HTTP_HOST'].'/final/public/');
 			break;
     }
 }
