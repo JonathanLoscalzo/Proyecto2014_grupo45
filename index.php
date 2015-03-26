@@ -49,7 +49,8 @@ require_once 'controller/EstadisticasController.php';
 
 
 
-$acciones = split("/", $_SERVER['REQUEST_URI']);
+$acciones = explode("/", $_SERVER['REQUEST_URI']);
+
 
 if (isset($_POST['date'])) {
 
