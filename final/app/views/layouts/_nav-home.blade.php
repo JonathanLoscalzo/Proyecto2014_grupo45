@@ -10,7 +10,7 @@
         <li><a href="#">¡Dona Ahora!</a></li>
         <li><a href="#">Ver nuestros donantes</a></li>
         <li><a href="#">Ver nuestras Entidades Receptoras</a></li>
-        <li>{{ HTML::link('/acerca_de', 'Acerca de Nosotros')}}</li>
+        <li><a href="#">Acerca de nosotros</li>
         @if  (Auth::check())
         <li>{{ HTML::link('/backend', 'Backend') }}</li>
         @else
